@@ -1,0 +1,410 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum OAuthProvider {
+  GOOGLE
+}
+
+enum CompanyMemberRole {
+  OWNER
+  ADMIN
+  RECRUITER
+  VIEWER
+}
+
+enum EmploymentType {
+  FULL_TIME
+  PART_TIME
+  CONTRACT
+  TEMPORARY
+  INTERNSHIP
+}
+
+enum WorkplaceType {
+  ONSITE
+  REMOTE
+  HYBRID
+}
+
+enum ExperienceLevel {
+  ENTRY_LEVEL
+  JUNIOR
+  MID_LEVEL
+  SENIOR
+  LEAD
+  EXECUTIVE
+}
+
+enum JobStatus {
+  DRAFT
+  PUBLISHED
+  PAUSED
+  CLOSED
+  ARCHIVED
+}
+
+enum SalaryPeriod {
+  HOURLY
+  DAILY
+  WEEKLY
+  MONTHLY
+  YEARLY
+}
+
+enum ApplicationStatus {
+  SUBMITTED
+  UNDER_REVIEW
+  SHORTLISTED
+  INTERVIEW
+  OFFERED
+  HIRED
+  REJECTED
+  WITHDRAWN
+}
+
+enum SavedSearchAlertFrequency {
+  DAILY
+  WEEKLY
+}
+
+model User {
+  id              String    @id @default(uuid()) @db.Uuid
+  email           String    @unique
+  passwordHash    String?
+  firstName       String
+  lastName        String
+  phone           String?
+  avatarUrl       String?
+  isEmailVerified Boolean   @default(false)
+  isAdmin         Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  deletedAt       DateTime?
+
+  jobSeekerProfile        JobSeekerProfile?
+  oauthAccounts           OAuthAccount[]
+  resumes                 Resume[]
+  companyMemberships      CompanyMembership[]
+  createdJobs             Job[]                    @relation("JobCreatedBy")
+  applications            Application[]
+  savedJobs               SavedJob[]
+  savedSearches           SavedSearch[]
+  refreshTokens           RefreshToken[]
+  emailVerificationTokens EmailVerificationToken[]
+  passwordResetTokens     PasswordResetToken[]
+  auditLogs AuditLog[] @relation("AuditLogActor")
+
+  @@index([deletedAt])
+}
+
+model EmailVerificationToken {
+  id         String    @id @default(uuid()) @db.Uuid
+  userId     String    @db.Uuid
+  tokenHash  String    @unique
+  expiresAt  DateTime
+  verifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model PasswordResetToken {
+  id        String    @id @default(uuid()) @db.Uuid
+  userId    String    @db.Uuid
+  tokenHash String    @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model OAuthAccount {
+  id                String        @id @default(uuid()) @db.Uuid
+  userId            String        @db.Uuid
+  provider          OAuthProvider
+  providerAccountId String
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@unique([userId, provider])
+  @@index([userId])
+}
+
+model RefreshToken {
+  id         String    @id @default(uuid()) @db.Uuid
+   tokenId    String   @unique
+  userId     String    @db.Uuid
+  tokenHash  String    @unique
+  deviceInfo String?
+  ipAddress  String?
+  userAgent  String?
+  expiresAt  DateTime
+  revokedAt  DateTime?
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([userId, revokedAt])
+  @@index([expiresAt])
+}
+
+model JobSeekerProfile {
+  id                String   @id @default(uuid()) @db.Uuid
+  userId            String   @unique @db.Uuid
+  headline          String?
+  summary           String?
+  location          String?
+  websiteUrl        String?
+  linkedInUrl       String?
+  yearsOfExperience Int?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Resume {
+  id        String    @id @default(uuid()) @db.Uuid
+  userId    String    @db.Uuid
+  name      String
+  fileKey   String    @unique
+  fileUrl   String?
+  mimeType  String
+  fileSize  Int
+  isDefault Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  applications Application[]
+
+  @@index([userId, createdAt])
+  @@index([deletedAt])
+}
+
+model Company {
+  id          String    @id @default(uuid()) @db.Uuid
+  name        String
+  slug        String    @unique
+  description String?
+  websiteUrl  String?
+
+  logoUrl      String?
+  logoPublicId String?
+
+  bannerUrl      String?
+  bannerPublicId String?
+
+  industry    String?
+  companySize String?
+  location    String?
+  isVerified  Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  deletedAt   DateTime?
+
+  memberships CompanyMembership[]
+  jobs        Job[]
+  auditLogs AuditLog[]
+
+  @@index([name])
+  @@index([deletedAt])
+}
+
+model CompanyMembership {
+  id        String            @id @default(uuid()) @db.Uuid
+  companyId String            @db.Uuid
+  userId    String            @db.Uuid
+  role      CompanyMemberRole @default(RECRUITER)
+  joinedAt  DateTime          @default(now())
+  deletedAt DateTime?
+
+  company Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  user    User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([companyId, userId])
+  @@index([userId])
+  @@index([companyId, role])
+  @@index([deletedAt])
+}
+
+model AuditLog {
+  id               String   @id @default(uuid()) @db.Uuid
+  companyId        String   @db.Uuid
+  actorUserId      String?  @db.Uuid
+  actorDisplayName String
+  actorEmail       String
+  action           String
+  entityType       String
+  entityId         String?
+  metadata         Json?
+  createdAt        DateTime @default(now())
+
+  company   Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  actorUser User?   @relation("AuditLogActor", fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([companyId, createdAt])
+  @@index([actorUserId])
+  @@index([action])
+  @@index([entityType, entityId])
+}
+
+model JobCategory {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  jobs          Job[]
+  savedSearches SavedSearch[]
+}
+
+model Job {
+  id                  String          @id @default(uuid()) @db.Uuid
+  companyId           String          @db.Uuid
+  categoryId          String          @db.Uuid
+  createdById         String          @db.Uuid
+  title               String
+  slug                String          @unique
+  description         String
+  requirements        String?
+  responsibilities    String?
+  employmentType      EmploymentType
+  workplaceType       WorkplaceType
+  experienceLevel     ExperienceLevel
+  location            String?
+  salaryMin           Decimal?        @db.Decimal(12, 2)
+  salaryMax           Decimal?        @db.Decimal(12, 2)
+  salaryCurrency      String?         @db.VarChar(3)
+  salaryPeriod        SalaryPeriod?
+  status              JobStatus       @default(DRAFT)
+  applicationDeadline DateTime?
+  publishedAt         DateTime?
+  expiresAt           DateTime?
+  createdAt           DateTime        @default(now())
+  updatedAt           DateTime        @updatedAt
+  deletedAt           DateTime?
+
+  company      Company       @relation(fields: [companyId], references: [id], onDelete: Restrict)
+  category     JobCategory   @relation(fields: [categoryId], references: [id], onDelete: Restrict)
+  createdBy    User          @relation("JobCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  skills       JobSkill[]
+  applications Application[]
+  savedByUsers SavedJob[]
+
+  @@index([status, publishedAt])
+  @@index([companyId, status])
+  @@index([categoryId, status])
+  @@index([employmentType])
+  @@index([workplaceType])
+  @@index([experienceLevel])
+  @@index([location])
+  @@index([createdById])
+  @@index([deletedAt])
+}
+
+model Skill {
+  id        String   @id @default(uuid()) @db.Uuid
+  name      String   @unique
+  slug      String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  jobs JobSkill[]
+}
+
+model JobSkill {
+  jobId      String  @db.Uuid
+  skillId    String  @db.Uuid
+  isRequired Boolean @default(true)
+
+  job   Job   @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  skill Skill @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@id([jobId, skillId])
+  @@index([skillId])
+}
+
+model Application {
+  id          String            @id @default(uuid()) @db.Uuid
+  jobId       String            @db.Uuid
+  applicantId String            @db.Uuid
+  resumeId    String?           @db.Uuid
+  coverLetter String?
+  status      ApplicationStatus @default(SUBMITTED)
+  appliedAt   DateTime          @default(now())
+  reviewedAt  DateTime?
+  withdrawnAt DateTime?
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+
+  job       Job     @relation(fields: [jobId], references: [id], onDelete: Restrict)
+  applicant User    @relation(fields: [applicantId], references: [id], onDelete: Restrict)
+  resume    Resume? @relation(fields: [resumeId], references: [id], onDelete: SetNull)
+
+  @@unique([jobId, applicantId])
+  @@index([jobId, status])
+  @@index([applicantId, createdAt])
+  @@index([resumeId])
+}
+
+model SavedJob {
+  userId    String   @db.Uuid
+  jobId     String   @db.Uuid
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  job  Job  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+
+  @@id([userId, jobId])
+  @@index([jobId])
+}
+
+model SavedSearch {
+  id                 String                     @id @default(uuid()) @db.Uuid
+  userId             String                     @db.Uuid
+  categoryId         String?                    @db.Uuid
+  name               String
+  keyword            String?
+  location           String?
+  employmentType     EmploymentType?
+  workplaceType      WorkplaceType?
+  experienceLevel    ExperienceLevel?
+  salaryMin          Decimal?                   @db.Decimal(12, 2)
+  salaryMax          Decimal?                   @db.Decimal(12, 2)
+  salaryCurrency     String?                    @db.VarChar(3)
+  emailAlertsEnabled Boolean                    @default(false)
+  alertFrequency     SavedSearchAlertFrequency?
+  lastAlertSentAt    DateTime?
+  createdAt          DateTime                   @default(now())
+  updatedAt          DateTime                   @updatedAt
+  deletedAt          DateTime?
+
+  user     User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  category JobCategory? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@index([categoryId])
+  @@index([emailAlertsEnabled, alertFrequency, lastAlertSentAt])
+  @@index([deletedAt])
+}
