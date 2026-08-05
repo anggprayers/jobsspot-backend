@@ -12,10 +12,15 @@ import {
     getCompanyMembersController,
     removeCompanyMemberController,
     searchCompanyMemberCandidatesController,
+    transferCompanyOwnershipController,
     updateCompanyMemberRoleController,
 } from "./company-member.controller.js";
 
-import { addCompanyMemberSchema, updateCompanyMemberRoleSchema } from "./company-member.validation.js";
+import {
+    addCompanyMemberSchema,
+    transferCompanyOwnershipSchema,
+    updateCompanyMemberRoleSchema,
+} from "./company-member.validation.js";
 
 const companyMemberRouter = Router({
     mergeParams: true,
@@ -49,6 +54,16 @@ companyMemberRouter.post(
     requireCompanyRole(managingRoles),
     validate(addCompanyMemberSchema),
     asyncHandler(addCompanyMemberController),
+);
+
+// POST /api/companies/:companyId/members/transfer-ownership
+// Transfer company ownership to another active member and demote the current owner to admin.
+companyMemberRouter.post(
+    "/transfer-ownership",
+    asyncHandler(requireAuth),
+    requireCompanyRole([CompanyMemberRole.OWNER]),
+    validate(transferCompanyOwnershipSchema),
+    asyncHandler(transferCompanyOwnershipController),
 );
 
 // PATCH /api/companies/:companyId/members/:memberId

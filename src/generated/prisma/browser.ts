@@ -48,6 +48,26 @@ export type RefreshToken = Prisma.RefreshTokenModel
  */
 export type JobSeekerProfile = Prisma.JobSeekerProfileModel
 /**
+ * Model JobSeekerSkill
+ * 
+ */
+export type JobSeekerSkill = Prisma.JobSeekerSkillModel
+/**
+ * Model WorkExperience
+ * 
+ */
+export type WorkExperience = Prisma.WorkExperienceModel
+/**
+ * Model Education
+ * 
+ */
+export type Education = Prisma.EducationModel
+/**
+ * Model Certification
+ * 
+ */
+export type Certification = Prisma.CertificationModel
+/**
  * Model Resume
  * 
  */
@@ -102,3 +122,13 @@ export type SavedJob = Prisma.SavedJobModel
  * 
  */
 export type SavedSearch = Prisma.SavedSearchModel
+/**
+ * Model PopularSearch
+ * 
+ */
+export type PopularSearch = Prisma.PopularSearchModel
+/**
+ * Model PopularSearchDailyCount
+ * 
+ */
+export type PopularSearchDailyCount = Prisma.PopularSearchDailyCountModel

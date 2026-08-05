@@ -9,6 +9,7 @@ import {
     getCompanyJobById,
     getCompanyJobs,
     publishJob,
+    renewJob,
     restoreJob,
     unpublishJob,
     updateJob,
@@ -167,6 +168,41 @@ export async function publishJobController(request: Request, response: Response)
     response.status(200).json({
         success: true,
         message: "Job published successfully.",
+        job,
+    });
+}
+
+export async function renewJobController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const companyId = request.params.companyId;
+    const jobId = request.params.jobId;
+
+    if (typeof companyId !== "string") {
+        throw new AppError(
+            400,
+            "A valid company ID is required.",
+        );
+    }
+
+    if (typeof jobId !== "string") {
+        throw new AppError(
+            400,
+            "A valid job ID is required.",
+        );
+    }
+
+    const job = await renewJob({
+        companyId,
+        jobId,
+        actorUserId:
+            getAuthenticatedUserId(request),
+    });
+
+    response.status(200).json({
+        success: true,
+        message: "Job renewed successfully.",
         job,
     });
 }

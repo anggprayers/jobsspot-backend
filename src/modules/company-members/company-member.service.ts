@@ -9,6 +9,7 @@ import { createCompanyAuditLog } from "../audit-log/audit-log.service.js";
 import type {
     AddCompanyMemberInput,
     SearchCompanyMemberCandidatesInput,
+    TransferCompanyOwnershipInput,
     UpdateCompanyMemberRoleInput,
 } from "./company-member.validation.js";
 
@@ -426,6 +427,231 @@ type RemoveCompanyMemberParameters = {
     memberId: string;
     actorUserId: string;
 };
+
+type TransferCompanyOwnershipParameters = {
+    companyId: string;
+    actorUserId: string;
+    data: TransferCompanyOwnershipInput;
+};
+
+function normalizeCompanyNameConfirmation(value: string): string {
+    return value.trim().replace(/\s+/g, " ").toLocaleLowerCase();
+}
+
+export async function transferCompanyOwnership({
+    companyId,
+    actorUserId,
+    data,
+}: TransferCompanyOwnershipParameters) {
+    return prisma.$transaction(async (transaction) => {
+        const company = await transaction.company.findFirst({
+            where: {
+                id: companyId,
+                deletedAt: null,
+            },
+
+            select: {
+                id: true,
+                name: true,
+            },
+        });
+
+        if (!company) {
+            throw new AppError(404, "Company not found.");
+        }
+
+        if (
+            normalizeCompanyNameConfirmation(data.confirmationCompanyName) !==
+            normalizeCompanyNameConfirmation(company.name)
+        ) {
+            throw new AppError(400, "Company name confirmation does not match.");
+        }
+
+        const currentOwner = await transaction.companyMembership.findFirst({
+            where: {
+                companyId,
+                userId: actorUserId,
+                role: CompanyMemberRole.OWNER,
+                deletedAt: null,
+            },
+
+            select: {
+                id: true,
+                userId: true,
+                role: true,
+                joinedAt: true,
+
+                user: {
+                    select: {
+                        id: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                        avatarUrl: true,
+                    },
+                },
+            },
+        });
+
+        if (!currentOwner) {
+            throw new AppError(403, "Only the current company owner can transfer ownership.");
+        }
+
+        const targetMember = await transaction.companyMembership.findFirst({
+            where: {
+                id: data.targetMemberId,
+                companyId,
+                deletedAt: null,
+            },
+
+            select: {
+                id: true,
+                userId: true,
+                role: true,
+                joinedAt: true,
+
+                user: {
+                    select: {
+                        id: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                        avatarUrl: true,
+                    },
+                },
+            },
+        });
+
+        if (!targetMember) {
+            throw new AppError(404, "The selected company member was not found.");
+        }
+
+        if (targetMember.userId === actorUserId) {
+            throw new AppError(400, "Select another team member to receive ownership.");
+        }
+
+        if (targetMember.role === CompanyMemberRole.OWNER) {
+            throw new AppError(409, "This member is already the company owner.");
+        }
+
+        const targetPreviousRole = targetMember.role;
+
+        const demotedOwnerResult = await transaction.companyMembership.updateMany({
+            where: {
+                id: currentOwner.id,
+                companyId,
+                userId: actorUserId,
+                role: CompanyMemberRole.OWNER,
+                deletedAt: null,
+            },
+
+            data: {
+                role: CompanyMemberRole.ADMIN,
+            },
+        });
+
+        if (demotedOwnerResult.count !== 1) {
+            throw new AppError(
+                409,
+                "Company ownership changed before this request completed. Refresh and try again.",
+            );
+        }
+
+        const promotedOwnerResult = await transaction.companyMembership.updateMany({
+            where: {
+                id: targetMember.id,
+                companyId,
+                role: targetPreviousRole,
+                deletedAt: null,
+            },
+
+            data: {
+                role: CompanyMemberRole.OWNER,
+            },
+        });
+
+        if (promotedOwnerResult.count !== 1) {
+            throw new AppError(
+                409,
+                "The selected member changed before this request completed. Refresh and try again.",
+            );
+        }
+
+        const newOwner = await transaction.companyMembership.findUnique({
+            where: {
+                id: targetMember.id,
+            },
+
+            select: {
+                id: true,
+                role: true,
+                joinedAt: true,
+
+                user: {
+                    select: {
+                        id: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                        avatarUrl: true,
+                    },
+                },
+            },
+        });
+
+        if (!newOwner) {
+            throw new AppError(409, "Unable to load the new owner after ownership transfer.");
+        }
+
+        const previousOwner = {
+            id: currentOwner.id,
+            role: CompanyMemberRole.ADMIN,
+            joinedAt: currentOwner.joinedAt,
+            user: currentOwner.user,
+        };
+
+        await createCompanyAuditLog({
+            transaction,
+            companyId,
+            actorUserId,
+            action: AuditAction.COMPANY_OWNERSHIP_TRANSFERRED,
+            entityType: AuditEntityType.COMPANY,
+            entityId: company.id,
+
+            metadata: {
+                companyId: company.id,
+                companyName: company.name,
+                previousOwnerMembershipId: previousOwner.id,
+                previousOwnerUserId: previousOwner.user.id,
+                previousOwnerDisplayName: getMemberDisplayName(
+                    previousOwner.user.firstName,
+                    previousOwner.user.lastName,
+                ),
+                previousOwnerEmail: previousOwner.user.email,
+                previousOwnerNewRole: previousOwner.role,
+                newOwnerMembershipId: newOwner.id,
+                newOwnerUserId: newOwner.user.id,
+                newOwnerDisplayName: getMemberDisplayName(
+                    newOwner.user.firstName,
+                    newOwner.user.lastName,
+                ),
+                newOwnerEmail: newOwner.user.email,
+                newOwnerPreviousRole: targetPreviousRole,
+                newOwnerRole: newOwner.role,
+            },
+        });
+
+        return {
+            company: {
+                id: company.id,
+                name: company.name,
+            },
+            previousOwner,
+            newOwner,
+        };
+    });
+}
+
 
 export async function removeCompanyMember({ companyId, memberId, actorUserId }: RemoveCompanyMemberParameters) {
     const actorRole = await getManagingMemberRole(companyId, actorUserId);

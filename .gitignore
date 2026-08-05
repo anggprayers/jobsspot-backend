@@ -10,3 +10,6 @@ npm-debug.log*
 
 .DS_Store
 Thumbs.db
+# Local backup and archive files
+prisma/schema.backup.prisma
+*.zip

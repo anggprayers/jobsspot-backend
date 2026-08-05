@@ -1,12 +1,46 @@
-import { JobStatus, Prisma } from "../../generated/prisma/client.js";
+import {
+    JobStatus,
+    Prisma,
+} from "../../generated/prisma/client.js";
 
 import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
 
 import type { GetPublicJobsQuery } from "./public-job.validation.js";
 
-export async function getPublicJobs(query: GetPublicJobsQuery) {
-    const { page, limit, search, category, employmentType, workplaceType, experienceLevel, location, sort } = query;
+function getPublishedAfterDate(
+    now: Date,
+    publishedWithinDays: number,
+): Date {
+    return new Date(
+        now.getTime() -
+            publishedWithinDays *
+                24 *
+                60 *
+                60 *
+                1000,
+    );
+}
+
+export async function getPublicJobs(
+    query: GetPublicJobsQuery,
+) {
+    const {
+        page,
+        limit,
+        search,
+        category,
+        employmentType,
+        workplaceType,
+        experienceLevel,
+        location,
+        salaryPeriod,
+        salaryMin,
+        salaryMax,
+        salaryCurrency,
+        publishedWithinDays,
+        sort,
+    } = query;
 
     const skip = (page - 1) * limit;
     const now = new Date();
@@ -67,26 +101,34 @@ export async function getPublicJobs(query: GetPublicJobsQuery) {
     if (category) {
         conditions.push({
             category: {
-                slug: category,
+                slug: {
+                    in: category,
+                },
             },
         });
     }
 
     if (employmentType) {
         conditions.push({
-            employmentType,
+            employmentType: {
+                in: employmentType,
+            },
         });
     }
 
     if (workplaceType) {
         conditions.push({
-            workplaceType,
+            workplaceType: {
+                in: workplaceType,
+            },
         });
     }
 
     if (experienceLevel) {
         conditions.push({
-            experienceLevel,
+            experienceLevel: {
+                in: experienceLevel,
+            },
         });
     }
 
@@ -95,6 +137,87 @@ export async function getPublicJobs(query: GetPublicJobsQuery) {
             location: {
                 contains: location,
                 mode: "insensitive",
+            },
+        });
+    }
+
+    if (salaryPeriod) {
+        conditions.push({
+            salaryPeriod,
+        });
+    }
+
+    if (salaryCurrency) {
+        conditions.push({
+            salaryCurrency: {
+                equals: salaryCurrency,
+                mode: "insensitive",
+            },
+        });
+    }
+
+    /*
+     * Salary range matching uses overlap semantics.
+     *
+     * Example: a user requests $40k–$60k and a job
+     * advertises $50k–$70k. The job remains relevant
+     * because the two ranges overlap.
+     */
+    if (salaryMin !== undefined) {
+        conditions.push({
+            OR: [
+                {
+                    salaryMax: {
+                        gte: salaryMin,
+                    },
+                },
+                {
+                    AND: [
+                        {
+                            salaryMax: null,
+                        },
+                        {
+                            salaryMin: {
+                                gte: salaryMin,
+                            },
+                        },
+                    ],
+                },
+            ],
+        });
+    }
+
+    if (salaryMax !== undefined) {
+        conditions.push({
+            OR: [
+                {
+                    salaryMin: {
+                        lte: salaryMax,
+                    },
+                },
+                {
+                    AND: [
+                        {
+                            salaryMin: null,
+                        },
+                        {
+                            salaryMax: {
+                                lte: salaryMax,
+                            },
+                        },
+                    ],
+                },
+            ],
+        });
+    }
+
+    if (publishedWithinDays !== undefined) {
+        conditions.push({
+            publishedAt: {
+                gte: getPublishedAfterDate(
+                    now,
+                    publishedWithinDays,
+                ),
             },
         });
     }
@@ -138,6 +261,16 @@ export async function getPublicJobs(query: GetPublicJobsQuery) {
             break;
     }
 
+    /*
+     * These are independent, read-only queries.
+     *
+     * Do not wrap them in $transaction(): acquiring a transaction
+     * is unnecessary here and can fail with P2028 when a remote
+     * database connection pool is briefly busy.
+     *
+     * Running them sequentially also avoids requesting two pooled
+     * database connections at the same time.
+     */
     const jobs = await prisma.job.findMany({
         where,
         skip,
@@ -187,7 +320,9 @@ export async function getPublicJobs(query: GetPublicJobsQuery) {
         where,
     });
 
-    const totalPages = Math.ceil(totalItems / limit);
+    const totalPages = Math.ceil(
+        totalItems / limit,
+    );
 
     return {
         jobs,
@@ -203,7 +338,9 @@ export async function getPublicJobs(query: GetPublicJobsQuery) {
     };
 }
 
-export async function getPublicJobBySlug(slug: string) {
+export async function getPublicJobBySlug(
+    slug: string,
+) {
     const now = new Date();
 
     const job = await prisma.job.findFirst({
@@ -272,7 +409,10 @@ export async function getPublicJobBySlug(slug: string) {
     });
 
     if (!job) {
-        throw new AppError(404, "Published job not found.");
+        throw new AppError(
+            404,
+            "Published job not found.",
+        );
     }
 
     return job;

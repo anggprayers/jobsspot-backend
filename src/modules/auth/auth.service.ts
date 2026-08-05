@@ -19,6 +19,84 @@ import {
     verifyRefreshTokenSession,
 } from "./auth.token.service.js";
 
+async function findCurrentUserProfile(userId: string) {
+    const user = await prisma.user.findFirst({
+        where: {
+            id: userId,
+            deletedAt: null,
+        },
+
+        select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+            phone: true,
+            avatarUrl: true,
+            isEmailVerified: true,
+            isAdmin: true,
+            passwordHash: true,
+            createdAt: true,
+
+            companyMemberships: {
+                where: {
+                    deletedAt: null,
+
+                    company: {
+                        deletedAt: null,
+                    },
+                },
+
+                select: {
+                    id: true,
+                    role: true,
+                    joinedAt: true,
+
+                    company: {
+                        select: {
+                            id: true,
+                            name: true,
+                            slug: true,
+                            logoUrl: true,
+                            isVerified: true,
+                        },
+                    },
+                },
+
+                orderBy: {
+                    joinedAt: "asc",
+                },
+            },
+        },
+    });
+
+    if (!user) {
+        return null;
+    }
+
+    const {
+        companyMemberships,
+        passwordHash,
+        ...userDetails
+    } = user;
+
+    return {
+        ...userDetails,
+        hasPassword: passwordHash !== null,
+
+        memberships: companyMemberships.map((membership) => ({
+            membershipId: membership.id,
+            companyId: membership.company.id,
+            companyName: membership.company.name,
+            companySlug: membership.company.slug,
+            companyLogoUrl: membership.company.logoUrl,
+            companyIsVerified: membership.company.isVerified,
+            role: membership.role,
+            joinedAt: membership.joinedAt,
+        })),
+    };
+}
+
 export async function registerUser(data: RegisterInput) {
     const existingUser = await prisma.user.findUnique({
         where: {
@@ -50,6 +128,49 @@ export async function registerUser(data: RegisterInput) {
     });
 
     return user;
+}
+
+
+export async function createAuthenticatedUserSession(
+    userId: string,
+) {
+    const user =
+        await findCurrentUserProfile(userId);
+
+    if (!user) {
+        throw new AppError(
+            404,
+            "User account not found.",
+        );
+    }
+
+    const tokenId = createTokenId();
+
+    const accessToken =
+        generateAccessToken({
+            userId: user.id,
+            email: user.email,
+        });
+
+    const refreshToken =
+        generateRefreshToken({
+            userId: user.id,
+            tokenId,
+        });
+
+    await createRefreshTokenSession({
+        tokenId,
+        userId: user.id,
+        refreshToken,
+        expiresAt:
+            getRefreshTokenExpirationDate(),
+    });
+
+    return {
+        user,
+        accessToken,
+        refreshToken,
+    };
 }
 
 export async function loginUser(data: LoginInput) {
@@ -139,20 +260,7 @@ export async function refreshUserSession(refreshToken: string) {
         throw new AppError(401, "Invalid refresh token.");
     }
 
-    const user = await prisma.user.findFirst({
-        where: {
-            id: payload.userId,
-            deletedAt: null,
-        },
-
-        select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
-            createdAt: true,
-        },
-    });
+    const user = await findCurrentUserProfile(payload.userId);
 
     if (!user) {
         throw new AppError(401, "User no longer exists.");
@@ -222,74 +330,13 @@ export async function logoutUser(refreshToken: string): Promise<void> {
 }
 
 export async function getCurrentUserProfile(userId: string) {
-    const user = await prisma.user.findFirst({
-        where: {
-            id: userId,
-            deletedAt: null,
-        },
-
-        select: {
-            id: true,
-            firstName: true,
-            lastName: true,
-            email: true,
-            phone: true,
-            avatarUrl: true,
-            isAdmin: true,
-            createdAt: true,
-
-            companyMemberships: {
-                where: {
-                    deletedAt: null,
-
-                    company: {
-                        deletedAt: null,
-                    },
-                },
-
-                select: {
-                    id: true,
-                    role: true,
-                    joinedAt: true,
-
-                    company: {
-                        select: {
-                            id: true,
-                            name: true,
-                            slug: true,
-                            logoUrl: true,
-                            isVerified: true,
-                        },
-                    },
-                },
-
-                orderBy: {
-                    joinedAt: "asc",
-                },
-            },
-        },
-    });
+    const user = await findCurrentUserProfile(userId);
 
     if (!user) {
         throw new AppError(404, "User not found.");
     }
 
-    const { companyMemberships, ...userDetails } = user;
-
-    return {
-        ...userDetails,
-
-        memberships: companyMemberships.map((membership) => ({
-            membershipId: membership.id,
-            companyId: membership.company.id,
-            companyName: membership.company.name,
-            companySlug: membership.company.slug,
-            companyLogoUrl: membership.company.logoUrl,
-            companyIsVerified: membership.company.isVerified,
-            role: membership.role,
-            joinedAt: membership.joinedAt,
-        })),
-    };
+    return user;
 }
 
 export async function updateCurrentUserProfile(userId: string, data: UpdateProfileInput) {

@@ -547,14 +547,6 @@ export type ResumeUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.ResumeScalarWhereInput | Prisma.ResumeScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type ResumeCreateNestedOneWithoutApplicationsInput = {
   create?: Prisma.XOR<Prisma.ResumeCreateWithoutApplicationsInput, Prisma.ResumeUncheckedCreateWithoutApplicationsInput>
   connectOrCreate?: Prisma.ResumeCreateOrConnectWithoutApplicationsInput

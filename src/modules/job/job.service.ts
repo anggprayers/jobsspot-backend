@@ -34,6 +34,82 @@ type UpdateJobParameters = JobMutationParameters & {
     data: UpdateJobInput;
 };
 
+const JOB_POST_DURATION_DAYS = 30;
+const MILLISECONDS_PER_DAY =
+    24 * 60 * 60 * 1000;
+
+function calculateJobExpirationDate({
+    publishedAt,
+    applicationDeadline,
+}: {
+    publishedAt: Date;
+    applicationDeadline: Date | null;
+}): Date {
+    const defaultExpiration = new Date(
+        publishedAt.getTime() +
+            JOB_POST_DURATION_DAYS *
+                MILLISECONDS_PER_DAY,
+    );
+
+    if (
+        applicationDeadline &&
+        applicationDeadline < defaultExpiration
+    ) {
+        return applicationDeadline;
+    }
+
+    return defaultExpiration;
+}
+
+function getJobExpirationDetails({
+    status,
+    expiresAt,
+    now,
+}: {
+    status: JobStatus;
+    expiresAt: Date | null;
+    now: Date;
+}) {
+    const isExpired =
+        status === JobStatus.PUBLISHED &&
+        expiresAt !== null &&
+        expiresAt <= now;
+
+    const daysUntilExpiration =
+        status === JobStatus.PUBLISHED &&
+        expiresAt !== null
+            ? Math.max(
+                  0,
+                  Math.ceil(
+                      (expiresAt.getTime() -
+                          now.getTime()) /
+                          MILLISECONDS_PER_DAY,
+                  ),
+              )
+            : null;
+
+    return {
+        isExpired,
+        daysUntilExpiration,
+    };
+}
+
+function formatCompanyJob<
+    T extends {
+        status: JobStatus;
+        expiresAt: Date | null;
+    },
+>(job: T, now: Date) {
+    return {
+        ...job,
+        ...getJobExpirationDetails({
+            status: job.status,
+            expiresAt: job.expiresAt,
+            now,
+        }),
+    };
+}
+
 export async function createJob({ companyId, actorUserId, data }: CreateJobParameters) {
     const baseSlug = createSlug(data.title);
 
@@ -214,8 +290,14 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
     };
 
     const skip = (page - 1) * limit;
+    const now = new Date();
 
-    const [jobs, totalItems, statusCounts] = await Promise.all([
+    const [
+        jobs,
+        totalItems,
+        statusCounts,
+        expiredJobs,
+    ] = await Promise.all([
         prisma.job.findMany({
             where,
 
@@ -285,6 +367,16 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
                 _all: true,
             },
         }),
+
+        prisma.job.count({
+            where: {
+                ...summaryWhere,
+                status: JobStatus.PUBLISHED,
+                expiresAt: {
+                    lte: now,
+                },
+            },
+        }),
     ]);
 
     function getStatusCount(jobStatus: JobStatus): number {
@@ -293,14 +385,26 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
 
     const totalJobs = statusCounts.reduce((total, item) => total + item._count._all, 0);
 
-    const totalPages = Math.max(1, Math.ceil(totalItems / limit));
+    const totalPages = Math.max(
+        1,
+        Math.ceil(totalItems / limit),
+    );
+
+    const activePublishedJobs = Math.max(
+        0,
+        getStatusCount(JobStatus.PUBLISHED) -
+            expiredJobs,
+    );
 
     return {
-        jobs,
+        jobs: jobs.map((job) =>
+            formatCompanyJob(job, now),
+        ),
 
         summary: {
             totalJobs,
-            publishedJobs: getStatusCount(JobStatus.PUBLISHED),
+            publishedJobs: activePublishedJobs,
+            expiredJobs,
             draftJobs: getStatusCount(JobStatus.DRAFT),
             pausedJobs: getStatusCount(JobStatus.PAUSED),
             closedJobs: getStatusCount(JobStatus.CLOSED),
@@ -377,7 +481,7 @@ export async function getCompanyJobById(companyId: string, jobId: string) {
         throw new AppError(404, "Job not found for this company.");
     }
 
-    return job;
+    return formatCompanyJob(job, new Date());
 }
 
 export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJobParameters) {
@@ -749,6 +853,13 @@ export async function publishJob({ companyId, jobId, actorUserId }: JobMutationP
         }
 
         const previousStatus = existingJob.status;
+        const publishedAt = new Date();
+        const expiresAt =
+            calculateJobExpirationDate({
+                publishedAt,
+                applicationDeadline:
+                    existingJob.applicationDeadline,
+            });
 
         const job = await transaction.job.update({
             where: {
@@ -757,7 +868,8 @@ export async function publishJob({ companyId, jobId, actorUserId }: JobMutationP
 
             data: {
                 status: JobStatus.PUBLISHED,
-                publishedAt: new Date(),
+                publishedAt,
+                expiresAt,
             },
 
             select: {
@@ -766,6 +878,7 @@ export async function publishJob({ companyId, jobId, actorUserId }: JobMutationP
                 slug: true,
                 status: true,
                 publishedAt: true,
+                expiresAt: true,
                 updatedAt: true,
             },
         });
@@ -784,11 +897,135 @@ export async function publishJob({ companyId, jobId, actorUserId }: JobMutationP
                 jobSlug: job.slug,
                 previousStatus,
                 newStatus: job.status,
+                publishedAt: job.publishedAt,
+                expiresAt: job.expiresAt,
             },
         });
 
-        return job;
+        return {
+            ...job,
+            ...getJobExpirationDetails({
+                status: job.status,
+                expiresAt: job.expiresAt,
+                now: publishedAt,
+            }),
+        };
     });
+}
+
+export async function renewJob({
+    companyId,
+    jobId,
+    actorUserId,
+}: JobMutationParameters) {
+    return prisma.$transaction(
+        async (transaction) => {
+            const existingJob =
+                await transaction.job.findFirst({
+                    where: {
+                        id: jobId,
+                        companyId,
+                        deletedAt: null,
+                    },
+
+                    select: {
+                        id: true,
+                        title: true,
+                        slug: true,
+                        status: true,
+                        expiresAt: true,
+                        applicationDeadline: true,
+                    },
+                });
+
+            if (!existingJob) {
+                throw new AppError(
+                    404,
+                    "Job not found for this company.",
+                );
+            }
+
+            if (
+                existingJob.status !==
+                JobStatus.PUBLISHED
+            ) {
+                throw new AppError(
+                    400,
+                    "Only published jobs can be renewed.",
+                );
+            }
+
+            const renewedAt = new Date();
+
+            if (
+                existingJob.applicationDeadline &&
+                existingJob.applicationDeadline <=
+                    renewedAt
+            ) {
+                throw new AppError(
+                    400,
+                    "Set a future application deadline or remove the expired deadline before renewing this job.",
+                );
+            }
+
+            const expiresAt =
+                calculateJobExpirationDate({
+                    publishedAt: renewedAt,
+                    applicationDeadline:
+                        existingJob.applicationDeadline,
+                });
+
+            const job =
+                await transaction.job.update({
+                    where: {
+                        id: jobId,
+                    },
+
+                    data: {
+                        publishedAt: renewedAt,
+                        expiresAt,
+                    },
+
+                    select: {
+                        id: true,
+                        title: true,
+                        slug: true,
+                        status: true,
+                        publishedAt: true,
+                        expiresAt: true,
+                        updatedAt: true,
+                    },
+                });
+
+            await createCompanyAuditLog({
+                transaction,
+                companyId,
+                actorUserId,
+                action: AuditAction.JOB_RENEWED,
+                entityType: AuditEntityType.JOB,
+                entityId: job.id,
+
+                metadata: {
+                    jobId: job.id,
+                    jobTitle: job.title,
+                    jobSlug: job.slug,
+                    previousExpiresAt:
+                        existingJob.expiresAt,
+                    publishedAt: job.publishedAt,
+                    expiresAt: job.expiresAt,
+                },
+            });
+
+            return {
+                ...job,
+                ...getJobExpirationDetails({
+                    status: job.status,
+                    expiresAt: job.expiresAt,
+                    now: renewedAt,
+                }),
+            };
+        },
+    );
 }
 
 export async function unpublishJob({ companyId, jobId, actorUserId }: JobMutationParameters) {
@@ -830,6 +1067,7 @@ export async function unpublishJob({ companyId, jobId, actorUserId }: JobMutatio
             data: {
                 status: JobStatus.PAUSED,
                 publishedAt: null,
+                expiresAt: null,
             },
 
             select: {
@@ -838,6 +1076,7 @@ export async function unpublishJob({ companyId, jobId, actorUserId }: JobMutatio
                 slug: true,
                 status: true,
                 publishedAt: true,
+                expiresAt: true,
                 updatedAt: true,
             },
         });
@@ -910,6 +1149,7 @@ export async function archiveJob({ companyId, jobId, actorUserId }: JobMutationP
             data: {
                 status: JobStatus.ARCHIVED,
                 publishedAt: null,
+                expiresAt: null,
             },
 
             select: {
@@ -918,6 +1158,7 @@ export async function archiveJob({ companyId, jobId, actorUserId }: JobMutationP
                 slug: true,
                 status: true,
                 publishedAt: true,
+                expiresAt: true,
                 updatedAt: true,
             },
         });
@@ -978,6 +1219,7 @@ export async function restoreJob({ companyId, jobId, actorUserId }: JobMutationP
             data: {
                 status: JobStatus.DRAFT,
                 publishedAt: null,
+                expiresAt: null,
             },
 
             select: {
@@ -986,6 +1228,7 @@ export async function restoreJob({ companyId, jobId, actorUserId }: JobMutationP
                 slug: true,
                 status: true,
                 publishedAt: true,
+                expiresAt: true,
                 updatedAt: true,
             },
         });

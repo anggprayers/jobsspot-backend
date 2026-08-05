@@ -7,10 +7,18 @@ export function validate(schema: ZodType) {
         const result = schema.safeParse(request.body);
 
         if (!result.success) {
+            const { fieldErrors, formErrors } = z.flattenError(result.error);
+
             response.status(400).json({
                 success: false,
                 message: "Validation failed.",
-                errors: z.flattenError(result.error).fieldErrors,
+                errors: {
+                    ...fieldErrors,
+
+                    ...(formErrors.length > 0 && {
+                        body: formErrors,
+                    }),
+                },
             });
 
             return;

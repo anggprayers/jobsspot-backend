@@ -5,6 +5,7 @@ import { CompanyMemberRole } from "../../generated/prisma/client.js";
 import { asyncHandler } from "../../middleware/asyncHandler.js";
 import { requireAuth } from "../../middleware/requireAuth.js";
 import { requireCompanyRole } from "../../middleware/requireCompanyRole.js";
+import { requireVerifiedEmail } from "../../middleware/requireVerifiedEmail.js";
 import { validate } from "../../middleware/validate.js";
 
 import {
@@ -48,6 +49,7 @@ jobRouter.get(
 jobRouter.post(
     "/",
     asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
     requireCompanyRole(jobManagingRoles),
     validate(createJobSchema),
     asyncHandler(createJob),
@@ -67,6 +69,7 @@ jobRouter.get(
 jobRouter.patch(
     "/:jobId",
     asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
     requireCompanyRole(jobManagingRoles),
     validate(updateJobSchema),
     asyncHandler(updateJobController),
@@ -77,6 +80,7 @@ jobRouter.patch(
 jobRouter.delete(
     "/:jobId",
     asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
     requireCompanyRole(jobManagingRoles),
     asyncHandler(deleteJobController),
 );
@@ -86,6 +90,7 @@ jobRouter.delete(
 jobRouter.patch(
     "/:jobId/publish",
     asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
     requireCompanyRole(jobManagingRoles),
     asyncHandler(publishJobController),
 );
@@ -95,6 +100,7 @@ jobRouter.patch(
 jobRouter.patch(
     "/:jobId/unpublish",
     asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
     requireCompanyRole(jobManagingRoles),
     asyncHandler(unpublishJobController),
 );
@@ -104,6 +110,7 @@ jobRouter.patch(
 jobRouter.patch(
     "/:jobId/archive",
     asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
     requireCompanyRole(jobManagingRoles),
     asyncHandler(archiveJobController),
 );
@@ -113,6 +120,7 @@ jobRouter.patch(
 jobRouter.patch(
     "/:jobId/restore",
     asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
     requireCompanyRole(jobManagingRoles),
     asyncHandler(restoreJobController),
 );

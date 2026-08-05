@@ -29,11 +29,13 @@ export type AggregateSavedSearch = {
 export type SavedSearchAvgAggregateOutputType = {
   salaryMin: runtime.Decimal | null
   salaryMax: runtime.Decimal | null
+  publishedWithinDays: number | null
 }
 
 export type SavedSearchSumAggregateOutputType = {
   salaryMin: runtime.Decimal | null
   salaryMax: runtime.Decimal | null
+  publishedWithinDays: number | null
 }
 
 export type SavedSearchMinAggregateOutputType = {
@@ -49,6 +51,8 @@ export type SavedSearchMinAggregateOutputType = {
   salaryMin: runtime.Decimal | null
   salaryMax: runtime.Decimal | null
   salaryCurrency: string | null
+  salaryPeriod: $Enums.SalaryPeriod | null
+  publishedWithinDays: number | null
   emailAlertsEnabled: boolean | null
   alertFrequency: $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt: Date | null
@@ -70,6 +74,8 @@ export type SavedSearchMaxAggregateOutputType = {
   salaryMin: runtime.Decimal | null
   salaryMax: runtime.Decimal | null
   salaryCurrency: string | null
+  salaryPeriod: $Enums.SalaryPeriod | null
+  publishedWithinDays: number | null
   emailAlertsEnabled: boolean | null
   alertFrequency: $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt: Date | null
@@ -88,9 +94,15 @@ export type SavedSearchCountAggregateOutputType = {
   employmentType: number
   workplaceType: number
   experienceLevel: number
+  categorySlugs: number
+  employmentTypes: number
+  workplaceTypes: number
+  experienceLevels: number
   salaryMin: number
   salaryMax: number
   salaryCurrency: number
+  salaryPeriod: number
+  publishedWithinDays: number
   emailAlertsEnabled: number
   alertFrequency: number
   lastAlertSentAt: number
@@ -104,11 +116,13 @@ export type SavedSearchCountAggregateOutputType = {
 export type SavedSearchAvgAggregateInputType = {
   salaryMin?: true
   salaryMax?: true
+  publishedWithinDays?: true
 }
 
 export type SavedSearchSumAggregateInputType = {
   salaryMin?: true
   salaryMax?: true
+  publishedWithinDays?: true
 }
 
 export type SavedSearchMinAggregateInputType = {
@@ -124,6 +138,8 @@ export type SavedSearchMinAggregateInputType = {
   salaryMin?: true
   salaryMax?: true
   salaryCurrency?: true
+  salaryPeriod?: true
+  publishedWithinDays?: true
   emailAlertsEnabled?: true
   alertFrequency?: true
   lastAlertSentAt?: true
@@ -145,6 +161,8 @@ export type SavedSearchMaxAggregateInputType = {
   salaryMin?: true
   salaryMax?: true
   salaryCurrency?: true
+  salaryPeriod?: true
+  publishedWithinDays?: true
   emailAlertsEnabled?: true
   alertFrequency?: true
   lastAlertSentAt?: true
@@ -163,9 +181,15 @@ export type SavedSearchCountAggregateInputType = {
   employmentType?: true
   workplaceType?: true
   experienceLevel?: true
+  categorySlugs?: true
+  employmentTypes?: true
+  workplaceTypes?: true
+  experienceLevels?: true
   salaryMin?: true
   salaryMax?: true
   salaryCurrency?: true
+  salaryPeriod?: true
+  publishedWithinDays?: true
   emailAlertsEnabled?: true
   alertFrequency?: true
   lastAlertSentAt?: true
@@ -271,9 +295,15 @@ export type SavedSearchGroupByOutputType = {
   employmentType: $Enums.EmploymentType | null
   workplaceType: $Enums.WorkplaceType | null
   experienceLevel: $Enums.ExperienceLevel | null
+  categorySlugs: string[]
+  employmentTypes: $Enums.EmploymentType[]
+  workplaceTypes: $Enums.WorkplaceType[]
+  experienceLevels: $Enums.ExperienceLevel[]
   salaryMin: runtime.Decimal | null
   salaryMax: runtime.Decimal | null
   salaryCurrency: string | null
+  salaryPeriod: $Enums.SalaryPeriod | null
+  publishedWithinDays: number | null
   emailAlertsEnabled: boolean
   alertFrequency: $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt: Date | null
@@ -315,9 +345,15 @@ export type SavedSearchWhereInput = {
   employmentType?: Prisma.EnumEmploymentTypeNullableFilter<"SavedSearch"> | $Enums.EmploymentType | null
   workplaceType?: Prisma.EnumWorkplaceTypeNullableFilter<"SavedSearch"> | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.EnumExperienceLevelNullableFilter<"SavedSearch"> | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.StringNullableListFilter<"SavedSearch">
+  employmentTypes?: Prisma.EnumEmploymentTypeNullableListFilter<"SavedSearch">
+  workplaceTypes?: Prisma.EnumWorkplaceTypeNullableListFilter<"SavedSearch">
+  experienceLevels?: Prisma.EnumExperienceLevelNullableListFilter<"SavedSearch">
   salaryMin?: Prisma.DecimalNullableFilter<"SavedSearch"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.DecimalNullableFilter<"SavedSearch"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.StringNullableFilter<"SavedSearch"> | string | null
+  salaryPeriod?: Prisma.EnumSalaryPeriodNullableFilter<"SavedSearch"> | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.IntNullableFilter<"SavedSearch"> | number | null
   emailAlertsEnabled?: Prisma.BoolFilter<"SavedSearch"> | boolean
   alertFrequency?: Prisma.EnumSavedSearchAlertFrequencyNullableFilter<"SavedSearch"> | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.DateTimeNullableFilter<"SavedSearch"> | Date | string | null
@@ -338,9 +374,15 @@ export type SavedSearchOrderByWithRelationInput = {
   employmentType?: Prisma.SortOrderInput | Prisma.SortOrder
   workplaceType?: Prisma.SortOrderInput | Prisma.SortOrder
   experienceLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  categorySlugs?: Prisma.SortOrder
+  employmentTypes?: Prisma.SortOrder
+  workplaceTypes?: Prisma.SortOrder
+  experienceLevels?: Prisma.SortOrder
   salaryMin?: Prisma.SortOrderInput | Prisma.SortOrder
   salaryMax?: Prisma.SortOrderInput | Prisma.SortOrder
   salaryCurrency?: Prisma.SortOrderInput | Prisma.SortOrder
+  salaryPeriod?: Prisma.SortOrderInput | Prisma.SortOrder
+  publishedWithinDays?: Prisma.SortOrderInput | Prisma.SortOrder
   emailAlertsEnabled?: Prisma.SortOrder
   alertFrequency?: Prisma.SortOrderInput | Prisma.SortOrder
   lastAlertSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -364,9 +406,15 @@ export type SavedSearchWhereUniqueInput = Prisma.AtLeast<{
   employmentType?: Prisma.EnumEmploymentTypeNullableFilter<"SavedSearch"> | $Enums.EmploymentType | null
   workplaceType?: Prisma.EnumWorkplaceTypeNullableFilter<"SavedSearch"> | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.EnumExperienceLevelNullableFilter<"SavedSearch"> | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.StringNullableListFilter<"SavedSearch">
+  employmentTypes?: Prisma.EnumEmploymentTypeNullableListFilter<"SavedSearch">
+  workplaceTypes?: Prisma.EnumWorkplaceTypeNullableListFilter<"SavedSearch">
+  experienceLevels?: Prisma.EnumExperienceLevelNullableListFilter<"SavedSearch">
   salaryMin?: Prisma.DecimalNullableFilter<"SavedSearch"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.DecimalNullableFilter<"SavedSearch"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.StringNullableFilter<"SavedSearch"> | string | null
+  salaryPeriod?: Prisma.EnumSalaryPeriodNullableFilter<"SavedSearch"> | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.IntNullableFilter<"SavedSearch"> | number | null
   emailAlertsEnabled?: Prisma.BoolFilter<"SavedSearch"> | boolean
   alertFrequency?: Prisma.EnumSavedSearchAlertFrequencyNullableFilter<"SavedSearch"> | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.DateTimeNullableFilter<"SavedSearch"> | Date | string | null
@@ -387,9 +435,15 @@ export type SavedSearchOrderByWithAggregationInput = {
   employmentType?: Prisma.SortOrderInput | Prisma.SortOrder
   workplaceType?: Prisma.SortOrderInput | Prisma.SortOrder
   experienceLevel?: Prisma.SortOrderInput | Prisma.SortOrder
+  categorySlugs?: Prisma.SortOrder
+  employmentTypes?: Prisma.SortOrder
+  workplaceTypes?: Prisma.SortOrder
+  experienceLevels?: Prisma.SortOrder
   salaryMin?: Prisma.SortOrderInput | Prisma.SortOrder
   salaryMax?: Prisma.SortOrderInput | Prisma.SortOrder
   salaryCurrency?: Prisma.SortOrderInput | Prisma.SortOrder
+  salaryPeriod?: Prisma.SortOrderInput | Prisma.SortOrder
+  publishedWithinDays?: Prisma.SortOrderInput | Prisma.SortOrder
   emailAlertsEnabled?: Prisma.SortOrder
   alertFrequency?: Prisma.SortOrderInput | Prisma.SortOrder
   lastAlertSentAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -416,9 +470,15 @@ export type SavedSearchScalarWhereWithAggregatesInput = {
   employmentType?: Prisma.EnumEmploymentTypeNullableWithAggregatesFilter<"SavedSearch"> | $Enums.EmploymentType | null
   workplaceType?: Prisma.EnumWorkplaceTypeNullableWithAggregatesFilter<"SavedSearch"> | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.EnumExperienceLevelNullableWithAggregatesFilter<"SavedSearch"> | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.StringNullableListFilter<"SavedSearch">
+  employmentTypes?: Prisma.EnumEmploymentTypeNullableListFilter<"SavedSearch">
+  workplaceTypes?: Prisma.EnumWorkplaceTypeNullableListFilter<"SavedSearch">
+  experienceLevels?: Prisma.EnumExperienceLevelNullableListFilter<"SavedSearch">
   salaryMin?: Prisma.DecimalNullableWithAggregatesFilter<"SavedSearch"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.DecimalNullableWithAggregatesFilter<"SavedSearch"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.StringNullableWithAggregatesFilter<"SavedSearch"> | string | null
+  salaryPeriod?: Prisma.EnumSalaryPeriodNullableWithAggregatesFilter<"SavedSearch"> | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.IntNullableWithAggregatesFilter<"SavedSearch"> | number | null
   emailAlertsEnabled?: Prisma.BoolWithAggregatesFilter<"SavedSearch"> | boolean
   alertFrequency?: Prisma.EnumSavedSearchAlertFrequencyNullableWithAggregatesFilter<"SavedSearch"> | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.DateTimeNullableWithAggregatesFilter<"SavedSearch"> | Date | string | null
@@ -435,9 +495,15 @@ export type SavedSearchCreateInput = {
   employmentType?: $Enums.EmploymentType | null
   workplaceType?: $Enums.WorkplaceType | null
   experienceLevel?: $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchCreatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchCreateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchCreateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchCreateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: string | null
+  salaryPeriod?: $Enums.SalaryPeriod | null
+  publishedWithinDays?: number | null
   emailAlertsEnabled?: boolean
   alertFrequency?: $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Date | string | null
@@ -458,9 +524,15 @@ export type SavedSearchUncheckedCreateInput = {
   employmentType?: $Enums.EmploymentType | null
   workplaceType?: $Enums.WorkplaceType | null
   experienceLevel?: $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchCreatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchCreateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchCreateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchCreateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: string | null
+  salaryPeriod?: $Enums.SalaryPeriod | null
+  publishedWithinDays?: number | null
   emailAlertsEnabled?: boolean
   alertFrequency?: $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Date | string | null
@@ -477,9 +549,15 @@ export type SavedSearchUpdateInput = {
   employmentType?: Prisma.NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
   workplaceType?: Prisma.NullableEnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.NullableEnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchUpdatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchUpdateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchUpdateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchUpdateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailAlertsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alertFrequency?: Prisma.NullableEnumSavedSearchAlertFrequencyFieldUpdateOperationsInput | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -500,9 +578,15 @@ export type SavedSearchUncheckedUpdateInput = {
   employmentType?: Prisma.NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
   workplaceType?: Prisma.NullableEnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.NullableEnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchUpdatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchUpdateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchUpdateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchUpdateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailAlertsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alertFrequency?: Prisma.NullableEnumSavedSearchAlertFrequencyFieldUpdateOperationsInput | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -521,9 +605,15 @@ export type SavedSearchCreateManyInput = {
   employmentType?: $Enums.EmploymentType | null
   workplaceType?: $Enums.WorkplaceType | null
   experienceLevel?: $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchCreatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchCreateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchCreateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchCreateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: string | null
+  salaryPeriod?: $Enums.SalaryPeriod | null
+  publishedWithinDays?: number | null
   emailAlertsEnabled?: boolean
   alertFrequency?: $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Date | string | null
@@ -540,9 +630,15 @@ export type SavedSearchUpdateManyMutationInput = {
   employmentType?: Prisma.NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
   workplaceType?: Prisma.NullableEnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.NullableEnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchUpdatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchUpdateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchUpdateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchUpdateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailAlertsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alertFrequency?: Prisma.NullableEnumSavedSearchAlertFrequencyFieldUpdateOperationsInput | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -561,9 +657,15 @@ export type SavedSearchUncheckedUpdateManyInput = {
   employmentType?: Prisma.NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
   workplaceType?: Prisma.NullableEnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.NullableEnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchUpdatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchUpdateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchUpdateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchUpdateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailAlertsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alertFrequency?: Prisma.NullableEnumSavedSearchAlertFrequencyFieldUpdateOperationsInput | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -582,6 +684,38 @@ export type SavedSearchOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type StringNullableListFilter<$PrismaModel = never> = {
+  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
+  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
+  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
+export type EnumEmploymentTypeNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  has?: $Enums.EmploymentType | Prisma.EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
+export type EnumWorkplaceTypeNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.WorkplaceType[] | Prisma.ListEnumWorkplaceTypeFieldRefInput<$PrismaModel> | null
+  has?: $Enums.WorkplaceType | Prisma.EnumWorkplaceTypeFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.WorkplaceType[] | Prisma.ListEnumWorkplaceTypeFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.WorkplaceType[] | Prisma.ListEnumWorkplaceTypeFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
+export type EnumExperienceLevelNullableListFilter<$PrismaModel = never> = {
+  equals?: $Enums.ExperienceLevel[] | Prisma.ListEnumExperienceLevelFieldRefInput<$PrismaModel> | null
+  has?: $Enums.ExperienceLevel | Prisma.EnumExperienceLevelFieldRefInput<$PrismaModel> | null
+  hasEvery?: $Enums.ExperienceLevel[] | Prisma.ListEnumExperienceLevelFieldRefInput<$PrismaModel>
+  hasSome?: $Enums.ExperienceLevel[] | Prisma.ListEnumExperienceLevelFieldRefInput<$PrismaModel>
+  isEmpty?: boolean
+}
+
 export type SavedSearchCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
@@ -592,9 +726,15 @@ export type SavedSearchCountOrderByAggregateInput = {
   employmentType?: Prisma.SortOrder
   workplaceType?: Prisma.SortOrder
   experienceLevel?: Prisma.SortOrder
+  categorySlugs?: Prisma.SortOrder
+  employmentTypes?: Prisma.SortOrder
+  workplaceTypes?: Prisma.SortOrder
+  experienceLevels?: Prisma.SortOrder
   salaryMin?: Prisma.SortOrder
   salaryMax?: Prisma.SortOrder
   salaryCurrency?: Prisma.SortOrder
+  salaryPeriod?: Prisma.SortOrder
+  publishedWithinDays?: Prisma.SortOrder
   emailAlertsEnabled?: Prisma.SortOrder
   alertFrequency?: Prisma.SortOrder
   lastAlertSentAt?: Prisma.SortOrder
@@ -606,6 +746,7 @@ export type SavedSearchCountOrderByAggregateInput = {
 export type SavedSearchAvgOrderByAggregateInput = {
   salaryMin?: Prisma.SortOrder
   salaryMax?: Prisma.SortOrder
+  publishedWithinDays?: Prisma.SortOrder
 }
 
 export type SavedSearchMaxOrderByAggregateInput = {
@@ -621,6 +762,8 @@ export type SavedSearchMaxOrderByAggregateInput = {
   salaryMin?: Prisma.SortOrder
   salaryMax?: Prisma.SortOrder
   salaryCurrency?: Prisma.SortOrder
+  salaryPeriod?: Prisma.SortOrder
+  publishedWithinDays?: Prisma.SortOrder
   emailAlertsEnabled?: Prisma.SortOrder
   alertFrequency?: Prisma.SortOrder
   lastAlertSentAt?: Prisma.SortOrder
@@ -642,6 +785,8 @@ export type SavedSearchMinOrderByAggregateInput = {
   salaryMin?: Prisma.SortOrder
   salaryMax?: Prisma.SortOrder
   salaryCurrency?: Prisma.SortOrder
+  salaryPeriod?: Prisma.SortOrder
+  publishedWithinDays?: Prisma.SortOrder
   emailAlertsEnabled?: Prisma.SortOrder
   alertFrequency?: Prisma.SortOrder
   lastAlertSentAt?: Prisma.SortOrder
@@ -653,6 +798,7 @@ export type SavedSearchMinOrderByAggregateInput = {
 export type SavedSearchSumOrderByAggregateInput = {
   salaryMin?: Prisma.SortOrder
   salaryMax?: Prisma.SortOrder
+  publishedWithinDays?: Prisma.SortOrder
 }
 
 export type SavedSearchCreateNestedManyWithoutUserInput = {
@@ -739,8 +885,20 @@ export type SavedSearchUncheckedUpdateManyWithoutCategoryNestedInput = {
   deleteMany?: Prisma.SavedSearchScalarWhereInput | Prisma.SavedSearchScalarWhereInput[]
 }
 
-export type NullableEnumEmploymentTypeFieldUpdateOperationsInput = {
-  set?: $Enums.EmploymentType | null
+export type SavedSearchCreatecategorySlugsInput = {
+  set: string[]
+}
+
+export type SavedSearchCreateemploymentTypesInput = {
+  set: $Enums.EmploymentType[]
+}
+
+export type SavedSearchCreateworkplaceTypesInput = {
+  set: $Enums.WorkplaceType[]
+}
+
+export type SavedSearchCreateexperienceLevelsInput = {
+  set: $Enums.ExperienceLevel[]
 }
 
 export type NullableEnumWorkplaceTypeFieldUpdateOperationsInput = {
@@ -749,6 +907,26 @@ export type NullableEnumWorkplaceTypeFieldUpdateOperationsInput = {
 
 export type NullableEnumExperienceLevelFieldUpdateOperationsInput = {
   set?: $Enums.ExperienceLevel | null
+}
+
+export type SavedSearchUpdatecategorySlugsInput = {
+  set?: string[]
+  push?: string | string[]
+}
+
+export type SavedSearchUpdateemploymentTypesInput = {
+  set?: $Enums.EmploymentType[]
+  push?: $Enums.EmploymentType | $Enums.EmploymentType[]
+}
+
+export type SavedSearchUpdateworkplaceTypesInput = {
+  set?: $Enums.WorkplaceType[]
+  push?: $Enums.WorkplaceType | $Enums.WorkplaceType[]
+}
+
+export type SavedSearchUpdateexperienceLevelsInput = {
+  set?: $Enums.ExperienceLevel[]
+  push?: $Enums.ExperienceLevel | $Enums.ExperienceLevel[]
 }
 
 export type NullableEnumSavedSearchAlertFrequencyFieldUpdateOperationsInput = {
@@ -763,9 +941,15 @@ export type SavedSearchCreateWithoutUserInput = {
   employmentType?: $Enums.EmploymentType | null
   workplaceType?: $Enums.WorkplaceType | null
   experienceLevel?: $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchCreatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchCreateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchCreateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchCreateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: string | null
+  salaryPeriod?: $Enums.SalaryPeriod | null
+  publishedWithinDays?: number | null
   emailAlertsEnabled?: boolean
   alertFrequency?: $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Date | string | null
@@ -784,9 +968,15 @@ export type SavedSearchUncheckedCreateWithoutUserInput = {
   employmentType?: $Enums.EmploymentType | null
   workplaceType?: $Enums.WorkplaceType | null
   experienceLevel?: $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchCreatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchCreateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchCreateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchCreateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: string | null
+  salaryPeriod?: $Enums.SalaryPeriod | null
+  publishedWithinDays?: number | null
   emailAlertsEnabled?: boolean
   alertFrequency?: $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Date | string | null
@@ -834,9 +1024,15 @@ export type SavedSearchScalarWhereInput = {
   employmentType?: Prisma.EnumEmploymentTypeNullableFilter<"SavedSearch"> | $Enums.EmploymentType | null
   workplaceType?: Prisma.EnumWorkplaceTypeNullableFilter<"SavedSearch"> | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.EnumExperienceLevelNullableFilter<"SavedSearch"> | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.StringNullableListFilter<"SavedSearch">
+  employmentTypes?: Prisma.EnumEmploymentTypeNullableListFilter<"SavedSearch">
+  workplaceTypes?: Prisma.EnumWorkplaceTypeNullableListFilter<"SavedSearch">
+  experienceLevels?: Prisma.EnumExperienceLevelNullableListFilter<"SavedSearch">
   salaryMin?: Prisma.DecimalNullableFilter<"SavedSearch"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.DecimalNullableFilter<"SavedSearch"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.StringNullableFilter<"SavedSearch"> | string | null
+  salaryPeriod?: Prisma.EnumSalaryPeriodNullableFilter<"SavedSearch"> | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.IntNullableFilter<"SavedSearch"> | number | null
   emailAlertsEnabled?: Prisma.BoolFilter<"SavedSearch"> | boolean
   alertFrequency?: Prisma.EnumSavedSearchAlertFrequencyNullableFilter<"SavedSearch"> | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.DateTimeNullableFilter<"SavedSearch"> | Date | string | null
@@ -853,9 +1049,15 @@ export type SavedSearchCreateWithoutCategoryInput = {
   employmentType?: $Enums.EmploymentType | null
   workplaceType?: $Enums.WorkplaceType | null
   experienceLevel?: $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchCreatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchCreateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchCreateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchCreateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: string | null
+  salaryPeriod?: $Enums.SalaryPeriod | null
+  publishedWithinDays?: number | null
   emailAlertsEnabled?: boolean
   alertFrequency?: $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Date | string | null
@@ -874,9 +1076,15 @@ export type SavedSearchUncheckedCreateWithoutCategoryInput = {
   employmentType?: $Enums.EmploymentType | null
   workplaceType?: $Enums.WorkplaceType | null
   experienceLevel?: $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchCreatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchCreateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchCreateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchCreateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: string | null
+  salaryPeriod?: $Enums.SalaryPeriod | null
+  publishedWithinDays?: number | null
   emailAlertsEnabled?: boolean
   alertFrequency?: $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Date | string | null
@@ -920,9 +1128,15 @@ export type SavedSearchCreateManyUserInput = {
   employmentType?: $Enums.EmploymentType | null
   workplaceType?: $Enums.WorkplaceType | null
   experienceLevel?: $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchCreatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchCreateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchCreateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchCreateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: string | null
+  salaryPeriod?: $Enums.SalaryPeriod | null
+  publishedWithinDays?: number | null
   emailAlertsEnabled?: boolean
   alertFrequency?: $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Date | string | null
@@ -939,9 +1153,15 @@ export type SavedSearchUpdateWithoutUserInput = {
   employmentType?: Prisma.NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
   workplaceType?: Prisma.NullableEnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.NullableEnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchUpdatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchUpdateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchUpdateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchUpdateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailAlertsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alertFrequency?: Prisma.NullableEnumSavedSearchAlertFrequencyFieldUpdateOperationsInput | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -960,9 +1180,15 @@ export type SavedSearchUncheckedUpdateWithoutUserInput = {
   employmentType?: Prisma.NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
   workplaceType?: Prisma.NullableEnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.NullableEnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchUpdatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchUpdateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchUpdateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchUpdateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailAlertsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alertFrequency?: Prisma.NullableEnumSavedSearchAlertFrequencyFieldUpdateOperationsInput | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -980,9 +1206,15 @@ export type SavedSearchUncheckedUpdateManyWithoutUserInput = {
   employmentType?: Prisma.NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
   workplaceType?: Prisma.NullableEnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.NullableEnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchUpdatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchUpdateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchUpdateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchUpdateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailAlertsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alertFrequency?: Prisma.NullableEnumSavedSearchAlertFrequencyFieldUpdateOperationsInput | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1000,9 +1232,15 @@ export type SavedSearchCreateManyCategoryInput = {
   employmentType?: $Enums.EmploymentType | null
   workplaceType?: $Enums.WorkplaceType | null
   experienceLevel?: $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchCreatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchCreateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchCreateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchCreateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: string | null
+  salaryPeriod?: $Enums.SalaryPeriod | null
+  publishedWithinDays?: number | null
   emailAlertsEnabled?: boolean
   alertFrequency?: $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Date | string | null
@@ -1019,9 +1257,15 @@ export type SavedSearchUpdateWithoutCategoryInput = {
   employmentType?: Prisma.NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
   workplaceType?: Prisma.NullableEnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.NullableEnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchUpdatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchUpdateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchUpdateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchUpdateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailAlertsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alertFrequency?: Prisma.NullableEnumSavedSearchAlertFrequencyFieldUpdateOperationsInput | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1040,9 +1284,15 @@ export type SavedSearchUncheckedUpdateWithoutCategoryInput = {
   employmentType?: Prisma.NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
   workplaceType?: Prisma.NullableEnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.NullableEnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchUpdatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchUpdateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchUpdateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchUpdateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailAlertsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alertFrequency?: Prisma.NullableEnumSavedSearchAlertFrequencyFieldUpdateOperationsInput | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1060,9 +1310,15 @@ export type SavedSearchUncheckedUpdateManyWithoutCategoryInput = {
   employmentType?: Prisma.NullableEnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType | null
   workplaceType?: Prisma.NullableEnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType | null
   experienceLevel?: Prisma.NullableEnumExperienceLevelFieldUpdateOperationsInput | $Enums.ExperienceLevel | null
+  categorySlugs?: Prisma.SavedSearchUpdatecategorySlugsInput | string[]
+  employmentTypes?: Prisma.SavedSearchUpdateemploymentTypesInput | $Enums.EmploymentType[]
+  workplaceTypes?: Prisma.SavedSearchUpdateworkplaceTypesInput | $Enums.WorkplaceType[]
+  experienceLevels?: Prisma.SavedSearchUpdateexperienceLevelsInput | $Enums.ExperienceLevel[]
   salaryMin?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryMax?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   salaryCurrency?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
+  publishedWithinDays?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   emailAlertsEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
   alertFrequency?: Prisma.NullableEnumSavedSearchAlertFrequencyFieldUpdateOperationsInput | $Enums.SavedSearchAlertFrequency | null
   lastAlertSentAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1083,9 +1339,15 @@ export type SavedSearchSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   employmentType?: boolean
   workplaceType?: boolean
   experienceLevel?: boolean
+  categorySlugs?: boolean
+  employmentTypes?: boolean
+  workplaceTypes?: boolean
+  experienceLevels?: boolean
   salaryMin?: boolean
   salaryMax?: boolean
   salaryCurrency?: boolean
+  salaryPeriod?: boolean
+  publishedWithinDays?: boolean
   emailAlertsEnabled?: boolean
   alertFrequency?: boolean
   lastAlertSentAt?: boolean
@@ -1106,9 +1368,15 @@ export type SavedSearchSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   employmentType?: boolean
   workplaceType?: boolean
   experienceLevel?: boolean
+  categorySlugs?: boolean
+  employmentTypes?: boolean
+  workplaceTypes?: boolean
+  experienceLevels?: boolean
   salaryMin?: boolean
   salaryMax?: boolean
   salaryCurrency?: boolean
+  salaryPeriod?: boolean
+  publishedWithinDays?: boolean
   emailAlertsEnabled?: boolean
   alertFrequency?: boolean
   lastAlertSentAt?: boolean
@@ -1129,9 +1397,15 @@ export type SavedSearchSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   employmentType?: boolean
   workplaceType?: boolean
   experienceLevel?: boolean
+  categorySlugs?: boolean
+  employmentTypes?: boolean
+  workplaceTypes?: boolean
+  experienceLevels?: boolean
   salaryMin?: boolean
   salaryMax?: boolean
   salaryCurrency?: boolean
+  salaryPeriod?: boolean
+  publishedWithinDays?: boolean
   emailAlertsEnabled?: boolean
   alertFrequency?: boolean
   lastAlertSentAt?: boolean
@@ -1152,9 +1426,15 @@ export type SavedSearchSelectScalar = {
   employmentType?: boolean
   workplaceType?: boolean
   experienceLevel?: boolean
+  categorySlugs?: boolean
+  employmentTypes?: boolean
+  workplaceTypes?: boolean
+  experienceLevels?: boolean
   salaryMin?: boolean
   salaryMax?: boolean
   salaryCurrency?: boolean
+  salaryPeriod?: boolean
+  publishedWithinDays?: boolean
   emailAlertsEnabled?: boolean
   alertFrequency?: boolean
   lastAlertSentAt?: boolean
@@ -1163,7 +1443,7 @@ export type SavedSearchSelectScalar = {
   deletedAt?: boolean
 }
 
-export type SavedSearchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "categoryId" | "name" | "keyword" | "location" | "employmentType" | "workplaceType" | "experienceLevel" | "salaryMin" | "salaryMax" | "salaryCurrency" | "emailAlertsEnabled" | "alertFrequency" | "lastAlertSentAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["savedSearch"]>
+export type SavedSearchOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "categoryId" | "name" | "keyword" | "location" | "employmentType" | "workplaceType" | "experienceLevel" | "categorySlugs" | "employmentTypes" | "workplaceTypes" | "experienceLevels" | "salaryMin" | "salaryMax" | "salaryCurrency" | "salaryPeriod" | "publishedWithinDays" | "emailAlertsEnabled" | "alertFrequency" | "lastAlertSentAt" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["savedSearch"]>
 export type SavedSearchInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   category?: boolean | Prisma.SavedSearch$categoryArgs<ExtArgs>
@@ -1193,9 +1473,15 @@ export type $SavedSearchPayload<ExtArgs extends runtime.Types.Extensions.Interna
     employmentType: $Enums.EmploymentType | null
     workplaceType: $Enums.WorkplaceType | null
     experienceLevel: $Enums.ExperienceLevel | null
+    categorySlugs: string[]
+    employmentTypes: $Enums.EmploymentType[]
+    workplaceTypes: $Enums.WorkplaceType[]
+    experienceLevels: $Enums.ExperienceLevel[]
     salaryMin: runtime.Decimal | null
     salaryMax: runtime.Decimal | null
     salaryCurrency: string | null
+    salaryPeriod: $Enums.SalaryPeriod | null
+    publishedWithinDays: number | null
     emailAlertsEnabled: boolean
     alertFrequency: $Enums.SavedSearchAlertFrequency | null
     lastAlertSentAt: Date | null
@@ -1636,9 +1922,15 @@ export interface SavedSearchFieldRefs {
   readonly employmentType: Prisma.FieldRef<"SavedSearch", 'EmploymentType'>
   readonly workplaceType: Prisma.FieldRef<"SavedSearch", 'WorkplaceType'>
   readonly experienceLevel: Prisma.FieldRef<"SavedSearch", 'ExperienceLevel'>
+  readonly categorySlugs: Prisma.FieldRef<"SavedSearch", 'String[]'>
+  readonly employmentTypes: Prisma.FieldRef<"SavedSearch", 'EmploymentType[]'>
+  readonly workplaceTypes: Prisma.FieldRef<"SavedSearch", 'WorkplaceType[]'>
+  readonly experienceLevels: Prisma.FieldRef<"SavedSearch", 'ExperienceLevel[]'>
   readonly salaryMin: Prisma.FieldRef<"SavedSearch", 'Decimal'>
   readonly salaryMax: Prisma.FieldRef<"SavedSearch", 'Decimal'>
   readonly salaryCurrency: Prisma.FieldRef<"SavedSearch", 'String'>
+  readonly salaryPeriod: Prisma.FieldRef<"SavedSearch", 'SalaryPeriod'>
+  readonly publishedWithinDays: Prisma.FieldRef<"SavedSearch", 'Int'>
   readonly emailAlertsEnabled: Prisma.FieldRef<"SavedSearch", 'Boolean'>
   readonly alertFrequency: Prisma.FieldRef<"SavedSearch", 'SavedSearchAlertFrequency'>
   readonly lastAlertSentAt: Prisma.FieldRef<"SavedSearch", 'DateTime'>

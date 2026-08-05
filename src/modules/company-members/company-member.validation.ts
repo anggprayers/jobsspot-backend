@@ -18,6 +18,20 @@ export const updateCompanyMemberRoleSchema = z.object({
     role: z.enum(assignableCompanyRoles),
 });
 
+export const transferCompanyOwnershipSchema = z.object({
+    targetMemberId: z
+        .string()
+        .trim()
+        .min(1, "Select a company member to receive ownership.")
+        .max(191, "Member ID is invalid."),
+
+    confirmationCompanyName: z
+        .string()
+        .trim()
+        .min(1, "Enter the company name to confirm ownership transfer.")
+        .max(100, "Company name confirmation cannot exceed 100 characters."),
+});
+
 export const searchCompanyMemberCandidatesSchema = z.object({
     query: z
         .string()
@@ -29,5 +43,7 @@ export const searchCompanyMemberCandidatesSchema = z.object({
 export type AddCompanyMemberInput = z.infer<typeof addCompanyMemberSchema>;
 
 export type UpdateCompanyMemberRoleInput = z.infer<typeof updateCompanyMemberRoleSchema>;
+
+export type TransferCompanyOwnershipInput = z.infer<typeof transferCompanyOwnershipSchema>;
 
 export type SearchCompanyMemberCandidatesInput = z.infer<typeof searchCompanyMemberCandidatesSchema>;

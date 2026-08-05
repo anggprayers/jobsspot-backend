@@ -257,6 +257,10 @@ export type JobSeekerProfileWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"JobSeekerProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"JobSeekerProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  skills?: Prisma.JobSeekerSkillListRelationFilter
+  workExperiences?: Prisma.WorkExperienceListRelationFilter
+  educations?: Prisma.EducationListRelationFilter
+  certifications?: Prisma.CertificationListRelationFilter
 }
 
 export type JobSeekerProfileOrderByWithRelationInput = {
@@ -271,6 +275,10 @@ export type JobSeekerProfileOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
+  skills?: Prisma.JobSeekerSkillOrderByRelationAggregateInput
+  workExperiences?: Prisma.WorkExperienceOrderByRelationAggregateInput
+  educations?: Prisma.EducationOrderByRelationAggregateInput
+  certifications?: Prisma.CertificationOrderByRelationAggregateInput
 }
 
 export type JobSeekerProfileWhereUniqueInput = Prisma.AtLeast<{
@@ -288,6 +296,10 @@ export type JobSeekerProfileWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"JobSeekerProfile"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"JobSeekerProfile"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  skills?: Prisma.JobSeekerSkillListRelationFilter
+  workExperiences?: Prisma.WorkExperienceListRelationFilter
+  educations?: Prisma.EducationListRelationFilter
+  certifications?: Prisma.CertificationListRelationFilter
 }, "id" | "userId">
 
 export type JobSeekerProfileOrderByWithAggregationInput = {
@@ -335,6 +347,10 @@ export type JobSeekerProfileCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutJobSeekerProfileInput
+  skills?: Prisma.JobSeekerSkillCreateNestedManyWithoutProfileInput
+  workExperiences?: Prisma.WorkExperienceCreateNestedManyWithoutProfileInput
+  educations?: Prisma.EducationCreateNestedManyWithoutProfileInput
+  certifications?: Prisma.CertificationCreateNestedManyWithoutProfileInput
 }
 
 export type JobSeekerProfileUncheckedCreateInput = {
@@ -348,6 +364,10 @@ export type JobSeekerProfileUncheckedCreateInput = {
   yearsOfExperience?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  skills?: Prisma.JobSeekerSkillUncheckedCreateNestedManyWithoutProfileInput
+  workExperiences?: Prisma.WorkExperienceUncheckedCreateNestedManyWithoutProfileInput
+  educations?: Prisma.EducationUncheckedCreateNestedManyWithoutProfileInput
+  certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutProfileInput
 }
 
 export type JobSeekerProfileUpdateInput = {
@@ -361,6 +381,10 @@ export type JobSeekerProfileUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutJobSeekerProfileNestedInput
+  skills?: Prisma.JobSeekerSkillUpdateManyWithoutProfileNestedInput
+  workExperiences?: Prisma.WorkExperienceUpdateManyWithoutProfileNestedInput
+  educations?: Prisma.EducationUpdateManyWithoutProfileNestedInput
+  certifications?: Prisma.CertificationUpdateManyWithoutProfileNestedInput
 }
 
 export type JobSeekerProfileUncheckedUpdateInput = {
@@ -374,6 +398,10 @@ export type JobSeekerProfileUncheckedUpdateInput = {
   yearsOfExperience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  skills?: Prisma.JobSeekerSkillUncheckedUpdateManyWithoutProfileNestedInput
+  workExperiences?: Prisma.WorkExperienceUncheckedUpdateManyWithoutProfileNestedInput
+  educations?: Prisma.EducationUncheckedUpdateManyWithoutProfileNestedInput
+  certifications?: Prisma.CertificationUncheckedUpdateManyWithoutProfileNestedInput
 }
 
 export type JobSeekerProfileCreateManyInput = {
@@ -466,6 +494,11 @@ export type JobSeekerProfileSumOrderByAggregateInput = {
   yearsOfExperience?: Prisma.SortOrder
 }
 
+export type JobSeekerProfileScalarRelationFilter = {
+  is?: Prisma.JobSeekerProfileWhereInput
+  isNot?: Prisma.JobSeekerProfileWhereInput
+}
+
 export type JobSeekerProfileCreateNestedOneWithoutUserInput = {
   create?: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutUserInput, Prisma.JobSeekerProfileUncheckedCreateWithoutUserInput>
   connectOrCreate?: Prisma.JobSeekerProfileCreateOrConnectWithoutUserInput
@@ -506,6 +539,62 @@ export type NullableIntFieldUpdateOperationsInput = {
   divide?: number
 }
 
+export type JobSeekerProfileCreateNestedOneWithoutSkillsInput = {
+  create?: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutSkillsInput, Prisma.JobSeekerProfileUncheckedCreateWithoutSkillsInput>
+  connectOrCreate?: Prisma.JobSeekerProfileCreateOrConnectWithoutSkillsInput
+  connect?: Prisma.JobSeekerProfileWhereUniqueInput
+}
+
+export type JobSeekerProfileUpdateOneRequiredWithoutSkillsNestedInput = {
+  create?: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutSkillsInput, Prisma.JobSeekerProfileUncheckedCreateWithoutSkillsInput>
+  connectOrCreate?: Prisma.JobSeekerProfileCreateOrConnectWithoutSkillsInput
+  upsert?: Prisma.JobSeekerProfileUpsertWithoutSkillsInput
+  connect?: Prisma.JobSeekerProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JobSeekerProfileUpdateToOneWithWhereWithoutSkillsInput, Prisma.JobSeekerProfileUpdateWithoutSkillsInput>, Prisma.JobSeekerProfileUncheckedUpdateWithoutSkillsInput>
+}
+
+export type JobSeekerProfileCreateNestedOneWithoutWorkExperiencesInput = {
+  create?: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutWorkExperiencesInput, Prisma.JobSeekerProfileUncheckedCreateWithoutWorkExperiencesInput>
+  connectOrCreate?: Prisma.JobSeekerProfileCreateOrConnectWithoutWorkExperiencesInput
+  connect?: Prisma.JobSeekerProfileWhereUniqueInput
+}
+
+export type JobSeekerProfileUpdateOneRequiredWithoutWorkExperiencesNestedInput = {
+  create?: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutWorkExperiencesInput, Prisma.JobSeekerProfileUncheckedCreateWithoutWorkExperiencesInput>
+  connectOrCreate?: Prisma.JobSeekerProfileCreateOrConnectWithoutWorkExperiencesInput
+  upsert?: Prisma.JobSeekerProfileUpsertWithoutWorkExperiencesInput
+  connect?: Prisma.JobSeekerProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JobSeekerProfileUpdateToOneWithWhereWithoutWorkExperiencesInput, Prisma.JobSeekerProfileUpdateWithoutWorkExperiencesInput>, Prisma.JobSeekerProfileUncheckedUpdateWithoutWorkExperiencesInput>
+}
+
+export type JobSeekerProfileCreateNestedOneWithoutEducationsInput = {
+  create?: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutEducationsInput, Prisma.JobSeekerProfileUncheckedCreateWithoutEducationsInput>
+  connectOrCreate?: Prisma.JobSeekerProfileCreateOrConnectWithoutEducationsInput
+  connect?: Prisma.JobSeekerProfileWhereUniqueInput
+}
+
+export type JobSeekerProfileUpdateOneRequiredWithoutEducationsNestedInput = {
+  create?: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutEducationsInput, Prisma.JobSeekerProfileUncheckedCreateWithoutEducationsInput>
+  connectOrCreate?: Prisma.JobSeekerProfileCreateOrConnectWithoutEducationsInput
+  upsert?: Prisma.JobSeekerProfileUpsertWithoutEducationsInput
+  connect?: Prisma.JobSeekerProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JobSeekerProfileUpdateToOneWithWhereWithoutEducationsInput, Prisma.JobSeekerProfileUpdateWithoutEducationsInput>, Prisma.JobSeekerProfileUncheckedUpdateWithoutEducationsInput>
+}
+
+export type JobSeekerProfileCreateNestedOneWithoutCertificationsInput = {
+  create?: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutCertificationsInput, Prisma.JobSeekerProfileUncheckedCreateWithoutCertificationsInput>
+  connectOrCreate?: Prisma.JobSeekerProfileCreateOrConnectWithoutCertificationsInput
+  connect?: Prisma.JobSeekerProfileWhereUniqueInput
+}
+
+export type JobSeekerProfileUpdateOneRequiredWithoutCertificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutCertificationsInput, Prisma.JobSeekerProfileUncheckedCreateWithoutCertificationsInput>
+  connectOrCreate?: Prisma.JobSeekerProfileCreateOrConnectWithoutCertificationsInput
+  upsert?: Prisma.JobSeekerProfileUpsertWithoutCertificationsInput
+  connect?: Prisma.JobSeekerProfileWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.JobSeekerProfileUpdateToOneWithWhereWithoutCertificationsInput, Prisma.JobSeekerProfileUpdateWithoutCertificationsInput>, Prisma.JobSeekerProfileUncheckedUpdateWithoutCertificationsInput>
+}
+
 export type JobSeekerProfileCreateWithoutUserInput = {
   id?: string
   headline?: string | null
@@ -516,6 +605,10 @@ export type JobSeekerProfileCreateWithoutUserInput = {
   yearsOfExperience?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  skills?: Prisma.JobSeekerSkillCreateNestedManyWithoutProfileInput
+  workExperiences?: Prisma.WorkExperienceCreateNestedManyWithoutProfileInput
+  educations?: Prisma.EducationCreateNestedManyWithoutProfileInput
+  certifications?: Prisma.CertificationCreateNestedManyWithoutProfileInput
 }
 
 export type JobSeekerProfileUncheckedCreateWithoutUserInput = {
@@ -528,6 +621,10 @@ export type JobSeekerProfileUncheckedCreateWithoutUserInput = {
   yearsOfExperience?: number | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  skills?: Prisma.JobSeekerSkillUncheckedCreateNestedManyWithoutProfileInput
+  workExperiences?: Prisma.WorkExperienceUncheckedCreateNestedManyWithoutProfileInput
+  educations?: Prisma.EducationUncheckedCreateNestedManyWithoutProfileInput
+  certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutProfileInput
 }
 
 export type JobSeekerProfileCreateOrConnectWithoutUserInput = {
@@ -556,6 +653,10 @@ export type JobSeekerProfileUpdateWithoutUserInput = {
   yearsOfExperience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  skills?: Prisma.JobSeekerSkillUpdateManyWithoutProfileNestedInput
+  workExperiences?: Prisma.WorkExperienceUpdateManyWithoutProfileNestedInput
+  educations?: Prisma.EducationUpdateManyWithoutProfileNestedInput
+  certifications?: Prisma.CertificationUpdateManyWithoutProfileNestedInput
 }
 
 export type JobSeekerProfileUncheckedUpdateWithoutUserInput = {
@@ -568,8 +669,388 @@ export type JobSeekerProfileUncheckedUpdateWithoutUserInput = {
   yearsOfExperience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  skills?: Prisma.JobSeekerSkillUncheckedUpdateManyWithoutProfileNestedInput
+  workExperiences?: Prisma.WorkExperienceUncheckedUpdateManyWithoutProfileNestedInput
+  educations?: Prisma.EducationUncheckedUpdateManyWithoutProfileNestedInput
+  certifications?: Prisma.CertificationUncheckedUpdateManyWithoutProfileNestedInput
 }
 
+export type JobSeekerProfileCreateWithoutSkillsInput = {
+  id?: string
+  headline?: string | null
+  summary?: string | null
+  location?: string | null
+  websiteUrl?: string | null
+  linkedInUrl?: string | null
+  yearsOfExperience?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutJobSeekerProfileInput
+  workExperiences?: Prisma.WorkExperienceCreateNestedManyWithoutProfileInput
+  educations?: Prisma.EducationCreateNestedManyWithoutProfileInput
+  certifications?: Prisma.CertificationCreateNestedManyWithoutProfileInput
+}
+
+export type JobSeekerProfileUncheckedCreateWithoutSkillsInput = {
+  id?: string
+  userId: string
+  headline?: string | null
+  summary?: string | null
+  location?: string | null
+  websiteUrl?: string | null
+  linkedInUrl?: string | null
+  yearsOfExperience?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  workExperiences?: Prisma.WorkExperienceUncheckedCreateNestedManyWithoutProfileInput
+  educations?: Prisma.EducationUncheckedCreateNestedManyWithoutProfileInput
+  certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutProfileInput
+}
+
+export type JobSeekerProfileCreateOrConnectWithoutSkillsInput = {
+  where: Prisma.JobSeekerProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutSkillsInput, Prisma.JobSeekerProfileUncheckedCreateWithoutSkillsInput>
+}
+
+export type JobSeekerProfileUpsertWithoutSkillsInput = {
+  update: Prisma.XOR<Prisma.JobSeekerProfileUpdateWithoutSkillsInput, Prisma.JobSeekerProfileUncheckedUpdateWithoutSkillsInput>
+  create: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutSkillsInput, Prisma.JobSeekerProfileUncheckedCreateWithoutSkillsInput>
+  where?: Prisma.JobSeekerProfileWhereInput
+}
+
+export type JobSeekerProfileUpdateToOneWithWhereWithoutSkillsInput = {
+  where?: Prisma.JobSeekerProfileWhereInput
+  data: Prisma.XOR<Prisma.JobSeekerProfileUpdateWithoutSkillsInput, Prisma.JobSeekerProfileUncheckedUpdateWithoutSkillsInput>
+}
+
+export type JobSeekerProfileUpdateWithoutSkillsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedInUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearsOfExperience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutJobSeekerProfileNestedInput
+  workExperiences?: Prisma.WorkExperienceUpdateManyWithoutProfileNestedInput
+  educations?: Prisma.EducationUpdateManyWithoutProfileNestedInput
+  certifications?: Prisma.CertificationUpdateManyWithoutProfileNestedInput
+}
+
+export type JobSeekerProfileUncheckedUpdateWithoutSkillsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedInUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearsOfExperience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  workExperiences?: Prisma.WorkExperienceUncheckedUpdateManyWithoutProfileNestedInput
+  educations?: Prisma.EducationUncheckedUpdateManyWithoutProfileNestedInput
+  certifications?: Prisma.CertificationUncheckedUpdateManyWithoutProfileNestedInput
+}
+
+export type JobSeekerProfileCreateWithoutWorkExperiencesInput = {
+  id?: string
+  headline?: string | null
+  summary?: string | null
+  location?: string | null
+  websiteUrl?: string | null
+  linkedInUrl?: string | null
+  yearsOfExperience?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutJobSeekerProfileInput
+  skills?: Prisma.JobSeekerSkillCreateNestedManyWithoutProfileInput
+  educations?: Prisma.EducationCreateNestedManyWithoutProfileInput
+  certifications?: Prisma.CertificationCreateNestedManyWithoutProfileInput
+}
+
+export type JobSeekerProfileUncheckedCreateWithoutWorkExperiencesInput = {
+  id?: string
+  userId: string
+  headline?: string | null
+  summary?: string | null
+  location?: string | null
+  websiteUrl?: string | null
+  linkedInUrl?: string | null
+  yearsOfExperience?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  skills?: Prisma.JobSeekerSkillUncheckedCreateNestedManyWithoutProfileInput
+  educations?: Prisma.EducationUncheckedCreateNestedManyWithoutProfileInput
+  certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutProfileInput
+}
+
+export type JobSeekerProfileCreateOrConnectWithoutWorkExperiencesInput = {
+  where: Prisma.JobSeekerProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutWorkExperiencesInput, Prisma.JobSeekerProfileUncheckedCreateWithoutWorkExperiencesInput>
+}
+
+export type JobSeekerProfileUpsertWithoutWorkExperiencesInput = {
+  update: Prisma.XOR<Prisma.JobSeekerProfileUpdateWithoutWorkExperiencesInput, Prisma.JobSeekerProfileUncheckedUpdateWithoutWorkExperiencesInput>
+  create: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutWorkExperiencesInput, Prisma.JobSeekerProfileUncheckedCreateWithoutWorkExperiencesInput>
+  where?: Prisma.JobSeekerProfileWhereInput
+}
+
+export type JobSeekerProfileUpdateToOneWithWhereWithoutWorkExperiencesInput = {
+  where?: Prisma.JobSeekerProfileWhereInput
+  data: Prisma.XOR<Prisma.JobSeekerProfileUpdateWithoutWorkExperiencesInput, Prisma.JobSeekerProfileUncheckedUpdateWithoutWorkExperiencesInput>
+}
+
+export type JobSeekerProfileUpdateWithoutWorkExperiencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedInUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearsOfExperience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutJobSeekerProfileNestedInput
+  skills?: Prisma.JobSeekerSkillUpdateManyWithoutProfileNestedInput
+  educations?: Prisma.EducationUpdateManyWithoutProfileNestedInput
+  certifications?: Prisma.CertificationUpdateManyWithoutProfileNestedInput
+}
+
+export type JobSeekerProfileUncheckedUpdateWithoutWorkExperiencesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedInUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearsOfExperience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  skills?: Prisma.JobSeekerSkillUncheckedUpdateManyWithoutProfileNestedInput
+  educations?: Prisma.EducationUncheckedUpdateManyWithoutProfileNestedInput
+  certifications?: Prisma.CertificationUncheckedUpdateManyWithoutProfileNestedInput
+}
+
+export type JobSeekerProfileCreateWithoutEducationsInput = {
+  id?: string
+  headline?: string | null
+  summary?: string | null
+  location?: string | null
+  websiteUrl?: string | null
+  linkedInUrl?: string | null
+  yearsOfExperience?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutJobSeekerProfileInput
+  skills?: Prisma.JobSeekerSkillCreateNestedManyWithoutProfileInput
+  workExperiences?: Prisma.WorkExperienceCreateNestedManyWithoutProfileInput
+  certifications?: Prisma.CertificationCreateNestedManyWithoutProfileInput
+}
+
+export type JobSeekerProfileUncheckedCreateWithoutEducationsInput = {
+  id?: string
+  userId: string
+  headline?: string | null
+  summary?: string | null
+  location?: string | null
+  websiteUrl?: string | null
+  linkedInUrl?: string | null
+  yearsOfExperience?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  skills?: Prisma.JobSeekerSkillUncheckedCreateNestedManyWithoutProfileInput
+  workExperiences?: Prisma.WorkExperienceUncheckedCreateNestedManyWithoutProfileInput
+  certifications?: Prisma.CertificationUncheckedCreateNestedManyWithoutProfileInput
+}
+
+export type JobSeekerProfileCreateOrConnectWithoutEducationsInput = {
+  where: Prisma.JobSeekerProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutEducationsInput, Prisma.JobSeekerProfileUncheckedCreateWithoutEducationsInput>
+}
+
+export type JobSeekerProfileUpsertWithoutEducationsInput = {
+  update: Prisma.XOR<Prisma.JobSeekerProfileUpdateWithoutEducationsInput, Prisma.JobSeekerProfileUncheckedUpdateWithoutEducationsInput>
+  create: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutEducationsInput, Prisma.JobSeekerProfileUncheckedCreateWithoutEducationsInput>
+  where?: Prisma.JobSeekerProfileWhereInput
+}
+
+export type JobSeekerProfileUpdateToOneWithWhereWithoutEducationsInput = {
+  where?: Prisma.JobSeekerProfileWhereInput
+  data: Prisma.XOR<Prisma.JobSeekerProfileUpdateWithoutEducationsInput, Prisma.JobSeekerProfileUncheckedUpdateWithoutEducationsInput>
+}
+
+export type JobSeekerProfileUpdateWithoutEducationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedInUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearsOfExperience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutJobSeekerProfileNestedInput
+  skills?: Prisma.JobSeekerSkillUpdateManyWithoutProfileNestedInput
+  workExperiences?: Prisma.WorkExperienceUpdateManyWithoutProfileNestedInput
+  certifications?: Prisma.CertificationUpdateManyWithoutProfileNestedInput
+}
+
+export type JobSeekerProfileUncheckedUpdateWithoutEducationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedInUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearsOfExperience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  skills?: Prisma.JobSeekerSkillUncheckedUpdateManyWithoutProfileNestedInput
+  workExperiences?: Prisma.WorkExperienceUncheckedUpdateManyWithoutProfileNestedInput
+  certifications?: Prisma.CertificationUncheckedUpdateManyWithoutProfileNestedInput
+}
+
+export type JobSeekerProfileCreateWithoutCertificationsInput = {
+  id?: string
+  headline?: string | null
+  summary?: string | null
+  location?: string | null
+  websiteUrl?: string | null
+  linkedInUrl?: string | null
+  yearsOfExperience?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutJobSeekerProfileInput
+  skills?: Prisma.JobSeekerSkillCreateNestedManyWithoutProfileInput
+  workExperiences?: Prisma.WorkExperienceCreateNestedManyWithoutProfileInput
+  educations?: Prisma.EducationCreateNestedManyWithoutProfileInput
+}
+
+export type JobSeekerProfileUncheckedCreateWithoutCertificationsInput = {
+  id?: string
+  userId: string
+  headline?: string | null
+  summary?: string | null
+  location?: string | null
+  websiteUrl?: string | null
+  linkedInUrl?: string | null
+  yearsOfExperience?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  skills?: Prisma.JobSeekerSkillUncheckedCreateNestedManyWithoutProfileInput
+  workExperiences?: Prisma.WorkExperienceUncheckedCreateNestedManyWithoutProfileInput
+  educations?: Prisma.EducationUncheckedCreateNestedManyWithoutProfileInput
+}
+
+export type JobSeekerProfileCreateOrConnectWithoutCertificationsInput = {
+  where: Prisma.JobSeekerProfileWhereUniqueInput
+  create: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutCertificationsInput, Prisma.JobSeekerProfileUncheckedCreateWithoutCertificationsInput>
+}
+
+export type JobSeekerProfileUpsertWithoutCertificationsInput = {
+  update: Prisma.XOR<Prisma.JobSeekerProfileUpdateWithoutCertificationsInput, Prisma.JobSeekerProfileUncheckedUpdateWithoutCertificationsInput>
+  create: Prisma.XOR<Prisma.JobSeekerProfileCreateWithoutCertificationsInput, Prisma.JobSeekerProfileUncheckedCreateWithoutCertificationsInput>
+  where?: Prisma.JobSeekerProfileWhereInput
+}
+
+export type JobSeekerProfileUpdateToOneWithWhereWithoutCertificationsInput = {
+  where?: Prisma.JobSeekerProfileWhereInput
+  data: Prisma.XOR<Prisma.JobSeekerProfileUpdateWithoutCertificationsInput, Prisma.JobSeekerProfileUncheckedUpdateWithoutCertificationsInput>
+}
+
+export type JobSeekerProfileUpdateWithoutCertificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedInUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearsOfExperience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutJobSeekerProfileNestedInput
+  skills?: Prisma.JobSeekerSkillUpdateManyWithoutProfileNestedInput
+  workExperiences?: Prisma.WorkExperienceUpdateManyWithoutProfileNestedInput
+  educations?: Prisma.EducationUpdateManyWithoutProfileNestedInput
+}
+
+export type JobSeekerProfileUncheckedUpdateWithoutCertificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  headline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  summary?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedInUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  yearsOfExperience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  skills?: Prisma.JobSeekerSkillUncheckedUpdateManyWithoutProfileNestedInput
+  workExperiences?: Prisma.WorkExperienceUncheckedUpdateManyWithoutProfileNestedInput
+  educations?: Prisma.EducationUncheckedUpdateManyWithoutProfileNestedInput
+}
+
+
+/**
+ * Count Type JobSeekerProfileCountOutputType
+ */
+
+export type JobSeekerProfileCountOutputType = {
+  skills: number
+  workExperiences: number
+  educations: number
+  certifications: number
+}
+
+export type JobSeekerProfileCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  skills?: boolean | JobSeekerProfileCountOutputTypeCountSkillsArgs
+  workExperiences?: boolean | JobSeekerProfileCountOutputTypeCountWorkExperiencesArgs
+  educations?: boolean | JobSeekerProfileCountOutputTypeCountEducationsArgs
+  certifications?: boolean | JobSeekerProfileCountOutputTypeCountCertificationsArgs
+}
+
+/**
+ * JobSeekerProfileCountOutputType without action
+ */
+export type JobSeekerProfileCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobSeekerProfileCountOutputType
+   */
+  select?: Prisma.JobSeekerProfileCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * JobSeekerProfileCountOutputType without action
+ */
+export type JobSeekerProfileCountOutputTypeCountSkillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobSeekerSkillWhereInput
+}
+
+/**
+ * JobSeekerProfileCountOutputType without action
+ */
+export type JobSeekerProfileCountOutputTypeCountWorkExperiencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.WorkExperienceWhereInput
+}
+
+/**
+ * JobSeekerProfileCountOutputType without action
+ */
+export type JobSeekerProfileCountOutputTypeCountEducationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EducationWhereInput
+}
+
+/**
+ * JobSeekerProfileCountOutputType without action
+ */
+export type JobSeekerProfileCountOutputTypeCountCertificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CertificationWhereInput
+}
 
 
 export type JobSeekerProfileSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -584,6 +1065,11 @@ export type JobSeekerProfileSelect<ExtArgs extends runtime.Types.Extensions.Inte
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  skills?: boolean | Prisma.JobSeekerProfile$skillsArgs<ExtArgs>
+  workExperiences?: boolean | Prisma.JobSeekerProfile$workExperiencesArgs<ExtArgs>
+  educations?: boolean | Prisma.JobSeekerProfile$educationsArgs<ExtArgs>
+  certifications?: boolean | Prisma.JobSeekerProfile$certificationsArgs<ExtArgs>
+  _count?: boolean | Prisma.JobSeekerProfileCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["jobSeekerProfile"]>
 
 export type JobSeekerProfileSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -630,6 +1116,11 @@ export type JobSeekerProfileSelectScalar = {
 export type JobSeekerProfileOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "headline" | "summary" | "location" | "websiteUrl" | "linkedInUrl" | "yearsOfExperience" | "createdAt" | "updatedAt", ExtArgs["result"]["jobSeekerProfile"]>
 export type JobSeekerProfileInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  skills?: boolean | Prisma.JobSeekerProfile$skillsArgs<ExtArgs>
+  workExperiences?: boolean | Prisma.JobSeekerProfile$workExperiencesArgs<ExtArgs>
+  educations?: boolean | Prisma.JobSeekerProfile$educationsArgs<ExtArgs>
+  certifications?: boolean | Prisma.JobSeekerProfile$certificationsArgs<ExtArgs>
+  _count?: boolean | Prisma.JobSeekerProfileCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type JobSeekerProfileIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -642,6 +1133,10 @@ export type $JobSeekerProfilePayload<ExtArgs extends runtime.Types.Extensions.In
   name: "JobSeekerProfile"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
+    skills: Prisma.$JobSeekerSkillPayload<ExtArgs>[]
+    workExperiences: Prisma.$WorkExperiencePayload<ExtArgs>[]
+    educations: Prisma.$EducationPayload<ExtArgs>[]
+    certifications: Prisma.$CertificationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1049,6 +1544,10 @@ readonly fields: JobSeekerProfileFieldRefs;
 export interface Prisma__JobSeekerProfileClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  skills<T extends Prisma.JobSeekerProfile$skillsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobSeekerProfile$skillsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobSeekerSkillPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  workExperiences<T extends Prisma.JobSeekerProfile$workExperiencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobSeekerProfile$workExperiencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$WorkExperiencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  educations<T extends Prisma.JobSeekerProfile$educationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobSeekerProfile$educationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EducationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  certifications<T extends Prisma.JobSeekerProfile$certificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobSeekerProfile$certificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CertificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1486,6 +1985,102 @@ export type JobSeekerProfileDeleteManyArgs<ExtArgs extends runtime.Types.Extensi
    * Limit how many JobSeekerProfiles to delete.
    */
   limit?: number
+}
+
+/**
+ * JobSeekerProfile.skills
+ */
+export type JobSeekerProfile$skillsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobSeekerSkill
+   */
+  select?: Prisma.JobSeekerSkillSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobSeekerSkill
+   */
+  omit?: Prisma.JobSeekerSkillOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobSeekerSkillInclude<ExtArgs> | null
+  where?: Prisma.JobSeekerSkillWhereInput
+  orderBy?: Prisma.JobSeekerSkillOrderByWithRelationInput | Prisma.JobSeekerSkillOrderByWithRelationInput[]
+  cursor?: Prisma.JobSeekerSkillWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobSeekerSkillScalarFieldEnum | Prisma.JobSeekerSkillScalarFieldEnum[]
+}
+
+/**
+ * JobSeekerProfile.workExperiences
+ */
+export type JobSeekerProfile$workExperiencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the WorkExperience
+   */
+  select?: Prisma.WorkExperienceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the WorkExperience
+   */
+  omit?: Prisma.WorkExperienceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkExperienceInclude<ExtArgs> | null
+  where?: Prisma.WorkExperienceWhereInput
+  orderBy?: Prisma.WorkExperienceOrderByWithRelationInput | Prisma.WorkExperienceOrderByWithRelationInput[]
+  cursor?: Prisma.WorkExperienceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.WorkExperienceScalarFieldEnum | Prisma.WorkExperienceScalarFieldEnum[]
+}
+
+/**
+ * JobSeekerProfile.educations
+ */
+export type JobSeekerProfile$educationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Education
+   */
+  select?: Prisma.EducationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Education
+   */
+  omit?: Prisma.EducationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EducationInclude<ExtArgs> | null
+  where?: Prisma.EducationWhereInput
+  orderBy?: Prisma.EducationOrderByWithRelationInput | Prisma.EducationOrderByWithRelationInput[]
+  cursor?: Prisma.EducationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EducationScalarFieldEnum | Prisma.EducationScalarFieldEnum[]
+}
+
+/**
+ * JobSeekerProfile.certifications
+ */
+export type JobSeekerProfile$certificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Certification
+   */
+  select?: Prisma.CertificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Certification
+   */
+  omit?: Prisma.CertificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CertificationInclude<ExtArgs> | null
+  where?: Prisma.CertificationWhereInput
+  orderBy?: Prisma.CertificationOrderByWithRelationInput | Prisma.CertificationOrderByWithRelationInput[]
+  cursor?: Prisma.CertificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CertificationScalarFieldEnum | Prisma.CertificationScalarFieldEnum[]
 }
 
 /**

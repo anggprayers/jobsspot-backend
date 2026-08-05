@@ -5,6 +5,7 @@ import { CompanyMemberRole } from "../../generated/prisma/client.js";
 import { asyncHandler } from "../../middleware/asyncHandler.js";
 import { requireAuth } from "../../middleware/requireAuth.js";
 import { requireCompanyRole } from "../../middleware/requireCompanyRole.js";
+import { requireVerifiedEmail } from "../../middleware/requireVerifiedEmail.js";
 import { validate } from "../../middleware/validate.js";
 
 import {
@@ -51,6 +52,7 @@ employerApplicationRouter.get(
 employerApplicationRouter.patch(
     "/:applicationId/status",
     asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
     requireCompanyRole(applicationManagingRoles),
     validate(updateEmployerApplicationStatusSchema),
     asyncHandler(updateCompanyApplicationStatusController),

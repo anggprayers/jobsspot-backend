@@ -219,6 +219,13 @@ export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedIntNullableFilter<$PrismaModel>
 }
 
+export type EnumEmploymentTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmploymentType | Prisma.EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumEmploymentTypeNullableFilter<$PrismaModel> | $Enums.EmploymentType | null
+}
+
 export type IntFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -228,6 +235,16 @@ export type IntFilter<$PrismaModel = never> = {
   gt?: number | Prisma.IntFieldRefInput<$PrismaModel>
   gte?: number | Prisma.IntFieldRefInput<$PrismaModel>
   not?: Prisma.NestedIntFilter<$PrismaModel> | number
+}
+
+export type EnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmploymentType | Prisma.EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.EmploymentType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
 }
 
 export type IntWithAggregatesFilter<$PrismaModel = never> = {
@@ -470,13 +487,6 @@ export type EnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumApplicationStatusFilter<$PrismaModel>
 }
 
-export type EnumEmploymentTypeNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.EmploymentType | Prisma.EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
-  in?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumEmploymentTypeNullableFilter<$PrismaModel> | $Enums.EmploymentType | null
-}
-
 export type EnumWorkplaceTypeNullableFilter<$PrismaModel = never> = {
   equals?: $Enums.WorkplaceType | Prisma.EnumWorkplaceTypeFieldRefInput<$PrismaModel> | null
   in?: $Enums.WorkplaceType[] | Prisma.ListEnumWorkplaceTypeFieldRefInput<$PrismaModel> | null
@@ -496,16 +506,6 @@ export type EnumSavedSearchAlertFrequencyNullableFilter<$PrismaModel = never> = 
   in?: $Enums.SavedSearchAlertFrequency[] | Prisma.ListEnumSavedSearchAlertFrequencyFieldRefInput<$PrismaModel> | null
   notIn?: $Enums.SavedSearchAlertFrequency[] | Prisma.ListEnumSavedSearchAlertFrequencyFieldRefInput<$PrismaModel> | null
   not?: Prisma.NestedEnumSavedSearchAlertFrequencyNullableFilter<$PrismaModel> | $Enums.SavedSearchAlertFrequency | null
-}
-
-export type EnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.EmploymentType | Prisma.EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
-  in?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.EmploymentType | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
 }
 
 export type EnumWorkplaceTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -754,6 +754,23 @@ export type NestedFloatNullableFilter<$PrismaModel = never> = {
   not?: Prisma.NestedFloatNullableFilter<$PrismaModel> | number | null
 }
 
+export type NestedEnumEmploymentTypeNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmploymentType | Prisma.EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumEmploymentTypeNullableFilter<$PrismaModel> | $Enums.EmploymentType | null
+}
+
+export type NestedEnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.EmploymentType | Prisma.EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  in?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.EmploymentType | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
+}
+
 export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
   equals?: number | Prisma.IntFieldRefInput<$PrismaModel>
   in?: number[] | Prisma.ListIntFieldRefInput<$PrismaModel>
@@ -976,13 +993,6 @@ export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never
   _max?: Prisma.NestedEnumApplicationStatusFilter<$PrismaModel>
 }
 
-export type NestedEnumEmploymentTypeNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.EmploymentType | Prisma.EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
-  in?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumEmploymentTypeNullableFilter<$PrismaModel> | $Enums.EmploymentType | null
-}
-
 export type NestedEnumWorkplaceTypeNullableFilter<$PrismaModel = never> = {
   equals?: $Enums.WorkplaceType | Prisma.EnumWorkplaceTypeFieldRefInput<$PrismaModel> | null
   in?: $Enums.WorkplaceType[] | Prisma.ListEnumWorkplaceTypeFieldRefInput<$PrismaModel> | null
@@ -1002,16 +1012,6 @@ export type NestedEnumSavedSearchAlertFrequencyNullableFilter<$PrismaModel = nev
   in?: $Enums.SavedSearchAlertFrequency[] | Prisma.ListEnumSavedSearchAlertFrequencyFieldRefInput<$PrismaModel> | null
   notIn?: $Enums.SavedSearchAlertFrequency[] | Prisma.ListEnumSavedSearchAlertFrequencyFieldRefInput<$PrismaModel> | null
   not?: Prisma.NestedEnumSavedSearchAlertFrequencyNullableFilter<$PrismaModel> | $Enums.SavedSearchAlertFrequency | null
-}
-
-export type NestedEnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.EmploymentType | Prisma.EnumEmploymentTypeFieldRefInput<$PrismaModel> | null
-  in?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.EmploymentType[] | Prisma.ListEnumEmploymentTypeFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumEmploymentTypeNullableWithAggregatesFilter<$PrismaModel> | $Enums.EmploymentType | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumEmploymentTypeNullableFilter<$PrismaModel>
 }
 
 export type NestedEnumWorkplaceTypeNullableWithAggregatesFilter<$PrismaModel = never> = {

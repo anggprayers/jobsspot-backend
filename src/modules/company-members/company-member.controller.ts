@@ -7,6 +7,7 @@ import {
     getCompanyMembers,
     removeCompanyMember,
     searchCompanyMemberCandidates,
+    transferCompanyOwnership,
     updateCompanyMemberRole,
 } from "./company-member.service.js";
 
@@ -107,6 +108,26 @@ export async function updateCompanyMemberRoleController(request: Request, respon
         success: true,
         message: "Company member role updated successfully.",
         member,
+    });
+}
+
+export async function transferCompanyOwnershipController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const companyId = getCompanyId(request);
+    const actorUserId = getAuthenticatedUserId(request);
+
+    const result = await transferCompanyOwnership({
+        companyId,
+        actorUserId,
+        data: request.body,
+    });
+
+    response.status(200).json({
+        success: true,
+        message: "Company ownership transferred successfully.",
+        ...result,
     });
 }
 

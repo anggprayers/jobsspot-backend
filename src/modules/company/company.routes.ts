@@ -2,6 +2,7 @@ import { Router } from "express";
 
 import { asyncHandler } from "../../middleware/asyncHandler.js";
 import { requireAuth } from "../../middleware/requireAuth.js";
+import { requireVerifiedEmail } from "../../middleware/requireVerifiedEmail.js";
 import { validate } from "../../middleware/validate.js";
 import { uploadCompanyImage } from "../../middleware/companyImageUpload.js";
 
@@ -32,7 +33,13 @@ const companyRouter = Router();
 
 // POST /api/companies
 // Create a new company and assign the authenticated user as its owner.
-companyRouter.post("/", asyncHandler(requireAuth), validate(createCompanySchema), asyncHandler(createCompany));
+companyRouter.post(
+    "/",
+    asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
+    validate(createCompanySchema),
+    asyncHandler(createCompany),
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +52,7 @@ companyRouter.post("/", asyncHandler(requireAuth), validate(createCompanySchema)
 companyRouter.patch(
     "/:companyId/logo",
     asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
     uploadCompanyImage.single("image"),
     asyncHandler(uploadCompanyLogo),
 );
@@ -54,17 +62,28 @@ companyRouter.patch(
 companyRouter.patch(
     "/:companyId/banner",
     asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
     uploadCompanyImage.single("image"),
     asyncHandler(uploadCompanyBanner),
 );
 
 // DELETE /api/companies/:companyId/logo
 // Delete the current company logo.
-companyRouter.delete("/:companyId/logo", asyncHandler(requireAuth), asyncHandler(deleteCompanyLogo));
+companyRouter.delete(
+    "/:companyId/logo",
+    asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
+    asyncHandler(deleteCompanyLogo),
+);
 
 // DELETE /api/companies/:companyId/banner
 // Delete the current company banner.
-companyRouter.delete("/:companyId/banner", asyncHandler(requireAuth), asyncHandler(deleteCompanyBanner));
+companyRouter.delete(
+    "/:companyId/banner",
+    asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
+    asyncHandler(deleteCompanyBanner),
+);
 
 /*
 |--------------------------------------------------------------------------
@@ -103,6 +122,7 @@ companyRouter.get("/:companyId/manage", asyncHandler(requireAuth), asyncHandler(
 companyRouter.patch(
     "/:companyId",
     asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
     validate(updateCompanySchema),
     asyncHandler(updateCompany),
 );

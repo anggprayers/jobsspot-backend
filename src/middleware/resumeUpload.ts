@@ -4,11 +4,11 @@ import multer from "multer";
 
 import { AppError } from "../errors/AppError.js";
 
-const MAX_RESUME_SIZE = 5 * 1024 * 1024;
+const MAX_SIZE = 5 * 1024 * 1024;
 
 const allowedResumeTypes = new Map<string, Set<string>>([
-    [".pdf", new Set(["application/pdf"])],
-    [".doc", new Set(["application/msword"])],
+    [".pdf", new Set(["application/pdf", "application/octet-stream"])],
+    [".doc", new Set(["application/msword", "application/octet-stream"])],
     [
         ".docx",
         new Set([
@@ -37,9 +37,11 @@ const fileFilter: multer.Options["fileFilter"] = (_request, file, callback) => {
 
 export const uploadResume = multer({
     storage,
+
     limits: {
         files: 1,
-        fileSize: MAX_RESUME_SIZE,
+        fileSize: MAX_SIZE,
     },
+
     fileFilter,
 });

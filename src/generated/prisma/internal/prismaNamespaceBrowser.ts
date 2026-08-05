@@ -57,6 +57,10 @@ export const ModelName = {
   OAuthAccount: 'OAuthAccount',
   RefreshToken: 'RefreshToken',
   JobSeekerProfile: 'JobSeekerProfile',
+  JobSeekerSkill: 'JobSeekerSkill',
+  WorkExperience: 'WorkExperience',
+  Education: 'Education',
+  Certification: 'Certification',
   Resume: 'Resume',
   Company: 'Company',
   CompanyMembership: 'CompanyMembership',
@@ -67,7 +71,9 @@ export const ModelName = {
   JobSkill: 'JobSkill',
   Application: 'Application',
   SavedJob: 'SavedJob',
-  SavedSearch: 'SavedSearch'
+  SavedSearch: 'SavedSearch',
+  PopularSearch: 'PopularSearch',
+  PopularSearchDailyCount: 'PopularSearchDailyCount'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -171,6 +177,70 @@ export const JobSeekerProfileScalarFieldEnum = {
 } as const
 
 export type JobSeekerProfileScalarFieldEnum = (typeof JobSeekerProfileScalarFieldEnum)[keyof typeof JobSeekerProfileScalarFieldEnum]
+
+
+export const JobSeekerSkillScalarFieldEnum = {
+  profileId: 'profileId',
+  skillId: 'skillId',
+  yearsOfExperience: 'yearsOfExperience',
+  createdAt: 'createdAt'
+} as const
+
+export type JobSeekerSkillScalarFieldEnum = (typeof JobSeekerSkillScalarFieldEnum)[keyof typeof JobSeekerSkillScalarFieldEnum]
+
+
+export const WorkExperienceScalarFieldEnum = {
+  id: 'id',
+  profileId: 'profileId',
+  jobTitle: 'jobTitle',
+  companyName: 'companyName',
+  employmentType: 'employmentType',
+  location: 'location',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isCurrent: 'isCurrent',
+  description: 'description',
+  displayOrder: 'displayOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type WorkExperienceScalarFieldEnum = (typeof WorkExperienceScalarFieldEnum)[keyof typeof WorkExperienceScalarFieldEnum]
+
+
+export const EducationScalarFieldEnum = {
+  id: 'id',
+  profileId: 'profileId',
+  institutionName: 'institutionName',
+  degree: 'degree',
+  fieldOfStudy: 'fieldOfStudy',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  isCurrent: 'isCurrent',
+  description: 'description',
+  displayOrder: 'displayOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EducationScalarFieldEnum = (typeof EducationScalarFieldEnum)[keyof typeof EducationScalarFieldEnum]
+
+
+export const CertificationScalarFieldEnum = {
+  id: 'id',
+  profileId: 'profileId',
+  name: 'name',
+  issuingOrganization: 'issuingOrganization',
+  issueDate: 'issueDate',
+  expirationDate: 'expirationDate',
+  credentialId: 'credentialId',
+  credentialUrl: 'credentialUrl',
+  displayOrder: 'displayOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CertificationScalarFieldEnum = (typeof CertificationScalarFieldEnum)[keyof typeof CertificationScalarFieldEnum]
 
 
 export const ResumeScalarFieldEnum = {
@@ -337,9 +407,15 @@ export const SavedSearchScalarFieldEnum = {
   employmentType: 'employmentType',
   workplaceType: 'workplaceType',
   experienceLevel: 'experienceLevel',
+  categorySlugs: 'categorySlugs',
+  employmentTypes: 'employmentTypes',
+  workplaceTypes: 'workplaceTypes',
+  experienceLevels: 'experienceLevels',
   salaryMin: 'salaryMin',
   salaryMax: 'salaryMax',
   salaryCurrency: 'salaryCurrency',
+  salaryPeriod: 'salaryPeriod',
+  publishedWithinDays: 'publishedWithinDays',
   emailAlertsEnabled: 'emailAlertsEnabled',
   alertFrequency: 'alertFrequency',
   lastAlertSentAt: 'lastAlertSentAt',
@@ -349,6 +425,31 @@ export const SavedSearchScalarFieldEnum = {
 } as const
 
 export type SavedSearchScalarFieldEnum = (typeof SavedSearchScalarFieldEnum)[keyof typeof SavedSearchScalarFieldEnum]
+
+
+export const PopularSearchScalarFieldEnum = {
+  id: 'id',
+  keyword: 'keyword',
+  normalizedTerm: 'normalizedTerm',
+  searchCount: 'searchCount',
+  lastSearchedAt: 'lastSearchedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PopularSearchScalarFieldEnum = (typeof PopularSearchScalarFieldEnum)[keyof typeof PopularSearchScalarFieldEnum]
+
+
+export const PopularSearchDailyCountScalarFieldEnum = {
+  id: 'id',
+  popularSearchId: 'popularSearchId',
+  searchDate: 'searchDate',
+  searchCount: 'searchCount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PopularSearchDailyCountScalarFieldEnum = (typeof PopularSearchDailyCountScalarFieldEnum)[keyof typeof PopularSearchDailyCountScalarFieldEnum]
 
 
 export const SortOrder = {
