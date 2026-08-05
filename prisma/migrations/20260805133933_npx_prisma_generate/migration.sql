@@ -1,0 +1,2 @@
+-- RenameIndex
+ALTER INDEX "CompanyInvitation_companyId_acceptedAt_cancelledAt_expiresAt_id" RENAME TO "CompanyInvitation_companyId_acceptedAt_cancelledAt_expiresA_idx";

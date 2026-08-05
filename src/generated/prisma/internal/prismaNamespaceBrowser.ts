@@ -64,6 +64,7 @@ export const ModelName = {
   Resume: 'Resume',
   Company: 'Company',
   CompanyMembership: 'CompanyMembership',
+  CompanyInvitation: 'CompanyInvitation',
   AuditLog: 'AuditLog',
   JobCategory: 'JobCategory',
   Job: 'Job',
@@ -292,6 +293,26 @@ export const CompanyMembershipScalarFieldEnum = {
 } as const
 
 export type CompanyMembershipScalarFieldEnum = (typeof CompanyMembershipScalarFieldEnum)[keyof typeof CompanyMembershipScalarFieldEnum]
+
+
+export const CompanyInvitationScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  email: 'email',
+  role: 'role',
+  tokenHash: 'tokenHash',
+  invitedById: 'invitedById',
+  acceptedById: 'acceptedById',
+  expiresAt: 'expiresAt',
+  lastSentAt: 'lastSentAt',
+  sendCount: 'sendCount',
+  acceptedAt: 'acceptedAt',
+  cancelledAt: 'cancelledAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyInvitationScalarFieldEnum = (typeof CompanyInvitationScalarFieldEnum)[keyof typeof CompanyInvitationScalarFieldEnum]
 
 
 export const AuditLogScalarFieldEnum = {

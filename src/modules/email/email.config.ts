@@ -43,6 +43,34 @@ const emailEnvironmentSchema = z.object({
         .min(5)
         .max(1_440)
         .default(30),
+
+    COMPANY_INVITATION_TOKEN_TTL_DAYS: z.coerce
+        .number()
+        .int()
+        .min(1)
+        .max(30)
+        .default(7),
+
+    COMPANY_INVITATION_RESEND_COOLDOWN_MINUTES: z.coerce
+        .number()
+        .int()
+        .min(1)
+        .max(1_440)
+        .default(15),
+
+    COMPANY_INVITATION_RECIPIENT_DAILY_LIMIT: z.coerce
+        .number()
+        .int()
+        .min(1)
+        .max(100)
+        .default(3),
+
+    COMPANY_INVITATION_COMPANY_DAILY_LIMIT: z.coerce
+        .number()
+        .int()
+        .min(1)
+        .max(10_000)
+        .default(50),
 });
 
 const result = emailEnvironmentSchema.safeParse(
@@ -71,4 +99,15 @@ export const emailConfig = {
             .EMAIL_VERIFICATION_TOKEN_TTL_MINUTES,
     passwordResetTokenTtlMinutes:
         result.data.PASSWORD_RESET_TOKEN_TTL_MINUTES,
+    companyInvitationTokenTtlDays:
+        result.data.COMPANY_INVITATION_TOKEN_TTL_DAYS,
+    companyInvitationResendCooldownMinutes:
+        result.data
+            .COMPANY_INVITATION_RESEND_COOLDOWN_MINUTES,
+    companyInvitationRecipientDailyLimit:
+        result.data
+            .COMPANY_INVITATION_RECIPIENT_DAILY_LIMIT,
+    companyInvitationCompanyDailyLimit:
+        result.data
+            .COMPANY_INVITATION_COMPANY_DAILY_LIMIT,
 } as const;

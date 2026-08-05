@@ -1,6 +1,12 @@
 import { z } from "zod";
 
-export const auditEntityTypeSchema = z.enum(["APPLICATION", "JOB", "COMPANY_MEMBERSHIP", "COMPANY"]);
+export const auditEntityTypeSchema = z.enum([
+    "APPLICATION",
+    "JOB",
+    "COMPANY_MEMBERSHIP",
+    "COMPANY_INVITATION",
+    "COMPANY",
+]);
 
 export const companyActivityQuerySchema = z.object({
     page: z.coerce.number().int().min(1).default(1),

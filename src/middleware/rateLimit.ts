@@ -68,3 +68,17 @@ export const fileUploadRateLimiter = createRateLimiter({
     limit: 20,
     message: "Too many file uploads. Please wait before uploading another file.",
 });
+
+export const teamInvitationRateLimiter = createRateLimiter({
+    windowMs: ONE_HOUR,
+    limit: 20,
+    message: "Too many team invitation requests. Please try again later.",
+});
+
+export const companyInvitationAccessRateLimiter = createRateLimiter({
+    windowMs: ONE_HOUR,
+    limit: 30,
+    message:
+        "Too many company invitation link attempts. Please wait before trying again.",
+    skipSuccessfulRequests: true,
+});

@@ -17,6 +17,7 @@ import {
 
 import { createCompanySchema, updateCompanySchema } from "./company.validation.js";
 
+import companyInvitationRouter from "../company-invitations/company-invitation.routes.js";
 import companyMemberRouter from "../company-members/company-member.routes.js";
 import employerApplicationRouter from "../employer-application/employer-application.routes.js";
 import { jobRouter } from "../job/job.routes.js";
@@ -98,6 +99,10 @@ companyRouter.use("/:companyId/jobs", jobRouter);
 // Mounts employer application routes at:
 // /api/companies/:companyId/applications
 companyRouter.use("/:companyId/applications", employerApplicationRouter);
+
+// Mounts company invitation routes at:
+// /api/companies/:companyId/invitations
+companyRouter.use("/:companyId/invitations", companyInvitationRouter);
 
 // Mounts company member routes at:
 // /api/companies/:companyId/members

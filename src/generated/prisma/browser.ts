@@ -83,6 +83,11 @@ export type Company = Prisma.CompanyModel
  */
 export type CompanyMembership = Prisma.CompanyMembershipModel
 /**
+ * Model CompanyInvitation
+ * 
+ */
+export type CompanyInvitation = Prisma.CompanyInvitationModel
+/**
  * Model AuditLog
  * 
  */

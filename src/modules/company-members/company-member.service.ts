@@ -6,6 +6,8 @@ import { prisma } from "../../lib/prisma.js";
 import { AuditAction, AuditEntityType } from "../audit-log/audit-log.constants.js";
 import { createCompanyAuditLog } from "../audit-log/audit-log.service.js";
 
+import { lockCompanyMembership } from "./company-membership-lock.js";
+
 import type {
     AddCompanyMemberInput,
     SearchCompanyMemberCandidatesInput,
@@ -218,6 +220,12 @@ export async function addCompanyMember({ companyId, actorUserId, data }: AddComp
     }
 
     return prisma.$transaction(async (transaction) => {
+        await lockCompanyMembership(
+            transaction,
+            companyId,
+            user.id,
+        );
+
         const existingMembership = await transaction.companyMembership.findUnique({
             where: {
                 companyId_userId: {

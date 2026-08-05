@@ -3,6 +3,7 @@ import { emailConfig } from "../email.config.js";
 type EmailLayoutInput = {
     previewText: string;
     heading: string;
+    headingStyle?: "default" | "compact";
     greeting: string;
     bodyHtml: string;
     actionLabel: string;
@@ -91,6 +92,7 @@ function renderBrandLogo(): string {
 export function renderEmailLayout({
     previewText,
     heading,
+    headingStyle = "default",
     greeting,
     bodyHtml,
     actionLabel,
@@ -107,6 +109,20 @@ export function renderEmailLayout({
         emailConfig.replyTo,
     );
     const brandLogo = renderBrandLogo();
+    const headingTypography =
+        headingStyle === "compact"
+            ? {
+                  fontSize: "24px",
+                  fontWeight: "700",
+                  lineHeight: "1.3",
+                  letterSpacing: "-0.02em",
+              }
+            : {
+                  fontSize: "30px",
+                  fontWeight: "800",
+                  lineHeight: "1.25",
+                  letterSpacing: "-0.04em",
+              };
 
     return `<!doctype html>
 <html lang="en">
@@ -211,10 +227,10 @@ export function renderEmailLayout({
                                     style="
                                         margin: 0;
                                         color: #0f172a;
-                                        font-size: 30px;
-                                        font-weight: 800;
-                                        line-height: 1.25;
-                                        letter-spacing: -0.04em;
+                                        font-size: ${headingTypography.fontSize};
+                                        font-weight: ${headingTypography.fontWeight};
+                                        line-height: ${headingTypography.lineHeight};
+                                        letter-spacing: ${headingTypography.letterSpacing};
                                     "
                                 >
                                     ${safeHeading}
