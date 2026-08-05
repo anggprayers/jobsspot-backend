@@ -273,6 +273,7 @@ export type CompanyWhereInput = {
   memberships?: Prisma.CompanyMembershipListRelationFilter
   jobs?: Prisma.JobListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  invitations?: Prisma.CompanyInvitationListRelationFilter
 }
 
 export type CompanyOrderByWithRelationInput = {
@@ -295,6 +296,7 @@ export type CompanyOrderByWithRelationInput = {
   memberships?: Prisma.CompanyMembershipOrderByRelationAggregateInput
   jobs?: Prisma.JobOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
+  invitations?: Prisma.CompanyInvitationOrderByRelationAggregateInput
 }
 
 export type CompanyWhereUniqueInput = Prisma.AtLeast<{
@@ -320,6 +322,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   memberships?: Prisma.CompanyMembershipListRelationFilter
   jobs?: Prisma.JobListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  invitations?: Prisma.CompanyInvitationListRelationFilter
 }, "id" | "slug">
 
 export type CompanyOrderByWithAggregationInput = {
@@ -386,6 +389,7 @@ export type CompanyCreateInput = {
   memberships?: Prisma.CompanyMembershipCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.CompanyInvitationCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateInput = {
@@ -408,6 +412,7 @@ export type CompanyUncheckedCreateInput = {
   memberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -430,6 +435,7 @@ export type CompanyUpdateInput = {
   memberships?: Prisma.CompanyMembershipUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.CompanyInvitationUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateInput = {
@@ -452,6 +458,7 @@ export type CompanyUncheckedUpdateInput = {
   memberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -587,6 +594,20 @@ export type CompanyUpdateOneRequiredWithoutMembershipsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutMembershipsInput, Prisma.CompanyUpdateWithoutMembershipsInput>, Prisma.CompanyUncheckedUpdateWithoutMembershipsInput>
 }
 
+export type CompanyCreateNestedOneWithoutInvitationsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutInvitationsInput, Prisma.CompanyUncheckedCreateWithoutInvitationsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutInvitationsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneRequiredWithoutInvitationsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutInvitationsInput, Prisma.CompanyUncheckedCreateWithoutInvitationsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutInvitationsInput
+  upsert?: Prisma.CompanyUpsertWithoutInvitationsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutInvitationsInput, Prisma.CompanyUpdateWithoutInvitationsInput>, Prisma.CompanyUncheckedUpdateWithoutInvitationsInput>
+}
+
 export type CompanyCreateNestedOneWithoutAuditLogsInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutAuditLogsInput, Prisma.CompanyUncheckedCreateWithoutAuditLogsInput>
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutAuditLogsInput
@@ -634,6 +655,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   deletedAt?: Date | string | null
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.CompanyInvitationCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutMembershipsInput = {
@@ -655,6 +677,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   deletedAt?: Date | string | null
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutMembershipsInput = {
@@ -692,6 +715,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.CompanyInvitationUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutMembershipsInput = {
@@ -711,6 +735,111 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutInvitationsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  websiteUrl?: string | null
+  logoUrl?: string | null
+  logoPublicId?: string | null
+  bannerUrl?: string | null
+  bannerPublicId?: string | null
+  industry?: string | null
+  companySize?: string | null
+  location?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  memberships?: Prisma.CompanyMembershipCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyUncheckedCreateWithoutInvitationsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  websiteUrl?: string | null
+  logoUrl?: string | null
+  logoPublicId?: string | null
+  bannerUrl?: string | null
+  bannerPublicId?: string | null
+  industry?: string | null
+  companySize?: string | null
+  location?: string | null
+  isVerified?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  memberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutInvitationsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutInvitationsInput, Prisma.CompanyUncheckedCreateWithoutInvitationsInput>
+}
+
+export type CompanyUpsertWithoutInvitationsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutInvitationsInput, Prisma.CompanyUncheckedUpdateWithoutInvitationsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutInvitationsInput, Prisma.CompanyUncheckedCreateWithoutInvitationsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutInvitationsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutInvitationsInput, Prisma.CompanyUncheckedUpdateWithoutInvitationsInput>
+}
+
+export type CompanyUpdateWithoutInvitationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companySize?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.CompanyMembershipUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutInvitationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companySize?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -734,6 +863,7 @@ export type CompanyCreateWithoutAuditLogsInput = {
   deletedAt?: Date | string | null
   memberships?: Prisma.CompanyMembershipCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.CompanyInvitationCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutAuditLogsInput = {
@@ -755,6 +885,7 @@ export type CompanyUncheckedCreateWithoutAuditLogsInput = {
   deletedAt?: Date | string | null
   memberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutAuditLogsInput = {
@@ -792,6 +923,7 @@ export type CompanyUpdateWithoutAuditLogsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   memberships?: Prisma.CompanyMembershipUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.CompanyInvitationUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutAuditLogsInput = {
@@ -813,6 +945,7 @@ export type CompanyUncheckedUpdateWithoutAuditLogsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   memberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutJobsInput = {
@@ -834,6 +967,7 @@ export type CompanyCreateWithoutJobsInput = {
   deletedAt?: Date | string | null
   memberships?: Prisma.CompanyMembershipCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.CompanyInvitationCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutJobsInput = {
@@ -855,6 +989,7 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
   deletedAt?: Date | string | null
   memberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutJobsInput = {
@@ -892,6 +1027,7 @@ export type CompanyUpdateWithoutJobsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   memberships?: Prisma.CompanyMembershipUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.CompanyInvitationUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutJobsInput = {
@@ -913,6 +1049,7 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   memberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 
@@ -924,12 +1061,14 @@ export type CompanyCountOutputType = {
   memberships: number
   jobs: number
   auditLogs: number
+  invitations: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   memberships?: boolean | CompanyCountOutputTypeCountMembershipsArgs
   jobs?: boolean | CompanyCountOutputTypeCountJobsArgs
   auditLogs?: boolean | CompanyCountOutputTypeCountAuditLogsArgs
+  invitations?: boolean | CompanyCountOutputTypeCountInvitationsArgs
 }
 
 /**
@@ -963,6 +1102,13 @@ export type CompanyCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.AuditLogWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyInvitationWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -984,6 +1130,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   memberships?: boolean | Prisma.Company$membershipsArgs<ExtArgs>
   jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Company$auditLogsArgs<ExtArgs>
+  invitations?: boolean | Prisma.Company$invitationsArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
 
@@ -1049,6 +1196,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   memberships?: boolean | Prisma.Company$membershipsArgs<ExtArgs>
   jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Company$auditLogsArgs<ExtArgs>
+  invitations?: boolean | Prisma.Company$invitationsArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CompanyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1060,6 +1208,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     memberships: Prisma.$CompanyMembershipPayload<ExtArgs>[]
     jobs: Prisma.$JobPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+    invitations: Prisma.$CompanyInvitationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1475,6 +1624,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   memberships<T extends Prisma.Company$membershipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$membershipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyMembershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobs<T extends Prisma.Company$jobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.Company$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  invitations<T extends Prisma.Company$invitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1982,6 +2132,30 @@ export type Company$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+}
+
+/**
+ * Company.invitations
+ */
+export type Company$invitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyInvitation
+   */
+  select?: Prisma.CompanyInvitationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyInvitation
+   */
+  omit?: Prisma.CompanyInvitationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInvitationInclude<ExtArgs> | null
+  where?: Prisma.CompanyInvitationWhereInput
+  orderBy?: Prisma.CompanyInvitationOrderByWithRelationInput | Prisma.CompanyInvitationOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyInvitationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyInvitationScalarFieldEnum | Prisma.CompanyInvitationScalarFieldEnum[]
 }
 
 /**

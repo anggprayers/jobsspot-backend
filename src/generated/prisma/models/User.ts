@@ -250,6 +250,8 @@ export type UserWhereInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenListRelationFilter
   passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  sentCompanyInvitations?: Prisma.CompanyInvitationListRelationFilter
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -277,6 +279,8 @@ export type UserOrderByWithRelationInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenOrderByRelationAggregateInput
   passwordResetTokens?: Prisma.PasswordResetTokenOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationOrderByRelationAggregateInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -307,6 +311,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   emailVerificationTokens?: Prisma.EmailVerificationTokenListRelationFilter
   passwordResetTokens?: Prisma.PasswordResetTokenListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
+  sentCompanyInvitations?: Prisma.CompanyInvitationListRelationFilter
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -370,6 +376,8 @@ export type UserCreateInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -397,6 +405,8 @@ export type UserUncheckedCreateInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUpdateInput = {
@@ -424,6 +434,8 @@ export type UserUpdateInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -451,6 +463,8 @@ export type UserUncheckedUpdateInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -671,6 +685,36 @@ export type UserUpdateOneRequiredWithoutCompanyMembershipsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCompanyMembershipsInput, Prisma.UserUpdateWithoutCompanyMembershipsInput>, Prisma.UserUncheckedUpdateWithoutCompanyMembershipsInput>
 }
 
+export type UserCreateNestedOneWithoutSentCompanyInvitationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentCompanyInvitationsInput, Prisma.UserUncheckedCreateWithoutSentCompanyInvitationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentCompanyInvitationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAcceptedCompanyInvitationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAcceptedCompanyInvitationsInput, Prisma.UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAcceptedCompanyInvitationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutSentCompanyInvitationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentCompanyInvitationsInput, Prisma.UserUncheckedCreateWithoutSentCompanyInvitationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentCompanyInvitationsInput
+  upsert?: Prisma.UserUpsertWithoutSentCompanyInvitationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentCompanyInvitationsInput, Prisma.UserUpdateWithoutSentCompanyInvitationsInput>, Prisma.UserUncheckedUpdateWithoutSentCompanyInvitationsInput>
+}
+
+export type UserUpdateOneWithoutAcceptedCompanyInvitationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAcceptedCompanyInvitationsInput, Prisma.UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAcceptedCompanyInvitationsInput
+  upsert?: Prisma.UserUpsertWithoutAcceptedCompanyInvitationsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAcceptedCompanyInvitationsInput, Prisma.UserUpdateWithoutAcceptedCompanyInvitationsInput>, Prisma.UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput>
+}
+
 export type UserCreateNestedOneWithoutAuditLogsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
@@ -767,6 +811,8 @@ export type UserCreateWithoutEmailVerificationTokensInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
@@ -793,6 +839,8 @@ export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserCreateOrConnectWithoutEmailVerificationTokensInput = {
@@ -835,6 +883,8 @@ export type UserUpdateWithoutEmailVerificationTokensInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
@@ -861,6 +911,8 @@ export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -887,6 +939,8 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -913,6 +967,8 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -955,6 +1011,8 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -981,6 +1039,8 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserCreateWithoutOauthAccountsInput = {
@@ -1007,6 +1067,8 @@ export type UserCreateWithoutOauthAccountsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateWithoutOauthAccountsInput = {
@@ -1033,6 +1095,8 @@ export type UserUncheckedCreateWithoutOauthAccountsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserCreateOrConnectWithoutOauthAccountsInput = {
@@ -1075,6 +1139,8 @@ export type UserUpdateWithoutOauthAccountsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthAccountsInput = {
@@ -1101,6 +1167,8 @@ export type UserUncheckedUpdateWithoutOauthAccountsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -1127,6 +1195,8 @@ export type UserCreateWithoutRefreshTokensInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -1153,6 +1223,8 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -1195,6 +1267,8 @@ export type UserUpdateWithoutRefreshTokensInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -1221,6 +1295,8 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserCreateWithoutJobSeekerProfileInput = {
@@ -1247,6 +1323,8 @@ export type UserCreateWithoutJobSeekerProfileInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateWithoutJobSeekerProfileInput = {
@@ -1273,6 +1351,8 @@ export type UserUncheckedCreateWithoutJobSeekerProfileInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserCreateOrConnectWithoutJobSeekerProfileInput = {
@@ -1315,6 +1395,8 @@ export type UserUpdateWithoutJobSeekerProfileInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJobSeekerProfileInput = {
@@ -1341,6 +1423,8 @@ export type UserUncheckedUpdateWithoutJobSeekerProfileInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserCreateWithoutResumesInput = {
@@ -1367,6 +1451,8 @@ export type UserCreateWithoutResumesInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateWithoutResumesInput = {
@@ -1393,6 +1479,8 @@ export type UserUncheckedCreateWithoutResumesInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserCreateOrConnectWithoutResumesInput = {
@@ -1435,6 +1523,8 @@ export type UserUpdateWithoutResumesInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResumesInput = {
@@ -1461,6 +1551,8 @@ export type UserUncheckedUpdateWithoutResumesInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserCreateWithoutCompanyMembershipsInput = {
@@ -1487,6 +1579,8 @@ export type UserCreateWithoutCompanyMembershipsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateWithoutCompanyMembershipsInput = {
@@ -1513,6 +1607,8 @@ export type UserUncheckedCreateWithoutCompanyMembershipsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserCreateOrConnectWithoutCompanyMembershipsInput = {
@@ -1555,6 +1651,8 @@ export type UserUpdateWithoutCompanyMembershipsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyMembershipsInput = {
@@ -1581,6 +1679,264 @@ export type UserUncheckedUpdateWithoutCompanyMembershipsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+}
+
+export type UserCreateWithoutSentCompanyInvitationsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+}
+
+export type UserUncheckedCreateWithoutSentCompanyInvitationsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobUncheckedCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+}
+
+export type UserCreateOrConnectWithoutSentCompanyInvitationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentCompanyInvitationsInput, Prisma.UserUncheckedCreateWithoutSentCompanyInvitationsInput>
+}
+
+export type UserCreateWithoutAcceptedCompanyInvitationsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+}
+
+export type UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobUncheckedCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+}
+
+export type UserCreateOrConnectWithoutAcceptedCompanyInvitationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAcceptedCompanyInvitationsInput, Prisma.UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput>
+}
+
+export type UserUpsertWithoutSentCompanyInvitationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSentCompanyInvitationsInput, Prisma.UserUncheckedUpdateWithoutSentCompanyInvitationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentCompanyInvitationsInput, Prisma.UserUncheckedCreateWithoutSentCompanyInvitationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSentCompanyInvitationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSentCompanyInvitationsInput, Prisma.UserUncheckedUpdateWithoutSentCompanyInvitationsInput>
+}
+
+export type UserUpdateWithoutSentCompanyInvitationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSentCompanyInvitationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+}
+
+export type UserUpsertWithoutAcceptedCompanyInvitationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAcceptedCompanyInvitationsInput, Prisma.UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAcceptedCompanyInvitationsInput, Prisma.UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAcceptedCompanyInvitationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAcceptedCompanyInvitationsInput, Prisma.UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput>
+}
+
+export type UserUpdateWithoutAcceptedCompanyInvitationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -1607,6 +1963,8 @@ export type UserCreateWithoutAuditLogsInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -1633,6 +1991,8 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -1675,6 +2035,8 @@ export type UserUpdateWithoutAuditLogsInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -1701,6 +2063,8 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserCreateWithoutCreatedJobsInput = {
@@ -1727,6 +2091,8 @@ export type UserCreateWithoutCreatedJobsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedJobsInput = {
@@ -1753,6 +2119,8 @@ export type UserUncheckedCreateWithoutCreatedJobsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedJobsInput = {
@@ -1795,6 +2163,8 @@ export type UserUpdateWithoutCreatedJobsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedJobsInput = {
@@ -1821,6 +2191,8 @@ export type UserUncheckedUpdateWithoutCreatedJobsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserCreateWithoutApplicationsInput = {
@@ -1847,6 +2219,8 @@ export type UserCreateWithoutApplicationsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -1873,6 +2247,8 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -1915,6 +2291,8 @@ export type UserUpdateWithoutApplicationsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -1941,6 +2319,8 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserCreateWithoutSavedJobsInput = {
@@ -1967,6 +2347,8 @@ export type UserCreateWithoutSavedJobsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateWithoutSavedJobsInput = {
@@ -1993,6 +2375,8 @@ export type UserUncheckedCreateWithoutSavedJobsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserCreateOrConnectWithoutSavedJobsInput = {
@@ -2035,6 +2419,8 @@ export type UserUpdateWithoutSavedJobsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedJobsInput = {
@@ -2061,6 +2447,8 @@ export type UserUncheckedUpdateWithoutSavedJobsInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserCreateWithoutSavedSearchesInput = {
@@ -2087,6 +2475,8 @@ export type UserCreateWithoutSavedSearchesInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserUncheckedCreateWithoutSavedSearchesInput = {
@@ -2113,6 +2503,8 @@ export type UserUncheckedCreateWithoutSavedSearchesInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
 }
 
 export type UserCreateOrConnectWithoutSavedSearchesInput = {
@@ -2155,6 +2547,8 @@ export type UserUpdateWithoutSavedSearchesInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedSearchesInput = {
@@ -2181,6 +2575,8 @@ export type UserUncheckedUpdateWithoutSavedSearchesInput = {
   emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
 }
 
 
@@ -2200,6 +2596,8 @@ export type UserCountOutputType = {
   emailVerificationTokens: number
   passwordResetTokens: number
   auditLogs: number
+  sentCompanyInvitations: number
+  acceptedCompanyInvitations: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2214,6 +2612,8 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   emailVerificationTokens?: boolean | UserCountOutputTypeCountEmailVerificationTokensArgs
   passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
   auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
+  sentCompanyInvitations?: boolean | UserCountOutputTypeCountSentCompanyInvitationsArgs
+  acceptedCompanyInvitations?: boolean | UserCountOutputTypeCountAcceptedCompanyInvitationsArgs
 }
 
 /**
@@ -2303,6 +2703,20 @@ export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.
   where?: Prisma.AuditLogWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSentCompanyInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyInvitationWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAcceptedCompanyInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyInvitationWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2329,6 +2743,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   emailVerificationTokens?: boolean | Prisma.User$emailVerificationTokensArgs<ExtArgs>
   passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
+  sentCompanyInvitations?: boolean | Prisma.User$sentCompanyInvitationsArgs<ExtArgs>
+  acceptedCompanyInvitations?: boolean | Prisma.User$acceptedCompanyInvitationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2391,6 +2807,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   emailVerificationTokens?: boolean | Prisma.User$emailVerificationTokensArgs<ExtArgs>
   passwordResetTokens?: boolean | Prisma.User$passwordResetTokensArgs<ExtArgs>
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
+  sentCompanyInvitations?: boolean | Prisma.User$sentCompanyInvitationsArgs<ExtArgs>
+  acceptedCompanyInvitations?: boolean | Prisma.User$acceptedCompanyInvitationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -2411,6 +2829,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     emailVerificationTokens: Prisma.$EmailVerificationTokenPayload<ExtArgs>[]
     passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+    sentCompanyInvitations: Prisma.$CompanyInvitationPayload<ExtArgs>[]
+    acceptedCompanyInvitations: Prisma.$CompanyInvitationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2831,6 +3251,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   emailVerificationTokens<T extends Prisma.User$emailVerificationTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$emailVerificationTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EmailVerificationTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   passwordResetTokens<T extends Prisma.User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sentCompanyInvitations<T extends Prisma.User$sentCompanyInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentCompanyInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  acceptedCompanyInvitations<T extends Prisma.User$acceptedCompanyInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$acceptedCompanyInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3545,6 +3967,54 @@ export type User$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+}
+
+/**
+ * User.sentCompanyInvitations
+ */
+export type User$sentCompanyInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyInvitation
+   */
+  select?: Prisma.CompanyInvitationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyInvitation
+   */
+  omit?: Prisma.CompanyInvitationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInvitationInclude<ExtArgs> | null
+  where?: Prisma.CompanyInvitationWhereInput
+  orderBy?: Prisma.CompanyInvitationOrderByWithRelationInput | Prisma.CompanyInvitationOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyInvitationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyInvitationScalarFieldEnum | Prisma.CompanyInvitationScalarFieldEnum[]
+}
+
+/**
+ * User.acceptedCompanyInvitations
+ */
+export type User$acceptedCompanyInvitationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CompanyInvitation
+   */
+  select?: Prisma.CompanyInvitationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CompanyInvitation
+   */
+  omit?: Prisma.CompanyInvitationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInvitationInclude<ExtArgs> | null
+  where?: Prisma.CompanyInvitationWhereInput
+  orderBy?: Prisma.CompanyInvitationOrderByWithRelationInput | Prisma.CompanyInvitationOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyInvitationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyInvitationScalarFieldEnum | Prisma.CompanyInvitationScalarFieldEnum[]
 }
 
 /**

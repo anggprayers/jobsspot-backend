@@ -397,6 +397,7 @@ export const ModelName = {
   Resume: 'Resume',
   Company: 'Company',
   CompanyMembership: 'CompanyMembership',
+  CompanyInvitation: 'CompanyInvitation',
   AuditLog: 'AuditLog',
   JobCategory: 'JobCategory',
   Job: 'Job',
@@ -422,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "emailVerificationToken" | "passwordResetToken" | "oAuthAccount" | "refreshToken" | "jobSeekerProfile" | "jobSeekerSkill" | "workExperience" | "education" | "certification" | "resume" | "company" | "companyMembership" | "auditLog" | "jobCategory" | "job" | "skill" | "jobSkill" | "application" | "savedJob" | "savedSearch" | "popularSearch" | "popularSearchDailyCount"
+    modelProps: "user" | "emailVerificationToken" | "passwordResetToken" | "oAuthAccount" | "refreshToken" | "jobSeekerProfile" | "jobSeekerSkill" | "workExperience" | "education" | "certification" | "resume" | "company" | "companyMembership" | "companyInvitation" | "auditLog" | "jobCategory" | "job" | "skill" | "jobSkill" | "application" | "savedJob" | "savedSearch" | "popularSearch" | "popularSearchDailyCount"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1385,6 +1386,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.CompanyMembershipCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.CompanyMembershipCountAggregateOutputType> | number
+        }
+      }
+    }
+    CompanyInvitation: {
+      payload: Prisma.$CompanyInvitationPayload<ExtArgs>
+      fields: Prisma.CompanyInvitationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CompanyInvitationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyInvitationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CompanyInvitationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyInvitationPayload>
+        }
+        findFirst: {
+          args: Prisma.CompanyInvitationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyInvitationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CompanyInvitationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyInvitationPayload>
+        }
+        findMany: {
+          args: Prisma.CompanyInvitationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyInvitationPayload>[]
+        }
+        create: {
+          args: Prisma.CompanyInvitationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyInvitationPayload>
+        }
+        createMany: {
+          args: Prisma.CompanyInvitationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CompanyInvitationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyInvitationPayload>[]
+        }
+        delete: {
+          args: Prisma.CompanyInvitationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyInvitationPayload>
+        }
+        update: {
+          args: Prisma.CompanyInvitationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyInvitationPayload>
+        }
+        deleteMany: {
+          args: Prisma.CompanyInvitationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CompanyInvitationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CompanyInvitationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyInvitationPayload>[]
+        }
+        upsert: {
+          args: Prisma.CompanyInvitationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CompanyInvitationPayload>
+        }
+        aggregate: {
+          args: Prisma.CompanyInvitationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCompanyInvitation>
+        }
+        groupBy: {
+          args: Prisma.CompanyInvitationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyInvitationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CompanyInvitationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CompanyInvitationCountAggregateOutputType> | number
         }
       }
     }
@@ -2369,6 +2444,26 @@ export const CompanyMembershipScalarFieldEnum = {
 export type CompanyMembershipScalarFieldEnum = (typeof CompanyMembershipScalarFieldEnum)[keyof typeof CompanyMembershipScalarFieldEnum]
 
 
+export const CompanyInvitationScalarFieldEnum = {
+  id: 'id',
+  companyId: 'companyId',
+  email: 'email',
+  role: 'role',
+  tokenHash: 'tokenHash',
+  invitedById: 'invitedById',
+  acceptedById: 'acceptedById',
+  expiresAt: 'expiresAt',
+  lastSentAt: 'lastSentAt',
+  sendCount: 'sendCount',
+  acceptedAt: 'acceptedAt',
+  cancelledAt: 'cancelledAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CompanyInvitationScalarFieldEnum = (typeof CompanyInvitationScalarFieldEnum)[keyof typeof CompanyInvitationScalarFieldEnum]
+
+
 export const AuditLogScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -2913,6 +3008,7 @@ export type GlobalOmitConfig = {
   resume?: Prisma.ResumeOmit
   company?: Prisma.CompanyOmit
   companyMembership?: Prisma.CompanyMembershipOmit
+  companyInvitation?: Prisma.CompanyInvitationOmit
   auditLog?: Prisma.AuditLogOmit
   jobCategory?: Prisma.JobCategoryOmit
   job?: Prisma.JobOmit

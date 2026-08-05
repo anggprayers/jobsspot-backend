@@ -6,9 +6,14 @@ import { AppError } from "./AppError.js";
 
 export const errorHandler: ErrorRequestHandler = (error, _request, response, _next) => {
     if (error instanceof AppError) {
+        if (error.headers) {
+            response.set(error.headers);
+        }
+
         response.status(error.statusCode).json({
             success: false,
             message: error.message,
+            ...(error.details ?? {}),
         });
 
         return;

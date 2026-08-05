@@ -99,6 +99,8 @@ model User {
   emailVerificationTokens EmailVerificationToken[]
   passwordResetTokens     PasswordResetToken[]
   auditLogs               AuditLog[]               @relation("AuditLogActor")
+  sentCompanyInvitations  CompanyInvitation[]      @relation("CompanyInvitationInvitedBy")
+  acceptedCompanyInvitations CompanyInvitation[]    @relation("CompanyInvitationAcceptedBy")
 
   @@index([deletedAt])
 }
@@ -299,6 +301,7 @@ model Company {
   memberships CompanyMembership[]
   jobs        Job[]
   auditLogs   AuditLog[]
+  invitations CompanyInvitation[]
 
   @@index([name])
   @@index([deletedAt])
@@ -319,6 +322,34 @@ model CompanyMembership {
   @@index([userId])
   @@index([companyId, role])
   @@index([deletedAt])
+}
+
+
+model CompanyInvitation {
+  id           String            @id @default(uuid()) @db.Uuid
+  companyId    String            @db.Uuid
+  email        String
+  role         CompanyMemberRole
+  tokenHash    String            @unique
+  invitedById  String            @db.Uuid
+  acceptedById String?           @db.Uuid
+  expiresAt    DateTime
+  lastSentAt   DateTime?
+  sendCount    Int               @default(0)
+  acceptedAt   DateTime?
+  cancelledAt  DateTime?
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  company    Company @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  invitedBy  User    @relation("CompanyInvitationInvitedBy", fields: [invitedById], references: [id], onDelete: Restrict)
+  acceptedBy User?   @relation("CompanyInvitationAcceptedBy", fields: [acceptedById], references: [id], onDelete: SetNull)
+
+  @@unique([companyId, email])
+  @@index([companyId, acceptedAt, cancelledAt, expiresAt])
+  @@index([invitedById])
+  @@index([acceptedById])
+  @@index([expiresAt])
 }
 
 model AuditLog {

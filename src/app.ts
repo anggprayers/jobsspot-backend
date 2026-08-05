@@ -8,6 +8,7 @@ import { errorHandler } from "./errors/errorHandler.js";
 import { apiRateLimiter } from "./middleware/rateLimit.js";
 import authRouter from "./modules/auth/auth.routes.js";
 import companyRouter from "./modules/company/company.routes.js";
+import companyInvitationAcceptanceRouter from "./modules/company-invitations/company-invitation-acceptance.routes.js";
 import jobSeekerApplicationRouter from "./modules/job-seeker-application/job-seeker-application.routes.js";
 import jobSeekerProfileRouter from "./modules/job-seeker-profile/job-seeker-profile.routes.js";
 import { publicJobRouter } from "./modules/public-job/public-job.routes.js";
@@ -50,6 +51,8 @@ app.use("/api/applications", jobSeekerApplicationRouter);
 app.use("/api/saved-jobs", savedJobRouter);
 
 app.use("/api/saved-searches", savedSearchRouter);
+
+app.use("/api/company-invitations", companyInvitationAcceptanceRouter);
 
 app.use("/api/companies", companyRouter);
 
