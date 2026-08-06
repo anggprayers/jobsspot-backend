@@ -167,24 +167,43 @@ export async function refresh(
         return;
     }
 
-    const result =
-        await refreshUserSession(
-            refreshToken,
+    try {
+        const result =
+            await refreshUserSession(
+                refreshToken,
+            );
+
+        setRefreshTokenCookie(
+            response,
+            result.refreshToken,
         );
 
-    setRefreshTokenCookie(
-        response,
-        result.refreshToken,
-    );
+        response.status(200).json({
+            success: true,
+            authenticated: true,
+            message:
+                "Session refreshed successfully.",
+            user: result.user,
+            accessToken: result.accessToken,
+        });
+    } catch (error) {
+        if (
+            error instanceof AppError &&
+            (error.statusCode === 401 || error.statusCode === 403)
+        ) {
+            clearRefreshTokenCookie(response);
 
-    response.status(200).json({
-        success: true,
-        authenticated: true,
-        message:
-            "Session refreshed successfully.",
-        user: result.user,
-        accessToken: result.accessToken,
-    });
+            response.status(200).json({
+                success: true,
+                authenticated: false,
+                message: "No active session.",
+            });
+
+            return;
+        }
+
+        throw error;
+    }
 }
 
 export async function logout(

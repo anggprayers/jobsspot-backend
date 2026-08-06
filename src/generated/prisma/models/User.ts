@@ -34,6 +34,9 @@ export type UserMinAggregateOutputType = {
   avatarUrl: string | null
   isEmailVerified: boolean | null
   isAdmin: boolean | null
+  suspendedAt: Date | null
+  suspensionReason: string | null
+  suspendedById: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -49,6 +52,9 @@ export type UserMaxAggregateOutputType = {
   avatarUrl: string | null
   isEmailVerified: boolean | null
   isAdmin: boolean | null
+  suspendedAt: Date | null
+  suspensionReason: string | null
+  suspendedById: string | null
   createdAt: Date | null
   updatedAt: Date | null
   deletedAt: Date | null
@@ -64,6 +70,9 @@ export type UserCountAggregateOutputType = {
   avatarUrl: number
   isEmailVerified: number
   isAdmin: number
+  suspendedAt: number
+  suspensionReason: number
+  suspendedById: number
   createdAt: number
   updatedAt: number
   deletedAt: number
@@ -81,6 +90,9 @@ export type UserMinAggregateInputType = {
   avatarUrl?: true
   isEmailVerified?: true
   isAdmin?: true
+  suspendedAt?: true
+  suspensionReason?: true
+  suspendedById?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -96,6 +108,9 @@ export type UserMaxAggregateInputType = {
   avatarUrl?: true
   isEmailVerified?: true
   isAdmin?: true
+  suspendedAt?: true
+  suspensionReason?: true
+  suspendedById?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -111,6 +126,9 @@ export type UserCountAggregateInputType = {
   avatarUrl?: true
   isEmailVerified?: true
   isAdmin?: true
+  suspendedAt?: true
+  suspensionReason?: true
+  suspendedById?: true
   createdAt?: true
   updatedAt?: true
   deletedAt?: true
@@ -199,6 +217,9 @@ export type UserGroupByOutputType = {
   avatarUrl: string | null
   isEmailVerified: boolean
   isAdmin: boolean
+  suspendedAt: Date | null
+  suspensionReason: string | null
+  suspendedById: string | null
   createdAt: Date
   updatedAt: Date
   deletedAt: Date | null
@@ -235,6 +256,9 @@ export type UserWhereInput = {
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   isEmailVerified?: Prisma.BoolFilter<"User"> | boolean
   isAdmin?: Prisma.BoolFilter<"User"> | boolean
+  suspendedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  suspensionReason?: Prisma.StringNullableFilter<"User"> | string | null
+  suspendedById?: Prisma.UuidNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -252,6 +276,10 @@ export type UserWhereInput = {
   auditLogs?: Prisma.AuditLogListRelationFilter
   sentCompanyInvitations?: Prisma.CompanyInvitationListRelationFilter
   acceptedCompanyInvitations?: Prisma.CompanyInvitationListRelationFilter
+  suspendedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  suspendedUsers?: Prisma.UserListRelationFilter
+  suspendedCompanies?: Prisma.CompanyListRelationFilter
+  platformAuditLogs?: Prisma.PlatformAuditLogListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -264,6 +292,9 @@ export type UserOrderByWithRelationInput = {
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  suspendedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  suspensionReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  suspendedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -281,6 +312,10 @@ export type UserOrderByWithRelationInput = {
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
   sentCompanyInvitations?: Prisma.CompanyInvitationOrderByRelationAggregateInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationOrderByRelationAggregateInput
+  suspendedBy?: Prisma.UserOrderByWithRelationInput
+  suspendedUsers?: Prisma.UserOrderByRelationAggregateInput
+  suspendedCompanies?: Prisma.CompanyOrderByRelationAggregateInput
+  platformAuditLogs?: Prisma.PlatformAuditLogOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -296,6 +331,9 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
   isEmailVerified?: Prisma.BoolFilter<"User"> | boolean
   isAdmin?: Prisma.BoolFilter<"User"> | boolean
+  suspendedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  suspensionReason?: Prisma.StringNullableFilter<"User"> | string | null
+  suspendedById?: Prisma.UuidNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
@@ -313,6 +351,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   auditLogs?: Prisma.AuditLogListRelationFilter
   sentCompanyInvitations?: Prisma.CompanyInvitationListRelationFilter
   acceptedCompanyInvitations?: Prisma.CompanyInvitationListRelationFilter
+  suspendedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
+  suspendedUsers?: Prisma.UserListRelationFilter
+  suspendedCompanies?: Prisma.CompanyListRelationFilter
+  platformAuditLogs?: Prisma.PlatformAuditLogListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -325,6 +367,9 @@ export type UserOrderByWithAggregationInput = {
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  suspendedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  suspensionReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  suspendedById?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -346,6 +391,9 @@ export type UserScalarWhereWithAggregatesInput = {
   avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isEmailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   isAdmin?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
+  suspendedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  suspensionReason?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  suspendedById?: Prisma.UuidNullableWithAggregatesFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
@@ -361,6 +409,8 @@ export type UserCreateInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -378,6 +428,10 @@ export type UserCreateInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -390,6 +444,9 @@ export type UserUncheckedCreateInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -407,6 +464,9 @@ export type UserUncheckedCreateInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUpdateInput = {
@@ -419,6 +479,8 @@ export type UserUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -436,6 +498,10 @@ export type UserUpdateInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -448,6 +514,9 @@ export type UserUncheckedUpdateInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -465,6 +534,9 @@ export type UserUncheckedUpdateInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -477,6 +549,9 @@ export type UserCreateManyInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -492,6 +567,8 @@ export type UserUpdateManyMutationInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -507,9 +584,27 @@ export type UserUncheckedUpdateManyInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
+}
+
+export type UserListRelationFilter = {
+  every?: Prisma.UserWhereInput
+  some?: Prisma.UserWhereInput
+  none?: Prisma.UserWhereInput
+}
+
+export type UserOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -522,6 +617,9 @@ export type UserCountOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  suspendedAt?: Prisma.SortOrder
+  suspensionReason?: Prisma.SortOrder
+  suspendedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -537,6 +635,9 @@ export type UserMaxOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  suspendedAt?: Prisma.SortOrder
+  suspensionReason?: Prisma.SortOrder
+  suspendedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -552,6 +653,9 @@ export type UserMinOrderByAggregateInput = {
   avatarUrl?: Prisma.SortOrder
   isEmailVerified?: Prisma.SortOrder
   isAdmin?: Prisma.SortOrder
+  suspendedAt?: Prisma.SortOrder
+  suspensionReason?: Prisma.SortOrder
+  suspendedById?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
@@ -562,9 +666,24 @@ export type UserScalarRelationFilter = {
   isNot?: Prisma.UserWhereInput
 }
 
-export type UserNullableScalarRelationFilter = {
-  is?: Prisma.UserWhereInput | null
-  isNot?: Prisma.UserWhereInput | null
+export type UserCreateNestedOneWithoutSuspendedUsersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuspendedUsersInput, Prisma.UserUncheckedCreateWithoutSuspendedUsersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuspendedUsersInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedManyWithoutSuspendedByInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuspendedByInput, Prisma.UserUncheckedCreateWithoutSuspendedByInput> | Prisma.UserCreateWithoutSuspendedByInput[] | Prisma.UserUncheckedCreateWithoutSuspendedByInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuspendedByInput | Prisma.UserCreateOrConnectWithoutSuspendedByInput[]
+  createMany?: Prisma.UserCreateManySuspendedByInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+}
+
+export type UserUncheckedCreateNestedManyWithoutSuspendedByInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuspendedByInput, Prisma.UserUncheckedCreateWithoutSuspendedByInput> | Prisma.UserCreateWithoutSuspendedByInput[] | Prisma.UserUncheckedCreateWithoutSuspendedByInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuspendedByInput | Prisma.UserCreateOrConnectWithoutSuspendedByInput[]
+  createMany?: Prisma.UserCreateManySuspendedByInputEnvelope
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -579,12 +698,50 @@ export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
+export type UserUpdateOneWithoutSuspendedUsersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuspendedUsersInput, Prisma.UserUncheckedCreateWithoutSuspendedUsersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuspendedUsersInput
+  upsert?: Prisma.UserUpsertWithoutSuspendedUsersInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSuspendedUsersInput, Prisma.UserUpdateWithoutSuspendedUsersInput>, Prisma.UserUncheckedUpdateWithoutSuspendedUsersInput>
+}
+
+export type UserUpdateManyWithoutSuspendedByNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuspendedByInput, Prisma.UserUncheckedCreateWithoutSuspendedByInput> | Prisma.UserCreateWithoutSuspendedByInput[] | Prisma.UserUncheckedCreateWithoutSuspendedByInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuspendedByInput | Prisma.UserCreateOrConnectWithoutSuspendedByInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutSuspendedByInput | Prisma.UserUpsertWithWhereUniqueWithoutSuspendedByInput[]
+  createMany?: Prisma.UserCreateManySuspendedByInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutSuspendedByInput | Prisma.UserUpdateWithWhereUniqueWithoutSuspendedByInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutSuspendedByInput | Prisma.UserUpdateManyWithWhereWithoutSuspendedByInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+}
+
+export type UserUncheckedUpdateManyWithoutSuspendedByNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuspendedByInput, Prisma.UserUncheckedCreateWithoutSuspendedByInput> | Prisma.UserCreateWithoutSuspendedByInput[] | Prisma.UserUncheckedCreateWithoutSuspendedByInput[]
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuspendedByInput | Prisma.UserCreateOrConnectWithoutSuspendedByInput[]
+  upsert?: Prisma.UserUpsertWithWhereUniqueWithoutSuspendedByInput | Prisma.UserUpsertWithWhereUniqueWithoutSuspendedByInput[]
+  createMany?: Prisma.UserCreateManySuspendedByInputEnvelope
+  set?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  disconnect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  delete?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  connect?: Prisma.UserWhereUniqueInput | Prisma.UserWhereUniqueInput[]
+  update?: Prisma.UserUpdateWithWhereUniqueWithoutSuspendedByInput | Prisma.UserUpdateWithWhereUniqueWithoutSuspendedByInput[]
+  updateMany?: Prisma.UserUpdateManyWithWhereWithoutSuspendedByInput | Prisma.UserUpdateManyWithWhereWithoutSuspendedByInput[]
+  deleteMany?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
 }
 
 export type UserCreateNestedOneWithoutEmailVerificationTokensInput = {
@@ -671,6 +828,22 @@ export type UserUpdateOneRequiredWithoutResumesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutResumesInput, Prisma.UserUpdateWithoutResumesInput>, Prisma.UserUncheckedUpdateWithoutResumesInput>
 }
 
+export type UserCreateNestedOneWithoutSuspendedCompaniesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuspendedCompaniesInput, Prisma.UserUncheckedCreateWithoutSuspendedCompaniesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuspendedCompaniesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutSuspendedCompaniesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSuspendedCompaniesInput, Prisma.UserUncheckedCreateWithoutSuspendedCompaniesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSuspendedCompaniesInput
+  upsert?: Prisma.UserUpsertWithoutSuspendedCompaniesInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSuspendedCompaniesInput, Prisma.UserUpdateWithoutSuspendedCompaniesInput>, Prisma.UserUncheckedUpdateWithoutSuspendedCompaniesInput>
+}
+
 export type UserCreateNestedOneWithoutCompanyMembershipsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCompanyMembershipsInput, Prisma.UserUncheckedCreateWithoutCompanyMembershipsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCompanyMembershipsInput
@@ -731,6 +904,22 @@ export type UserUpdateOneWithoutAuditLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.UserUpdateWithoutAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
 }
 
+export type UserCreateNestedOneWithoutPlatformAuditLogsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPlatformAuditLogsInput, Prisma.UserUncheckedCreateWithoutPlatformAuditLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlatformAuditLogsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutPlatformAuditLogsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPlatformAuditLogsInput, Prisma.UserUncheckedCreateWithoutPlatformAuditLogsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlatformAuditLogsInput
+  upsert?: Prisma.UserUpsertWithoutPlatformAuditLogsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPlatformAuditLogsInput, Prisma.UserUpdateWithoutPlatformAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutPlatformAuditLogsInput>
+}
+
 export type UserCreateNestedOneWithoutCreatedJobsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedJobsInput, Prisma.UserUncheckedCreateWithoutCreatedJobsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedJobsInput
@@ -787,6 +976,273 @@ export type UserUpdateOneRequiredWithoutSavedSearchesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSavedSearchesInput, Prisma.UserUpdateWithoutSavedSearchesInput>, Prisma.UserUncheckedUpdateWithoutSavedSearchesInput>
 }
 
+export type UserCreateWithoutSuspendedUsersInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+}
+
+export type UserUncheckedCreateWithoutSuspendedUsersInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobUncheckedCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+}
+
+export type UserCreateOrConnectWithoutSuspendedUsersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuspendedUsersInput, Prisma.UserUncheckedCreateWithoutSuspendedUsersInput>
+}
+
+export type UserCreateWithoutSuspendedByInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+}
+
+export type UserUncheckedCreateWithoutSuspendedByInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobUncheckedCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+}
+
+export type UserCreateOrConnectWithoutSuspendedByInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuspendedByInput, Prisma.UserUncheckedCreateWithoutSuspendedByInput>
+}
+
+export type UserCreateManySuspendedByInputEnvelope = {
+  data: Prisma.UserCreateManySuspendedByInput | Prisma.UserCreateManySuspendedByInput[]
+  skipDuplicates?: boolean
+}
+
+export type UserUpsertWithoutSuspendedUsersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSuspendedUsersInput, Prisma.UserUncheckedUpdateWithoutSuspendedUsersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuspendedUsersInput, Prisma.UserUncheckedCreateWithoutSuspendedUsersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSuspendedUsersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSuspendedUsersInput, Prisma.UserUncheckedUpdateWithoutSuspendedUsersInput>
+}
+
+export type UserUpdateWithoutSuspendedUsersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSuspendedUsersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+}
+
+export type UserUpsertWithWhereUniqueWithoutSuspendedByInput = {
+  where: Prisma.UserWhereUniqueInput
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSuspendedByInput, Prisma.UserUncheckedUpdateWithoutSuspendedByInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuspendedByInput, Prisma.UserUncheckedCreateWithoutSuspendedByInput>
+}
+
+export type UserUpdateWithWhereUniqueWithoutSuspendedByInput = {
+  where: Prisma.UserWhereUniqueInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSuspendedByInput, Prisma.UserUncheckedUpdateWithoutSuspendedByInput>
+}
+
+export type UserUpdateManyWithWhereWithoutSuspendedByInput = {
+  where: Prisma.UserScalarWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateManyMutationInput, Prisma.UserUncheckedUpdateManyWithoutSuspendedByInput>
+}
+
+export type UserScalarWhereInput = {
+  AND?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  OR?: Prisma.UserScalarWhereInput[]
+  NOT?: Prisma.UserScalarWhereInput | Prisma.UserScalarWhereInput[]
+  id?: Prisma.UuidFilter<"User"> | string
+  email?: Prisma.StringFilter<"User"> | string
+  passwordHash?: Prisma.StringNullableFilter<"User"> | string | null
+  firstName?: Prisma.StringFilter<"User"> | string
+  lastName?: Prisma.StringFilter<"User"> | string
+  phone?: Prisma.StringNullableFilter<"User"> | string | null
+  avatarUrl?: Prisma.StringNullableFilter<"User"> | string | null
+  isEmailVerified?: Prisma.BoolFilter<"User"> | boolean
+  isAdmin?: Prisma.BoolFilter<"User"> | boolean
+  suspendedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  suspensionReason?: Prisma.StringNullableFilter<"User"> | string | null
+  suspendedById?: Prisma.UuidNullableFilter<"User"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  deletedAt?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+}
+
 export type UserCreateWithoutEmailVerificationTokensInput = {
   id?: string
   email: string
@@ -797,6 +1253,8 @@ export type UserCreateWithoutEmailVerificationTokensInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -813,6 +1271,10 @@ export type UserCreateWithoutEmailVerificationTokensInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
@@ -825,6 +1287,9 @@ export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -841,6 +1306,9 @@ export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailVerificationTokensInput = {
@@ -869,6 +1337,8 @@ export type UserUpdateWithoutEmailVerificationTokensInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -885,6 +1355,10 @@ export type UserUpdateWithoutEmailVerificationTokensInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
@@ -897,6 +1371,9 @@ export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -913,6 +1390,9 @@ export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -925,6 +1405,8 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -941,6 +1423,10 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -953,6 +1439,9 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -969,6 +1458,9 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -997,6 +1489,8 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1013,6 +1507,10 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -1025,6 +1523,9 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1041,6 +1542,9 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateWithoutOauthAccountsInput = {
@@ -1053,6 +1557,8 @@ export type UserCreateWithoutOauthAccountsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1069,6 +1575,10 @@ export type UserCreateWithoutOauthAccountsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutOauthAccountsInput = {
@@ -1081,6 +1591,9 @@ export type UserUncheckedCreateWithoutOauthAccountsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1097,6 +1610,9 @@ export type UserUncheckedCreateWithoutOauthAccountsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutOauthAccountsInput = {
@@ -1125,6 +1641,8 @@ export type UserUpdateWithoutOauthAccountsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1141,6 +1659,10 @@ export type UserUpdateWithoutOauthAccountsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthAccountsInput = {
@@ -1153,6 +1675,9 @@ export type UserUncheckedUpdateWithoutOauthAccountsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1169,6 +1694,9 @@ export type UserUncheckedUpdateWithoutOauthAccountsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -1181,6 +1709,8 @@ export type UserCreateWithoutRefreshTokensInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1197,6 +1727,10 @@ export type UserCreateWithoutRefreshTokensInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -1209,6 +1743,9 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1225,6 +1762,9 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -1253,6 +1793,8 @@ export type UserUpdateWithoutRefreshTokensInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1269,6 +1811,10 @@ export type UserUpdateWithoutRefreshTokensInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -1281,6 +1827,9 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1297,6 +1846,9 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateWithoutJobSeekerProfileInput = {
@@ -1309,6 +1861,8 @@ export type UserCreateWithoutJobSeekerProfileInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1325,6 +1879,10 @@ export type UserCreateWithoutJobSeekerProfileInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutJobSeekerProfileInput = {
@@ -1337,6 +1895,9 @@ export type UserUncheckedCreateWithoutJobSeekerProfileInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1353,6 +1914,9 @@ export type UserUncheckedCreateWithoutJobSeekerProfileInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutJobSeekerProfileInput = {
@@ -1381,6 +1945,8 @@ export type UserUpdateWithoutJobSeekerProfileInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1397,6 +1963,10 @@ export type UserUpdateWithoutJobSeekerProfileInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJobSeekerProfileInput = {
@@ -1409,6 +1979,9 @@ export type UserUncheckedUpdateWithoutJobSeekerProfileInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1425,6 +1998,9 @@ export type UserUncheckedUpdateWithoutJobSeekerProfileInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateWithoutResumesInput = {
@@ -1437,6 +2013,8 @@ export type UserCreateWithoutResumesInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1453,6 +2031,10 @@ export type UserCreateWithoutResumesInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutResumesInput = {
@@ -1465,6 +2047,9 @@ export type UserUncheckedCreateWithoutResumesInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1481,6 +2066,9 @@ export type UserUncheckedCreateWithoutResumesInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutResumesInput = {
@@ -1509,6 +2097,8 @@ export type UserUpdateWithoutResumesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1525,6 +2115,10 @@ export type UserUpdateWithoutResumesInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResumesInput = {
@@ -1537,6 +2131,9 @@ export type UserUncheckedUpdateWithoutResumesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1553,6 +2150,161 @@ export type UserUncheckedUpdateWithoutResumesInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+}
+
+export type UserCreateWithoutSuspendedCompaniesInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+}
+
+export type UserUncheckedCreateWithoutSuspendedCompaniesInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobUncheckedCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+}
+
+export type UserCreateOrConnectWithoutSuspendedCompaniesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuspendedCompaniesInput, Prisma.UserUncheckedCreateWithoutSuspendedCompaniesInput>
+}
+
+export type UserUpsertWithoutSuspendedCompaniesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSuspendedCompaniesInput, Prisma.UserUncheckedUpdateWithoutSuspendedCompaniesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSuspendedCompaniesInput, Prisma.UserUncheckedCreateWithoutSuspendedCompaniesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSuspendedCompaniesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSuspendedCompaniesInput, Prisma.UserUncheckedUpdateWithoutSuspendedCompaniesInput>
+}
+
+export type UserUpdateWithoutSuspendedCompaniesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSuspendedCompaniesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateWithoutCompanyMembershipsInput = {
@@ -1565,6 +2317,8 @@ export type UserCreateWithoutCompanyMembershipsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1581,6 +2335,10 @@ export type UserCreateWithoutCompanyMembershipsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutCompanyMembershipsInput = {
@@ -1593,6 +2351,9 @@ export type UserUncheckedCreateWithoutCompanyMembershipsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1609,6 +2370,9 @@ export type UserUncheckedCreateWithoutCompanyMembershipsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutCompanyMembershipsInput = {
@@ -1637,6 +2401,8 @@ export type UserUpdateWithoutCompanyMembershipsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1653,6 +2419,10 @@ export type UserUpdateWithoutCompanyMembershipsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyMembershipsInput = {
@@ -1665,6 +2435,9 @@ export type UserUncheckedUpdateWithoutCompanyMembershipsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1681,6 +2454,9 @@ export type UserUncheckedUpdateWithoutCompanyMembershipsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateWithoutSentCompanyInvitationsInput = {
@@ -1693,6 +2469,8 @@ export type UserCreateWithoutSentCompanyInvitationsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1709,6 +2487,10 @@ export type UserCreateWithoutSentCompanyInvitationsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutSentCompanyInvitationsInput = {
@@ -1721,6 +2503,9 @@ export type UserUncheckedCreateWithoutSentCompanyInvitationsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1737,6 +2522,9 @@ export type UserUncheckedCreateWithoutSentCompanyInvitationsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutSentCompanyInvitationsInput = {
@@ -1754,6 +2542,8 @@ export type UserCreateWithoutAcceptedCompanyInvitationsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1770,6 +2560,10 @@ export type UserCreateWithoutAcceptedCompanyInvitationsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput = {
@@ -1782,6 +2576,9 @@ export type UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1798,6 +2595,9 @@ export type UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutAcceptedCompanyInvitationsInput = {
@@ -1826,6 +2626,8 @@ export type UserUpdateWithoutSentCompanyInvitationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1842,6 +2644,10 @@ export type UserUpdateWithoutSentCompanyInvitationsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentCompanyInvitationsInput = {
@@ -1854,6 +2660,9 @@ export type UserUncheckedUpdateWithoutSentCompanyInvitationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1870,6 +2679,9 @@ export type UserUncheckedUpdateWithoutSentCompanyInvitationsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUpsertWithoutAcceptedCompanyInvitationsInput = {
@@ -1893,6 +2705,8 @@ export type UserUpdateWithoutAcceptedCompanyInvitationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1909,6 +2723,10 @@ export type UserUpdateWithoutAcceptedCompanyInvitationsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput = {
@@ -1921,6 +2739,9 @@ export type UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1937,6 +2758,9 @@ export type UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -1949,6 +2773,8 @@ export type UserCreateWithoutAuditLogsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1965,6 +2791,10 @@ export type UserCreateWithoutAuditLogsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -1977,6 +2807,9 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -1993,6 +2826,9 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -2021,6 +2857,8 @@ export type UserUpdateWithoutAuditLogsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2037,6 +2875,10 @@ export type UserUpdateWithoutAuditLogsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -2049,6 +2891,9 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2065,6 +2910,161 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+}
+
+export type UserCreateWithoutPlatformAuditLogsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+}
+
+export type UserUncheckedCreateWithoutPlatformAuditLogsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobUncheckedCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+}
+
+export type UserCreateOrConnectWithoutPlatformAuditLogsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPlatformAuditLogsInput, Prisma.UserUncheckedCreateWithoutPlatformAuditLogsInput>
+}
+
+export type UserUpsertWithoutPlatformAuditLogsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPlatformAuditLogsInput, Prisma.UserUncheckedUpdateWithoutPlatformAuditLogsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPlatformAuditLogsInput, Prisma.UserUncheckedCreateWithoutPlatformAuditLogsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPlatformAuditLogsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPlatformAuditLogsInput, Prisma.UserUncheckedUpdateWithoutPlatformAuditLogsInput>
+}
+
+export type UserUpdateWithoutPlatformAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPlatformAuditLogsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
 }
 
 export type UserCreateWithoutCreatedJobsInput = {
@@ -2077,6 +3077,8 @@ export type UserCreateWithoutCreatedJobsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2093,6 +3095,10 @@ export type UserCreateWithoutCreatedJobsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedJobsInput = {
@@ -2105,6 +3111,9 @@ export type UserUncheckedCreateWithoutCreatedJobsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2121,6 +3130,9 @@ export type UserUncheckedCreateWithoutCreatedJobsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedJobsInput = {
@@ -2149,6 +3161,8 @@ export type UserUpdateWithoutCreatedJobsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2165,6 +3179,10 @@ export type UserUpdateWithoutCreatedJobsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedJobsInput = {
@@ -2177,6 +3195,9 @@ export type UserUncheckedUpdateWithoutCreatedJobsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2193,6 +3214,9 @@ export type UserUncheckedUpdateWithoutCreatedJobsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateWithoutApplicationsInput = {
@@ -2205,6 +3229,8 @@ export type UserCreateWithoutApplicationsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2221,6 +3247,10 @@ export type UserCreateWithoutApplicationsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -2233,6 +3263,9 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2249,6 +3282,9 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -2277,6 +3313,8 @@ export type UserUpdateWithoutApplicationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2293,6 +3331,10 @@ export type UserUpdateWithoutApplicationsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -2305,6 +3347,9 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2321,6 +3366,9 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateWithoutSavedJobsInput = {
@@ -2333,6 +3381,8 @@ export type UserCreateWithoutSavedJobsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2349,6 +3399,10 @@ export type UserCreateWithoutSavedJobsInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutSavedJobsInput = {
@@ -2361,6 +3415,9 @@ export type UserUncheckedCreateWithoutSavedJobsInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2377,6 +3434,9 @@ export type UserUncheckedCreateWithoutSavedJobsInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutSavedJobsInput = {
@@ -2405,6 +3465,8 @@ export type UserUpdateWithoutSavedJobsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2421,6 +3483,10 @@ export type UserUpdateWithoutSavedJobsInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedJobsInput = {
@@ -2433,6 +3499,9 @@ export type UserUncheckedUpdateWithoutSavedJobsInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2449,6 +3518,9 @@ export type UserUncheckedUpdateWithoutSavedJobsInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateWithoutSavedSearchesInput = {
@@ -2461,6 +3533,8 @@ export type UserCreateWithoutSavedSearchesInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2477,6 +3551,10 @@ export type UserCreateWithoutSavedSearchesInput = {
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
 }
 
 export type UserUncheckedCreateWithoutSavedSearchesInput = {
@@ -2489,6 +3567,9 @@ export type UserUncheckedCreateWithoutSavedSearchesInput = {
   avatarUrl?: string | null
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   deletedAt?: Date | string | null
@@ -2505,6 +3586,9 @@ export type UserUncheckedCreateWithoutSavedSearchesInput = {
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
 }
 
 export type UserCreateOrConnectWithoutSavedSearchesInput = {
@@ -2533,6 +3617,8 @@ export type UserUpdateWithoutSavedSearchesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2549,6 +3635,10 @@ export type UserUpdateWithoutSavedSearchesInput = {
   auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedSearchesInput = {
@@ -2561,6 +3651,9 @@ export type UserUncheckedUpdateWithoutSavedSearchesInput = {
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -2577,6 +3670,111 @@ export type UserUncheckedUpdateWithoutSavedSearchesInput = {
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+}
+
+export type UserCreateManySuspendedByInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+}
+
+export type UserUpdateWithoutSuspendedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSuspendedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+}
+
+export type UserUncheckedUpdateManyWithoutSuspendedByInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -2598,6 +3796,9 @@ export type UserCountOutputType = {
   auditLogs: number
   sentCompanyInvitations: number
   acceptedCompanyInvitations: number
+  suspendedUsers: number
+  suspendedCompanies: number
+  platformAuditLogs: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2614,6 +3815,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
   sentCompanyInvitations?: boolean | UserCountOutputTypeCountSentCompanyInvitationsArgs
   acceptedCompanyInvitations?: boolean | UserCountOutputTypeCountAcceptedCompanyInvitationsArgs
+  suspendedUsers?: boolean | UserCountOutputTypeCountSuspendedUsersArgs
+  suspendedCompanies?: boolean | UserCountOutputTypeCountSuspendedCompaniesArgs
+  platformAuditLogs?: boolean | UserCountOutputTypeCountPlatformAuditLogsArgs
 }
 
 /**
@@ -2717,6 +3921,27 @@ export type UserCountOutputTypeCountAcceptedCompanyInvitationsArgs<ExtArgs exten
   where?: Prisma.CompanyInvitationWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSuspendedUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSuspendedCompaniesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CompanyWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPlatformAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlatformAuditLogWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2728,6 +3953,9 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   avatarUrl?: boolean
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: boolean
+  suspensionReason?: boolean
+  suspendedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
@@ -2745,6 +3973,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   sentCompanyInvitations?: boolean | Prisma.User$sentCompanyInvitationsArgs<ExtArgs>
   acceptedCompanyInvitations?: boolean | Prisma.User$acceptedCompanyInvitationsArgs<ExtArgs>
+  suspendedBy?: boolean | Prisma.User$suspendedByArgs<ExtArgs>
+  suspendedUsers?: boolean | Prisma.User$suspendedUsersArgs<ExtArgs>
+  suspendedCompanies?: boolean | Prisma.User$suspendedCompaniesArgs<ExtArgs>
+  platformAuditLogs?: boolean | Prisma.User$platformAuditLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2758,9 +3990,13 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   avatarUrl?: boolean
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: boolean
+  suspensionReason?: boolean
+  suspendedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  suspendedBy?: boolean | Prisma.User$suspendedByArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -2773,9 +4009,13 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   avatarUrl?: boolean
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: boolean
+  suspensionReason?: boolean
+  suspendedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
+  suspendedBy?: boolean | Prisma.User$suspendedByArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -2788,12 +4028,15 @@ export type UserSelectScalar = {
   avatarUrl?: boolean
   isEmailVerified?: boolean
   isAdmin?: boolean
+  suspendedAt?: boolean
+  suspensionReason?: boolean
+  suspendedById?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   deletedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "phone" | "avatarUrl" | "isEmailVerified" | "isAdmin" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "passwordHash" | "firstName" | "lastName" | "phone" | "avatarUrl" | "isEmailVerified" | "isAdmin" | "suspendedAt" | "suspensionReason" | "suspendedById" | "createdAt" | "updatedAt" | "deletedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   jobSeekerProfile?: boolean | Prisma.User$jobSeekerProfileArgs<ExtArgs>
   oauthAccounts?: boolean | Prisma.User$oauthAccountsArgs<ExtArgs>
@@ -2809,10 +4052,18 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
   sentCompanyInvitations?: boolean | Prisma.User$sentCompanyInvitationsArgs<ExtArgs>
   acceptedCompanyInvitations?: boolean | Prisma.User$acceptedCompanyInvitationsArgs<ExtArgs>
+  suspendedBy?: boolean | Prisma.User$suspendedByArgs<ExtArgs>
+  suspendedUsers?: boolean | Prisma.User$suspendedUsersArgs<ExtArgs>
+  suspendedCompanies?: boolean | Prisma.User$suspendedCompaniesArgs<ExtArgs>
+  platformAuditLogs?: boolean | Prisma.User$platformAuditLogsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  suspendedBy?: boolean | Prisma.User$suspendedByArgs<ExtArgs>
+}
+export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  suspendedBy?: boolean | Prisma.User$suspendedByArgs<ExtArgs>
+}
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
@@ -2831,6 +4082,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
     sentCompanyInvitations: Prisma.$CompanyInvitationPayload<ExtArgs>[]
     acceptedCompanyInvitations: Prisma.$CompanyInvitationPayload<ExtArgs>[]
+    suspendedBy: Prisma.$UserPayload<ExtArgs> | null
+    suspendedUsers: Prisma.$UserPayload<ExtArgs>[]
+    suspendedCompanies: Prisma.$CompanyPayload<ExtArgs>[]
+    platformAuditLogs: Prisma.$PlatformAuditLogPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2842,6 +4097,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     avatarUrl: string | null
     isEmailVerified: boolean
     isAdmin: boolean
+    suspendedAt: Date | null
+    suspensionReason: string | null
+    suspendedById: string | null
     createdAt: Date
     updatedAt: Date
     deletedAt: Date | null
@@ -3253,6 +4511,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sentCompanyInvitations<T extends Prisma.User$sentCompanyInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentCompanyInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   acceptedCompanyInvitations<T extends Prisma.User$acceptedCompanyInvitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$acceptedCompanyInvitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  suspendedBy<T extends Prisma.User$suspendedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suspendedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  suspendedUsers<T extends Prisma.User$suspendedUsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suspendedUsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  suspendedCompanies<T extends Prisma.User$suspendedCompaniesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suspendedCompaniesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  platformAuditLogs<T extends Prisma.User$platformAuditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$platformAuditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformAuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3291,6 +4553,9 @@ export interface UserFieldRefs {
   readonly avatarUrl: Prisma.FieldRef<"User", 'String'>
   readonly isEmailVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly isAdmin: Prisma.FieldRef<"User", 'Boolean'>
+  readonly suspendedAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly suspensionReason: Prisma.FieldRef<"User", 'String'>
+  readonly suspendedById: Prisma.FieldRef<"User", 'String'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
   readonly deletedAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -3548,6 +4813,10 @@ export type UserCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    */
   data: Prisma.UserCreateManyInput | Prisma.UserCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -3618,6 +4887,10 @@ export type UserUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many Users to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -4015,6 +5288,97 @@ export type User$acceptedCompanyInvitationsArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.CompanyInvitationScalarFieldEnum | Prisma.CompanyInvitationScalarFieldEnum[]
+}
+
+/**
+ * User.suspendedBy
+ */
+export type User$suspendedByArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+}
+
+/**
+ * User.suspendedUsers
+ */
+export type User$suspendedUsersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the User
+   */
+  select?: Prisma.UserSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the User
+   */
+  omit?: Prisma.UserOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.UserInclude<ExtArgs> | null
+  where?: Prisma.UserWhereInput
+  orderBy?: Prisma.UserOrderByWithRelationInput | Prisma.UserOrderByWithRelationInput[]
+  cursor?: Prisma.UserWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.UserScalarFieldEnum | Prisma.UserScalarFieldEnum[]
+}
+
+/**
+ * User.suspendedCompanies
+ */
+export type User$suspendedCompaniesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Company
+   */
+  select?: Prisma.CompanySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Company
+   */
+  omit?: Prisma.CompanyOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CompanyInclude<ExtArgs> | null
+  where?: Prisma.CompanyWhereInput
+  orderBy?: Prisma.CompanyOrderByWithRelationInput | Prisma.CompanyOrderByWithRelationInput[]
+  cursor?: Prisma.CompanyWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CompanyScalarFieldEnum | Prisma.CompanyScalarFieldEnum[]
+}
+
+/**
+ * User.platformAuditLogs
+ */
+export type User$platformAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlatformAuditLog
+   */
+  select?: Prisma.PlatformAuditLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlatformAuditLog
+   */
+  omit?: Prisma.PlatformAuditLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformAuditLogInclude<ExtArgs> | null
+  where?: Prisma.PlatformAuditLogWhereInput
+  orderBy?: Prisma.PlatformAuditLogOrderByWithRelationInput | Prisma.PlatformAuditLogOrderByWithRelationInput[]
+  cursor?: Prisma.PlatformAuditLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlatformAuditLogScalarFieldEnum | Prisma.PlatformAuditLogScalarFieldEnum[]
 }
 
 /**

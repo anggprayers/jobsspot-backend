@@ -14,6 +14,7 @@ import jobSeekerApplicationRouter from "./modules/job-seeker-application/job-see
 import jobSeekerProfileRouter from "./modules/job-seeker-profile/job-seeker-profile.routes.js";
 import { publicJobRouter } from "./modules/public-job/public-job.routes.js";
 import popularSearchRouter from "./modules/popular-search/popular-search.routes.js";
+import platformAdminRouter from "./modules/platform-admin/platform-admin.routes.js";
 import publicJobCategoryRouter from "./modules/public-job-category/public-job-category.routes.js";
 import resumeRouter from "./modules/resume/resume.routes.js";
 import savedJobRouter from "./modules/saved-job/saved-job.routes.js";
@@ -42,6 +43,8 @@ app.use("/api/health", healthRouter);
 app.use("/api", apiRateLimiter);
 
 app.use("/api/auth", authRouter);
+
+app.use("/api/admin", platformAdminRouter);
 
 app.use("/api/contact", contactRouter);
 

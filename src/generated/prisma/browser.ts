@@ -98,6 +98,11 @@ export type AuditLog = Prisma.AuditLogModel
  */
 export type JobCategory = Prisma.JobCategoryModel
 /**
+ * Model PlatformAuditLog
+ * 
+ */
+export type PlatformAuditLog = Prisma.PlatformAuditLogModel
+/**
  * Model Job
  * 
  */

@@ -126,6 +126,7 @@ export async function createUserApplication({
             company: {
                 select: {
                     deletedAt: true,
+                    suspendedAt: true,
                 },
             },
         },
@@ -134,7 +135,8 @@ export async function createUserApplication({
     if (
         !job ||
         job.deletedAt !== null ||
-        job.company.deletedAt !== null
+        job.company.deletedAt !== null ||
+        job.company.suspendedAt !== null
     ) {
         throw new AppError(404, "Job not found.");
     }

@@ -30,6 +30,28 @@ function getCompanyImageFolder(companyId: string, imageType: CompanyImageType) {
 }
 
 async function requireBrandingPermission({ companyId, userId }: CompanyPermissionParameters) {
+    const companyStatus = await prisma.company.findFirst({
+        where: {
+            id: companyId,
+            deletedAt: null,
+        },
+        select: {
+            id: true,
+            suspendedAt: true,
+        },
+    });
+
+    if (!companyStatus) {
+        throw new AppError(404, "Company not found.");
+    }
+
+    if (companyStatus.suspendedAt) {
+        throw new AppError(
+            403,
+            "This company workspace has been suspended. Contact JobsSpot support for assistance.",
+        );
+    }
+
     const membership = await prisma.companyMembership.findFirst({
         where: {
             companyId,
@@ -38,10 +60,6 @@ async function requireBrandingPermission({ companyId, userId }: CompanyPermissio
 
             role: {
                 in: [CompanyMemberRole.OWNER, CompanyMemberRole.ADMIN],
-            },
-
-            company: {
-                deletedAt: null,
             },
         },
 

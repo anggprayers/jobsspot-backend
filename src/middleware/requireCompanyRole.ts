@@ -27,11 +27,19 @@ export function requireCompanyRole(allowedRoles: CompanyMemberRole[]) {
             },
             select: {
                 id: true,
+                suspendedAt: true,
             },
         });
 
         if (!company) {
             throw new AppError(404, "Company not found.");
+        }
+
+        if (company.suspendedAt) {
+            throw new AppError(
+                403,
+                "This company workspace has been suspended. Contact JobsSpot support for assistance.",
+            );
         }
 
         const membership = await prisma.companyMembership.findFirst({

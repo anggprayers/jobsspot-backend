@@ -54,6 +54,13 @@ export async function getPublicJobs(
         {
             company: {
                 deletedAt: null,
+                suspendedAt: null,
+            },
+        },
+
+        {
+            category: {
+                isActive: true,
             },
         },
 
@@ -351,6 +358,11 @@ export async function getPublicJobBySlug(
 
             company: {
                 deletedAt: null,
+                suspendedAt: null,
+            },
+
+            category: {
+                isActive: true,
             },
 
             OR: [

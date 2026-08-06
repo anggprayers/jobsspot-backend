@@ -45,6 +45,7 @@ const invitationAccessSelect = {
             slug: true,
             logoUrl: true,
             deletedAt: true,
+            suspendedAt: true,
         },
     },
 
@@ -240,6 +241,13 @@ export async function resolveCompanyInvitation(
         );
     }
 
+    if (invitation.company.suspendedAt) {
+        throw new AppError(
+            403,
+            "This company workspace is currently unavailable. Contact JobsSpot support for assistance.",
+        );
+    }
+
     return serializeInvitationAccess(
         invitation,
     );
@@ -301,6 +309,13 @@ export async function acceptCompanyInvitation({
                 throw new AppError(
                     404,
                     "Company invitation not found or this link is no longer valid.",
+                );
+            }
+
+            if (invitation.company.suspendedAt) {
+                throw new AppError(
+                    403,
+                    "This company workspace is currently unavailable. Contact JobsSpot support for assistance.",
                 );
             }
 

@@ -88,3 +88,9 @@ export const contactRateLimiter = createRateLimiter({
     message:
         "Too many contact requests. Please wait before sending another message.",
 });
+
+export const platformAdminMutationRateLimiter = createRateLimiter({
+    windowMs: ONE_HOUR,
+    limit: 100,
+    message: "Too many platform moderation changes. Please wait before trying again.",
+});

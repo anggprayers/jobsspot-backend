@@ -67,6 +67,7 @@ export const ModelName = {
   CompanyInvitation: 'CompanyInvitation',
   AuditLog: 'AuditLog',
   JobCategory: 'JobCategory',
+  PlatformAuditLog: 'PlatformAuditLog',
   Job: 'Job',
   Skill: 'Skill',
   JobSkill: 'JobSkill',
@@ -103,6 +104,9 @@ export const UserScalarFieldEnum = {
   avatarUrl: 'avatarUrl',
   isEmailVerified: 'isEmailVerified',
   isAdmin: 'isAdmin',
+  suspendedAt: 'suspendedAt',
+  suspensionReason: 'suspensionReason',
+  suspendedById: 'suspendedById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -275,6 +279,9 @@ export const CompanyScalarFieldEnum = {
   companySize: 'companySize',
   location: 'location',
   isVerified: 'isVerified',
+  suspendedAt: 'suspendedAt',
+  suspensionReason: 'suspensionReason',
+  suspendedById: 'suspendedById',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   deletedAt: 'deletedAt'
@@ -335,11 +342,28 @@ export const JobCategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
   slug: 'slug',
+  isActive: 'isActive',
+  displayOrder: 'displayOrder',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
 export type JobCategoryScalarFieldEnum = (typeof JobCategoryScalarFieldEnum)[keyof typeof JobCategoryScalarFieldEnum]
+
+
+export const PlatformAuditLogScalarFieldEnum = {
+  id: 'id',
+  actorUserId: 'actorUserId',
+  actorDisplayName: 'actorDisplayName',
+  actorEmail: 'actorEmail',
+  action: 'action',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type PlatformAuditLogScalarFieldEnum = (typeof PlatformAuditLogScalarFieldEnum)[keyof typeof PlatformAuditLogScalarFieldEnum]
 
 
 export const JobScalarFieldEnum = {

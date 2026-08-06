@@ -12,6 +12,7 @@ function getAvailableJobConditions() {
 
         company: {
             deletedAt: null,
+            suspendedAt: null,
         },
 
         OR: [
@@ -29,9 +30,14 @@ function getAvailableJobConditions() {
 
 export async function getPublicJobCategories() {
     const categories = await prisma.jobCategory.findMany({
-        orderBy: {
-            name: "asc",
+        where: {
+            isActive: true,
         },
+
+        orderBy: [
+            { displayOrder: "asc" },
+            { name: "asc" },
+        ],
 
         select: {
             id: true,
@@ -57,9 +63,10 @@ export async function getPublicJobCategories() {
 }
 
 export async function getPublicJobCategoryBySlug(slug: string) {
-    const category = await prisma.jobCategory.findUnique({
+    const category = await prisma.jobCategory.findFirst({
         where: {
             slug,
+            isActive: true,
         },
 
         select: {
