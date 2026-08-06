@@ -82,3 +82,9 @@ export const companyInvitationAccessRateLimiter = createRateLimiter({
         "Too many company invitation link attempts. Please wait before trying again.",
     skipSuccessfulRequests: true,
 });
+export const contactRateLimiter = createRateLimiter({
+    windowMs: ONE_HOUR,
+    limit: 5,
+    message:
+        "Too many contact requests. Please wait before sending another message.",
+});

@@ -16,6 +16,20 @@ const emailEnvironmentSchema = z.object({
         .trim()
         .toLowerCase(),
 
+    CONTACT_INBOX_EMAIL: z.preprocess(
+        (value) =>
+            typeof value === "string" && value.trim() === ""
+                ? undefined
+                : value,
+        z
+            .email(
+                "CONTACT_INBOX_EMAIL must be a valid email address.",
+            )
+            .trim()
+            .toLowerCase()
+            .optional(),
+    ),
+
     EMAIL_LOGO_URL: z
         .string()
         .trim()
@@ -92,6 +106,9 @@ export const emailConfig = {
     resendApiKey: result.data.RESEND_API_KEY,
     from: result.data.EMAIL_FROM,
     replyTo: result.data.EMAIL_REPLY_TO,
+    contactInbox:
+        result.data.CONTACT_INBOX_EMAIL ??
+        result.data.EMAIL_REPLY_TO,
     logoUrl: result.data.EMAIL_LOGO_URL ?? null,
     frontendUrl: result.data.FRONTEND_URL,
     verificationTokenTtlMinutes:
