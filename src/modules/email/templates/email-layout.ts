@@ -6,8 +6,8 @@ type EmailLayoutInput = {
     headingStyle?: "default" | "compact";
     greeting: string;
     bodyHtml: string;
-    actionLabel: string;
-    actionUrl: string;
+    actionLabel?: string;
+    actionUrl?: string;
     footerNote: string;
 };
 
@@ -102,9 +102,104 @@ export function renderEmailLayout({
     const safePreviewText = escapeHtml(previewText);
     const safeHeading = escapeHtml(heading);
     const safeGreeting = escapeHtml(greeting);
-    const safeActionLabel = escapeHtml(actionLabel);
-    const safeActionUrl = escapeHtml(actionUrl);
     const safeFooterNote = escapeHtml(footerNote);
+    const actionBlock =
+        actionLabel && actionUrl
+            ? (() => {
+                  const safeActionLabel =
+                      escapeHtml(actionLabel);
+                  const safeActionUrl =
+                      escapeHtml(actionUrl);
+
+                  return `
+                                <table
+                                    role="presentation"
+                                    cellspacing="0"
+                                    cellpadding="0"
+                                    border="0"
+                                    style="margin-top: 30px"
+                                >
+                                    <tr>
+                                        <td
+                                            align="center"
+                                            style="
+                                                border-radius: 12px;
+                                                background-color: #2563eb;
+                                            "
+                                        >
+                                            <a
+                                                href="${safeActionUrl}"
+                                                style="
+                                                    display: inline-block;
+                                                    padding: 14px 24px;
+                                                    color: #ffffff;
+                                                    font-size: 16px;
+                                                    font-weight: 700;
+                                                    line-height: 1.25;
+                                                    text-decoration: none;
+                                                "
+                                            >
+                                                ${safeActionLabel}
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                                <table
+                                    role="presentation"
+                                    width="100%"
+                                    cellspacing="0"
+                                    cellpadding="0"
+                                    border="0"
+                                    style="
+                                        width: 100%;
+                                        margin-top: 30px;
+                                    "
+                                >
+                                    <tr>
+                                        <td
+                                            style="
+                                                border-radius: 12px;
+                                                background-color: #f8fafc;
+                                                padding: 16px 18px;
+                                            "
+                                        >
+                                            <p
+                                                style="
+                                                    margin: 0;
+                                                    color: #64748b;
+                                                    font-size: 13px;
+                                                    line-height: 1.7;
+                                                "
+                                            >
+                                                If the button does not work,
+                                                copy and paste this address
+                                                into your browser:
+                                            </p>
+
+                                            <p
+                                                style="
+                                                    margin: 8px 0 0;
+                                                    word-break: break-all;
+                                                    font-size: 13px;
+                                                    line-height: 1.7;
+                                                "
+                                            >
+                                                <a
+                                                    href="${safeActionUrl}"
+                                                    style="
+                                                        color: #2563eb;
+                                                        text-decoration: underline;
+                                                    "
+                                                >
+                                                    ${safeActionUrl}
+                                                </a>
+                                            </p>
+                                        </td>
+                                    </tr>
+                                </table>`;
+              })()
+            : "";
     const safeReplyTo = escapeHtml(
         emailConfig.replyTo,
     );
@@ -258,92 +353,7 @@ export function renderEmailLayout({
                                     ${bodyHtml}
                                 </div>
 
-                                <table
-                                    role="presentation"
-                                    cellspacing="0"
-                                    cellpadding="0"
-                                    border="0"
-                                    style="margin-top: 30px"
-                                >
-                                    <tr>
-                                        <td
-                                            align="center"
-                                            style="
-                                                border-radius: 12px;
-                                                background-color: #2563eb;
-                                            "
-                                        >
-                                            <a
-                                                href="${safeActionUrl}"
-                                                style="
-                                                    display: inline-block;
-                                                    padding: 14px 24px;
-                                                    color: #ffffff;
-                                                    font-size: 16px;
-                                                    font-weight: 700;
-                                                    line-height: 1.25;
-                                                    text-decoration: none;
-                                                "
-                                            >
-                                                ${safeActionLabel}
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </table>
-
-                                <table
-                                    role="presentation"
-                                    width="100%"
-                                    cellspacing="0"
-                                    cellpadding="0"
-                                    border="0"
-                                    style="
-                                        width: 100%;
-                                        margin-top: 30px;
-                                    "
-                                >
-                                    <tr>
-                                        <td
-                                            style="
-                                                border-radius: 12px;
-                                                background-color: #f8fafc;
-                                                padding: 16px 18px;
-                                            "
-                                        >
-                                            <p
-                                                style="
-                                                    margin: 0;
-                                                    color: #64748b;
-                                                    font-size: 13px;
-                                                    line-height: 1.7;
-                                                "
-                                            >
-                                                If the button does not work,
-                                                copy and paste this address
-                                                into your browser:
-                                            </p>
-
-                                            <p
-                                                style="
-                                                    margin: 8px 0 0;
-                                                    word-break: break-all;
-                                                    font-size: 13px;
-                                                    line-height: 1.7;
-                                                "
-                                            >
-                                                <a
-                                                    href="${safeActionUrl}"
-                                                    style="
-                                                        color: #2563eb;
-                                                        text-decoration: underline;
-                                                    "
-                                                >
-                                                    ${safeActionUrl}
-                                                </a>
-                                            </p>
-                                        </td>
-                                    </tr>
-                                </table>
+                                ${actionBlock}
                             </td>
                         </tr>
 
