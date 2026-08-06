@@ -12,6 +12,7 @@ import companyInvitationAcceptanceRouter from "./modules/company-invitations/com
 import contactRouter from "./modules/contact/contact.routes.js";
 import jobSeekerApplicationRouter from "./modules/job-seeker-application/job-seeker-application.routes.js";
 import jobSeekerProfileRouter from "./modules/job-seeker-profile/job-seeker-profile.routes.js";
+import notificationRouter from "./modules/notification/notification.routes.js";
 import { publicJobRouter } from "./modules/public-job/public-job.routes.js";
 import popularSearchRouter from "./modules/popular-search/popular-search.routes.js";
 import platformAdminRouter from "./modules/platform-admin/platform-admin.routes.js";
@@ -53,6 +54,8 @@ app.use("/api/job-seeker-profile", jobSeekerProfileRouter);
 app.use("/api/resumes", resumeRouter);
 
 app.use("/api/applications", jobSeekerApplicationRouter);
+
+app.use("/api/notifications", notificationRouter);
 
 app.use("/api/saved-jobs", savedJobRouter);
 

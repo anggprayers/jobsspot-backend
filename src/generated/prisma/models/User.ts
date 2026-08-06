@@ -280,6 +280,7 @@ export type UserWhereInput = {
   suspendedUsers?: Prisma.UserListRelationFilter
   suspendedCompanies?: Prisma.CompanyListRelationFilter
   platformAuditLogs?: Prisma.PlatformAuditLogListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -316,6 +317,7 @@ export type UserOrderByWithRelationInput = {
   suspendedUsers?: Prisma.UserOrderByRelationAggregateInput
   suspendedCompanies?: Prisma.CompanyOrderByRelationAggregateInput
   platformAuditLogs?: Prisma.PlatformAuditLogOrderByRelationAggregateInput
+  notifications?: Prisma.NotificationOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -355,6 +357,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   suspendedUsers?: Prisma.UserListRelationFilter
   suspendedCompanies?: Prisma.CompanyListRelationFilter
   platformAuditLogs?: Prisma.PlatformAuditLogListRelationFilter
+  notifications?: Prisma.NotificationListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -432,6 +435,7 @@ export type UserCreateInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -467,6 +471,7 @@ export type UserUncheckedCreateInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -502,6 +507,7 @@ export type UserUpdateInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -537,6 +543,7 @@ export type UserUncheckedUpdateInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -920,6 +927,20 @@ export type UserUpdateOneWithoutPlatformAuditLogsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPlatformAuditLogsInput, Prisma.UserUpdateWithoutPlatformAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutPlatformAuditLogsInput>
 }
 
+export type UserCreateNestedOneWithoutNotificationsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
+  upsert?: Prisma.UserUpsertWithoutNotificationsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
 export type UserCreateNestedOneWithoutCreatedJobsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedJobsInput, Prisma.UserUncheckedCreateWithoutCreatedJobsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedJobsInput
@@ -1008,6 +1029,7 @@ export type UserCreateWithoutSuspendedUsersInput = {
   suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSuspendedUsersInput = {
@@ -1042,6 +1064,7 @@ export type UserUncheckedCreateWithoutSuspendedUsersInput = {
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSuspendedUsersInput = {
@@ -1081,6 +1104,7 @@ export type UserCreateWithoutSuspendedByInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSuspendedByInput = {
@@ -1115,6 +1139,7 @@ export type UserUncheckedCreateWithoutSuspendedByInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSuspendedByInput = {
@@ -1170,6 +1195,7 @@ export type UserUpdateWithoutSuspendedUsersInput = {
   suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuspendedUsersInput = {
@@ -1204,6 +1230,7 @@ export type UserUncheckedUpdateWithoutSuspendedUsersInput = {
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutSuspendedByInput = {
@@ -1275,6 +1302,7 @@ export type UserCreateWithoutEmailVerificationTokensInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
@@ -1309,6 +1337,7 @@ export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutEmailVerificationTokensInput = {
@@ -1359,6 +1388,7 @@ export type UserUpdateWithoutEmailVerificationTokensInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
@@ -1393,6 +1423,7 @@ export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -1427,6 +1458,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -1461,6 +1493,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -1511,6 +1544,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -1545,6 +1579,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOauthAccountsInput = {
@@ -1579,6 +1614,7 @@ export type UserCreateWithoutOauthAccountsInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOauthAccountsInput = {
@@ -1613,6 +1649,7 @@ export type UserUncheckedCreateWithoutOauthAccountsInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOauthAccountsInput = {
@@ -1663,6 +1700,7 @@ export type UserUpdateWithoutOauthAccountsInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthAccountsInput = {
@@ -1697,6 +1735,7 @@ export type UserUncheckedUpdateWithoutOauthAccountsInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -1731,6 +1770,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -1765,6 +1805,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -1815,6 +1856,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -1849,6 +1891,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutJobSeekerProfileInput = {
@@ -1883,6 +1926,7 @@ export type UserCreateWithoutJobSeekerProfileInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutJobSeekerProfileInput = {
@@ -1917,6 +1961,7 @@ export type UserUncheckedCreateWithoutJobSeekerProfileInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutJobSeekerProfileInput = {
@@ -1967,6 +2012,7 @@ export type UserUpdateWithoutJobSeekerProfileInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJobSeekerProfileInput = {
@@ -2001,6 +2047,7 @@ export type UserUncheckedUpdateWithoutJobSeekerProfileInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutResumesInput = {
@@ -2035,6 +2082,7 @@ export type UserCreateWithoutResumesInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutResumesInput = {
@@ -2069,6 +2117,7 @@ export type UserUncheckedCreateWithoutResumesInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutResumesInput = {
@@ -2119,6 +2168,7 @@ export type UserUpdateWithoutResumesInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResumesInput = {
@@ -2153,6 +2203,7 @@ export type UserUncheckedUpdateWithoutResumesInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSuspendedCompaniesInput = {
@@ -2187,6 +2238,7 @@ export type UserCreateWithoutSuspendedCompaniesInput = {
   suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSuspendedCompaniesInput = {
@@ -2221,6 +2273,7 @@ export type UserUncheckedCreateWithoutSuspendedCompaniesInput = {
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSuspendedCompaniesInput = {
@@ -2271,6 +2324,7 @@ export type UserUpdateWithoutSuspendedCompaniesInput = {
   suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuspendedCompaniesInput = {
@@ -2305,6 +2359,7 @@ export type UserUncheckedUpdateWithoutSuspendedCompaniesInput = {
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutCompanyMembershipsInput = {
@@ -2339,6 +2394,7 @@ export type UserCreateWithoutCompanyMembershipsInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCompanyMembershipsInput = {
@@ -2373,6 +2429,7 @@ export type UserUncheckedCreateWithoutCompanyMembershipsInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCompanyMembershipsInput = {
@@ -2423,6 +2480,7 @@ export type UserUpdateWithoutCompanyMembershipsInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyMembershipsInput = {
@@ -2457,6 +2515,7 @@ export type UserUncheckedUpdateWithoutCompanyMembershipsInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSentCompanyInvitationsInput = {
@@ -2491,6 +2550,7 @@ export type UserCreateWithoutSentCompanyInvitationsInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSentCompanyInvitationsInput = {
@@ -2525,6 +2585,7 @@ export type UserUncheckedCreateWithoutSentCompanyInvitationsInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSentCompanyInvitationsInput = {
@@ -2564,6 +2625,7 @@ export type UserCreateWithoutAcceptedCompanyInvitationsInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput = {
@@ -2598,6 +2660,7 @@ export type UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAcceptedCompanyInvitationsInput = {
@@ -2648,6 +2711,7 @@ export type UserUpdateWithoutSentCompanyInvitationsInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentCompanyInvitationsInput = {
@@ -2682,6 +2746,7 @@ export type UserUncheckedUpdateWithoutSentCompanyInvitationsInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutAcceptedCompanyInvitationsInput = {
@@ -2727,6 +2792,7 @@ export type UserUpdateWithoutAcceptedCompanyInvitationsInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput = {
@@ -2761,6 +2827,7 @@ export type UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -2795,6 +2862,7 @@ export type UserCreateWithoutAuditLogsInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -2829,6 +2897,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -2879,6 +2948,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -2913,6 +2983,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPlatformAuditLogsInput = {
@@ -2947,6 +3018,7 @@ export type UserCreateWithoutPlatformAuditLogsInput = {
   suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPlatformAuditLogsInput = {
@@ -2981,6 +3053,7 @@ export type UserUncheckedCreateWithoutPlatformAuditLogsInput = {
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPlatformAuditLogsInput = {
@@ -3031,6 +3104,7 @@ export type UserUpdateWithoutPlatformAuditLogsInput = {
   suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlatformAuditLogsInput = {
@@ -3065,6 +3139,163 @@ export type UserUncheckedUpdateWithoutPlatformAuditLogsInput = {
   acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutNotificationsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+}
+
+export type UserUncheckedCreateWithoutNotificationsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobUncheckedCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+}
+
+export type UserCreateOrConnectWithoutNotificationsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+}
+
+export type UserUpsertWithoutNotificationsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationsInput, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
+}
+
+export type UserUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
 }
 
 export type UserCreateWithoutCreatedJobsInput = {
@@ -3099,6 +3330,7 @@ export type UserCreateWithoutCreatedJobsInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutCreatedJobsInput = {
@@ -3133,6 +3365,7 @@ export type UserUncheckedCreateWithoutCreatedJobsInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutCreatedJobsInput = {
@@ -3183,6 +3416,7 @@ export type UserUpdateWithoutCreatedJobsInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedJobsInput = {
@@ -3217,6 +3451,7 @@ export type UserUncheckedUpdateWithoutCreatedJobsInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutApplicationsInput = {
@@ -3251,6 +3486,7 @@ export type UserCreateWithoutApplicationsInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -3285,6 +3521,7 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -3335,6 +3572,7 @@ export type UserUpdateWithoutApplicationsInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -3369,6 +3607,7 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSavedJobsInput = {
@@ -3403,6 +3642,7 @@ export type UserCreateWithoutSavedJobsInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSavedJobsInput = {
@@ -3437,6 +3677,7 @@ export type UserUncheckedCreateWithoutSavedJobsInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSavedJobsInput = {
@@ -3487,6 +3728,7 @@ export type UserUpdateWithoutSavedJobsInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedJobsInput = {
@@ -3521,6 +3763,7 @@ export type UserUncheckedUpdateWithoutSavedJobsInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutSavedSearchesInput = {
@@ -3555,6 +3798,7 @@ export type UserCreateWithoutSavedSearchesInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutSavedSearchesInput = {
@@ -3589,6 +3833,7 @@ export type UserUncheckedCreateWithoutSavedSearchesInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutSavedSearchesInput = {
@@ -3639,6 +3884,7 @@ export type UserUpdateWithoutSavedSearchesInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedSearchesInput = {
@@ -3673,6 +3919,7 @@ export type UserUncheckedUpdateWithoutSavedSearchesInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManySuspendedByInput = {
@@ -3724,6 +3971,7 @@ export type UserUpdateWithoutSuspendedByInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuspendedByInput = {
@@ -3758,6 +4006,7 @@ export type UserUncheckedUpdateWithoutSuspendedByInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutSuspendedByInput = {
@@ -3799,6 +4048,7 @@ export type UserCountOutputType = {
   suspendedUsers: number
   suspendedCompanies: number
   platformAuditLogs: number
+  notifications: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3818,6 +4068,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   suspendedUsers?: boolean | UserCountOutputTypeCountSuspendedUsersArgs
   suspendedCompanies?: boolean | UserCountOutputTypeCountSuspendedCompaniesArgs
   platformAuditLogs?: boolean | UserCountOutputTypeCountPlatformAuditLogsArgs
+  notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
 }
 
 /**
@@ -3942,6 +4193,13 @@ export type UserCountOutputTypeCountPlatformAuditLogsArgs<ExtArgs extends runtim
   where?: Prisma.PlatformAuditLogWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.NotificationWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3977,6 +4235,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   suspendedUsers?: boolean | Prisma.User$suspendedUsersArgs<ExtArgs>
   suspendedCompanies?: boolean | Prisma.User$suspendedCompaniesArgs<ExtArgs>
   platformAuditLogs?: boolean | Prisma.User$platformAuditLogsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -4056,6 +4315,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   suspendedUsers?: boolean | Prisma.User$suspendedUsersArgs<ExtArgs>
   suspendedCompanies?: boolean | Prisma.User$suspendedCompaniesArgs<ExtArgs>
   platformAuditLogs?: boolean | Prisma.User$platformAuditLogsArgs<ExtArgs>
+  notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4086,6 +4346,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     suspendedUsers: Prisma.$UserPayload<ExtArgs>[]
     suspendedCompanies: Prisma.$CompanyPayload<ExtArgs>[]
     platformAuditLogs: Prisma.$PlatformAuditLogPayload<ExtArgs>[]
+    notifications: Prisma.$NotificationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4515,6 +4776,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   suspendedUsers<T extends Prisma.User$suspendedUsersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suspendedUsersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   suspendedCompanies<T extends Prisma.User$suspendedCompaniesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suspendedCompaniesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   platformAuditLogs<T extends Prisma.User$platformAuditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$platformAuditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformAuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5379,6 +5641,30 @@ export type User$platformAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.PlatformAuditLogScalarFieldEnum | Prisma.PlatformAuditLogScalarFieldEnum[]
+}
+
+/**
+ * User.notifications
+ */
+export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Notification
+   */
+  select?: Prisma.NotificationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Notification
+   */
+  omit?: Prisma.NotificationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationInclude<ExtArgs> | null
+  where?: Prisma.NotificationWhereInput
+  orderBy?: Prisma.NotificationOrderByWithRelationInput | Prisma.NotificationOrderByWithRelationInput[]
+  cursor?: Prisma.NotificationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
 }
 
 /**

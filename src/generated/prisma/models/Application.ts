@@ -33,6 +33,7 @@ export type ApplicationMinAggregateOutputType = {
   status: $Enums.ApplicationStatus | null
   appliedAt: Date | null
   reviewedAt: Date | null
+  firstViewedAt: Date | null
   withdrawnAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -47,6 +48,7 @@ export type ApplicationMaxAggregateOutputType = {
   status: $Enums.ApplicationStatus | null
   appliedAt: Date | null
   reviewedAt: Date | null
+  firstViewedAt: Date | null
   withdrawnAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -61,6 +63,7 @@ export type ApplicationCountAggregateOutputType = {
   status: number
   appliedAt: number
   reviewedAt: number
+  firstViewedAt: number
   withdrawnAt: number
   createdAt: number
   updatedAt: number
@@ -77,6 +80,7 @@ export type ApplicationMinAggregateInputType = {
   status?: true
   appliedAt?: true
   reviewedAt?: true
+  firstViewedAt?: true
   withdrawnAt?: true
   createdAt?: true
   updatedAt?: true
@@ -91,6 +95,7 @@ export type ApplicationMaxAggregateInputType = {
   status?: true
   appliedAt?: true
   reviewedAt?: true
+  firstViewedAt?: true
   withdrawnAt?: true
   createdAt?: true
   updatedAt?: true
@@ -105,6 +110,7 @@ export type ApplicationCountAggregateInputType = {
   status?: true
   appliedAt?: true
   reviewedAt?: true
+  firstViewedAt?: true
   withdrawnAt?: true
   createdAt?: true
   updatedAt?: true
@@ -192,6 +198,7 @@ export type ApplicationGroupByOutputType = {
   status: $Enums.ApplicationStatus
   appliedAt: Date
   reviewedAt: Date | null
+  firstViewedAt: Date | null
   withdrawnAt: Date | null
   createdAt: Date
   updatedAt: Date
@@ -227,6 +234,7 @@ export type ApplicationWhereInput = {
   status?: Prisma.EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   reviewedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
+  firstViewedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   withdrawnAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
@@ -244,6 +252,7 @@ export type ApplicationOrderByWithRelationInput = {
   status?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstViewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   withdrawnAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -265,6 +274,7 @@ export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   reviewedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
+  firstViewedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   withdrawnAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
@@ -282,6 +292,7 @@ export type ApplicationOrderByWithAggregationInput = {
   status?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  firstViewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   withdrawnAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -302,6 +313,7 @@ export type ApplicationScalarWhereWithAggregatesInput = {
   status?: Prisma.EnumApplicationStatusWithAggregatesFilter<"Application"> | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeWithAggregatesFilter<"Application"> | Date | string
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Application"> | Date | string | null
+  firstViewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Application"> | Date | string | null
   withdrawnAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Application"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Application"> | Date | string
@@ -313,6 +325,7 @@ export type ApplicationCreateInput = {
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -330,6 +343,7 @@ export type ApplicationUncheckedCreateInput = {
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -341,6 +355,7 @@ export type ApplicationUpdateInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -358,6 +373,7 @@ export type ApplicationUncheckedUpdateInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -372,6 +388,7 @@ export type ApplicationCreateManyInput = {
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -383,6 +400,7 @@ export type ApplicationUpdateManyMutationInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -397,6 +415,7 @@ export type ApplicationUncheckedUpdateManyInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -426,6 +445,7 @@ export type ApplicationCountOrderByAggregateInput = {
   status?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
+  firstViewedAt?: Prisma.SortOrder
   withdrawnAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -440,6 +460,7 @@ export type ApplicationMaxOrderByAggregateInput = {
   status?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
+  firstViewedAt?: Prisma.SortOrder
   withdrawnAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -454,6 +475,7 @@ export type ApplicationMinOrderByAggregateInput = {
   status?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
+  firstViewedAt?: Prisma.SortOrder
   withdrawnAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -595,6 +617,7 @@ export type ApplicationCreateWithoutApplicantInput = {
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -610,6 +633,7 @@ export type ApplicationUncheckedCreateWithoutApplicantInput = {
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -653,6 +677,7 @@ export type ApplicationScalarWhereInput = {
   status?: Prisma.EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   reviewedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
+  firstViewedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   withdrawnAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
@@ -664,6 +689,7 @@ export type ApplicationCreateWithoutResumeInput = {
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -679,6 +705,7 @@ export type ApplicationUncheckedCreateWithoutResumeInput = {
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -716,6 +743,7 @@ export type ApplicationCreateWithoutJobInput = {
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -731,6 +759,7 @@ export type ApplicationUncheckedCreateWithoutJobInput = {
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -770,6 +799,7 @@ export type ApplicationCreateManyApplicantInput = {
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -781,6 +811,7 @@ export type ApplicationUpdateWithoutApplicantInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -796,6 +827,7 @@ export type ApplicationUncheckedUpdateWithoutApplicantInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -809,6 +841,7 @@ export type ApplicationUncheckedUpdateManyWithoutApplicantInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -822,6 +855,7 @@ export type ApplicationCreateManyResumeInput = {
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -833,6 +867,7 @@ export type ApplicationUpdateWithoutResumeInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -848,6 +883,7 @@ export type ApplicationUncheckedUpdateWithoutResumeInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -861,6 +897,7 @@ export type ApplicationUncheckedUpdateManyWithoutResumeInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -874,6 +911,7 @@ export type ApplicationCreateManyJobInput = {
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -885,6 +923,7 @@ export type ApplicationUpdateWithoutJobInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -900,6 +939,7 @@ export type ApplicationUncheckedUpdateWithoutJobInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -913,6 +953,7 @@ export type ApplicationUncheckedUpdateManyWithoutJobInput = {
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -929,6 +970,7 @@ export type ApplicationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   status?: boolean
   appliedAt?: boolean
   reviewedAt?: boolean
+  firstViewedAt?: boolean
   withdrawnAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -946,6 +988,7 @@ export type ApplicationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   status?: boolean
   appliedAt?: boolean
   reviewedAt?: boolean
+  firstViewedAt?: boolean
   withdrawnAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -963,6 +1006,7 @@ export type ApplicationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   status?: boolean
   appliedAt?: boolean
   reviewedAt?: boolean
+  firstViewedAt?: boolean
   withdrawnAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -980,12 +1024,13 @@ export type ApplicationSelectScalar = {
   status?: boolean
   appliedAt?: boolean
   reviewedAt?: boolean
+  firstViewedAt?: boolean
   withdrawnAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "jobId" | "applicantId" | "resumeId" | "coverLetter" | "status" | "appliedAt" | "reviewedAt" | "withdrawnAt" | "createdAt" | "updatedAt", ExtArgs["result"]["application"]>
+export type ApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "jobId" | "applicantId" | "resumeId" | "coverLetter" | "status" | "appliedAt" | "reviewedAt" | "firstViewedAt" | "withdrawnAt" | "createdAt" | "updatedAt", ExtArgs["result"]["application"]>
 export type ApplicationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1018,6 +1063,7 @@ export type $ApplicationPayload<ExtArgs extends runtime.Types.Extensions.Interna
     status: $Enums.ApplicationStatus
     appliedAt: Date
     reviewedAt: Date | null
+    firstViewedAt: Date | null
     withdrawnAt: Date | null
     createdAt: Date
     updatedAt: Date
@@ -1455,6 +1501,7 @@ export interface ApplicationFieldRefs {
   readonly status: Prisma.FieldRef<"Application", 'ApplicationStatus'>
   readonly appliedAt: Prisma.FieldRef<"Application", 'DateTime'>
   readonly reviewedAt: Prisma.FieldRef<"Application", 'DateTime'>
+  readonly firstViewedAt: Prisma.FieldRef<"Application", 'DateTime'>
   readonly withdrawnAt: Prisma.FieldRef<"Application", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Application", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Application", 'DateTime'>

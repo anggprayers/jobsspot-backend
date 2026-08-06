@@ -100,3 +100,13 @@ export const SavedSearchAlertFrequency = {
 } as const
 
 export type SavedSearchAlertFrequency = (typeof SavedSearchAlertFrequency)[keyof typeof SavedSearchAlertFrequency]
+
+
+export const NotificationAudience = {
+  JOB_SEEKER: 'JOB_SEEKER',
+  EMPLOYER: 'EMPLOYER',
+  ADMIN: 'ADMIN',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type NotificationAudience = (typeof NotificationAudience)[keyof typeof NotificationAudience]

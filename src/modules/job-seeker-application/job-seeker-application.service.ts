@@ -7,6 +7,11 @@ import {
 import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
 
+import {
+    createApplicationSubmittedNotifications,
+    createApplicationWithdrawnNotifications,
+} from "../notification/application-notification.service.js";
+import { runNotificationTaskSafely } from "../notification/notification.service.js";
 import { createResumeDownloadUrl } from "../resume/resume-storage.service.js";
 
 import type {
@@ -35,6 +40,7 @@ const applicationSelect = {
     status: true,
     appliedAt: true,
     reviewedAt: true,
+    firstViewedAt: true,
     withdrawnAt: true,
     createdAt: true,
     updatedAt: true,
@@ -111,26 +117,43 @@ export async function createUserApplication({
 }: CreateUserApplicationParameters) {
     const now = new Date();
 
-    const job = await prisma.job.findUnique({
-        where: {
-            id: data.jobId,
-        },
+    const [job, applicant] = await Promise.all([
+        prisma.job.findUnique({
+            where: {
+                id: data.jobId,
+            },
 
-        select: {
-            id: true,
-            status: true,
-            applicationDeadline: true,
-            expiresAt: true,
-            deletedAt: true,
+            select: {
+                id: true,
+                title: true,
+                status: true,
+                applicationDeadline: true,
+                expiresAt: true,
+                deletedAt: true,
 
-            company: {
-                select: {
-                    deletedAt: true,
-                    suspendedAt: true,
+                company: {
+                    select: {
+                        id: true,
+                        name: true,
+                        deletedAt: true,
+                        suspendedAt: true,
+                    },
                 },
             },
-        },
-    });
+        }),
+
+        prisma.user.findFirst({
+            where: {
+                id: applicantId,
+                deletedAt: null,
+            },
+            select: {
+                id: true,
+                firstName: true,
+                lastName: true,
+            },
+        }),
+    ]);
 
     if (
         !job ||
@@ -139,6 +162,10 @@ export async function createUserApplication({
         job.company.suspendedAt !== null
     ) {
         throw new AppError(404, "Job not found.");
+    }
+
+    if (!applicant) {
+        throw new AppError(404, "Applicant account not found.");
     }
 
     if (job.status !== JobStatus.PUBLISHED) {
@@ -206,8 +233,11 @@ export async function createUserApplication({
         );
     }
 
+    const applicantName =
+        `${applicant.firstName} ${applicant.lastName}`.trim();
+
     try {
-        return await prisma.application.create({
+        const application = await prisma.application.create({
             data: {
                 jobId: data.jobId,
                 applicantId,
@@ -217,6 +247,24 @@ export async function createUserApplication({
 
             select: applicationSelect,
         });
+
+        await runNotificationTaskSafely(
+            `application submitted (${application.id})`,
+            () =>
+                createApplicationSubmittedNotifications({
+                    client: prisma,
+                    applicationId: application.id,
+                    applicantId,
+                    applicantName,
+                    jobId: job.id,
+                    jobTitle: job.title,
+                    companyId: job.company.id,
+                    companyName: job.company.name,
+                }),
+        );
+
+        return application;
+
     } catch (error) {
         if (isPrismaUniqueConstraintError(error)) {
             throw new AppError(
@@ -448,6 +496,28 @@ export async function withdrawUserApplication({
         select: {
             id: true,
             status: true,
+
+            applicant: {
+                select: {
+                    id: true,
+                    firstName: true,
+                    lastName: true,
+                },
+            },
+
+            job: {
+                select: {
+                    id: true,
+                    title: true,
+
+                    company: {
+                        select: {
+                            id: true,
+                            name: true,
+                        },
+                    },
+                },
+            },
         },
     });
 
@@ -472,7 +542,10 @@ export async function withdrawUserApplication({
         );
     }
 
-    return prisma.application.update({
+    const applicantName =
+        `${application.applicant.firstName} ${application.applicant.lastName}`.trim();
+
+    const updatedApplication = await prisma.application.update({
         where: {
             id: application.id,
         },
@@ -484,4 +557,21 @@ export async function withdrawUserApplication({
 
         select: applicationSelect,
     });
+
+    await runNotificationTaskSafely(
+        `application withdrawn (${application.id})`,
+        () =>
+            createApplicationWithdrawnNotifications({
+                client: prisma,
+                applicationId: application.id,
+                applicantId: application.applicant.id,
+                applicantName,
+                jobId: application.job.id,
+                jobTitle: application.job.title,
+                companyId: application.job.company.id,
+                companyName: application.job.company.name,
+            }),
+    );
+
+    return updatedApplication;
 }

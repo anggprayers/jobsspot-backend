@@ -73,6 +73,13 @@ enum SavedSearchAlertFrequency {
   WEEKLY
 }
 
+enum NotificationAudience {
+  JOB_SEEKER
+  EMPLOYER
+  ADMIN
+  SYSTEM
+}
+
 model User {
   id              String    @id @default(uuid()) @db.Uuid
   email           String    @unique
@@ -108,6 +115,7 @@ model User {
   suspendedUsers          User[]                   @relation("UserSuspendedBy")
   suspendedCompanies      Company[]                @relation("CompanySuspendedBy")
   platformAuditLogs       PlatformAuditLog[]       @relation("PlatformAuditActor")
+  notifications           Notification[]
 
   @@index([deletedAt])
   @@index([suspendedAt])
@@ -422,6 +430,30 @@ model PlatformAuditLog {
   @@index([entityType, entityId])
 }
 
+model Notification {
+  id         String               @id @default(uuid()) @db.Uuid
+  userId     String               @db.Uuid
+  audience   NotificationAudience
+  type       String
+  eventKey   String
+  title      String
+  message    String
+  actionUrl  String?
+  entityType String?
+  entityId   String?
+  metadata   Json?
+  readAt     DateTime?
+  emailedAt  DateTime?
+  createdAt  DateTime             @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, eventKey])
+  @@index([userId, audience, readAt, createdAt])
+  @@index([userId, createdAt])
+  @@index([entityType, entityId])
+}
+
 model Job {
   id                  String          @id @default(uuid()) @db.Uuid
   companyId           String          @db.Uuid
@@ -497,8 +529,9 @@ model Application {
   coverLetter String?
   status      ApplicationStatus @default(SUBMITTED)
   appliedAt   DateTime          @default(now())
-  reviewedAt  DateTime?
-  withdrawnAt DateTime?
+  reviewedAt   DateTime?
+  firstViewedAt DateTime?
+  withdrawnAt  DateTime?
   createdAt   DateTime          @default(now())
   updatedAt   DateTime          @updatedAt
 
@@ -510,6 +543,7 @@ model Application {
   @@index([jobId, status])
   @@index([applicantId, createdAt])
   @@index([resumeId])
+  @@index([firstViewedAt])
 }
 
 model SavedJob {

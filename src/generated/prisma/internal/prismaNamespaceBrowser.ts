@@ -68,6 +68,7 @@ export const ModelName = {
   AuditLog: 'AuditLog',
   JobCategory: 'JobCategory',
   PlatformAuditLog: 'PlatformAuditLog',
+  Notification: 'Notification',
   Job: 'Job',
   Skill: 'Skill',
   JobSkill: 'JobSkill',
@@ -366,6 +367,26 @@ export const PlatformAuditLogScalarFieldEnum = {
 export type PlatformAuditLogScalarFieldEnum = (typeof PlatformAuditLogScalarFieldEnum)[keyof typeof PlatformAuditLogScalarFieldEnum]
 
 
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  audience: 'audience',
+  type: 'type',
+  eventKey: 'eventKey',
+  title: 'title',
+  message: 'message',
+  actionUrl: 'actionUrl',
+  entityType: 'entityType',
+  entityId: 'entityId',
+  metadata: 'metadata',
+  readAt: 'readAt',
+  emailedAt: 'emailedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
 export const JobScalarFieldEnum = {
   id: 'id',
   companyId: 'companyId',
@@ -425,6 +446,7 @@ export const ApplicationScalarFieldEnum = {
   status: 'status',
   appliedAt: 'appliedAt',
   reviewedAt: 'reviewedAt',
+  firstViewedAt: 'firstViewedAt',
   withdrawnAt: 'withdrawnAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'

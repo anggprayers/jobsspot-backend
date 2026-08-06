@@ -10,6 +10,7 @@ import { validate } from "../../middleware/validate.js";
 
 import {
     getCompanyApplicationByIdController,
+    getCompanyApplicationResumeDownloadController,
     getCompanyApplicationsController,
     updateCompanyApplicationStatusController,
 } from "./employer-application.controller.js";
@@ -45,6 +46,16 @@ employerApplicationRouter.get(
     asyncHandler(requireAuth),
     requireCompanyRole(applicationViewingRoles),
     asyncHandler(getCompanyApplicationByIdController),
+);
+
+// GET /api/companies/:companyId/applications/:applicationId/resume-download
+// Create a short-lived private download URL for the exact resume attached to the application.
+employerApplicationRouter.get(
+    "/:applicationId/resume-download",
+    asyncHandler(requireAuth),
+    asyncHandler(requireVerifiedEmail),
+    requireCompanyRole(applicationViewingRoles),
+    asyncHandler(getCompanyApplicationResumeDownloadController),
 );
 
 // PATCH /api/companies/:companyId/applications/:applicationId/status

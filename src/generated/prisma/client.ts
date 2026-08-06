@@ -127,6 +127,11 @@ export type JobCategory = Prisma.JobCategoryModel
  */
 export type PlatformAuditLog = Prisma.PlatformAuditLogModel
 /**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
  * Model Job
  * 
  */

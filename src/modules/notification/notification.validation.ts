@@ -1,0 +1,36 @@
+import { z } from "zod";
+
+import { NotificationAudience } from "../../generated/prisma/client.js";
+
+export const notificationAudienceSchema = z.nativeEnum(NotificationAudience);
+
+export const notificationListQuerySchema = z.object({
+    page: z.coerce.number().int().min(1).default(1),
+    limit: z.coerce.number().int().min(1).max(100).default(20),
+    status: z.enum(["ALL", "UNREAD", "READ"]).default("ALL"),
+    audience: notificationAudienceSchema.optional(),
+});
+
+export const notificationUnreadCountQuerySchema = z.object({
+    audience: notificationAudienceSchema.optional(),
+});
+
+export const notificationUuidParamsSchema = z.object({
+    notificationId: z.uuid("A valid notification ID is required."),
+});
+
+export const markAllNotificationsReadSchema = z.object({
+    audience: notificationAudienceSchema.optional(),
+});
+
+export type NotificationListQuery = z.infer<
+    typeof notificationListQuerySchema
+>;
+
+export type NotificationUnreadCountQuery = z.infer<
+    typeof notificationUnreadCountQuerySchema
+>;
+
+export type MarkAllNotificationsReadInput = z.infer<
+    typeof markAllNotificationsReadSchema
+>;
