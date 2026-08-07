@@ -20,6 +20,7 @@ import {
     registerUser,
     updateCurrentUserProfile,
 } from "./auth.service.js";
+import { deleteCurrentUserAccount } from "./account-deletion.service.js";
 import {
     sendEmailVerificationForUser,
     verifyEmailAddress,
@@ -433,5 +434,30 @@ export async function resetPassword(
             result.revokedSessions,
         redirectTo:
             "/login?passwordReset=success",
+    });
+}
+
+
+export async function deleteAccount(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    if (!request.user) {
+        throw new AppError(401, "Authentication is required.");
+    }
+
+    const result = await deleteCurrentUserAccount({
+        userId: request.user.id,
+        data: request.body,
+    });
+
+    clearRefreshTokenCookie(response);
+    setNoStoreHeaders(response);
+
+    response.status(200).json({
+        success: true,
+        message: "Your JobsSpot account has been deleted and personal account data has been anonymized.",
+        requiresReauthentication: false,
+        ...result,
     });
 }

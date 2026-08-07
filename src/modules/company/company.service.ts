@@ -133,6 +133,7 @@ export async function getCompanyBySlug(slug: string) {
                 where: {
                     status: JobStatus.PUBLISHED,
                     deletedAt: null,
+                    adminHiddenAt: null,
 
                     OR: [
                         {

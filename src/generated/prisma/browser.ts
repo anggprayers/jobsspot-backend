@@ -108,6 +108,11 @@ export type PlatformAuditLog = Prisma.PlatformAuditLogModel
  */
 export type Notification = Prisma.NotificationModel
 /**
+ * Model NotificationPreference
+ * 
+ */
+export type NotificationPreference = Prisma.NotificationPreferenceModel
+/**
  * Model Job
  * 
  */
@@ -127,6 +132,11 @@ export type JobSkill = Prisma.JobSkillModel
  * 
  */
 export type Application = Prisma.ApplicationModel
+/**
+ * Model JobReport
+ * 
+ */
+export type JobReport = Prisma.JobReportModel
 /**
  * Model SavedJob
  * 

@@ -402,10 +402,12 @@ export const ModelName = {
   JobCategory: 'JobCategory',
   PlatformAuditLog: 'PlatformAuditLog',
   Notification: 'Notification',
+  NotificationPreference: 'NotificationPreference',
   Job: 'Job',
   Skill: 'Skill',
   JobSkill: 'JobSkill',
   Application: 'Application',
+  JobReport: 'JobReport',
   SavedJob: 'SavedJob',
   SavedSearch: 'SavedSearch',
   PopularSearch: 'PopularSearch',
@@ -425,7 +427,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "emailVerificationToken" | "passwordResetToken" | "oAuthAccount" | "refreshToken" | "jobSeekerProfile" | "jobSeekerSkill" | "workExperience" | "education" | "certification" | "resume" | "company" | "companyMembership" | "companyInvitation" | "auditLog" | "jobCategory" | "platformAuditLog" | "notification" | "job" | "skill" | "jobSkill" | "application" | "savedJob" | "savedSearch" | "popularSearch" | "popularSearchDailyCount"
+    modelProps: "user" | "emailVerificationToken" | "passwordResetToken" | "oAuthAccount" | "refreshToken" | "jobSeekerProfile" | "jobSeekerSkill" | "workExperience" | "education" | "certification" | "resume" | "company" | "companyMembership" | "companyInvitation" | "auditLog" | "jobCategory" | "platformAuditLog" | "notification" | "notificationPreference" | "job" | "skill" | "jobSkill" | "application" | "jobReport" | "savedJob" | "savedSearch" | "popularSearch" | "popularSearchDailyCount"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1761,6 +1763,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    NotificationPreference: {
+      payload: Prisma.$NotificationPreferencePayload<ExtArgs>
+      fields: Prisma.NotificationPreferenceFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.NotificationPreferenceFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPreferencePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.NotificationPreferenceFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>
+        }
+        findFirst: {
+          args: Prisma.NotificationPreferenceFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPreferencePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.NotificationPreferenceFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>
+        }
+        findMany: {
+          args: Prisma.NotificationPreferenceFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>[]
+        }
+        create: {
+          args: Prisma.NotificationPreferenceCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>
+        }
+        createMany: {
+          args: Prisma.NotificationPreferenceCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.NotificationPreferenceCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>[]
+        }
+        delete: {
+          args: Prisma.NotificationPreferenceDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>
+        }
+        update: {
+          args: Prisma.NotificationPreferenceUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>
+        }
+        deleteMany: {
+          args: Prisma.NotificationPreferenceDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.NotificationPreferenceUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.NotificationPreferenceUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>[]
+        }
+        upsert: {
+          args: Prisma.NotificationPreferenceUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$NotificationPreferencePayload>
+        }
+        aggregate: {
+          args: Prisma.NotificationPreferenceAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateNotificationPreference>
+        }
+        groupBy: {
+          args: Prisma.NotificationPreferenceGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NotificationPreferenceGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.NotificationPreferenceCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.NotificationPreferenceCountAggregateOutputType> | number
+        }
+      }
+    }
     Job: {
       payload: Prisma.$JobPayload<ExtArgs>
       fields: Prisma.JobFieldRefs
@@ -2054,6 +2130,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.ApplicationCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.ApplicationCountAggregateOutputType> | number
+        }
+      }
+    }
+    JobReport: {
+      payload: Prisma.$JobReportPayload<ExtArgs>
+      fields: Prisma.JobReportFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JobReportFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobReportPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JobReportFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobReportPayload>
+        }
+        findFirst: {
+          args: Prisma.JobReportFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobReportPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JobReportFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobReportPayload>
+        }
+        findMany: {
+          args: Prisma.JobReportFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobReportPayload>[]
+        }
+        create: {
+          args: Prisma.JobReportCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobReportPayload>
+        }
+        createMany: {
+          args: Prisma.JobReportCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JobReportCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobReportPayload>[]
+        }
+        delete: {
+          args: Prisma.JobReportDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobReportPayload>
+        }
+        update: {
+          args: Prisma.JobReportUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobReportPayload>
+        }
+        deleteMany: {
+          args: Prisma.JobReportDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JobReportUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JobReportUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobReportPayload>[]
+        }
+        upsert: {
+          args: Prisma.JobReportUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobReportPayload>
+        }
+        aggregate: {
+          args: Prisma.JobReportAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJobReport>
+        }
+        groupBy: {
+          args: Prisma.JobReportGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobReportGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JobReportCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobReportCountAggregateOutputType> | number
         }
       }
     }
@@ -2677,11 +2827,29 @@ export const NotificationScalarFieldEnum = {
   entityId: 'entityId',
   metadata: 'metadata',
   readAt: 'readAt',
+  clearedAt: 'clearedAt',
   emailedAt: 'emailedAt',
+  emailProcessedAt: 'emailProcessedAt',
   createdAt: 'createdAt'
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const NotificationPreferenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  jobSeekerApplicationUpdatesEmail: 'jobSeekerApplicationUpdatesEmail',
+  jobSeekerApplicationViewedEmail: 'jobSeekerApplicationViewedEmail',
+  employerApplicationEmail: 'employerApplicationEmail',
+  employerTeamEmail: 'employerTeamEmail',
+  employerJobEmail: 'employerJobEmail',
+  systemEmail: 'systemEmail',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationPreferenceScalarFieldEnum = (typeof NotificationPreferenceScalarFieldEnum)[keyof typeof NotificationPreferenceScalarFieldEnum]
 
 
 export const JobScalarFieldEnum = {
@@ -2708,7 +2876,10 @@ export const JobScalarFieldEnum = {
   expiresAt: 'expiresAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  adminHiddenAt: 'adminHiddenAt',
+  adminHiddenReason: 'adminHiddenReason',
+  adminHiddenById: 'adminHiddenById'
 } as const
 
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
@@ -2740,6 +2911,10 @@ export const ApplicationScalarFieldEnum = {
   applicantId: 'applicantId',
   resumeId: 'resumeId',
   coverLetter: 'coverLetter',
+  coverLetterFileKey: 'coverLetterFileKey',
+  coverLetterFileName: 'coverLetterFileName',
+  coverLetterFileMimeType: 'coverLetterFileMimeType',
+  coverLetterFileSize: 'coverLetterFileSize',
   status: 'status',
   appliedAt: 'appliedAt',
   reviewedAt: 'reviewedAt',
@@ -2750,6 +2925,23 @@ export const ApplicationScalarFieldEnum = {
 } as const
 
 export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
+
+
+export const JobReportScalarFieldEnum = {
+  id: 'id',
+  jobId: 'jobId',
+  reporterUserId: 'reporterUserId',
+  reason: 'reason',
+  details: 'details',
+  status: 'status',
+  resolutionNote: 'resolutionNote',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobReportScalarFieldEnum = (typeof JobReportScalarFieldEnum)[keyof typeof JobReportScalarFieldEnum]
 
 
 export const SavedJobScalarFieldEnum = {
@@ -3067,6 +3259,34 @@ export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInput
 
 
 /**
+ * Reference to a field of type 'JobReportReason'
+ */
+export type EnumJobReportReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobReportReason'>
+    
+
+
+/**
+ * Reference to a field of type 'JobReportReason[]'
+ */
+export type ListEnumJobReportReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobReportReason[]'>
+    
+
+
+/**
+ * Reference to a field of type 'JobReportStatus'
+ */
+export type EnumJobReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobReportStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'JobReportStatus[]'
+ */
+export type ListEnumJobReportStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobReportStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'SavedSearchAlertFrequency'
  */
 export type EnumSavedSearchAlertFrequencyFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SavedSearchAlertFrequency'>
@@ -3221,10 +3441,12 @@ export type GlobalOmitConfig = {
   jobCategory?: Prisma.JobCategoryOmit
   platformAuditLog?: Prisma.PlatformAuditLogOmit
   notification?: Prisma.NotificationOmit
+  notificationPreference?: Prisma.NotificationPreferenceOmit
   job?: Prisma.JobOmit
   skill?: Prisma.SkillOmit
   jobSkill?: Prisma.JobSkillOmit
   application?: Prisma.ApplicationOmit
+  jobReport?: Prisma.JobReportOmit
   savedJob?: Prisma.SavedJobOmit
   savedSearch?: Prisma.SavedSearchOmit
   popularSearch?: Prisma.PopularSearchOmit

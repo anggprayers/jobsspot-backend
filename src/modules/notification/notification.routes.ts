@@ -8,16 +8,21 @@ import { validateParams } from "../../middleware/validateParams.js";
 import { validateQuery } from "../../middleware/validateQuery.js";
 
 import {
+    clearReadNotificationsController,
     getNotificationsController,
+    getNotificationPreferencesController,
     getNotificationUnreadCountController,
     markAllNotificationsReadController,
     markNotificationReadController,
+    updateNotificationPreferencesController,
 } from "./notification.controller.js";
 import {
+    clearReadNotificationsSchema,
     markAllNotificationsReadSchema,
     notificationListQuerySchema,
     notificationUnreadCountQuerySchema,
     notificationUuidParamsSchema,
+    updateNotificationPreferencesSchema,
 } from "./notification.validation.js";
 
 const notificationRouter = Router();
@@ -25,6 +30,19 @@ const notificationRouter = Router();
 notificationRouter.use(
     asyncHandler(requireAuth),
     asyncHandler(requireVerifiedEmail),
+);
+
+// GET /api/notifications/preferences
+notificationRouter.get(
+    "/preferences",
+    asyncHandler(getNotificationPreferencesController),
+);
+
+// PATCH /api/notifications/preferences
+notificationRouter.patch(
+    "/preferences",
+    validate(updateNotificationPreferencesSchema),
+    asyncHandler(updateNotificationPreferencesController),
 );
 
 // GET /api/notifications
@@ -46,6 +64,13 @@ notificationRouter.patch(
     "/read-all",
     validate(markAllNotificationsReadSchema),
     asyncHandler(markAllNotificationsReadController),
+);
+
+// PATCH /api/notifications/clear-read
+notificationRouter.patch(
+    "/clear-read",
+    validate(clearReadNotificationsSchema),
+    asyncHandler(clearReadNotificationsController),
 );
 
 // PATCH /api/notifications/:notificationId/read

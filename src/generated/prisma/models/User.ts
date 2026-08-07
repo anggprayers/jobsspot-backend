@@ -281,6 +281,10 @@ export type UserWhereInput = {
   suspendedCompanies?: Prisma.CompanyListRelationFilter
   platformAuditLogs?: Prisma.PlatformAuditLogListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  notificationPreference?: Prisma.XOR<Prisma.NotificationPreferenceNullableScalarRelationFilter, Prisma.NotificationPreferenceWhereInput> | null
+  adminHiddenJobs?: Prisma.JobListRelationFilter
+  jobReports?: Prisma.JobReportListRelationFilter
+  reviewedJobReports?: Prisma.JobReportListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -318,6 +322,10 @@ export type UserOrderByWithRelationInput = {
   suspendedCompanies?: Prisma.CompanyOrderByRelationAggregateInput
   platformAuditLogs?: Prisma.PlatformAuditLogOrderByRelationAggregateInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
+  notificationPreference?: Prisma.NotificationPreferenceOrderByWithRelationInput
+  adminHiddenJobs?: Prisma.JobOrderByRelationAggregateInput
+  jobReports?: Prisma.JobReportOrderByRelationAggregateInput
+  reviewedJobReports?: Prisma.JobReportOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -358,6 +366,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   suspendedCompanies?: Prisma.CompanyListRelationFilter
   platformAuditLogs?: Prisma.PlatformAuditLogListRelationFilter
   notifications?: Prisma.NotificationListRelationFilter
+  notificationPreference?: Prisma.XOR<Prisma.NotificationPreferenceNullableScalarRelationFilter, Prisma.NotificationPreferenceWhereInput> | null
+  adminHiddenJobs?: Prisma.JobListRelationFilter
+  jobReports?: Prisma.JobReportListRelationFilter
+  reviewedJobReports?: Prisma.JobReportListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -436,6 +448,10 @@ export type UserCreateInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -472,6 +488,10 @@ export type UserUncheckedCreateInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUpdateInput = {
@@ -508,6 +528,10 @@ export type UserUpdateInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -544,6 +568,10 @@ export type UserUncheckedUpdateInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -941,9 +969,29 @@ export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
 }
 
+export type UserCreateNestedOneWithoutNotificationPreferenceInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationPreferenceInput, Prisma.UserUncheckedCreateWithoutNotificationPreferenceInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationPreferenceInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutNotificationPreferenceNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationPreferenceInput, Prisma.UserUncheckedCreateWithoutNotificationPreferenceInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationPreferenceInput
+  upsert?: Prisma.UserUpsertWithoutNotificationPreferenceInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationPreferenceInput, Prisma.UserUpdateWithoutNotificationPreferenceInput>, Prisma.UserUncheckedUpdateWithoutNotificationPreferenceInput>
+}
+
 export type UserCreateNestedOneWithoutCreatedJobsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedJobsInput, Prisma.UserUncheckedCreateWithoutCreatedJobsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedJobsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutAdminHiddenJobsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAdminHiddenJobsInput, Prisma.UserUncheckedCreateWithoutAdminHiddenJobsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdminHiddenJobsInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
@@ -953,6 +1001,16 @@ export type UserUpdateOneRequiredWithoutCreatedJobsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutCreatedJobsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedJobsInput, Prisma.UserUpdateWithoutCreatedJobsInput>, Prisma.UserUncheckedUpdateWithoutCreatedJobsInput>
+}
+
+export type UserUpdateOneWithoutAdminHiddenJobsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAdminHiddenJobsInput, Prisma.UserUncheckedCreateWithoutAdminHiddenJobsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdminHiddenJobsInput
+  upsert?: Prisma.UserUpsertWithoutAdminHiddenJobsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAdminHiddenJobsInput, Prisma.UserUpdateWithoutAdminHiddenJobsInput>, Prisma.UserUncheckedUpdateWithoutAdminHiddenJobsInput>
 }
 
 export type UserCreateNestedOneWithoutApplicationsInput = {
@@ -967,6 +1025,36 @@ export type UserUpdateOneRequiredWithoutApplicationsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutApplicationsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutApplicationsInput, Prisma.UserUpdateWithoutApplicationsInput>, Prisma.UserUncheckedUpdateWithoutApplicationsInput>
+}
+
+export type UserCreateNestedOneWithoutJobReportsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutJobReportsInput, Prisma.UserUncheckedCreateWithoutJobReportsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutJobReportsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReviewedJobReportsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedJobReportsInput, Prisma.UserUncheckedCreateWithoutReviewedJobReportsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedJobReportsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutJobReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutJobReportsInput, Prisma.UserUncheckedCreateWithoutJobReportsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutJobReportsInput
+  upsert?: Prisma.UserUpsertWithoutJobReportsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutJobReportsInput, Prisma.UserUpdateWithoutJobReportsInput>, Prisma.UserUncheckedUpdateWithoutJobReportsInput>
+}
+
+export type UserUpdateOneWithoutReviewedJobReportsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedJobReportsInput, Prisma.UserUncheckedCreateWithoutReviewedJobReportsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedJobReportsInput
+  upsert?: Prisma.UserUpsertWithoutReviewedJobReportsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReviewedJobReportsInput, Prisma.UserUpdateWithoutReviewedJobReportsInput>, Prisma.UserUncheckedUpdateWithoutReviewedJobReportsInput>
 }
 
 export type UserCreateNestedOneWithoutSavedJobsInput = {
@@ -1030,6 +1118,10 @@ export type UserCreateWithoutSuspendedUsersInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutSuspendedUsersInput = {
@@ -1065,6 +1157,10 @@ export type UserUncheckedCreateWithoutSuspendedUsersInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutSuspendedUsersInput = {
@@ -1105,6 +1201,10 @@ export type UserCreateWithoutSuspendedByInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutSuspendedByInput = {
@@ -1140,6 +1240,10 @@ export type UserUncheckedCreateWithoutSuspendedByInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutSuspendedByInput = {
@@ -1196,6 +1300,10 @@ export type UserUpdateWithoutSuspendedUsersInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuspendedUsersInput = {
@@ -1231,6 +1339,10 @@ export type UserUncheckedUpdateWithoutSuspendedUsersInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutSuspendedByInput = {
@@ -1303,6 +1415,10 @@ export type UserCreateWithoutEmailVerificationTokensInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
@@ -1338,6 +1454,10 @@ export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutEmailVerificationTokensInput = {
@@ -1389,6 +1509,10 @@ export type UserUpdateWithoutEmailVerificationTokensInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
@@ -1424,6 +1548,10 @@ export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -1459,6 +1587,10 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -1494,6 +1626,10 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -1545,6 +1681,10 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -1580,6 +1720,10 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutOauthAccountsInput = {
@@ -1615,6 +1759,10 @@ export type UserCreateWithoutOauthAccountsInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutOauthAccountsInput = {
@@ -1650,6 +1798,10 @@ export type UserUncheckedCreateWithoutOauthAccountsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutOauthAccountsInput = {
@@ -1701,6 +1853,10 @@ export type UserUpdateWithoutOauthAccountsInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthAccountsInput = {
@@ -1736,6 +1892,10 @@ export type UserUncheckedUpdateWithoutOauthAccountsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -1771,6 +1931,10 @@ export type UserCreateWithoutRefreshTokensInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -1806,6 +1970,10 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -1857,6 +2025,10 @@ export type UserUpdateWithoutRefreshTokensInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -1892,6 +2064,10 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutJobSeekerProfileInput = {
@@ -1927,6 +2103,10 @@ export type UserCreateWithoutJobSeekerProfileInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutJobSeekerProfileInput = {
@@ -1962,6 +2142,10 @@ export type UserUncheckedCreateWithoutJobSeekerProfileInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutJobSeekerProfileInput = {
@@ -2013,6 +2197,10 @@ export type UserUpdateWithoutJobSeekerProfileInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJobSeekerProfileInput = {
@@ -2048,6 +2236,10 @@ export type UserUncheckedUpdateWithoutJobSeekerProfileInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutResumesInput = {
@@ -2083,6 +2275,10 @@ export type UserCreateWithoutResumesInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutResumesInput = {
@@ -2118,6 +2314,10 @@ export type UserUncheckedCreateWithoutResumesInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutResumesInput = {
@@ -2169,6 +2369,10 @@ export type UserUpdateWithoutResumesInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResumesInput = {
@@ -2204,6 +2408,10 @@ export type UserUncheckedUpdateWithoutResumesInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutSuspendedCompaniesInput = {
@@ -2239,6 +2447,10 @@ export type UserCreateWithoutSuspendedCompaniesInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutSuspendedCompaniesInput = {
@@ -2274,6 +2486,10 @@ export type UserUncheckedCreateWithoutSuspendedCompaniesInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutSuspendedCompaniesInput = {
@@ -2325,6 +2541,10 @@ export type UserUpdateWithoutSuspendedCompaniesInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuspendedCompaniesInput = {
@@ -2360,6 +2580,10 @@ export type UserUncheckedUpdateWithoutSuspendedCompaniesInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutCompanyMembershipsInput = {
@@ -2395,6 +2619,10 @@ export type UserCreateWithoutCompanyMembershipsInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutCompanyMembershipsInput = {
@@ -2430,6 +2658,10 @@ export type UserUncheckedCreateWithoutCompanyMembershipsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutCompanyMembershipsInput = {
@@ -2481,6 +2713,10 @@ export type UserUpdateWithoutCompanyMembershipsInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyMembershipsInput = {
@@ -2516,6 +2752,10 @@ export type UserUncheckedUpdateWithoutCompanyMembershipsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutSentCompanyInvitationsInput = {
@@ -2551,6 +2791,10 @@ export type UserCreateWithoutSentCompanyInvitationsInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutSentCompanyInvitationsInput = {
@@ -2586,6 +2830,10 @@ export type UserUncheckedCreateWithoutSentCompanyInvitationsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutSentCompanyInvitationsInput = {
@@ -2626,6 +2874,10 @@ export type UserCreateWithoutAcceptedCompanyInvitationsInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput = {
@@ -2661,6 +2913,10 @@ export type UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutAcceptedCompanyInvitationsInput = {
@@ -2712,6 +2968,10 @@ export type UserUpdateWithoutSentCompanyInvitationsInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentCompanyInvitationsInput = {
@@ -2747,6 +3007,10 @@ export type UserUncheckedUpdateWithoutSentCompanyInvitationsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUpsertWithoutAcceptedCompanyInvitationsInput = {
@@ -2793,6 +3057,10 @@ export type UserUpdateWithoutAcceptedCompanyInvitationsInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput = {
@@ -2828,6 +3096,10 @@ export type UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -2863,6 +3135,10 @@ export type UserCreateWithoutAuditLogsInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -2898,6 +3174,10 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -2949,6 +3229,10 @@ export type UserUpdateWithoutAuditLogsInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -2984,6 +3268,10 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutPlatformAuditLogsInput = {
@@ -3019,6 +3307,10 @@ export type UserCreateWithoutPlatformAuditLogsInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutPlatformAuditLogsInput = {
@@ -3054,6 +3346,10 @@ export type UserUncheckedCreateWithoutPlatformAuditLogsInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutPlatformAuditLogsInput = {
@@ -3105,6 +3401,10 @@ export type UserUpdateWithoutPlatformAuditLogsInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlatformAuditLogsInput = {
@@ -3140,6 +3440,10 @@ export type UserUncheckedUpdateWithoutPlatformAuditLogsInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -3175,6 +3479,10 @@ export type UserCreateWithoutNotificationsInput = {
   suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -3210,6 +3518,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3261,6 +3573,10 @@ export type UserUpdateWithoutNotificationsInput = {
   suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -3296,6 +3612,182 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutNotificationPreferenceInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobUncheckedCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutNotificationPreferenceInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationPreferenceInput, Prisma.UserUncheckedCreateWithoutNotificationPreferenceInput>
+}
+
+export type UserUpsertWithoutNotificationPreferenceInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutNotificationPreferenceInput, Prisma.UserUncheckedUpdateWithoutNotificationPreferenceInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutNotificationPreferenceInput, Prisma.UserUncheckedCreateWithoutNotificationPreferenceInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutNotificationPreferenceInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutNotificationPreferenceInput, Prisma.UserUncheckedUpdateWithoutNotificationPreferenceInput>
+}
+
+export type UserUpdateWithoutNotificationPreferenceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutCreatedJobsInput = {
@@ -3331,6 +3823,10 @@ export type UserCreateWithoutCreatedJobsInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedJobsInput = {
@@ -3366,11 +3862,98 @@ export type UserUncheckedCreateWithoutCreatedJobsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedJobsInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutCreatedJobsInput, Prisma.UserUncheckedCreateWithoutCreatedJobsInput>
+}
+
+export type UserCreateWithoutAdminHiddenJobsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutAdminHiddenJobsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobUncheckedCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutAdminHiddenJobsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAdminHiddenJobsInput, Prisma.UserUncheckedCreateWithoutAdminHiddenJobsInput>
 }
 
 export type UserUpsertWithoutCreatedJobsInput = {
@@ -3417,6 +4000,10 @@ export type UserUpdateWithoutCreatedJobsInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedJobsInput = {
@@ -3452,6 +4039,99 @@ export type UserUncheckedUpdateWithoutCreatedJobsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutAdminHiddenJobsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAdminHiddenJobsInput, Prisma.UserUncheckedUpdateWithoutAdminHiddenJobsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAdminHiddenJobsInput, Prisma.UserUncheckedCreateWithoutAdminHiddenJobsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAdminHiddenJobsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAdminHiddenJobsInput, Prisma.UserUncheckedUpdateWithoutAdminHiddenJobsInput>
+}
+
+export type UserUpdateWithoutAdminHiddenJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAdminHiddenJobsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutApplicationsInput = {
@@ -3487,6 +4167,10 @@ export type UserCreateWithoutApplicationsInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -3522,6 +4206,10 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -3573,6 +4261,10 @@ export type UserUpdateWithoutApplicationsInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -3608,6 +4300,354 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserCreateWithoutJobReportsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutJobReportsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobUncheckedCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutJobReportsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutJobReportsInput, Prisma.UserUncheckedCreateWithoutJobReportsInput>
+}
+
+export type UserCreateWithoutReviewedJobReportsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+}
+
+export type UserUncheckedCreateWithoutReviewedJobReportsInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobUncheckedCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+}
+
+export type UserCreateOrConnectWithoutReviewedJobReportsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedJobReportsInput, Prisma.UserUncheckedCreateWithoutReviewedJobReportsInput>
+}
+
+export type UserUpsertWithoutJobReportsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutJobReportsInput, Prisma.UserUncheckedUpdateWithoutJobReportsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutJobReportsInput, Prisma.UserUncheckedCreateWithoutJobReportsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutJobReportsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutJobReportsInput, Prisma.UserUncheckedUpdateWithoutJobReportsInput>
+}
+
+export type UserUpdateWithoutJobReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutJobReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUpsertWithoutReviewedJobReportsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReviewedJobReportsInput, Prisma.UserUncheckedUpdateWithoutReviewedJobReportsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReviewedJobReportsInput, Prisma.UserUncheckedCreateWithoutReviewedJobReportsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReviewedJobReportsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReviewedJobReportsInput, Prisma.UserUncheckedUpdateWithoutReviewedJobReportsInput>
+}
+
+export type UserUpdateWithoutReviewedJobReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReviewedJobReportsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
 }
 
 export type UserCreateWithoutSavedJobsInput = {
@@ -3643,6 +4683,10 @@ export type UserCreateWithoutSavedJobsInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutSavedJobsInput = {
@@ -3678,6 +4722,10 @@ export type UserUncheckedCreateWithoutSavedJobsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutSavedJobsInput = {
@@ -3729,6 +4777,10 @@ export type UserUpdateWithoutSavedJobsInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedJobsInput = {
@@ -3764,6 +4816,10 @@ export type UserUncheckedUpdateWithoutSavedJobsInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateWithoutSavedSearchesInput = {
@@ -3799,6 +4855,10 @@ export type UserCreateWithoutSavedSearchesInput = {
   suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserUncheckedCreateWithoutSavedSearchesInput = {
@@ -3834,6 +4894,10 @@ export type UserUncheckedCreateWithoutSavedSearchesInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
 }
 
 export type UserCreateOrConnectWithoutSavedSearchesInput = {
@@ -3885,6 +4949,10 @@ export type UserUpdateWithoutSavedSearchesInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedSearchesInput = {
@@ -3920,6 +4988,10 @@ export type UserUncheckedUpdateWithoutSavedSearchesInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserCreateManySuspendedByInput = {
@@ -3972,6 +5044,10 @@ export type UserUpdateWithoutSuspendedByInput = {
   suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuspendedByInput = {
@@ -4007,6 +5083,10 @@ export type UserUncheckedUpdateWithoutSuspendedByInput = {
   suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
   platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutSuspendedByInput = {
@@ -4049,6 +5129,9 @@ export type UserCountOutputType = {
   suspendedCompanies: number
   platformAuditLogs: number
   notifications: number
+  adminHiddenJobs: number
+  jobReports: number
+  reviewedJobReports: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4069,6 +5152,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   suspendedCompanies?: boolean | UserCountOutputTypeCountSuspendedCompaniesArgs
   platformAuditLogs?: boolean | UserCountOutputTypeCountPlatformAuditLogsArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
+  adminHiddenJobs?: boolean | UserCountOutputTypeCountAdminHiddenJobsArgs
+  jobReports?: boolean | UserCountOutputTypeCountJobReportsArgs
+  reviewedJobReports?: boolean | UserCountOutputTypeCountReviewedJobReportsArgs
 }
 
 /**
@@ -4200,6 +5286,27 @@ export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Ty
   where?: Prisma.NotificationWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAdminHiddenJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountJobReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobReportWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReviewedJobReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobReportWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4236,6 +5343,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   suspendedCompanies?: boolean | Prisma.User$suspendedCompaniesArgs<ExtArgs>
   platformAuditLogs?: boolean | Prisma.User$platformAuditLogsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  notificationPreference?: boolean | Prisma.User$notificationPreferenceArgs<ExtArgs>
+  adminHiddenJobs?: boolean | Prisma.User$adminHiddenJobsArgs<ExtArgs>
+  jobReports?: boolean | Prisma.User$jobReportsArgs<ExtArgs>
+  reviewedJobReports?: boolean | Prisma.User$reviewedJobReportsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -4316,6 +5427,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   suspendedCompanies?: boolean | Prisma.User$suspendedCompaniesArgs<ExtArgs>
   platformAuditLogs?: boolean | Prisma.User$platformAuditLogsArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
+  notificationPreference?: boolean | Prisma.User$notificationPreferenceArgs<ExtArgs>
+  adminHiddenJobs?: boolean | Prisma.User$adminHiddenJobsArgs<ExtArgs>
+  jobReports?: boolean | Prisma.User$jobReportsArgs<ExtArgs>
+  reviewedJobReports?: boolean | Prisma.User$reviewedJobReportsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4347,6 +5462,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     suspendedCompanies: Prisma.$CompanyPayload<ExtArgs>[]
     platformAuditLogs: Prisma.$PlatformAuditLogPayload<ExtArgs>[]
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
+    notificationPreference: Prisma.$NotificationPreferencePayload<ExtArgs> | null
+    adminHiddenJobs: Prisma.$JobPayload<ExtArgs>[]
+    jobReports: Prisma.$JobReportPayload<ExtArgs>[]
+    reviewedJobReports: Prisma.$JobReportPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -4777,6 +5896,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   suspendedCompanies<T extends Prisma.User$suspendedCompaniesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$suspendedCompaniesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   platformAuditLogs<T extends Prisma.User$platformAuditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$platformAuditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformAuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  notificationPreference<T extends Prisma.User$notificationPreferenceArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationPreferenceArgs<ExtArgs>>): Prisma.Prisma__NotificationPreferenceClient<runtime.Types.Result.GetResult<Prisma.$NotificationPreferencePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  adminHiddenJobs<T extends Prisma.User$adminHiddenJobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$adminHiddenJobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  jobReports<T extends Prisma.User$jobReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  reviewedJobReports<T extends Prisma.User$reviewedJobReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedJobReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5665,6 +6788,97 @@ export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.NotificationScalarFieldEnum | Prisma.NotificationScalarFieldEnum[]
+}
+
+/**
+ * User.notificationPreference
+ */
+export type User$notificationPreferenceArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the NotificationPreference
+   */
+  select?: Prisma.NotificationPreferenceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the NotificationPreference
+   */
+  omit?: Prisma.NotificationPreferenceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.NotificationPreferenceInclude<ExtArgs> | null
+  where?: Prisma.NotificationPreferenceWhereInput
+}
+
+/**
+ * User.adminHiddenJobs
+ */
+export type User$adminHiddenJobsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Job
+   */
+  select?: Prisma.JobSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Job
+   */
+  omit?: Prisma.JobOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobInclude<ExtArgs> | null
+  where?: Prisma.JobWhereInput
+  orderBy?: Prisma.JobOrderByWithRelationInput | Prisma.JobOrderByWithRelationInput[]
+  cursor?: Prisma.JobWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobScalarFieldEnum | Prisma.JobScalarFieldEnum[]
+}
+
+/**
+ * User.jobReports
+ */
+export type User$jobReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobReport
+   */
+  select?: Prisma.JobReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobReport
+   */
+  omit?: Prisma.JobReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobReportInclude<ExtArgs> | null
+  where?: Prisma.JobReportWhereInput
+  orderBy?: Prisma.JobReportOrderByWithRelationInput | Prisma.JobReportOrderByWithRelationInput[]
+  cursor?: Prisma.JobReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobReportScalarFieldEnum | Prisma.JobReportScalarFieldEnum[]
+}
+
+/**
+ * User.reviewedJobReports
+ */
+export type User$reviewedJobReportsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobReport
+   */
+  select?: Prisma.JobReportSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobReport
+   */
+  omit?: Prisma.JobReportOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobReportInclude<ExtArgs> | null
+  where?: Prisma.JobReportWhereInput
+  orderBy?: Prisma.JobReportOrderByWithRelationInput | Prisma.JobReportOrderByWithRelationInput[]
+  cursor?: Prisma.JobReportWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobReportScalarFieldEnum | Prisma.JobReportScalarFieldEnum[]
 }
 
 /**

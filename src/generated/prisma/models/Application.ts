@@ -20,8 +20,18 @@ export type ApplicationModel = runtime.Types.Result.DefaultSelection<Prisma.$App
 
 export type AggregateApplication = {
   _count: ApplicationCountAggregateOutputType | null
+  _avg: ApplicationAvgAggregateOutputType | null
+  _sum: ApplicationSumAggregateOutputType | null
   _min: ApplicationMinAggregateOutputType | null
   _max: ApplicationMaxAggregateOutputType | null
+}
+
+export type ApplicationAvgAggregateOutputType = {
+  coverLetterFileSize: number | null
+}
+
+export type ApplicationSumAggregateOutputType = {
+  coverLetterFileSize: number | null
 }
 
 export type ApplicationMinAggregateOutputType = {
@@ -30,6 +40,10 @@ export type ApplicationMinAggregateOutputType = {
   applicantId: string | null
   resumeId: string | null
   coverLetter: string | null
+  coverLetterFileKey: string | null
+  coverLetterFileName: string | null
+  coverLetterFileMimeType: string | null
+  coverLetterFileSize: number | null
   status: $Enums.ApplicationStatus | null
   appliedAt: Date | null
   reviewedAt: Date | null
@@ -45,6 +59,10 @@ export type ApplicationMaxAggregateOutputType = {
   applicantId: string | null
   resumeId: string | null
   coverLetter: string | null
+  coverLetterFileKey: string | null
+  coverLetterFileName: string | null
+  coverLetterFileMimeType: string | null
+  coverLetterFileSize: number | null
   status: $Enums.ApplicationStatus | null
   appliedAt: Date | null
   reviewedAt: Date | null
@@ -60,6 +78,10 @@ export type ApplicationCountAggregateOutputType = {
   applicantId: number
   resumeId: number
   coverLetter: number
+  coverLetterFileKey: number
+  coverLetterFileName: number
+  coverLetterFileMimeType: number
+  coverLetterFileSize: number
   status: number
   appliedAt: number
   reviewedAt: number
@@ -71,12 +93,24 @@ export type ApplicationCountAggregateOutputType = {
 }
 
 
+export type ApplicationAvgAggregateInputType = {
+  coverLetterFileSize?: true
+}
+
+export type ApplicationSumAggregateInputType = {
+  coverLetterFileSize?: true
+}
+
 export type ApplicationMinAggregateInputType = {
   id?: true
   jobId?: true
   applicantId?: true
   resumeId?: true
   coverLetter?: true
+  coverLetterFileKey?: true
+  coverLetterFileName?: true
+  coverLetterFileMimeType?: true
+  coverLetterFileSize?: true
   status?: true
   appliedAt?: true
   reviewedAt?: true
@@ -92,6 +126,10 @@ export type ApplicationMaxAggregateInputType = {
   applicantId?: true
   resumeId?: true
   coverLetter?: true
+  coverLetterFileKey?: true
+  coverLetterFileName?: true
+  coverLetterFileMimeType?: true
+  coverLetterFileSize?: true
   status?: true
   appliedAt?: true
   reviewedAt?: true
@@ -107,6 +145,10 @@ export type ApplicationCountAggregateInputType = {
   applicantId?: true
   resumeId?: true
   coverLetter?: true
+  coverLetterFileKey?: true
+  coverLetterFileName?: true
+  coverLetterFileMimeType?: true
+  coverLetterFileSize?: true
   status?: true
   appliedAt?: true
   reviewedAt?: true
@@ -155,6 +197,18 @@ export type ApplicationAggregateArgs<ExtArgs extends runtime.Types.Extensions.In
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: ApplicationAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: ApplicationSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: ApplicationMinAggregateInputType
@@ -185,6 +239,8 @@ export type ApplicationGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   _count?: ApplicationCountAggregateInputType | true
+  _avg?: ApplicationAvgAggregateInputType
+  _sum?: ApplicationSumAggregateInputType
   _min?: ApplicationMinAggregateInputType
   _max?: ApplicationMaxAggregateInputType
 }
@@ -195,6 +251,10 @@ export type ApplicationGroupByOutputType = {
   applicantId: string
   resumeId: string | null
   coverLetter: string | null
+  coverLetterFileKey: string | null
+  coverLetterFileName: string | null
+  coverLetterFileMimeType: string | null
+  coverLetterFileSize: number | null
   status: $Enums.ApplicationStatus
   appliedAt: Date
   reviewedAt: Date | null
@@ -203,6 +263,8 @@ export type ApplicationGroupByOutputType = {
   createdAt: Date
   updatedAt: Date
   _count: ApplicationCountAggregateOutputType | null
+  _avg: ApplicationAvgAggregateOutputType | null
+  _sum: ApplicationSumAggregateOutputType | null
   _min: ApplicationMinAggregateOutputType | null
   _max: ApplicationMaxAggregateOutputType | null
 }
@@ -231,6 +293,10 @@ export type ApplicationWhereInput = {
   applicantId?: Prisma.UuidFilter<"Application"> | string
   resumeId?: Prisma.UuidNullableFilter<"Application"> | string | null
   coverLetter?: Prisma.StringNullableFilter<"Application"> | string | null
+  coverLetterFileKey?: Prisma.StringNullableFilter<"Application"> | string | null
+  coverLetterFileName?: Prisma.StringNullableFilter<"Application"> | string | null
+  coverLetterFileMimeType?: Prisma.StringNullableFilter<"Application"> | string | null
+  coverLetterFileSize?: Prisma.IntNullableFilter<"Application"> | number | null
   status?: Prisma.EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   reviewedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
@@ -249,6 +315,10 @@ export type ApplicationOrderByWithRelationInput = {
   applicantId?: Prisma.SortOrder
   resumeId?: Prisma.SortOrderInput | Prisma.SortOrder
   coverLetter?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverLetterFileKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverLetterFileName?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverLetterFileMimeType?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverLetterFileSize?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -263,7 +333,6 @@ export type ApplicationOrderByWithRelationInput = {
 
 export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  jobId_applicantId?: Prisma.ApplicationJobIdApplicantIdCompoundUniqueInput
   AND?: Prisma.ApplicationWhereInput | Prisma.ApplicationWhereInput[]
   OR?: Prisma.ApplicationWhereInput[]
   NOT?: Prisma.ApplicationWhereInput | Prisma.ApplicationWhereInput[]
@@ -271,6 +340,10 @@ export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
   applicantId?: Prisma.UuidFilter<"Application"> | string
   resumeId?: Prisma.UuidNullableFilter<"Application"> | string | null
   coverLetter?: Prisma.StringNullableFilter<"Application"> | string | null
+  coverLetterFileKey?: Prisma.StringNullableFilter<"Application"> | string | null
+  coverLetterFileName?: Prisma.StringNullableFilter<"Application"> | string | null
+  coverLetterFileMimeType?: Prisma.StringNullableFilter<"Application"> | string | null
+  coverLetterFileSize?: Prisma.IntNullableFilter<"Application"> | number | null
   status?: Prisma.EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   reviewedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
@@ -281,7 +354,7 @@ export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
   job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
   applicant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   resume?: Prisma.XOR<Prisma.ResumeNullableScalarRelationFilter, Prisma.ResumeWhereInput> | null
-}, "id" | "jobId_applicantId">
+}, "id">
 
 export type ApplicationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -289,6 +362,10 @@ export type ApplicationOrderByWithAggregationInput = {
   applicantId?: Prisma.SortOrder
   resumeId?: Prisma.SortOrderInput | Prisma.SortOrder
   coverLetter?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverLetterFileKey?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverLetterFileName?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverLetterFileMimeType?: Prisma.SortOrderInput | Prisma.SortOrder
+  coverLetterFileSize?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -297,8 +374,10 @@ export type ApplicationOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ApplicationCountOrderByAggregateInput
+  _avg?: Prisma.ApplicationAvgOrderByAggregateInput
   _max?: Prisma.ApplicationMaxOrderByAggregateInput
   _min?: Prisma.ApplicationMinOrderByAggregateInput
+  _sum?: Prisma.ApplicationSumOrderByAggregateInput
 }
 
 export type ApplicationScalarWhereWithAggregatesInput = {
@@ -310,6 +389,10 @@ export type ApplicationScalarWhereWithAggregatesInput = {
   applicantId?: Prisma.UuidWithAggregatesFilter<"Application"> | string
   resumeId?: Prisma.UuidNullableWithAggregatesFilter<"Application"> | string | null
   coverLetter?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
+  coverLetterFileKey?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
+  coverLetterFileName?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
+  coverLetterFileMimeType?: Prisma.StringNullableWithAggregatesFilter<"Application"> | string | null
+  coverLetterFileSize?: Prisma.IntNullableWithAggregatesFilter<"Application"> | number | null
   status?: Prisma.EnumApplicationStatusWithAggregatesFilter<"Application"> | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeWithAggregatesFilter<"Application"> | Date | string
   reviewedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Application"> | Date | string | null
@@ -322,6 +405,10 @@ export type ApplicationScalarWhereWithAggregatesInput = {
 export type ApplicationCreateInput = {
   id?: string
   coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
@@ -340,6 +427,10 @@ export type ApplicationUncheckedCreateInput = {
   applicantId: string
   resumeId?: string | null
   coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
@@ -352,6 +443,10 @@ export type ApplicationUncheckedCreateInput = {
 export type ApplicationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -370,6 +465,10 @@ export type ApplicationUncheckedUpdateInput = {
   applicantId?: Prisma.StringFieldUpdateOperationsInput | string
   resumeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -385,6 +484,10 @@ export type ApplicationCreateManyInput = {
   applicantId: string
   resumeId?: string | null
   coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
@@ -397,6 +500,10 @@ export type ApplicationCreateManyInput = {
 export type ApplicationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -412,6 +519,10 @@ export type ApplicationUncheckedUpdateManyInput = {
   applicantId?: Prisma.StringFieldUpdateOperationsInput | string
   resumeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -431,17 +542,16 @@ export type ApplicationOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ApplicationJobIdApplicantIdCompoundUniqueInput = {
-  jobId: string
-  applicantId: string
-}
-
 export type ApplicationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
   applicantId?: Prisma.SortOrder
   resumeId?: Prisma.SortOrder
   coverLetter?: Prisma.SortOrder
+  coverLetterFileKey?: Prisma.SortOrder
+  coverLetterFileName?: Prisma.SortOrder
+  coverLetterFileMimeType?: Prisma.SortOrder
+  coverLetterFileSize?: Prisma.SortOrder
   status?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
@@ -451,12 +561,20 @@ export type ApplicationCountOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
+export type ApplicationAvgOrderByAggregateInput = {
+  coverLetterFileSize?: Prisma.SortOrder
+}
+
 export type ApplicationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   jobId?: Prisma.SortOrder
   applicantId?: Prisma.SortOrder
   resumeId?: Prisma.SortOrder
   coverLetter?: Prisma.SortOrder
+  coverLetterFileKey?: Prisma.SortOrder
+  coverLetterFileName?: Prisma.SortOrder
+  coverLetterFileMimeType?: Prisma.SortOrder
+  coverLetterFileSize?: Prisma.SortOrder
   status?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
@@ -472,6 +590,10 @@ export type ApplicationMinOrderByAggregateInput = {
   applicantId?: Prisma.SortOrder
   resumeId?: Prisma.SortOrder
   coverLetter?: Prisma.SortOrder
+  coverLetterFileKey?: Prisma.SortOrder
+  coverLetterFileName?: Prisma.SortOrder
+  coverLetterFileMimeType?: Prisma.SortOrder
+  coverLetterFileSize?: Prisma.SortOrder
   status?: Prisma.SortOrder
   appliedAt?: Prisma.SortOrder
   reviewedAt?: Prisma.SortOrder
@@ -479,6 +601,10 @@ export type ApplicationMinOrderByAggregateInput = {
   withdrawnAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type ApplicationSumOrderByAggregateInput = {
+  coverLetterFileSize?: Prisma.SortOrder
 }
 
 export type ApplicationCreateNestedManyWithoutApplicantInput = {
@@ -614,6 +740,10 @@ export type EnumApplicationStatusFieldUpdateOperationsInput = {
 export type ApplicationCreateWithoutApplicantInput = {
   id?: string
   coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
@@ -630,6 +760,10 @@ export type ApplicationUncheckedCreateWithoutApplicantInput = {
   jobId: string
   resumeId?: string | null
   coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
@@ -674,6 +808,10 @@ export type ApplicationScalarWhereInput = {
   applicantId?: Prisma.UuidFilter<"Application"> | string
   resumeId?: Prisma.UuidNullableFilter<"Application"> | string | null
   coverLetter?: Prisma.StringNullableFilter<"Application"> | string | null
+  coverLetterFileKey?: Prisma.StringNullableFilter<"Application"> | string | null
+  coverLetterFileName?: Prisma.StringNullableFilter<"Application"> | string | null
+  coverLetterFileMimeType?: Prisma.StringNullableFilter<"Application"> | string | null
+  coverLetterFileSize?: Prisma.IntNullableFilter<"Application"> | number | null
   status?: Prisma.EnumApplicationStatusFilter<"Application"> | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFilter<"Application"> | Date | string
   reviewedAt?: Prisma.DateTimeNullableFilter<"Application"> | Date | string | null
@@ -686,6 +824,10 @@ export type ApplicationScalarWhereInput = {
 export type ApplicationCreateWithoutResumeInput = {
   id?: string
   coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
@@ -702,6 +844,10 @@ export type ApplicationUncheckedCreateWithoutResumeInput = {
   jobId: string
   applicantId: string
   coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
@@ -740,6 +886,10 @@ export type ApplicationUpdateManyWithWhereWithoutResumeInput = {
 export type ApplicationCreateWithoutJobInput = {
   id?: string
   coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
@@ -756,6 +906,10 @@ export type ApplicationUncheckedCreateWithoutJobInput = {
   applicantId: string
   resumeId?: string | null
   coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
@@ -796,6 +950,10 @@ export type ApplicationCreateManyApplicantInput = {
   jobId: string
   resumeId?: string | null
   coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
@@ -808,6 +966,10 @@ export type ApplicationCreateManyApplicantInput = {
 export type ApplicationUpdateWithoutApplicantInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -824,6 +986,10 @@ export type ApplicationUncheckedUpdateWithoutApplicantInput = {
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   resumeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -838,6 +1004,10 @@ export type ApplicationUncheckedUpdateManyWithoutApplicantInput = {
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   resumeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -852,6 +1022,10 @@ export type ApplicationCreateManyResumeInput = {
   jobId: string
   applicantId: string
   coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
@@ -864,6 +1038,10 @@ export type ApplicationCreateManyResumeInput = {
 export type ApplicationUpdateWithoutResumeInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -880,6 +1058,10 @@ export type ApplicationUncheckedUpdateWithoutResumeInput = {
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   applicantId?: Prisma.StringFieldUpdateOperationsInput | string
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -894,6 +1076,10 @@ export type ApplicationUncheckedUpdateManyWithoutResumeInput = {
   jobId?: Prisma.StringFieldUpdateOperationsInput | string
   applicantId?: Prisma.StringFieldUpdateOperationsInput | string
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -908,6 +1094,10 @@ export type ApplicationCreateManyJobInput = {
   applicantId: string
   resumeId?: string | null
   coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
   status?: $Enums.ApplicationStatus
   appliedAt?: Date | string
   reviewedAt?: Date | string | null
@@ -920,6 +1110,10 @@ export type ApplicationCreateManyJobInput = {
 export type ApplicationUpdateWithoutJobInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -936,6 +1130,10 @@ export type ApplicationUncheckedUpdateWithoutJobInput = {
   applicantId?: Prisma.StringFieldUpdateOperationsInput | string
   resumeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -950,6 +1148,10 @@ export type ApplicationUncheckedUpdateManyWithoutJobInput = {
   applicantId?: Prisma.StringFieldUpdateOperationsInput | string
   resumeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
   appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -967,6 +1169,10 @@ export type ApplicationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   applicantId?: boolean
   resumeId?: boolean
   coverLetter?: boolean
+  coverLetterFileKey?: boolean
+  coverLetterFileName?: boolean
+  coverLetterFileMimeType?: boolean
+  coverLetterFileSize?: boolean
   status?: boolean
   appliedAt?: boolean
   reviewedAt?: boolean
@@ -985,6 +1191,10 @@ export type ApplicationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   applicantId?: boolean
   resumeId?: boolean
   coverLetter?: boolean
+  coverLetterFileKey?: boolean
+  coverLetterFileName?: boolean
+  coverLetterFileMimeType?: boolean
+  coverLetterFileSize?: boolean
   status?: boolean
   appliedAt?: boolean
   reviewedAt?: boolean
@@ -1003,6 +1213,10 @@ export type ApplicationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   applicantId?: boolean
   resumeId?: boolean
   coverLetter?: boolean
+  coverLetterFileKey?: boolean
+  coverLetterFileName?: boolean
+  coverLetterFileMimeType?: boolean
+  coverLetterFileSize?: boolean
   status?: boolean
   appliedAt?: boolean
   reviewedAt?: boolean
@@ -1021,6 +1235,10 @@ export type ApplicationSelectScalar = {
   applicantId?: boolean
   resumeId?: boolean
   coverLetter?: boolean
+  coverLetterFileKey?: boolean
+  coverLetterFileName?: boolean
+  coverLetterFileMimeType?: boolean
+  coverLetterFileSize?: boolean
   status?: boolean
   appliedAt?: boolean
   reviewedAt?: boolean
@@ -1030,7 +1248,7 @@ export type ApplicationSelectScalar = {
   updatedAt?: boolean
 }
 
-export type ApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "jobId" | "applicantId" | "resumeId" | "coverLetter" | "status" | "appliedAt" | "reviewedAt" | "firstViewedAt" | "withdrawnAt" | "createdAt" | "updatedAt", ExtArgs["result"]["application"]>
+export type ApplicationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "jobId" | "applicantId" | "resumeId" | "coverLetter" | "coverLetterFileKey" | "coverLetterFileName" | "coverLetterFileMimeType" | "coverLetterFileSize" | "status" | "appliedAt" | "reviewedAt" | "firstViewedAt" | "withdrawnAt" | "createdAt" | "updatedAt", ExtArgs["result"]["application"]>
 export type ApplicationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1060,6 +1278,10 @@ export type $ApplicationPayload<ExtArgs extends runtime.Types.Extensions.Interna
     applicantId: string
     resumeId: string | null
     coverLetter: string | null
+    coverLetterFileKey: string | null
+    coverLetterFileName: string | null
+    coverLetterFileMimeType: string | null
+    coverLetterFileSize: number | null
     status: $Enums.ApplicationStatus
     appliedAt: Date
     reviewedAt: Date | null
@@ -1498,6 +1720,10 @@ export interface ApplicationFieldRefs {
   readonly applicantId: Prisma.FieldRef<"Application", 'String'>
   readonly resumeId: Prisma.FieldRef<"Application", 'String'>
   readonly coverLetter: Prisma.FieldRef<"Application", 'String'>
+  readonly coverLetterFileKey: Prisma.FieldRef<"Application", 'String'>
+  readonly coverLetterFileName: Prisma.FieldRef<"Application", 'String'>
+  readonly coverLetterFileMimeType: Prisma.FieldRef<"Application", 'String'>
+  readonly coverLetterFileSize: Prisma.FieldRef<"Application", 'Int'>
   readonly status: Prisma.FieldRef<"Application", 'ApplicationStatus'>
   readonly appliedAt: Prisma.FieldRef<"Application", 'DateTime'>
   readonly reviewedAt: Prisma.FieldRef<"Application", 'DateTime'>

@@ -12,6 +12,8 @@ import {
     AuditEntityType,
 } from "../audit-log/audit-log.constants.js";
 import { createCompanyAuditLog } from "../audit-log/audit-log.service.js";
+import { createCompanyInvitationAcceptedNotification } from "../notification/employer-notification.service.js";
+import { runNotificationTaskSafely } from "../notification/notification.service.js";
 import { lockCompanyMembership } from "../company-members/company-membership-lock.js";
 
 import { lockCompanyInvitationResource } from "./company-invitation-lock.js";
@@ -264,7 +266,7 @@ export async function acceptCompanyInvitation({
         hashInvitationToken(rawToken);
     const acceptedAt = new Date();
 
-    return prisma.$transaction(
+    const result = await prisma.$transaction(
         async (transaction) => {
             await lockCompanyInvitationAcceptance(
                 transaction,
@@ -461,7 +463,7 @@ export async function acceptCompanyInvitation({
                     },
                 });
 
-            await createCompanyAuditLog({
+            const auditLog = await createCompanyAuditLog({
                 transaction,
                 companyId: invitation.companyId,
                 actorUserId: user.id,
@@ -494,8 +496,9 @@ export async function acceptCompanyInvitation({
             });
 
             return {
-                invitation: {
-                    status: "ACCEPTED" as const,
+                response: {
+                    invitation: {
+                        status: "ACCEPTED" as const,
                     acceptedAt:
                         acceptedInvitation.acceptedAt ??
                         acceptedAt,
@@ -509,22 +512,47 @@ export async function acceptCompanyInvitation({
                             invitation.company.logoUrl,
                     },
                 },
-                membership: {
-                    id: membership.id,
-                    role: membership.role,
-                    joinedAt:
-                        membership.joinedAt,
-                    outcome: membershipOutcome,
-                    user: {
-                        id: user.id,
-                        firstName: user.firstName,
-                        lastName: user.lastName,
-                        email: user.email,
-                        avatarUrl:
-                            user.avatarUrl,
+                    membership: {
+                        id: membership.id,
+                        role: membership.role,
+                        joinedAt:
+                            membership.joinedAt,
+                        outcome: membershipOutcome,
+                        user: {
+                            id: user.id,
+                            firstName: user.firstName,
+                            lastName: user.lastName,
+                            email: user.email,
+                            avatarUrl:
+                                user.avatarUrl,
+                        },
                     },
+                },
+                notification: {
+                    invitationId: invitation.id,
+                    eventId: auditLog.id,
+                    invitedByUserId: invitation.invitedBy.id,
+                    acceptedUserId: user.id,
+                    acceptedUserName: getDisplayName(
+                        user.firstName,
+                        user.lastName,
+                    ),
+                    companyId: invitation.company.id,
+                    companyName: invitation.company.name,
+                    role: membership.role,
+                    membershipOutcome,
                 },
             };
         },
     );
+
+    await runNotificationTaskSafely(
+        `company invitation accepted:${result.notification.invitationId}`,
+        () =>
+            createCompanyInvitationAcceptedNotification(
+                result.notification,
+            ),
+    );
+
+    return result.response;
 }

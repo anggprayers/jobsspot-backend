@@ -6,6 +6,9 @@ import {
 import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
 
+import { createCompanyModerationNotifications } from "../notification/employer-notification.service.js";
+import { runNotificationTaskSafely } from "../notification/notification.service.js";
+
 import {
     PLATFORM_ADMIN_ACTIONS,
     PLATFORM_ADMIN_ENTITY_TYPES,
@@ -523,7 +526,7 @@ export async function updatePlatformCompanySuspension(
     companyId: string,
     input: AdminCompanySuspensionInput,
 ) {
-    return prisma.$transaction(async (transaction) => {
+    const result = await prisma.$transaction(async (transaction) => {
         await lockPlatformCompany(transaction, companyId);
 
         const target = await transaction.company.findUnique({
@@ -583,7 +586,7 @@ export async function updatePlatformCompanySuspension(
                 },
             });
 
-            await createPlatformAuditLog({
+            const auditLog = await createPlatformAuditLog({
                 transaction,
                 actorUserId,
                 action:
@@ -603,8 +606,17 @@ export async function updatePlatformCompanySuspension(
             });
 
             return {
-                ...company,
-                status: "SUSPENDED" as const,
+                company: {
+                    ...company,
+                    status: "SUSPENDED" as const,
+                },
+                notification: {
+                    eventId: auditLog.id,
+                    companyId: target.id,
+                    companyName: target.name,
+                    suspended: true,
+                    reason: input.reason ?? null,
+                },
             };
         }
 
@@ -639,7 +651,7 @@ export async function updatePlatformCompanySuspension(
             },
         });
 
-        await createPlatformAuditLog({
+        const auditLog = await createPlatformAuditLog({
             transaction,
             actorUserId,
             action:
@@ -657,8 +669,27 @@ export async function updatePlatformCompanySuspension(
         });
 
         return {
-            ...company,
-            status: "ACTIVE" as const,
+            company: {
+                ...company,
+                status: "ACTIVE" as const,
+            },
+            notification: {
+                eventId: auditLog.id,
+                companyId: target.id,
+                companyName: target.name,
+                suspended: false,
+                reason: previousSuspensionReason,
+            },
         };
     });
+
+    await runNotificationTaskSafely(
+        `company moderation:${result.notification.eventId}`,
+        () =>
+            createCompanyModerationNotifications(
+                result.notification,
+            ),
+    );
+
+    return result.company;
 }

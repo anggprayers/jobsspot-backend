@@ -222,6 +222,8 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
                 applicationDeadline: true,
                 publishedAt: true,
                 expiresAt: true,
+                adminHiddenAt: true,
+                adminHiddenReason: true,
 
                 createdAt: true,
                 updatedAt: true,
@@ -296,6 +298,7 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
         jobs,
         totalItems,
         statusCounts,
+        activePublishedJobs,
         expiredJobs,
     ] = await Promise.all([
         prisma.job.findMany({
@@ -327,6 +330,8 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
 
                 publishedAt: true,
                 expiresAt: true,
+                adminHiddenAt: true,
+                adminHiddenReason: true,
 
                 createdAt: true,
                 updatedAt: true,
@@ -372,6 +377,18 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
             where: {
                 ...summaryWhere,
                 status: JobStatus.PUBLISHED,
+                adminHiddenAt: null,
+                OR: [
+                    { expiresAt: null },
+                    { expiresAt: { gt: now } },
+                ],
+            },
+        }),
+
+        prisma.job.count({
+            where: {
+                ...summaryWhere,
+                status: JobStatus.PUBLISHED,
                 expiresAt: {
                     lte: now,
                 },
@@ -388,12 +405,6 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
     const totalPages = Math.max(
         1,
         Math.ceil(totalItems / limit),
-    );
-
-    const activePublishedJobs = Math.max(
-        0,
-        getStatusCount(JobStatus.PUBLISHED) -
-            expiredJobs,
     );
 
     return {
@@ -455,6 +466,8 @@ export async function getCompanyJobById(companyId: string, jobId: string) {
             applicationDeadline: true,
             publishedAt: true,
             expiresAt: true,
+            adminHiddenAt: true,
+            adminHiddenReason: true,
 
             createdAt: true,
             updatedAt: true,
@@ -501,6 +514,9 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
                 categoryId: true,
                 salaryMin: true,
                 salaryMax: true,
+                applicationDeadline: true,
+                publishedAt: true,
+                expiresAt: true,
             },
         });
 
@@ -531,6 +547,16 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
         if (salaryMin !== null && salaryMax !== null && salaryMax < salaryMin) {
             throw new AppError(400, "Maximum salary must be greater than or equal to minimum salary.");
         }
+
+        const recalculatedExpiresAt =
+            data.applicationDeadline !== undefined &&
+            existingJob.status === JobStatus.PUBLISHED &&
+            existingJob.publishedAt !== null
+                ? calculateJobExpirationDate({
+                      publishedAt: existingJob.publishedAt,
+                      applicationDeadline: data.applicationDeadline,
+                  })
+                : undefined;
 
         let slug = existingJob.slug;
 
@@ -619,6 +645,10 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
 
                 ...(data.applicationDeadline !== undefined && {
                     applicationDeadline: data.applicationDeadline,
+                }),
+
+                ...(recalculatedExpiresAt !== undefined && {
+                    expiresAt: recalculatedExpiresAt,
                 }),
             },
 

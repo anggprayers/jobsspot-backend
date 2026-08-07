@@ -12,6 +12,7 @@ import {
 } from "../notification/application-notification.service.js";
 import { runNotificationTaskSafely } from "../notification/notification.service.js";
 import { createResumeDownloadUrl } from "../resume/resume-storage.service.js";
+import { createCoverLetterDownloadUrl } from "../job-seeker-application/application-cover-letter-storage.service.js";
 
 type GetCompanyApplicationsParameters = {
     companyId: string;
@@ -56,6 +57,7 @@ const applicationListSelect = {
             email: true,
             phone: true,
             avatarUrl: true,
+            deletedAt: true,
 
             jobSeekerProfile: {
                 select: {
@@ -86,6 +88,45 @@ const applicationListSelect = {
     },
 } satisfies Prisma.ApplicationSelect;
 
+
+function serializeApplicationForEmployer<
+    T extends {
+        applicant: {
+            deletedAt: Date | null;
+            email: string;
+            phone: string | null;
+            avatarUrl: string | null;
+            firstName: string;
+            lastName: string;
+            jobSeekerProfile: unknown;
+        };
+    },
+>(application: T) {
+    if (!application.applicant.deletedAt) {
+        const { deletedAt: _deletedAt, ...applicant } = application.applicant;
+        return {
+            ...application,
+            applicant: { ...applicant, isDeleted: false as const },
+        };
+    }
+
+    const { deletedAt: _deletedAt, ...restApplicant } = application.applicant;
+
+    return {
+        ...application,
+        applicant: {
+            ...restApplicant,
+            firstName: "Deleted",
+            lastName: "User",
+            email: null,
+            phone: null,
+            avatarUrl: null,
+            jobSeekerProfile: null,
+            isDeleted: true as const,
+        },
+    };
+}
+
 export async function getCompanyApplications({
     companyId,
     search,
@@ -102,9 +143,6 @@ export async function getCompanyApplications({
             deletedAt: null,
         },
 
-        applicant: {
-            deletedAt: null,
-        },
     };
 
     const where: Prisma.ApplicationWhereInput = {
@@ -218,7 +256,7 @@ export async function getCompanyApplications({
     const totalPages = Math.max(1, Math.ceil(totalItems / limit));
 
     return {
-        applications,
+        applications: applications.map(serializeApplicationForEmployer),
 
         summary: {
             totalApplications,
@@ -256,14 +294,14 @@ export async function getCompanyApplicationById({ companyId, applicationId }: Ge
                     deletedAt: null,
                 },
 
-                applicant: {
-                    deletedAt: null,
-                },
             },
 
             select: {
                 id: true,
                 coverLetter: true,
+                coverLetterFileName: true,
+                coverLetterFileMimeType: true,
+                coverLetterFileSize: true,
                 status: true,
                 appliedAt: true,
                 reviewedAt: true,
@@ -280,6 +318,7 @@ export async function getCompanyApplicationById({ companyId, applicationId }: Ge
                         email: true,
                         phone: true,
                         avatarUrl: true,
+                        deletedAt: true,
                         createdAt: true,
 
                         jobSeekerProfile: {
@@ -339,7 +378,7 @@ export async function getCompanyApplicationById({ companyId, applicationId }: Ge
             throw new AppError(404, "Application not found for this company.");
         }
 
-        if (application.firstViewedAt) {
+        if (application.firstViewedAt || application.applicant.deletedAt) {
             return { application, notificationContext: null };
         }
 
@@ -381,7 +420,7 @@ export async function getCompanyApplicationById({ companyId, applicationId }: Ge
         );
     }
 
-    return result.application;
+    return serializeApplicationForEmployer(result.application);
 }
 
 export async function getCompanyApplicationResumeDownload({
@@ -437,6 +476,58 @@ export async function getCompanyApplicationResumeDownload({
     };
 }
 
+export async function getCompanyApplicationCoverLetterDownload({
+    companyId,
+    applicationId,
+}: GetCompanyApplicationParameters) {
+    const application = await prisma.application.findFirst({
+        where: {
+            id: applicationId,
+            job: {
+                companyId,
+                deletedAt: null,
+            },
+            applicant: {
+                deletedAt: null,
+            },
+        },
+        select: {
+            id: true,
+            coverLetterFileKey: true,
+            coverLetterFileName: true,
+            coverLetterFileMimeType: true,
+            coverLetterFileSize: true,
+        },
+    });
+
+    if (!application) {
+        throw new AppError(404, "Application not found for this company.");
+    }
+
+    if (
+        !application.coverLetterFileKey ||
+        !application.coverLetterFileName ||
+        !application.coverLetterFileMimeType ||
+        application.coverLetterFileSize === null
+    ) {
+        throw new AppError(404, "No cover letter file is attached to this application.");
+    }
+
+    const downloadUrl = await createCoverLetterDownloadUrl({
+        fileKey: application.coverLetterFileKey,
+    });
+
+    return {
+        coverLetterFile: {
+            name: application.coverLetterFileName,
+            mimeType: application.coverLetterFileMimeType,
+            fileSize: application.coverLetterFileSize,
+        },
+        downloadUrl,
+        expiresInSeconds: 5 * 60,
+    };
+}
+
 export async function updateCompanyApplicationStatus({
     companyId,
     applicationId,
@@ -452,7 +543,6 @@ export async function updateCompanyApplicationStatus({
                     companyId,
                     deletedAt: null,
                 },
-
                 applicant: {
                     deletedAt: null,
                 },
@@ -560,5 +650,5 @@ export async function updateCompanyApplicationStatus({
             }),
     );
 
-    return result.application;
+    return serializeApplicationForEmployer(result.application);
 }

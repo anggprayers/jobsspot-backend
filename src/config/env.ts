@@ -32,6 +32,10 @@ const envSchema = z.object({
     R2_SECRET_ACCESS_KEY: z.string().min(1, "R2_SECRET_ACCESS_KEY is required."),
 
     R2_BUCKET_NAME: z.string().min(1, "R2_BUCKET_NAME is required."),
+
+    INTERNAL_CRON_SECRET: z
+        .string()
+        .min(32, "INTERNAL_CRON_SECRET must contain at least 32 characters."),
 });
 
 const result = envSchema.safeParse(process.env);

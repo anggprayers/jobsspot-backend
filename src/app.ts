@@ -12,6 +12,7 @@ import companyInvitationAcceptanceRouter from "./modules/company-invitations/com
 import contactRouter from "./modules/contact/contact.routes.js";
 import jobSeekerApplicationRouter from "./modules/job-seeker-application/job-seeker-application.routes.js";
 import jobSeekerProfileRouter from "./modules/job-seeker-profile/job-seeker-profile.routes.js";
+import jobReportRouter from "./modules/job-report/job-report.routes.js";
 import notificationRouter from "./modules/notification/notification.routes.js";
 import { publicJobRouter } from "./modules/public-job/public-job.routes.js";
 import popularSearchRouter from "./modules/popular-search/popular-search.routes.js";
@@ -21,6 +22,7 @@ import resumeRouter from "./modules/resume/resume.routes.js";
 import savedJobRouter from "./modules/saved-job/saved-job.routes.js";
 import savedSearchRouter from "./modules/saved-search/saved-search.routes.js";
 import healthRouter from "./routes/healthRoutes.js";
+import internalMaintenanceRouter from "./modules/internal-maintenance/internal-maintenance.routes.js";
 
 const app = express();
 
@@ -43,6 +45,8 @@ app.use("/api/health", healthRouter);
 
 app.use("/api", apiRateLimiter);
 
+app.use("/api/internal", internalMaintenanceRouter);
+
 app.use("/api/auth", authRouter);
 
 app.use("/api/admin", platformAdminRouter);
@@ -54,6 +58,8 @@ app.use("/api/job-seeker-profile", jobSeekerProfileRouter);
 app.use("/api/resumes", resumeRouter);
 
 app.use("/api/applications", jobSeekerApplicationRouter);
+
+app.use("/api/job-reports", jobReportRouter);
 
 app.use("/api/notifications", notificationRouter);
 

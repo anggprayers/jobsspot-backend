@@ -43,6 +43,10 @@ export async function getPlatformAdminDashboard() {
         suspendedCompanies,
         totalJobs,
         publishedJobs,
+        hiddenJobs,
+        totalJobReports,
+        pendingJobReports,
+        underReviewJobReports,
         totalApplications,
         newApplicationsLast30Days,
         totalCategories,
@@ -60,9 +64,19 @@ export async function getPlatformAdminDashboard() {
             where: {
                 deletedAt: null,
                 status: "PUBLISHED",
+                adminHiddenAt: null,
                 company: { deletedAt: null, suspendedAt: null },
+                category: { isActive: true },
+                OR: [
+                    { expiresAt: null },
+                    { expiresAt: { gt: now } },
+                ],
             },
         }),
+        prisma.job.count({ where: { deletedAt: null, adminHiddenAt: { not: null } } }),
+        prisma.jobReport.count(),
+        prisma.jobReport.count({ where: { status: "PENDING" } }),
+        prisma.jobReport.count({ where: { status: "UNDER_REVIEW" } }),
         prisma.application.count(),
         prisma.application.count({ where: { createdAt: { gte: thirtyDaysAgo } } }),
         prisma.jobCategory.count(),
@@ -85,6 +99,12 @@ export async function getPlatformAdminDashboard() {
         jobs: {
             total: totalJobs,
             published: publishedJobs,
+            hidden: hiddenJobs,
+        },
+        jobReports: {
+            total: totalJobReports,
+            pending: pendingJobReports,
+            underReview: underReviewJobReports,
         },
         applications: {
             total: totalApplications,

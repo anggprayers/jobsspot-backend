@@ -5,6 +5,7 @@ import { AppError } from "../../errors/AppError.js";
 
 import {
     getCompanyApplicationById,
+    getCompanyApplicationCoverLetterDownload,
     getCompanyApplicationResumeDownload,
     getCompanyApplications,
     updateCompanyApplicationStatus,
@@ -93,6 +94,25 @@ export async function getCompanyApplicationResumeDownloadController(
     response.status(200).json({
         success: true,
         message: "Secure resume link created successfully.",
+        ...download,
+    });
+}
+
+export async function getCompanyApplicationCoverLetterDownloadController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const companyId = getUuidParam(request, "companyId", "A valid company ID is required.");
+    const applicationId = getUuidParam(request, "applicationId", "A valid application ID is required.");
+
+    const download = await getCompanyApplicationCoverLetterDownload({
+        companyId,
+        applicationId,
+    });
+
+    response.status(200).json({
+        success: true,
+        message: "Secure cover letter link created successfully.",
         ...download,
     });
 }

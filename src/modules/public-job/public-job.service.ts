@@ -49,6 +49,7 @@ export async function getPublicJobs(
         {
             status: JobStatus.PUBLISHED,
             deletedAt: null,
+            adminHiddenAt: null,
         },
 
         {
@@ -355,6 +356,7 @@ export async function getPublicJobBySlug(
             slug,
             status: JobStatus.PUBLISHED,
             deletedAt: null,
+            adminHiddenAt: null,
 
             company: {
                 deletedAt: null,

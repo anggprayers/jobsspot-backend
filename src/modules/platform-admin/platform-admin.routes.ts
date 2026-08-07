@@ -13,11 +13,17 @@ import {
     getAdminCompaniesController,
     getAdminCompanyController,
     getAdminDashboardController,
+    getAdminJobController,
+    getAdminJobReportController,
+    getAdminJobReportsController,
+    getAdminJobsController,
     getAdminUserController,
     getAdminUsersController,
     getPlatformActivityController,
     updateAdminCompanySuspensionController,
     updateAdminCompanyVerificationController,
+    updateAdminJobModerationController,
+    updateAdminJobReportStatusController,
     updateAdminUserSuspensionController,
 } from "./platform-admin.controller.js";
 import {
@@ -25,6 +31,12 @@ import {
     adminCompanySuspensionSchema,
     adminCompanyUuidParamsSchema,
     adminCompanyVerificationSchema,
+    adminJobListQuerySchema,
+    adminJobModerationSchema,
+    adminJobReportListQuerySchema,
+    adminJobReportStatusSchema,
+    adminJobReportUuidParamsSchema,
+    adminJobUuidParamsSchema,
     adminUserListQuerySchema,
     adminUserSuspensionSchema,
     adminUuidParamsSchema,
@@ -98,6 +110,52 @@ platformAdminRouter.patch(
     validateParams(adminCompanyUuidParamsSchema),
     validate(adminCompanySuspensionSchema),
     asyncHandler(updateAdminCompanySuspensionController),
+);
+
+// GET /api/admin/jobs
+platformAdminRouter.get(
+    "/jobs",
+    validateQuery(adminJobListQuerySchema),
+    asyncHandler(getAdminJobsController),
+);
+
+// GET /api/admin/jobs/:jobId
+platformAdminRouter.get(
+    "/jobs/:jobId",
+    validateParams(adminJobUuidParamsSchema),
+    asyncHandler(getAdminJobController),
+);
+
+// PATCH /api/admin/jobs/:jobId/moderation
+platformAdminRouter.patch(
+    "/jobs/:jobId/moderation",
+    platformAdminMutationRateLimiter,
+    validateParams(adminJobUuidParamsSchema),
+    validate(adminJobModerationSchema),
+    asyncHandler(updateAdminJobModerationController),
+);
+
+// GET /api/admin/reports
+platformAdminRouter.get(
+    "/reports",
+    validateQuery(adminJobReportListQuerySchema),
+    asyncHandler(getAdminJobReportsController),
+);
+
+// GET /api/admin/reports/:reportId
+platformAdminRouter.get(
+    "/reports/:reportId",
+    validateParams(adminJobReportUuidParamsSchema),
+    asyncHandler(getAdminJobReportController),
+);
+
+// PATCH /api/admin/reports/:reportId/status
+platformAdminRouter.patch(
+    "/reports/:reportId/status",
+    platformAdminMutationRateLimiter,
+    validateParams(adminJobReportUuidParamsSchema),
+    validate(adminJobReportStatusSchema),
+    asyncHandler(updateAdminJobReportStatusController),
 );
 
 // GET /api/admin/activity

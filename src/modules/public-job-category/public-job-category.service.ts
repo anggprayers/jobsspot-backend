@@ -9,6 +9,7 @@ function getAvailableJobConditions() {
     return {
         status: JobStatus.PUBLISHED,
         deletedAt: null,
+        adminHiddenAt: null,
 
         company: {
             deletedAt: null,

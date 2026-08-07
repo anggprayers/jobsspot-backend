@@ -60,6 +60,28 @@ export async function deleteResumeObject(fileKey: string): Promise<void> {
     }
 }
 
+
+export async function getResumeObjectBuffer(fileKey: string): Promise<Buffer> {
+    try {
+        const response = await r2Client.send(
+            new GetObjectCommand({
+                Bucket: R2_BUCKET_NAME,
+                Key: fileKey,
+            }),
+        );
+
+        if (!response.Body) {
+            throw new Error("Resume object body is empty.");
+        }
+
+        const bytes = await response.Body.transformToByteArray();
+        return Buffer.from(bytes);
+    } catch (error) {
+        console.error("Unable to read resume object from R2.", error);
+        throw new AppError(502, "Unable to read the stored resume for profile import.");
+    }
+}
+
 export async function createResumeDownloadUrl({
     fileKey,
     expiresInSeconds = DEFAULT_DOWNLOAD_URL_EXPIRY_SECONDS,

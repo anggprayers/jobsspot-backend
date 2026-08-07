@@ -69,10 +69,12 @@ export const ModelName = {
   JobCategory: 'JobCategory',
   PlatformAuditLog: 'PlatformAuditLog',
   Notification: 'Notification',
+  NotificationPreference: 'NotificationPreference',
   Job: 'Job',
   Skill: 'Skill',
   JobSkill: 'JobSkill',
   Application: 'Application',
+  JobReport: 'JobReport',
   SavedJob: 'SavedJob',
   SavedSearch: 'SavedSearch',
   PopularSearch: 'PopularSearch',
@@ -380,11 +382,29 @@ export const NotificationScalarFieldEnum = {
   entityId: 'entityId',
   metadata: 'metadata',
   readAt: 'readAt',
+  clearedAt: 'clearedAt',
   emailedAt: 'emailedAt',
+  emailProcessedAt: 'emailProcessedAt',
   createdAt: 'createdAt'
 } as const
 
 export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const NotificationPreferenceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  jobSeekerApplicationUpdatesEmail: 'jobSeekerApplicationUpdatesEmail',
+  jobSeekerApplicationViewedEmail: 'jobSeekerApplicationViewedEmail',
+  employerApplicationEmail: 'employerApplicationEmail',
+  employerTeamEmail: 'employerTeamEmail',
+  employerJobEmail: 'employerJobEmail',
+  systemEmail: 'systemEmail',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationPreferenceScalarFieldEnum = (typeof NotificationPreferenceScalarFieldEnum)[keyof typeof NotificationPreferenceScalarFieldEnum]
 
 
 export const JobScalarFieldEnum = {
@@ -411,7 +431,10 @@ export const JobScalarFieldEnum = {
   expiresAt: 'expiresAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  deletedAt: 'deletedAt'
+  deletedAt: 'deletedAt',
+  adminHiddenAt: 'adminHiddenAt',
+  adminHiddenReason: 'adminHiddenReason',
+  adminHiddenById: 'adminHiddenById'
 } as const
 
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
@@ -443,6 +466,10 @@ export const ApplicationScalarFieldEnum = {
   applicantId: 'applicantId',
   resumeId: 'resumeId',
   coverLetter: 'coverLetter',
+  coverLetterFileKey: 'coverLetterFileKey',
+  coverLetterFileName: 'coverLetterFileName',
+  coverLetterFileMimeType: 'coverLetterFileMimeType',
+  coverLetterFileSize: 'coverLetterFileSize',
   status: 'status',
   appliedAt: 'appliedAt',
   reviewedAt: 'reviewedAt',
@@ -453,6 +480,23 @@ export const ApplicationScalarFieldEnum = {
 } as const
 
 export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
+
+
+export const JobReportScalarFieldEnum = {
+  id: 'id',
+  jobId: 'jobId',
+  reporterUserId: 'reporterUserId',
+  reason: 'reason',
+  details: 'details',
+  status: 'status',
+  resolutionNote: 'resolutionNote',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobReportScalarFieldEnum = (typeof JobReportScalarFieldEnum)[keyof typeof JobReportScalarFieldEnum]
 
 
 export const SavedJobScalarFieldEnum = {

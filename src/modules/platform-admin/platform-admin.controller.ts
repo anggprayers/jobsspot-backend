@@ -10,6 +10,16 @@ import {
 } from "./platform-admin-company.service.js";
 import { getPlatformActivity } from "./platform-audit.service.js";
 import {
+    getPlatformJobById,
+    getPlatformJobs,
+    updatePlatformJobModeration,
+} from "./platform-admin-job.service.js";
+import {
+    getPlatformJobReportById,
+    getPlatformJobReports,
+    updatePlatformJobReportStatus,
+} from "./platform-admin-job-report.service.js";
+import {
     getPlatformAdminDashboard,
     getPlatformUserById,
     getPlatformUsers,
@@ -17,6 +27,8 @@ import {
 } from "./platform-admin.service.js";
 import type {
     AdminCompanyListQuery,
+    AdminJobListQuery,
+    AdminJobReportListQuery,
     AdminUserListQuery,
     PlatformActivityQuery,
 } from "./platform-admin.validation.js";
@@ -161,6 +173,94 @@ export async function updateAdminCompanySuspensionController(
             ? "Company suspended successfully."
             : "Company restored successfully.",
         company,
+    });
+}
+
+export async function getAdminJobsController(
+    _request: Request,
+    response: Response,
+): Promise<void> {
+    const query = response.locals.validatedQuery as AdminJobListQuery;
+    const result = await getPlatformJobs(query);
+
+    response.status(200).json({
+        success: true,
+        message: "Platform jobs retrieved successfully.",
+        ...result,
+    });
+}
+
+export async function getAdminJobController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const jobId = request.params.jobId as string;
+    const job = await getPlatformJobById(jobId);
+
+    response.status(200).json({
+        success: true,
+        message: "Platform job retrieved successfully.",
+        job,
+    });
+}
+
+export async function updateAdminJobModerationController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const jobId = request.params.jobId as string;
+    const job = await updatePlatformJobModeration(actorUserId, jobId, request.body);
+
+    response.status(200).json({
+        success: true,
+        message: request.body.hidden
+            ? "Job hidden from public listings successfully."
+            : "Job moderation hold removed successfully.",
+        job,
+    });
+}
+
+export async function getAdminJobReportsController(
+    _request: Request,
+    response: Response,
+): Promise<void> {
+    const query = response.locals.validatedQuery as AdminJobReportListQuery;
+    const result = await getPlatformJobReports(query);
+
+    response.status(200).json({
+        success: true,
+        message: "Job reports retrieved successfully.",
+        ...result,
+    });
+}
+
+export async function getAdminJobReportController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const reportId = request.params.reportId as string;
+    const report = await getPlatformJobReportById(reportId);
+
+    response.status(200).json({
+        success: true,
+        message: "Job report retrieved successfully.",
+        report,
+    });
+}
+
+export async function updateAdminJobReportStatusController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const reportId = request.params.reportId as string;
+    const report = await updatePlatformJobReportStatus(actorUserId, reportId, request.body);
+
+    response.status(200).json({
+        success: true,
+        message: "Job report moderation status updated successfully.",
+        report,
     });
 }
 

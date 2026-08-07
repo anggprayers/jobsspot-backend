@@ -23,6 +23,25 @@ export const markAllNotificationsReadSchema = z.object({
     audience: notificationAudienceSchema.optional(),
 });
 
+export const clearReadNotificationsSchema = z.object({
+    audience: z.enum(["JOB_SEEKER", "EMPLOYER"]),
+});
+
+
+export const updateNotificationPreferencesSchema = z
+    .object({
+        jobSeekerApplicationUpdatesEmail: z.boolean().optional(),
+        jobSeekerApplicationViewedEmail: z.boolean().optional(),
+        employerApplicationEmail: z.boolean().optional(),
+        employerTeamEmail: z.boolean().optional(),
+        employerJobEmail: z.boolean().optional(),
+        systemEmail: z.boolean().optional(),
+    })
+    .refine(
+        (value) => Object.keys(value).length > 0,
+        "At least one notification preference is required.",
+    );
+
 export type NotificationListQuery = z.infer<
     typeof notificationListQuerySchema
 >;
@@ -33,4 +52,12 @@ export type NotificationUnreadCountQuery = z.infer<
 
 export type MarkAllNotificationsReadInput = z.infer<
     typeof markAllNotificationsReadSchema
+>;
+
+export type ClearReadNotificationsInput = z.infer<
+    typeof clearReadNotificationsSchema
+>;
+
+export type UpdateNotificationPreferencesInput = z.infer<
+    typeof updateNotificationPreferencesSchema
 >;

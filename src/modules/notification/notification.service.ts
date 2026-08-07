@@ -7,6 +7,7 @@ import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
 
 import type {
+    ClearReadNotificationsInput,
     MarkAllNotificationsReadInput,
     NotificationListQuery,
     NotificationUnreadCountQuery,
@@ -71,6 +72,7 @@ function buildUserNotificationWhere(
 
     return {
         userId,
+        clearedAt: null,
 
         ...(audienceFilter && {
             audience: audienceFilter,
@@ -250,6 +252,7 @@ export async function markUserNotificationRead(
         where: {
             id: notificationId,
             userId,
+            clearedAt: null,
         },
         select: notificationSelect,
     });
@@ -292,5 +295,30 @@ export async function markAllUserNotificationsRead(
 
     return {
         markedReadCount: result.count,
+    };
+}
+
+export async function clearReadUserNotifications(
+    userId: string,
+    input: ClearReadNotificationsInput,
+) {
+    const result = await prisma.notification.updateMany({
+        where: {
+            userId,
+            audience: {
+                in: [input.audience, NotificationAudience.SYSTEM],
+            },
+            readAt: {
+                not: null,
+            },
+            clearedAt: null,
+        },
+        data: {
+            clearedAt: new Date(),
+        },
+    });
+
+    return {
+        clearedCount: result.count,
     };
 }

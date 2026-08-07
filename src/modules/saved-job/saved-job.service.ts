@@ -23,6 +23,7 @@ const savedJobSelect = {
             slug: true,
             status: true,
             deletedAt: true,
+            adminHiddenAt: true,
 
             employmentType: true,
             workplaceType: true,
@@ -71,6 +72,7 @@ function isJobAvailable(savedJob: SelectedSavedJob): boolean {
     return (
         savedJob.job.status === JobStatus.PUBLISHED &&
         savedJob.job.deletedAt === null &&
+        savedJob.job.adminHiddenAt === null &&
         savedJob.job.company.deletedAt === null &&
         savedJob.job.company.suspendedAt === null &&
         (savedJob.job.expiresAt === null ||
@@ -81,6 +83,7 @@ function isJobAvailable(savedJob: SelectedSavedJob): boolean {
 function formatSavedJob(savedJob: SelectedSavedJob) {
     const {
         deletedAt: _jobDeletedAt,
+        adminHiddenAt: _adminHiddenAt,
         company,
         ...job
     } = savedJob.job;
@@ -197,6 +200,7 @@ export async function saveJobForUser({
             id: true,
             status: true,
             deletedAt: true,
+            adminHiddenAt: true,
             expiresAt: true,
 
             company: {
@@ -211,6 +215,7 @@ export async function saveJobForUser({
     if (
         !job ||
         job.deletedAt !== null ||
+        job.adminHiddenAt !== null ||
         job.company.deletedAt !== null ||
         job.company.suspendedAt !== null
     ) {

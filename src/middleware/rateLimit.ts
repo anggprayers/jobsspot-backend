@@ -69,6 +69,12 @@ export const fileUploadRateLimiter = createRateLimiter({
     message: "Too many file uploads. Please wait before uploading another file.",
 });
 
+export const resumeProfileImportRateLimiter = createRateLimiter({
+    windowMs: ONE_HOUR,
+    limit: 10,
+    message: "Too many resume profile import attempts. Please wait before analyzing another resume.",
+});
+
 export const teamInvitationRateLimiter = createRateLimiter({
     windowMs: ONE_HOUR,
     limit: 20,
@@ -93,4 +99,10 @@ export const platformAdminMutationRateLimiter = createRateLimiter({
     windowMs: ONE_HOUR,
     limit: 100,
     message: "Too many platform moderation changes. Please wait before trying again.",
+});
+
+export const jobReportRateLimiter = createRateLimiter({
+    windowMs: ONE_HOUR,
+    limit: 10,
+    message: "Too many job reports were submitted recently. Please wait before trying again.",
 });

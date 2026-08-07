@@ -2,11 +2,13 @@ import { Router } from "express";
 
 import { asyncHandler } from "../../middleware/asyncHandler.js";
 import { requireAuth } from "../../middleware/requireAuth.js";
+import { uploadCoverLetter } from "../../middleware/coverLetterUpload.js";
 import { requireVerifiedEmail } from "../../middleware/requireVerifiedEmail.js";
 import { validate } from "../../middleware/validate.js";
 
 import {
     createJobApplicationController,
+    getJobSeekerApplicationCoverLetterDownloadController,
     getJobSeekerApplicationByIdController,
     getJobSeekerApplicationForJobController,
     getJobSeekerApplicationResumeDownloadController,
@@ -32,6 +34,7 @@ jobSeekerApplicationRouter.get(
 jobSeekerApplicationRouter.post(
     "/",
     asyncHandler(requireVerifiedEmail),
+    uploadCoverLetter.single("coverLetterFile"),
     validate(createJobApplicationSchema),
     asyncHandler(createJobApplicationController),
 );
@@ -48,6 +51,13 @@ jobSeekerApplicationRouter.get(
 jobSeekerApplicationRouter.get(
     "/:applicationId/resume/download",
     asyncHandler(getJobSeekerApplicationResumeDownloadController),
+);
+
+// GET /api/applications/:applicationId/cover-letter/download
+// Create a short-lived private URL for the cover letter file submitted with an application.
+jobSeekerApplicationRouter.get(
+    "/:applicationId/cover-letter/download",
+    asyncHandler(getJobSeekerApplicationCoverLetterDownloadController),
 );
 
 // GET /api/applications/:applicationId

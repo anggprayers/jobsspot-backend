@@ -3,15 +3,22 @@ import type { Request, Response } from "express";
 import { AppError } from "../../errors/AppError.js";
 
 import {
+    clearReadUserNotifications,
     getUserNotifications,
     getUserNotificationUnreadCount,
     markAllUserNotificationsRead,
     markUserNotificationRead,
 } from "./notification.service.js";
+import {
+    getNotificationPreferences,
+    updateNotificationPreferences,
+} from "./notification-preference.service.js";
 import type {
+    ClearReadNotificationsInput,
     MarkAllNotificationsReadInput,
     NotificationListQuery,
     NotificationUnreadCountQuery,
+    UpdateNotificationPreferencesInput,
 } from "./notification.validation.js";
 
 function getAuthenticatedUserId(request: Request): string {
@@ -96,5 +103,50 @@ export async function markAllNotificationsReadController(
         success: true,
         message: "Notifications marked as read.",
         ...result,
+    });
+}
+
+export async function clearReadNotificationsController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const userId = getAuthenticatedUserId(request);
+    const input = request.body as ClearReadNotificationsInput;
+
+    const result = await clearReadUserNotifications(userId, input);
+
+    response.status(200).json({
+        success: true,
+        message: "Read notifications cleared.",
+        ...result,
+    });
+}
+
+export async function getNotificationPreferencesController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const userId = getAuthenticatedUserId(request);
+    const preferences = await getNotificationPreferences(userId);
+
+    response.status(200).json({
+        success: true,
+        message: "Notification preferences retrieved successfully.",
+        preferences,
+    });
+}
+
+export async function updateNotificationPreferencesController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const userId = getAuthenticatedUserId(request);
+    const input = request.body as UpdateNotificationPreferencesInput;
+    const preferences = await updateNotificationPreferences(userId, input);
+
+    response.status(200).json({
+        success: true,
+        message: "Notification preferences updated successfully.",
+        preferences,
     });
 }

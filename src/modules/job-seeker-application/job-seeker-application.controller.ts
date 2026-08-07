@@ -7,6 +7,7 @@ import {
     createUserApplication,
     getUserApplicationById,
     getUserApplicationForJob,
+    getUserApplicationCoverLetterDownload,
     getUserApplicationResumeDownload,
     getUserApplications,
     withdrawUserApplication,
@@ -69,6 +70,9 @@ export async function createJobApplicationController(
     const application = await createUserApplication({
         applicantId,
         data,
+        ...(request.file
+            ? { coverLetterFile: request.file }
+            : {}),
     });
 
     response.status(201).json({
@@ -126,14 +130,14 @@ export async function getJobSeekerApplicationForJobController(
     const applicantId = getAuthenticatedUserId(request);
     const jobId = getJobId(request);
 
-    const application = await getUserApplicationForJob({
+    const result = await getUserApplicationForJob({
         applicantId,
         jobId,
     });
 
     response.status(200).json({
         success: true,
-        application,
+        ...result,
     });
 }
 
@@ -145,6 +149,25 @@ export async function getJobSeekerApplicationResumeDownloadController(
     const applicationId = getApplicationId(request);
 
     const download = await getUserApplicationResumeDownload({
+        applicantId,
+        applicationId,
+    });
+
+    response.status(200).json({
+        success: true,
+        ...download,
+    });
+}
+
+
+export async function getJobSeekerApplicationCoverLetterDownloadController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const applicantId = getAuthenticatedUserId(request);
+    const applicationId = getApplicationId(request);
+
+    const download = await getUserApplicationCoverLetterDownload({
         applicantId,
         applicationId,
     });

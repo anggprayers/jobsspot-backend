@@ -14,6 +14,14 @@ import {
 import { runNotificationTaskSafely } from "../notification/notification.service.js";
 import { createResumeDownloadUrl } from "../resume/resume-storage.service.js";
 
+import {
+    createCoverLetterDownloadUrl,
+    createCoverLetterFileKey,
+    deleteCoverLetterObject,
+    uploadCoverLetterObject,
+    validateCoverLetterFile,
+} from "./application-cover-letter-storage.service.js";
+
 import type {
     CreateJobApplicationInput,
     JobSeekerApplicationsQueryInput,
@@ -22,6 +30,7 @@ import type {
 type CreateUserApplicationParameters = {
     applicantId: string;
     data: CreateJobApplicationInput;
+    coverLetterFile?: Express.Multer.File;
 };
 
 type GetUserApplicationParameters = {
@@ -34,9 +43,73 @@ type GetUserApplicationForJobParameters = {
     jobId: string;
 };
 
+const REAPPLY_COOLDOWN_DAYS = 90;
+const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+const APPLICATION_SUBMISSION_LOCK_NAMESPACE = 918273645;
+
+const ACTIVE_APPLICATION_STATUSES = new Set<ApplicationStatus>([
+    ApplicationStatus.SUBMITTED,
+    ApplicationStatus.UNDER_REVIEW,
+    ApplicationStatus.SHORTLISTED,
+    ApplicationStatus.INTERVIEW,
+    ApplicationStatus.OFFERED,
+    ApplicationStatus.HIRED,
+]);
+
+function getReapplyEligibleAt(application: {
+    status: ApplicationStatus;
+    withdrawnAt: Date | null;
+    updatedAt: Date;
+}): Date | null {
+    if (application.status !== ApplicationStatus.REJECTED && application.status !== ApplicationStatus.WITHDRAWN) {
+        return null;
+    }
+
+    const terminalAt = application.status === ApplicationStatus.WITHDRAWN
+        ? (application.withdrawnAt ?? application.updatedAt)
+        : application.updatedAt;
+
+    return new Date(terminalAt.getTime() + REAPPLY_COOLDOWN_DAYS * MILLISECONDS_PER_DAY);
+}
+
+function assertCanReapply(application: {
+    status: ApplicationStatus;
+    withdrawnAt: Date | null;
+    updatedAt: Date;
+} | null, now: Date): void {
+    if (!application) {
+        return;
+    }
+
+    if (ACTIVE_APPLICATION_STATUSES.has(application.status)) {
+        throw new AppError(409, "You already have an active application for this job.", {
+            details: {
+                code: "APPLICATION_ALREADY_ACTIVE",
+                applicationStatus: application.status,
+            },
+        });
+    }
+
+    const nextEligibleAt = getReapplyEligibleAt(application);
+
+    if (nextEligibleAt && now < nextEligibleAt) {
+        throw new AppError(409, `You can apply for this job again after ${nextEligibleAt.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric", timeZone: "UTC" })}.`, {
+            details: {
+                code: "APPLICATION_REAPPLY_COOLDOWN",
+                cooldownDays: REAPPLY_COOLDOWN_DAYS,
+                nextEligibleAt: nextEligibleAt.toISOString(),
+                previousStatus: application.status,
+            },
+        });
+    }
+}
+
 const applicationSelect = {
     id: true,
     coverLetter: true,
+    coverLetterFileName: true,
+    coverLetterFileMimeType: true,
+    coverLetterFileSize: true,
     status: true,
     appliedAt: true,
     reviewedAt: true,
@@ -104,16 +177,10 @@ function getStatusCount(
     );
 }
 
-function isPrismaUniqueConstraintError(error: unknown): boolean {
-    return (
-        error instanceof Prisma.PrismaClientKnownRequestError &&
-        error.code === "P2002"
-    );
-}
-
 export async function createUserApplication({
     applicantId,
     data,
+    coverLetterFile,
 }: CreateUserApplicationParameters) {
     const now = new Date();
 
@@ -130,6 +197,7 @@ export async function createUserApplication({
                 applicationDeadline: true,
                 expiresAt: true,
                 deletedAt: true,
+                adminHiddenAt: true,
 
                 company: {
                     select: {
@@ -158,6 +226,7 @@ export async function createUserApplication({
     if (
         !job ||
         job.deletedAt !== null ||
+        job.adminHiddenAt !== null ||
         job.company.deletedAt !== null ||
         job.company.suspendedAt !== null
     ) {
@@ -211,41 +280,70 @@ export async function createUserApplication({
         );
     }
 
-    const existingApplication =
-        await prisma.application.findUnique({
-            where: {
-                jobId_applicantId: {
-                    jobId: data.jobId,
-                    applicantId,
-                },
-            },
-
-            select: {
-                id: true,
-                status: true,
-            },
-        });
-
-    if (existingApplication) {
-        throw new AppError(
-            409,
-            "You have already applied for this job.",
-        );
+    if (coverLetterFile && data.coverLetter) {
+        throw new AppError(400, "Choose either a written cover letter or an uploaded cover letter file, not both.");
     }
 
     const applicantName =
         `${applicant.firstName} ${applicant.lastName}`.trim();
 
-    try {
-        const application = await prisma.application.create({
-            data: {
-                jobId: data.jobId,
-                applicantId,
-                resumeId: resume.id,
-                coverLetter: data.coverLetter ?? null,
-            },
+    let uploadedCoverLetterKey: string | null = null;
+    let coverLetterFileMimeType: string | null = null;
 
-            select: applicationSelect,
+    if (coverLetterFile) {
+        coverLetterFileMimeType = validateCoverLetterFile(coverLetterFile);
+        uploadedCoverLetterKey = createCoverLetterFileKey({
+            userId: applicantId,
+            originalName: coverLetterFile.originalname,
+        });
+
+        await uploadCoverLetterObject({
+            fileKey: uploadedCoverLetterKey,
+            fileBuffer: coverLetterFile.buffer,
+            mimeType: coverLetterFileMimeType,
+        });
+    }
+
+    try {
+        const application = await prisma.$transaction(async (transaction) => {
+            await transaction.$queryRaw<Array<{ lockResult: string }>>`
+                SELECT pg_advisory_xact_lock(
+                    ${APPLICATION_SUBMISSION_LOCK_NAMESPACE},
+                    hashtext(${`${data.jobId}:${applicantId}`}::text)
+                )::text AS "lockResult"
+            `;
+
+            const latestApplication = await transaction.application.findFirst({
+                where: {
+                    jobId: data.jobId,
+                    applicantId,
+                },
+                select: {
+                    status: true,
+                    withdrawnAt: true,
+                    updatedAt: true,
+                },
+                orderBy: [
+                    { appliedAt: "desc" },
+                    { createdAt: "desc" },
+                ],
+            });
+
+            assertCanReapply(latestApplication, now);
+
+            return transaction.application.create({
+                data: {
+                    jobId: data.jobId,
+                    applicantId,
+                    resumeId: resume.id,
+                    coverLetter: data.coverLetter ?? null,
+                    coverLetterFileKey: uploadedCoverLetterKey,
+                    coverLetterFileName: coverLetterFile?.originalname ?? null,
+                    coverLetterFileMimeType,
+                    coverLetterFileSize: coverLetterFile?.size ?? null,
+                },
+                select: applicationSelect,
+            });
         });
 
         await runNotificationTaskSafely(
@@ -266,11 +364,8 @@ export async function createUserApplication({
         return application;
 
     } catch (error) {
-        if (isPrismaUniqueConstraintError(error)) {
-            throw new AppError(
-                409,
-                "You have already applied for this job.",
-            );
+        if (uploadedCoverLetterKey) {
+            await deleteCoverLetterObject(uploadedCoverLetterKey);
         }
 
         throw error;
@@ -421,16 +516,39 @@ export async function getUserApplicationForJob({
     applicantId,
     jobId,
 }: GetUserApplicationForJobParameters) {
-    return prisma.application.findUnique({
+    const application = await prisma.application.findFirst({
         where: {
-            jobId_applicantId: {
-                jobId,
-                applicantId,
-            },
+            jobId,
+            applicantId,
         },
-
         select: applicationSelect,
+        orderBy: [
+            { appliedAt: "desc" },
+            { createdAt: "desc" },
+        ],
     });
+
+    const now = new Date();
+    const nextEligibleAt = application
+        ? getReapplyEligibleAt(application)
+        : null;
+    const hasActiveApplication = application
+        ? ACTIVE_APPLICATION_STATUSES.has(application.status)
+        : false;
+    const canApply =
+        !application ||
+        (!hasActiveApplication &&
+            (!nextEligibleAt || now >= nextEligibleAt));
+
+    return {
+        application,
+        reapplication: {
+            canApply,
+            cooldownDays: REAPPLY_COOLDOWN_DAYS,
+            nextEligibleAt: nextEligibleAt?.toISOString() ?? null,
+            previousStatus: application?.status ?? null,
+        },
+    };
 }
 
 export async function getUserApplicationResumeDownload({
@@ -477,6 +595,52 @@ export async function getUserApplicationResumeDownload({
             id: application.resume.id,
             name: application.resume.name,
             mimeType: application.resume.mimeType,
+        },
+        downloadUrl,
+        expiresInSeconds: 5 * 60,
+    };
+}
+
+export async function getUserApplicationCoverLetterDownload({
+    applicantId,
+    applicationId,
+}: GetUserApplicationParameters) {
+    const application = await prisma.application.findFirst({
+        where: {
+            id: applicationId,
+            applicantId,
+        },
+        select: {
+            id: true,
+            coverLetterFileKey: true,
+            coverLetterFileName: true,
+            coverLetterFileMimeType: true,
+            coverLetterFileSize: true,
+        },
+    });
+
+    if (!application) {
+        throw new AppError(404, "Application not found.");
+    }
+
+    if (
+        !application.coverLetterFileKey ||
+        !application.coverLetterFileName ||
+        !application.coverLetterFileMimeType ||
+        application.coverLetterFileSize === null
+    ) {
+        throw new AppError(404, "No cover letter file is attached to this application.");
+    }
+
+    const downloadUrl = await createCoverLetterDownloadUrl({
+        fileKey: application.coverLetterFileKey,
+    });
+
+    return {
+        coverLetterFile: {
+            name: application.coverLetterFileName,
+            mimeType: application.coverLetterFileMimeType,
+            fileSize: application.coverLetterFileSize,
         },
         downloadUrl,
         expiresInSeconds: 5 * 60,

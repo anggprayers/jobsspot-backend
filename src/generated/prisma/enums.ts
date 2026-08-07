@@ -110,3 +110,25 @@ export const NotificationAudience = {
 } as const
 
 export type NotificationAudience = (typeof NotificationAudience)[keyof typeof NotificationAudience]
+
+
+export const JobReportReason = {
+  SCAM_FRAUD: 'SCAM_FRAUD',
+  MISLEADING: 'MISLEADING',
+  DISCRIMINATION: 'DISCRIMINATION',
+  SPAM_DUPLICATE: 'SPAM_DUPLICATE',
+  INAPPROPRIATE: 'INAPPROPRIATE',
+  OTHER: 'OTHER'
+} as const
+
+export type JobReportReason = (typeof JobReportReason)[keyof typeof JobReportReason]
+
+
+export const JobReportStatus = {
+  PENDING: 'PENDING',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  RESOLVED: 'RESOLVED',
+  DISMISSED: 'DISMISSED'
+} as const
+
+export type JobReportStatus = (typeof JobReportStatus)[keyof typeof JobReportStatus]

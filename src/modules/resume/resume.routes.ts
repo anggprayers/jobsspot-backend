@@ -1,7 +1,7 @@
 import { Router } from "express";
 
 import { asyncHandler } from "../../middleware/asyncHandler.js";
-import { fileUploadRateLimiter } from "../../middleware/rateLimit.js";
+import { fileUploadRateLimiter, resumeProfileImportRateLimiter } from "../../middleware/rateLimit.js";
 import { requireAuth } from "../../middleware/requireAuth.js";
 import { uploadResume } from "../../middleware/resumeUpload.js";
 import { validate } from "../../middleware/validate.js";
@@ -10,12 +10,15 @@ import {
     getResumeDownload,
     getResumes,
     makeResumeDefault,
+    importResumeIntoProfile,
+    previewResumeProfile,
     removeResume,
     renameResume,
     uploadResumeController,
 } from "./resume.controller.js";
 
 import { renameResumeSchema, uploadResumeSchema } from "./resume.validation.js";
+import { importResumeProfileSchema } from "./resume-profile-import.validation.js";
 
 const resumeRouter = Router();
 
@@ -35,6 +38,24 @@ resumeRouter.post(
     uploadResume.single("resume"),
     validate(uploadResumeSchema),
     asyncHandler(uploadResumeController),
+);
+
+
+// GET /api/resumes/:resumeId/profile-preview
+// Extract reviewable profile suggestions from an owned PDF or DOCX resume.
+resumeRouter.get(
+    "/:resumeId/profile-preview",
+    resumeProfileImportRateLimiter,
+    asyncHandler(previewResumeProfile),
+);
+
+// POST /api/resumes/:resumeId/profile-import
+// Apply only the resume fields explicitly reviewed and selected by the user.
+resumeRouter.post(
+    "/:resumeId/profile-import",
+    resumeProfileImportRateLimiter,
+    validate(importResumeProfileSchema),
+    asyncHandler(importResumeIntoProfile),
 );
 
 // PATCH /api/resumes/:resumeId

@@ -80,6 +80,22 @@ enum NotificationAudience {
   SYSTEM
 }
 
+enum JobReportReason {
+  SCAM_FRAUD
+  MISLEADING
+  DISCRIMINATION
+  SPAM_DUPLICATE
+  INAPPROPRIATE
+  OTHER
+}
+
+enum JobReportStatus {
+  PENDING
+  UNDER_REVIEW
+  RESOLVED
+  DISMISSED
+}
+
 model User {
   id              String    @id @default(uuid()) @db.Uuid
   email           String    @unique
@@ -116,6 +132,10 @@ model User {
   suspendedCompanies      Company[]                @relation("CompanySuspendedBy")
   platformAuditLogs       PlatformAuditLog[]       @relation("PlatformAuditActor")
   notifications           Notification[]
+  notificationPreference  NotificationPreference?
+  adminHiddenJobs         Job[]                    @relation("JobAdminHiddenBy")
+  jobReports              JobReport[]              @relation("JobReportReporter")
+  reviewedJobReports      JobReport[]              @relation("JobReportReviewedBy")
 
   @@index([deletedAt])
   @@index([suspendedAt])
@@ -443,15 +463,34 @@ model Notification {
   entityId   String?
   metadata   Json?
   readAt     DateTime?
+  clearedAt  DateTime?
   emailedAt  DateTime?
+  emailProcessedAt DateTime?
   createdAt  DateTime             @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([userId, eventKey])
   @@index([userId, audience, readAt, createdAt])
+  @@index([userId, audience, clearedAt, createdAt])
   @@index([userId, createdAt])
   @@index([entityType, entityId])
+}
+
+model NotificationPreference {
+  id                               String   @id @default(uuid()) @db.Uuid
+  userId                           String   @unique @db.Uuid
+  jobSeekerApplicationUpdatesEmail Boolean  @default(true)
+  jobSeekerApplicationViewedEmail  Boolean  @default(false)
+  employerApplicationEmail         Boolean  @default(true)
+  employerTeamEmail                Boolean  @default(true)
+  employerJobEmail                 Boolean  @default(true)
+  systemEmail                      Boolean  @default(true)
+  createdAt                        DateTime @default(now())
+  updatedAt                        DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
 }
 
 model Job {
@@ -479,13 +518,18 @@ model Job {
   createdAt           DateTime        @default(now())
   updatedAt           DateTime        @updatedAt
   deletedAt           DateTime?
+  adminHiddenAt       DateTime?
+  adminHiddenReason   String?
+  adminHiddenById     String?         @db.Uuid
 
-  company      Company       @relation(fields: [companyId], references: [id], onDelete: Restrict)
+  company       Company       @relation(fields: [companyId], references: [id], onDelete: Restrict)
   category     JobCategory   @relation(fields: [categoryId], references: [id], onDelete: Restrict)
-  createdBy    User          @relation("JobCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
-  skills       JobSkill[]
-  applications Application[]
-  savedByUsers SavedJob[]
+  createdBy     User          @relation("JobCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+  adminHiddenBy User?         @relation("JobAdminHiddenBy", fields: [adminHiddenById], references: [id], onDelete: SetNull)
+  skills        JobSkill[]
+  applications  Application[]
+  savedByUsers  SavedJob[]
+  reports       JobReport[]
 
   @@index([status, publishedAt])
   @@index([companyId, status])
@@ -496,6 +540,8 @@ model Job {
   @@index([location])
   @@index([createdById])
   @@index([deletedAt])
+  @@index([adminHiddenAt])
+  @@index([adminHiddenById])
 }
 
 model Skill {
@@ -526,8 +572,12 @@ model Application {
   jobId       String            @db.Uuid
   applicantId String            @db.Uuid
   resumeId    String?           @db.Uuid
-  coverLetter String?
-  status      ApplicationStatus @default(SUBMITTED)
+  coverLetter             String?
+  coverLetterFileKey      String?
+  coverLetterFileName     String?
+  coverLetterFileMimeType String?
+  coverLetterFileSize     Int?
+  status                  ApplicationStatus @default(SUBMITTED)
   appliedAt   DateTime          @default(now())
   reviewedAt   DateTime?
   firstViewedAt DateTime?
@@ -539,11 +589,35 @@ model Application {
   applicant User    @relation(fields: [applicantId], references: [id], onDelete: Restrict)
   resume    Resume? @relation(fields: [resumeId], references: [id], onDelete: SetNull)
 
-  @@unique([jobId, applicantId])
+  @@index([jobId, applicantId, appliedAt])
   @@index([jobId, status])
   @@index([applicantId, createdAt])
   @@index([resumeId])
   @@index([firstViewedAt])
+}
+
+model JobReport {
+  id             String          @id @default(uuid()) @db.Uuid
+  jobId          String          @db.Uuid
+  reporterUserId String          @db.Uuid
+  reason         JobReportReason
+  details        String?
+  status         JobReportStatus @default(PENDING)
+  resolutionNote String?
+  reviewedById   String?         @db.Uuid
+  reviewedAt     DateTime?
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  job        Job   @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  reporter   User  @relation("JobReportReporter", fields: [reporterUserId], references: [id], onDelete: Restrict)
+  reviewedBy User? @relation("JobReportReviewedBy", fields: [reviewedById], references: [id], onDelete: SetNull)
+
+  @@unique([jobId, reporterUserId])
+  @@index([status, createdAt])
+  @@index([reason, createdAt])
+  @@index([jobId, status])
+  @@index([reviewedById])
 }
 
 model SavedJob {
