@@ -12,7 +12,7 @@ export function getRefreshTokenCookieOptions(): CookieOptions {
     return {
         httpOnly: true,
         secure: isProduction,
-        sameSite: isProduction ? "none" : "lax",
+        sameSite: isProduction ? env.REFRESH_COOKIE_SAME_SITE : "lax",
         path: "/api/auth",
         maxAge: SEVEN_DAYS_IN_MILLISECONDS,
     };
