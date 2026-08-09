@@ -156,11 +156,15 @@ export async function getCompanyBySlug(slug: string) {
                     workplaceType: true,
                     experienceLevel: true,
                     location: true,
+                    city: true,
+                    stateRegion: true,
+                    countryCode: true,
                     salaryMin: true,
                     salaryMax: true,
                     salaryCurrency: true,
                     salaryPeriod: true,
                     publishedAt: true,
+                    updatedAt: true,
                     createdAt: true,
 
                     category: {

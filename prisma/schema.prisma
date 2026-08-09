@@ -507,6 +507,9 @@ model Job {
   workplaceType       WorkplaceType
   experienceLevel     ExperienceLevel
   location            String?
+  city                String?
+  stateRegion         String?
+  countryCode         String          @default("US") @db.VarChar(2)
   salaryMin           Decimal?        @db.Decimal(12, 2)
   salaryMax           Decimal?        @db.Decimal(12, 2)
   salaryCurrency      String?         @db.VarChar(3)
@@ -538,6 +541,7 @@ model Job {
   @@index([workplaceType])
   @@index([experienceLevel])
   @@index([location])
+  @@index([countryCode, stateRegion, city])
   @@index([createdById])
   @@index([deletedAt])
   @@index([adminHiddenAt])

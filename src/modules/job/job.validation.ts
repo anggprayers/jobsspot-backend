@@ -14,6 +14,24 @@ const salaryCurrencySchema = z
     .length(3, "Currency must use a 3-letter code.")
     .transform((value) => value.toUpperCase());
 
+const countryCodeSchema = z
+    .string()
+    .trim()
+    .length(2, "Country must use a 2-letter code.")
+    .regex(/^[A-Za-z]{2}$/, "Country must use a valid 2-letter code.")
+    .transform((value) => value.toUpperCase());
+
+const optionalLocationPartSchema = z
+    .union([
+        z
+            .string()
+            .trim()
+            .min(1, "Location fields cannot be empty when provided.")
+            .max(100, "Location fields cannot exceed 100 characters."),
+        z.null(),
+    ])
+    .optional();
+
 const jobFieldsSchema = z.object({
     categoryId: z.string().uuid("A valid job category ID is required."),
 
@@ -39,12 +57,11 @@ const jobFieldsSchema = z.object({
 
     experienceLevel: z.enum(ExperienceLevel),
 
-    location: z
-        .string()
-        .trim()
-        .min(2, "Location must contain at least 2 characters.")
-        .max(150, "Location cannot exceed 150 characters.")
-        .optional(),
+    city: optionalLocationPartSchema,
+
+    stateRegion: optionalLocationPartSchema,
+
+    countryCode: countryCodeSchema.default("US"),
 
     salaryMin: z.number().nonnegative("Minimum salary cannot be negative.").optional(),
 
@@ -57,39 +74,74 @@ const jobFieldsSchema = z.object({
     applicationDeadline: z.coerce.date().optional(),
 });
 
-export const createJobSchema = jobFieldsSchema
-    .refine(
-        (data) => data.salaryMin === undefined || data.salaryMax === undefined || data.salaryMax >= data.salaryMin,
-        {
+function addSharedJobValidationIssues(
+    data: {
+        salaryMin?: number | undefined;
+        salaryMax?: number | undefined;
+        applicationDeadline?: Date | undefined;
+        workplaceType?: WorkplaceType | undefined;
+        city?: string | null | undefined;
+        stateRegion?: string | null | undefined;
+        countryCode?: string | undefined;
+    },
+    context: z.RefinementCtx,
+) {
+    if (
+        data.salaryMin !== undefined &&
+        data.salaryMax !== undefined &&
+        data.salaryMax < data.salaryMin
+    ) {
+        context.addIssue({
+            code: "custom",
             message: "Maximum salary must be greater than or equal to minimum salary.",
             path: ["salaryMax"],
-        },
-    )
-    .refine((data) => data.applicationDeadline === undefined || data.applicationDeadline > new Date(), {
-        message: "Application deadline must be in the future.",
-        path: ["applicationDeadline"],
-    });
+        });
+    }
+
+    if (data.applicationDeadline !== undefined && data.applicationDeadline <= new Date()) {
+        context.addIssue({
+            code: "custom",
+            message: "Application deadline must be in the future.",
+            path: ["applicationDeadline"],
+        });
+    }
+
+    if (data.workplaceType && data.workplaceType !== WorkplaceType.REMOTE) {
+        if (!data.city?.trim()) {
+            context.addIssue({
+                code: "custom",
+                message: "City is required for an on-site or hybrid job.",
+                path: ["city"],
+            });
+        }
+
+        if (!data.stateRegion?.trim()) {
+            context.addIssue({
+                code: "custom",
+                message: "State or region is required for an on-site or hybrid job.",
+                path: ["stateRegion"],
+            });
+        }
+    }
+}
+
+export const createJobSchema = jobFieldsSchema.superRefine((data, context) => {
+    addSharedJobValidationIssues(data, context);
+});
 
 export type CreateJobInput = z.infer<typeof createJobSchema>;
 
 const updateJobFieldsSchema = jobFieldsSchema.partial().extend({
     salaryCurrency: salaryCurrencySchema.optional(),
+    countryCode: countryCodeSchema.optional(),
 });
 
 export const updateJobSchema = updateJobFieldsSchema
     .refine((data) => Object.keys(data).length > 0, {
         message: "At least one job field must be provided.",
     })
-    .refine(
-        (data) => data.salaryMin === undefined || data.salaryMax === undefined || data.salaryMax >= data.salaryMin,
-        {
-            message: "Maximum salary must be greater than or equal to minimum salary.",
-            path: ["salaryMax"],
-        },
-    )
-    .refine((data) => data.applicationDeadline === undefined || data.applicationDeadline > new Date(), {
-        message: "Application deadline must be in the future.",
-        path: ["applicationDeadline"],
+    .superRefine((data, context) => {
+        addSharedJobValidationIssues(data, context);
     });
 
 export type UpdateJobInput = z.infer<typeof updateJobSchema>;

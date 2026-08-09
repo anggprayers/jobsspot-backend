@@ -6,6 +6,7 @@
     "type": "module",
     "scripts": {
         "dev": "tsx watch src/server.ts",
+        "prebuild": "prisma generate",
         "build": "tsc",
         "start": "node dist/server.js",
         "type-check": "tsc --noEmit"
