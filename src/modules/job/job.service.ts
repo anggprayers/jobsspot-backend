@@ -130,9 +130,10 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
                 },
             }),
 
-            transaction.jobCategory.findUnique({
+            transaction.jobCategory.findFirst({
                 where: {
                     id: data.categoryId,
+                    isActive: true,
                 },
 
                 select: {
@@ -156,7 +157,7 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
         }
 
         if (!category) {
-            throw new AppError(404, "Job category not found.");
+            throw new AppError(400, "Select an active job category.");
         }
 
         const slug = existingJob ? `${baseSlug}-${randomUUID().slice(0, 8)}` : baseSlug;
@@ -341,6 +342,7 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
                         id: true,
                         name: true,
                         slug: true,
+                        isActive: true,
                     },
                 },
 
@@ -378,6 +380,7 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
                 ...summaryWhere,
                 status: JobStatus.PUBLISHED,
                 adminHiddenAt: null,
+                category: { isActive: true },
                 OR: [
                     { expiresAt: null },
                     { expiresAt: { gt: now } },
@@ -477,6 +480,7 @@ export async function getCompanyJobById(companyId: string, jobId: string) {
                     id: true,
                     name: true,
                     slug: true,
+                    isActive: true,
                 },
             },
 
@@ -524,10 +528,11 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
             throw new AppError(404, "Job not found for this company.");
         }
 
-        if (data.categoryId) {
-            const category = await transaction.jobCategory.findUnique({
+        if (data.categoryId && data.categoryId !== existingJob.categoryId) {
+            const category = await transaction.jobCategory.findFirst({
                 where: {
                     id: data.categoryId,
+                    isActive: true,
                 },
 
                 select: {
@@ -536,7 +541,7 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
             });
 
             if (!category) {
-                throw new AppError(404, "Job category not found.");
+                throw new AppError(400, "Select an active job category.");
             }
         }
 
@@ -685,6 +690,7 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
                         id: true,
                         name: true,
                         slug: true,
+                        isActive: true,
                     },
                 },
 
@@ -790,6 +796,11 @@ export async function publishJob({ companyId, jobId, actorUserId }: JobMutationP
                 slug: true,
                 description: true,
                 categoryId: true,
+                category: {
+                    select: {
+                        isActive: true,
+                    },
+                },
 
                 salaryMin: true,
                 salaryMax: true,
@@ -834,6 +845,8 @@ export async function publishJob({ companyId, jobId, actorUserId }: JobMutationP
 
         if (!existingJob.categoryId) {
             readinessIssues.push("Select a job category.");
+        } else if (!existingJob.category.isActive) {
+            readinessIssues.push("Select an active job category. This category is no longer available for new public listings.");
         }
 
         if (existingJob.applicationDeadline && existingJob.applicationDeadline <= new Date()) {
@@ -965,6 +978,11 @@ export async function renewJob({
                         status: true,
                         expiresAt: true,
                         applicationDeadline: true,
+                        category: {
+                            select: {
+                                isActive: true,
+                            },
+                        },
                     },
                 });
 
@@ -982,6 +1000,13 @@ export async function renewJob({
                 throw new AppError(
                     400,
                     "Only published jobs can be renewed.",
+                );
+            }
+
+            if (!existingJob.category.isActive) {
+                throw new AppError(
+                    400,
+                    "Select an active job category before renewing this job.",
                 );
             }
 

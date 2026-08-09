@@ -26,6 +26,12 @@ import internalMaintenanceRouter from "./modules/internal-maintenance/internal-m
 
 const app = express();
 
+if (env.NODE_ENV === "production") {
+    // JobsSpot runs behind a reverse proxy in production. Trust one proxy hop so
+    // IP-based rate limits use the real client address instead of the proxy.
+    app.set("trust proxy", 1);
+}
+
 app.disable("x-powered-by");
 
 app.use(helmet());

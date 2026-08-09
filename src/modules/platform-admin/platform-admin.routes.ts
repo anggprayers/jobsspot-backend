@@ -10,6 +10,8 @@ import { validateParams } from "../../middleware/validateParams.js";
 import { validateQuery } from "../../middleware/validateQuery.js";
 
 import {
+    createAdminCategoryController,
+    getAdminCategoriesController,
     getAdminCompaniesController,
     getAdminCompanyController,
     getAdminDashboardController,
@@ -22,11 +24,18 @@ import {
     getPlatformActivityController,
     updateAdminCompanySuspensionController,
     updateAdminCompanyVerificationController,
+    updateAdminCategoryController,
+    updateAdminCategoryStatusController,
     updateAdminJobModerationController,
     updateAdminJobReportStatusController,
     updateAdminUserSuspensionController,
 } from "./platform-admin.controller.js";
 import {
+    adminCategoryCreateSchema,
+    adminCategoryListQuerySchema,
+    adminCategoryStatusSchema,
+    adminCategoryUpdateSchema,
+    adminCategoryUuidParamsSchema,
     adminCompanyListQuerySchema,
     adminCompanySuspensionSchema,
     adminCompanyUuidParamsSchema,
@@ -110,6 +119,39 @@ platformAdminRouter.patch(
     validateParams(adminCompanyUuidParamsSchema),
     validate(adminCompanySuspensionSchema),
     asyncHandler(updateAdminCompanySuspensionController),
+);
+
+// GET /api/admin/categories
+platformAdminRouter.get(
+    "/categories",
+    validateQuery(adminCategoryListQuerySchema),
+    asyncHandler(getAdminCategoriesController),
+);
+
+// POST /api/admin/categories
+platformAdminRouter.post(
+    "/categories",
+    platformAdminMutationRateLimiter,
+    validate(adminCategoryCreateSchema),
+    asyncHandler(createAdminCategoryController),
+);
+
+// PATCH /api/admin/categories/:categoryId
+platformAdminRouter.patch(
+    "/categories/:categoryId",
+    platformAdminMutationRateLimiter,
+    validateParams(adminCategoryUuidParamsSchema),
+    validate(adminCategoryUpdateSchema),
+    asyncHandler(updateAdminCategoryController),
+);
+
+// PATCH /api/admin/categories/:categoryId/status
+platformAdminRouter.patch(
+    "/categories/:categoryId/status",
+    platformAdminMutationRateLimiter,
+    validateParams(adminCategoryUuidParamsSchema),
+    validate(adminCategoryStatusSchema),
+    asyncHandler(updateAdminCategoryStatusController),
 );
 
 // GET /api/admin/jobs

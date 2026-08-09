@@ -134,6 +134,7 @@ export async function getCompanyBySlug(slug: string) {
                     status: JobStatus.PUBLISHED,
                     deletedAt: null,
                     adminHiddenAt: null,
+                    category: { isActive: true },
 
                     OR: [
                         {

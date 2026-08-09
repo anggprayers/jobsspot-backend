@@ -40,6 +40,9 @@ export async function createJobReport({
                 deletedAt: null,
                 suspendedAt: null,
             },
+            category: {
+                isActive: true,
+            },
             OR: [{ expiresAt: null }, { expiresAt: { gt: now } }],
         },
         select: {

@@ -10,6 +10,37 @@ export const adminCompanyUuidParamsSchema = z.object({
     companyId: z.uuid("A valid company ID is required."),
 });
 
+
+export const adminCategoryUuidParamsSchema = z.object({
+    categoryId: z.uuid("A valid job category ID is required."),
+});
+
+export const adminCategoryListQuerySchema = z.object({
+    page: z.coerce.number().int().min(1).default(1),
+    limit: z.coerce.number().int().min(1).max(100).default(20),
+    search: z.string().trim().max(120).optional(),
+    status: z.enum(["ALL", "ACTIVE", "INACTIVE"]).default("ALL"),
+    sort: z.enum(["ORDER_ASC", "NAME_ASC", "NAME_DESC", "NEWEST"]).default("ORDER_ASC"),
+});
+
+export const adminCategoryCreateSchema = z.object({
+    name: z.string().trim().min(2, "Category name must contain at least 2 characters.").max(80),
+    displayOrder: z.coerce.number().int().min(0).max(10_000).optional(),
+});
+
+export const adminCategoryUpdateSchema = z
+    .object({
+        name: z.string().trim().min(2, "Category name must contain at least 2 characters.").max(80).optional(),
+        displayOrder: z.coerce.number().int().min(0).max(10_000).optional(),
+    })
+    .refine((value) => value.name !== undefined || value.displayOrder !== undefined, {
+        message: "Provide a category name or display order to update.",
+    });
+
+export const adminCategoryStatusSchema = z.object({
+    active: z.boolean(),
+});
+
 export const adminJobUuidParamsSchema = z.object({
     jobId: z.uuid("A valid job ID is required."),
 });
@@ -139,6 +170,10 @@ export type AdminCompanyListQuery = z.infer<typeof adminCompanyListQuerySchema>;
 export type AdminUserSuspensionInput = z.infer<typeof adminUserSuspensionSchema>;
 export type AdminCompanySuspensionInput = z.infer<typeof adminCompanySuspensionSchema>;
 export type AdminCompanyVerificationInput = z.infer<typeof adminCompanyVerificationSchema>;
+export type AdminCategoryListQuery = z.infer<typeof adminCategoryListQuerySchema>;
+export type AdminCategoryCreateInput = z.infer<typeof adminCategoryCreateSchema>;
+export type AdminCategoryUpdateInput = z.infer<typeof adminCategoryUpdateSchema>;
+export type AdminCategoryStatusInput = z.infer<typeof adminCategoryStatusSchema>;
 export type AdminJobListQuery = z.infer<typeof adminJobListQuerySchema>;
 export type AdminJobModerationInput = z.infer<typeof adminJobModerationSchema>;
 export type AdminJobReportListQuery = z.infer<typeof adminJobReportListQuerySchema>;

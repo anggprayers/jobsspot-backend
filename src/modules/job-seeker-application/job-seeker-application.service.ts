@@ -207,6 +207,11 @@ export async function createUserApplication({
                         suspendedAt: true,
                     },
                 },
+                category: {
+                    select: {
+                        isActive: true,
+                    },
+                },
             },
         }),
 
@@ -228,7 +233,8 @@ export async function createUserApplication({
         job.deletedAt !== null ||
         job.adminHiddenAt !== null ||
         job.company.deletedAt !== null ||
-        job.company.suspendedAt !== null
+        job.company.suspendedAt !== null ||
+        !job.category.isActive
     ) {
         throw new AppError(404, "Job not found.");
     }

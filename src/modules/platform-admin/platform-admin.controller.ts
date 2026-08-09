@@ -8,6 +8,12 @@ import {
     updatePlatformCompanySuspension,
     updatePlatformCompanyVerification,
 } from "./platform-admin-company.service.js";
+import {
+    createPlatformJobCategory,
+    getPlatformJobCategories,
+    updatePlatformJobCategory,
+    updatePlatformJobCategoryStatus,
+} from "./platform-admin-category.service.js";
 import { getPlatformActivity } from "./platform-audit.service.js";
 import {
     getPlatformJobById,
@@ -26,6 +32,7 @@ import {
     updatePlatformUserSuspension,
 } from "./platform-admin.service.js";
 import type {
+    AdminCategoryListQuery,
     AdminCompanyListQuery,
     AdminJobListQuery,
     AdminJobReportListQuery,
@@ -173,6 +180,66 @@ export async function updateAdminCompanySuspensionController(
             ? "Company suspended successfully."
             : "Company restored successfully.",
         company,
+    });
+}
+
+export async function getAdminCategoriesController(
+    _request: Request,
+    response: Response,
+): Promise<void> {
+    const query = response.locals.validatedQuery as AdminCategoryListQuery;
+    const result = await getPlatformJobCategories(query);
+
+    response.status(200).json({
+        success: true,
+        message: "Job categories retrieved successfully.",
+        ...result,
+    });
+}
+
+export async function createAdminCategoryController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const category = await createPlatformJobCategory(actorUserId, request.body);
+
+    response.status(201).json({
+        success: true,
+        message: "Job category created successfully.",
+        category,
+    });
+}
+
+export async function updateAdminCategoryController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const categoryId = request.params.categoryId as string;
+    const category = await updatePlatformJobCategory(actorUserId, categoryId, request.body);
+
+    response.status(200).json({
+        success: true,
+        message: "Job category updated successfully.",
+        category,
+    });
+}
+
+export async function updateAdminCategoryStatusController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const categoryId = request.params.categoryId as string;
+    const category = await updatePlatformJobCategoryStatus(actorUserId, categoryId, request.body);
+
+    response.status(200).json({
+        success: true,
+        message: request.body.active
+            ? "Job category activated successfully."
+            : "Job category deactivated successfully.",
+        category,
     });
 }
 
