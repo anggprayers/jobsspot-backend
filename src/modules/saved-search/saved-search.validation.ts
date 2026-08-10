@@ -4,6 +4,7 @@ import {
     EmploymentType,
     ExperienceLevel,
     SalaryPeriod,
+    SavedSearchAlertFrequency,
     WorkplaceType,
 } from "../../generated/prisma/client.js";
 
@@ -290,6 +291,12 @@ const savedSearchFieldsSchema = z
 
         publishedWithinDays:
             nullablePublishedWithinDaysSchema,
+
+        emailAlertsEnabled: z.boolean().optional(),
+        alertFrequency: z
+            .enum(SavedSearchAlertFrequency)
+            .nullable()
+            .optional(),
     })
     .strict();
 
@@ -450,6 +457,18 @@ export const createSavedSearchSchema =
                     path: ["name"],
                     message:
                         "Choose at least one search term or filter before saving.",
+                });
+            }
+
+            if (
+                data.emailAlertsEnabled === true &&
+                !data.alertFrequency
+            ) {
+                context.addIssue({
+                    code: "custom",
+                    path: ["alertFrequency"],
+                    message:
+                        "Choose a daily or weekly frequency when enabling job alerts.",
                 });
             }
         },

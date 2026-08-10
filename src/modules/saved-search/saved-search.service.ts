@@ -89,6 +89,48 @@ function hasOwnField(
     );
 }
 
+const ALERT_FILTER_FIELDS = [
+    "keyword",
+    "location",
+    "categoryId",
+    "categorySlug",
+    "categorySlugs",
+    "employmentType",
+    "employmentTypes",
+    "workplaceType",
+    "workplaceTypes",
+    "experienceLevel",
+    "experienceLevels",
+    "salaryMin",
+    "salaryMax",
+    "salaryCurrency",
+    "salaryPeriod",
+    "publishedWithinDays",
+] as const;
+
+function hasSavedSearchFilterChanges(data: UpdateSavedSearchBody): boolean {
+    return ALERT_FILTER_FIELDS.some((field) => hasOwnField(data, field));
+}
+
+async function ensureUserCanReceiveSavedSearchAlerts(userId: string): Promise<void> {
+    const user = await prisma.user.findUnique({
+        where: { id: userId },
+        select: {
+            isEmailVerified: true,
+            deletedAt: true,
+            suspendedAt: true,
+        },
+    });
+
+    if (!user || user.deletedAt || user.suspendedAt) {
+        throw new AppError(403, "This account cannot enable job alerts.");
+    }
+
+    if (!user.isEmailVerified) {
+        throw new AppError(409, "Verify your email address before enabling job alerts.");
+    }
+}
+
 function toNullableNumber(
     value: Prisma.Decimal | null,
 ): number | null {
@@ -612,6 +654,27 @@ export async function createUserSavedSearch({
                 data.salaryCurrency ?? null,
         });
 
+    const emailAlertsEnabled =
+        data.emailAlertsEnabled ?? false;
+    const alertFrequency = emailAlertsEnabled
+        ? (data.alertFrequency ?? null)
+        : null;
+
+    if (emailAlertsEnabled && !alertFrequency) {
+        throw new AppError(
+            400,
+            "Choose a daily or weekly frequency when enabling job alerts.",
+        );
+    }
+
+    if (emailAlertsEnabled) {
+        await ensureUserCanReceiveSavedSearchAlerts(userId);
+    }
+
+    const alertAnchor = emailAlertsEnabled
+        ? new Date()
+        : null;
+
     const rawSavedSearch =
         await prisma.savedSearch.create({
             data: {
@@ -654,9 +717,9 @@ export async function createUserSavedSearch({
                 publishedWithinDays:
                     data.publishedWithinDays ?? null,
 
-                emailAlertsEnabled: false,
-                alertFrequency: null,
-                lastAlertSentAt: null,
+                emailAlertsEnabled,
+                alertFrequency,
+                lastAlertSentAt: alertAnchor,
             },
             select: savedSearchSelect,
         });
@@ -778,6 +841,53 @@ export async function updateUserSavedSearch({
             salaryCurrency: requestedCurrency,
         });
 
+    const nextEmailAlertsEnabled =
+        data.emailAlertsEnabled ??
+        existingSavedSearch.emailAlertsEnabled;
+
+    const requestedAlertFrequency =
+        data.alertFrequency !== undefined
+            ? data.alertFrequency
+            : existingSavedSearch.alertFrequency;
+
+    const nextAlertFrequency = nextEmailAlertsEnabled
+        ? requestedAlertFrequency
+        : null;
+
+    if (nextEmailAlertsEnabled && !nextAlertFrequency) {
+        throw new AppError(
+            400,
+            "Choose a daily or weekly frequency when enabling job alerts.",
+        );
+    }
+
+    const alertSettingsChanged =
+        data.emailAlertsEnabled !== undefined ||
+        data.alertFrequency !== undefined;
+    const filterChanged =
+        hasSavedSearchFilterChanges(data);
+
+    if (
+        nextEmailAlertsEnabled &&
+        (alertSettingsChanged || filterChanged)
+    ) {
+        await ensureUserCanReceiveSavedSearchAlerts(userId);
+    }
+
+    const shouldResetAlertAnchor =
+        nextEmailAlertsEnabled &&
+        (!existingSavedSearch.emailAlertsEnabled ||
+            nextAlertFrequency !==
+                existingSavedSearch.alertFrequency ||
+            filterChanged);
+
+    const nextLastAlertSentAt = nextEmailAlertsEnabled
+        ? shouldResetAlertAnchor ||
+          !existingSavedSearch.lastAlertSentAt
+            ? new Date()
+            : existingSavedSearch.lastAlertSentAt
+        : existingSavedSearch.lastAlertSentAt;
+
     const rawSavedSearch =
         await prisma.savedSearch.update({
             where: {
@@ -836,6 +946,13 @@ export async function updateUserSavedSearch({
                     undefined
                         ? data.publishedWithinDays
                         : existingSavedSearch.publishedWithinDays,
+
+                emailAlertsEnabled:
+                    nextEmailAlertsEnabled,
+                alertFrequency:
+                    nextAlertFrequency,
+                lastAlertSentAt:
+                    nextLastAlertSentAt,
             },
             select: savedSearchSelect,
         });

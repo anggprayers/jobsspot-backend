@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 
 import { processJobExpirationNotifications } from "../notification/job-expiration-notification.service.js";
 import { processPendingNotificationEmails } from "../notification/notification-email.service.js";
+import { processDueSavedSearchAlerts } from "../saved-search/saved-search-alert.service.js";
 
 export async function processJobExpirationNotificationsController(
     _request: Request,
@@ -29,11 +30,26 @@ export async function processNotificationEmailsController(
     });
 }
 
+
+export async function processSavedSearchAlertsController(
+    _request: Request,
+    response: Response,
+): Promise<void> {
+    const result = await processDueSavedSearchAlerts();
+
+    response.status(200).json({
+        success: true,
+        message: "Saved search alerts processed successfully.",
+        result,
+    });
+}
+
 export async function processScheduledNotificationsController(
     _request: Request,
     response: Response,
 ): Promise<void> {
     const jobExpiration = await processJobExpirationNotifications();
+    const savedSearchAlerts = await processDueSavedSearchAlerts();
     const emailDelivery = await processPendingNotificationEmails();
 
     response.status(200).json({
@@ -41,6 +57,7 @@ export async function processScheduledNotificationsController(
         message: "Scheduled notification maintenance completed successfully.",
         result: {
             jobExpiration,
+            savedSearchAlerts,
             emailDelivery,
         },
     });

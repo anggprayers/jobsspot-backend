@@ -6,6 +6,7 @@ import { requireInternalCronSecret } from "./internal-maintenance.auth.js";
 import {
     processJobExpirationNotificationsController,
     processNotificationEmailsController,
+    processSavedSearchAlertsController,
     processScheduledNotificationsController,
 } from "./internal-maintenance.controller.js";
 
@@ -21,6 +22,11 @@ internalMaintenanceRouter.post(
 internalMaintenanceRouter.post(
     "/notification-emails",
     asyncHandler(processNotificationEmailsController),
+);
+
+internalMaintenanceRouter.post(
+    "/saved-search-alerts",
+    asyncHandler(processSavedSearchAlertsController),
 );
 
 internalMaintenanceRouter.post(
