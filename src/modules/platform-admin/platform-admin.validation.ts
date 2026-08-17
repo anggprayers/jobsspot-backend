@@ -1,6 +1,8 @@
 import { z } from "zod";
 
-import { JobReportReason, JobReportStatus, JobStatus } from "../../generated/prisma/client.js";
+import { JobReportReason, JobReportStatus, JobStatus, JobSubmissionStatus } from "../../generated/prisma/client.js";
+import { createCompanySchema } from "../company/company.validation.js";
+import { createJobSchema } from "../job/job.validation.js";
 
 export const adminUuidParamsSchema = z.object({
     userId: z.uuid("A valid user ID is required."),
@@ -47,6 +49,49 @@ export const adminJobUuidParamsSchema = z.object({
 
 export const adminJobReportUuidParamsSchema = z.object({
     reportId: z.uuid("A valid report ID is required."),
+});
+
+
+export const adminJobSubmissionUuidParamsSchema = z.object({
+    submissionId: z.uuid("A valid job submission ID is required."),
+});
+
+export const adminJobSubmissionListQuerySchema = z.object({
+    page: z.coerce.number().int().min(1).default(1),
+    limit: z.coerce.number().int().min(1).max(100).default(20),
+    search: z.string().trim().max(120).optional(),
+    status: z.union([z.literal("ALL"), z.enum(JobSubmissionStatus)]).default("ALL"),
+    sort: z.enum(["NEWEST", "OLDEST"]).default("NEWEST"),
+});
+
+export const adminJobSubmissionContactSchema = z.object({
+    internalNotes: z.string().trim().max(2000).optional(),
+});
+
+export const adminJobSubmissionRejectSchema = z.object({
+    reason: z
+        .string()
+        .trim()
+        .min(5, "Add a rejection reason containing at least 5 characters.")
+        .max(2000, "Rejection reason cannot exceed 2,000 characters."),
+});
+
+const adminExistingSubmissionCompanySchema = z.object({
+    mode: z.literal("EXISTING"),
+    companyId: z.uuid("A valid company ID is required."),
+});
+
+const adminNewSubmissionCompanySchema = createCompanySchema.extend({
+    mode: z.literal("NEW"),
+});
+
+export const adminJobSubmissionPublishSchema = z.object({
+    company: z.discriminatedUnion("mode", [
+        adminExistingSubmissionCompanySchema,
+        adminNewSubmissionCompanySchema,
+    ]),
+    job: createJobSchema,
+    internalNotes: z.string().trim().max(2000).optional(),
 });
 
 export const adminUserListQuerySchema = z.object({
@@ -164,6 +209,11 @@ export const platformActivityQuerySchema = z.object({
     action: z.string().trim().min(1).max(100).optional(),
     entityType: z.string().trim().min(1).max(100).optional(),
 });
+
+export type AdminJobSubmissionListQuery = z.infer<typeof adminJobSubmissionListQuerySchema>;
+export type AdminJobSubmissionContactInput = z.infer<typeof adminJobSubmissionContactSchema>;
+export type AdminJobSubmissionRejectInput = z.infer<typeof adminJobSubmissionRejectSchema>;
+export type AdminJobSubmissionPublishInput = z.infer<typeof adminJobSubmissionPublishSchema>;
 
 export type AdminUserListQuery = z.infer<typeof adminUserListQuerySchema>;
 export type AdminCompanyListQuery = z.infer<typeof adminCompanyListQuerySchema>;

@@ -26,6 +26,13 @@ import {
     updatePlatformJobReportStatus,
 } from "./platform-admin-job-report.service.js";
 import {
+    getPlatformJobSubmissionById,
+    getPlatformJobSubmissions,
+    markPlatformJobSubmissionContacted,
+    publishPlatformJobSubmission,
+    rejectPlatformJobSubmission,
+} from "./platform-admin-job-submission.service.js";
+import {
     getPlatformAdminDashboard,
     getPlatformUserById,
     getPlatformUsers,
@@ -36,6 +43,7 @@ import type {
     AdminCompanyListQuery,
     AdminJobListQuery,
     AdminJobReportListQuery,
+    AdminJobSubmissionListQuery,
     AdminUserListQuery,
     PlatformActivityQuery,
 } from "./platform-admin.validation.js";
@@ -107,6 +115,92 @@ export async function updateAdminUserSuspensionController(
         message: request.body.suspended
             ? "User account suspended successfully."
             : "User account restored successfully.",
+        ...result,
+    });
+}
+
+
+export async function getAdminJobSubmissionsController(
+    _request: Request,
+    response: Response,
+): Promise<void> {
+    const query = response.locals.validatedQuery as AdminJobSubmissionListQuery;
+    const result = await getPlatformJobSubmissions(query);
+
+    response.status(200).json({
+        success: true,
+        message: "Job submissions retrieved successfully.",
+        ...result,
+    });
+}
+
+export async function getAdminJobSubmissionController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const submissionId = request.params.submissionId as string;
+    const submission = await getPlatformJobSubmissionById(submissionId);
+
+    response.status(200).json({
+        success: true,
+        message: "Job submission retrieved successfully.",
+        submission,
+    });
+}
+
+export async function markAdminJobSubmissionContactedController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const submissionId = request.params.submissionId as string;
+    const submission = await markPlatformJobSubmissionContacted(
+        actorUserId,
+        submissionId,
+        request.body,
+    );
+
+    response.status(200).json({
+        success: true,
+        message: "Job submission marked as contacted.",
+        submission,
+    });
+}
+
+export async function rejectAdminJobSubmissionController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const submissionId = request.params.submissionId as string;
+    const submission = await rejectPlatformJobSubmission(
+        actorUserId,
+        submissionId,
+        request.body,
+    );
+
+    response.status(200).json({
+        success: true,
+        message: "Job submission rejected.",
+        submission,
+    });
+}
+
+export async function publishAdminJobSubmissionController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const submissionId = request.params.submissionId as string;
+    const result = await publishPlatformJobSubmission(
+        actorUserId,
+        submissionId,
+        request.body,
+    );
+
+    response.status(201).json({
+        success: true,
+        message: "Job submission approved and published successfully.",
         ...result,
     });
 }

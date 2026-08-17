@@ -17,11 +17,16 @@ import {
     getAdminDashboardController,
     getAdminJobController,
     getAdminJobReportController,
+    getAdminJobSubmissionController,
+    getAdminJobSubmissionsController,
     getAdminJobReportsController,
     getAdminJobsController,
     getAdminUserController,
     getAdminUsersController,
     getPlatformActivityController,
+    markAdminJobSubmissionContactedController,
+    publishAdminJobSubmissionController,
+    rejectAdminJobSubmissionController,
     updateAdminCompanySuspensionController,
     updateAdminCompanyVerificationController,
     updateAdminCategoryController,
@@ -45,6 +50,11 @@ import {
     adminJobReportListQuerySchema,
     adminJobReportStatusSchema,
     adminJobReportUuidParamsSchema,
+    adminJobSubmissionContactSchema,
+    adminJobSubmissionListQuerySchema,
+    adminJobSubmissionPublishSchema,
+    adminJobSubmissionRejectSchema,
+    adminJobSubmissionUuidParamsSchema,
     adminJobUuidParamsSchema,
     adminUserListQuerySchema,
     adminUserSuspensionSchema,
@@ -87,6 +97,48 @@ platformAdminRouter.patch(
     validateParams(adminUuidParamsSchema),
     validate(adminUserSuspensionSchema),
     asyncHandler(updateAdminUserSuspensionController),
+);
+
+
+// GET /api/admin/job-submissions
+platformAdminRouter.get(
+    "/job-submissions",
+    validateQuery(adminJobSubmissionListQuerySchema),
+    asyncHandler(getAdminJobSubmissionsController),
+);
+
+// GET /api/admin/job-submissions/:submissionId
+platformAdminRouter.get(
+    "/job-submissions/:submissionId",
+    validateParams(adminJobSubmissionUuidParamsSchema),
+    asyncHandler(getAdminJobSubmissionController),
+);
+
+// PATCH /api/admin/job-submissions/:submissionId/contacted
+platformAdminRouter.patch(
+    "/job-submissions/:submissionId/contacted",
+    platformAdminMutationRateLimiter,
+    validateParams(adminJobSubmissionUuidParamsSchema),
+    validate(adminJobSubmissionContactSchema),
+    asyncHandler(markAdminJobSubmissionContactedController),
+);
+
+// PATCH /api/admin/job-submissions/:submissionId/reject
+platformAdminRouter.patch(
+    "/job-submissions/:submissionId/reject",
+    platformAdminMutationRateLimiter,
+    validateParams(adminJobSubmissionUuidParamsSchema),
+    validate(adminJobSubmissionRejectSchema),
+    asyncHandler(rejectAdminJobSubmissionController),
+);
+
+// POST /api/admin/job-submissions/:submissionId/publish
+platformAdminRouter.post(
+    "/job-submissions/:submissionId/publish",
+    platformAdminMutationRateLimiter,
+    validateParams(adminJobSubmissionUuidParamsSchema),
+    validate(adminJobSubmissionPublishSchema),
+    asyncHandler(publishAdminJobSubmissionController),
 );
 
 // GET /api/admin/companies
