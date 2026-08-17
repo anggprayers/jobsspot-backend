@@ -9,7 +9,6 @@ import { apiRateLimiter } from "./middleware/rateLimit.js";
 import authRouter from "./modules/auth/auth.routes.js";
 import applicationShareRouter from "./modules/application-share/application-share.routes.js";
 import companyRouter from "./modules/company/company.routes.js";
-import companyInvitationAcceptanceRouter from "./modules/company-invitations/company-invitation-acceptance.routes.js";
 import contactRouter from "./modules/contact/contact.routes.js";
 import jobSubmissionRouter from "./modules/job-submission/job-submission.routes.js";
 import jobSeekerApplicationRouter from "./modules/job-seeker-application/job-seeker-application.routes.js";
@@ -77,8 +76,6 @@ app.use("/api/notifications", notificationRouter);
 app.use("/api/saved-jobs", savedJobRouter);
 
 app.use("/api/saved-searches", savedSearchRouter);
-
-app.use("/api/company-invitations", companyInvitationAcceptanceRouter);
 
 app.use("/api/companies", companyRouter);
 
