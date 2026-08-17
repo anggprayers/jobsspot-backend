@@ -307,6 +307,7 @@ export type ApplicationWhereInput = {
   job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
   applicant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   resume?: Prisma.XOR<Prisma.ResumeNullableScalarRelationFilter, Prisma.ResumeWhereInput> | null
+  shareLinks?: Prisma.ApplicationShareLinkListRelationFilter
 }
 
 export type ApplicationOrderByWithRelationInput = {
@@ -329,6 +330,7 @@ export type ApplicationOrderByWithRelationInput = {
   job?: Prisma.JobOrderByWithRelationInput
   applicant?: Prisma.UserOrderByWithRelationInput
   resume?: Prisma.ResumeOrderByWithRelationInput
+  shareLinks?: Prisma.ApplicationShareLinkOrderByRelationAggregateInput
 }
 
 export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
@@ -354,6 +356,7 @@ export type ApplicationWhereUniqueInput = Prisma.AtLeast<{
   job?: Prisma.XOR<Prisma.JobScalarRelationFilter, Prisma.JobWhereInput>
   applicant?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   resume?: Prisma.XOR<Prisma.ResumeNullableScalarRelationFilter, Prisma.ResumeWhereInput> | null
+  shareLinks?: Prisma.ApplicationShareLinkListRelationFilter
 }, "id">
 
 export type ApplicationOrderByWithAggregationInput = {
@@ -419,6 +422,7 @@ export type ApplicationCreateInput = {
   job: Prisma.JobCreateNestedOneWithoutApplicationsInput
   applicant: Prisma.UserCreateNestedOneWithoutApplicationsInput
   resume?: Prisma.ResumeCreateNestedOneWithoutApplicationsInput
+  shareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateInput = {
@@ -438,6 +442,7 @@ export type ApplicationUncheckedCreateInput = {
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  shareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationUpdateInput = {
@@ -457,6 +462,7 @@ export type ApplicationUpdateInput = {
   job?: Prisma.JobUpdateOneRequiredWithoutApplicationsNestedInput
   applicant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
   resume?: Prisma.ResumeUpdateOneWithoutApplicationsNestedInput
+  shareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateInput = {
@@ -476,6 +482,7 @@ export type ApplicationUncheckedUpdateInput = {
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationCreateManyInput = {
@@ -605,6 +612,11 @@ export type ApplicationMinOrderByAggregateInput = {
 
 export type ApplicationSumOrderByAggregateInput = {
   coverLetterFileSize?: Prisma.SortOrder
+}
+
+export type ApplicationScalarRelationFilter = {
+  is?: Prisma.ApplicationWhereInput
+  isNot?: Prisma.ApplicationWhereInput
 }
 
 export type ApplicationCreateNestedManyWithoutApplicantInput = {
@@ -737,6 +749,20 @@ export type EnumApplicationStatusFieldUpdateOperationsInput = {
   set?: $Enums.ApplicationStatus
 }
 
+export type ApplicationCreateNestedOneWithoutShareLinksInput = {
+  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutShareLinksInput, Prisma.ApplicationUncheckedCreateWithoutShareLinksInput>
+  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutShareLinksInput
+  connect?: Prisma.ApplicationWhereUniqueInput
+}
+
+export type ApplicationUpdateOneRequiredWithoutShareLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.ApplicationCreateWithoutShareLinksInput, Prisma.ApplicationUncheckedCreateWithoutShareLinksInput>
+  connectOrCreate?: Prisma.ApplicationCreateOrConnectWithoutShareLinksInput
+  upsert?: Prisma.ApplicationUpsertWithoutShareLinksInput
+  connect?: Prisma.ApplicationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ApplicationUpdateToOneWithWhereWithoutShareLinksInput, Prisma.ApplicationUpdateWithoutShareLinksInput>, Prisma.ApplicationUncheckedUpdateWithoutShareLinksInput>
+}
+
 export type ApplicationCreateWithoutApplicantInput = {
   id?: string
   coverLetter?: string | null
@@ -753,6 +779,7 @@ export type ApplicationCreateWithoutApplicantInput = {
   updatedAt?: Date | string
   job: Prisma.JobCreateNestedOneWithoutApplicationsInput
   resume?: Prisma.ResumeCreateNestedOneWithoutApplicationsInput
+  shareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateWithoutApplicantInput = {
@@ -771,6 +798,7 @@ export type ApplicationUncheckedCreateWithoutApplicantInput = {
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  shareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationCreateOrConnectWithoutApplicantInput = {
@@ -837,6 +865,7 @@ export type ApplicationCreateWithoutResumeInput = {
   updatedAt?: Date | string
   job: Prisma.JobCreateNestedOneWithoutApplicationsInput
   applicant: Prisma.UserCreateNestedOneWithoutApplicationsInput
+  shareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateWithoutResumeInput = {
@@ -855,6 +884,7 @@ export type ApplicationUncheckedCreateWithoutResumeInput = {
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  shareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationCreateOrConnectWithoutResumeInput = {
@@ -899,6 +929,7 @@ export type ApplicationCreateWithoutJobInput = {
   updatedAt?: Date | string
   applicant: Prisma.UserCreateNestedOneWithoutApplicationsInput
   resume?: Prisma.ResumeCreateNestedOneWithoutApplicationsInput
+  shareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationUncheckedCreateWithoutJobInput = {
@@ -917,6 +948,7 @@ export type ApplicationUncheckedCreateWithoutJobInput = {
   withdrawnAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  shareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutApplicationInput
 }
 
 export type ApplicationCreateOrConnectWithoutJobInput = {
@@ -943,6 +975,98 @@ export type ApplicationUpdateWithWhereUniqueWithoutJobInput = {
 export type ApplicationUpdateManyWithWhereWithoutJobInput = {
   where: Prisma.ApplicationScalarWhereInput
   data: Prisma.XOR<Prisma.ApplicationUpdateManyMutationInput, Prisma.ApplicationUncheckedUpdateManyWithoutJobInput>
+}
+
+export type ApplicationCreateWithoutShareLinksInput = {
+  id?: string
+  coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
+  status?: $Enums.ApplicationStatus
+  appliedAt?: Date | string
+  reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
+  withdrawnAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  job: Prisma.JobCreateNestedOneWithoutApplicationsInput
+  applicant: Prisma.UserCreateNestedOneWithoutApplicationsInput
+  resume?: Prisma.ResumeCreateNestedOneWithoutApplicationsInput
+}
+
+export type ApplicationUncheckedCreateWithoutShareLinksInput = {
+  id?: string
+  jobId: string
+  applicantId: string
+  resumeId?: string | null
+  coverLetter?: string | null
+  coverLetterFileKey?: string | null
+  coverLetterFileName?: string | null
+  coverLetterFileMimeType?: string | null
+  coverLetterFileSize?: number | null
+  status?: $Enums.ApplicationStatus
+  appliedAt?: Date | string
+  reviewedAt?: Date | string | null
+  firstViewedAt?: Date | string | null
+  withdrawnAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ApplicationCreateOrConnectWithoutShareLinksInput = {
+  where: Prisma.ApplicationWhereUniqueInput
+  create: Prisma.XOR<Prisma.ApplicationCreateWithoutShareLinksInput, Prisma.ApplicationUncheckedCreateWithoutShareLinksInput>
+}
+
+export type ApplicationUpsertWithoutShareLinksInput = {
+  update: Prisma.XOR<Prisma.ApplicationUpdateWithoutShareLinksInput, Prisma.ApplicationUncheckedUpdateWithoutShareLinksInput>
+  create: Prisma.XOR<Prisma.ApplicationCreateWithoutShareLinksInput, Prisma.ApplicationUncheckedCreateWithoutShareLinksInput>
+  where?: Prisma.ApplicationWhereInput
+}
+
+export type ApplicationUpdateToOneWithWhereWithoutShareLinksInput = {
+  where?: Prisma.ApplicationWhereInput
+  data: Prisma.XOR<Prisma.ApplicationUpdateWithoutShareLinksInput, Prisma.ApplicationUncheckedUpdateWithoutShareLinksInput>
+}
+
+export type ApplicationUpdateWithoutShareLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+  appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  job?: Prisma.JobUpdateOneRequiredWithoutApplicationsNestedInput
+  applicant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
+  resume?: Prisma.ResumeUpdateOneWithoutApplicationsNestedInput
+}
+
+export type ApplicationUncheckedUpdateWithoutShareLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  jobId?: Prisma.StringFieldUpdateOperationsInput | string
+  applicantId?: Prisma.StringFieldUpdateOperationsInput | string
+  resumeId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetter?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileKey?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileMimeType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  coverLetterFileSize?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  status?: Prisma.EnumApplicationStatusFieldUpdateOperationsInput | $Enums.ApplicationStatus
+  appliedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  reviewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  firstViewedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ApplicationCreateManyApplicantInput = {
@@ -979,6 +1103,7 @@ export type ApplicationUpdateWithoutApplicantInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job?: Prisma.JobUpdateOneRequiredWithoutApplicationsNestedInput
   resume?: Prisma.ResumeUpdateOneWithoutApplicationsNestedInput
+  shareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateWithoutApplicantInput = {
@@ -997,6 +1122,7 @@ export type ApplicationUncheckedUpdateWithoutApplicantInput = {
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateManyWithoutApplicantInput = {
@@ -1051,6 +1177,7 @@ export type ApplicationUpdateWithoutResumeInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   job?: Prisma.JobUpdateOneRequiredWithoutApplicationsNestedInput
   applicant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
+  shareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateWithoutResumeInput = {
@@ -1069,6 +1196,7 @@ export type ApplicationUncheckedUpdateWithoutResumeInput = {
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateManyWithoutResumeInput = {
@@ -1123,6 +1251,7 @@ export type ApplicationUpdateWithoutJobInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   applicant?: Prisma.UserUpdateOneRequiredWithoutApplicationsNestedInput
   resume?: Prisma.ResumeUpdateOneWithoutApplicationsNestedInput
+  shareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateWithoutJobInput = {
@@ -1141,6 +1270,7 @@ export type ApplicationUncheckedUpdateWithoutJobInput = {
   withdrawnAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  shareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutApplicationNestedInput
 }
 
 export type ApplicationUncheckedUpdateManyWithoutJobInput = {
@@ -1161,6 +1291,35 @@ export type ApplicationUncheckedUpdateManyWithoutJobInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+
+/**
+ * Count Type ApplicationCountOutputType
+ */
+
+export type ApplicationCountOutputType = {
+  shareLinks: number
+}
+
+export type ApplicationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  shareLinks?: boolean | ApplicationCountOutputTypeCountShareLinksArgs
+}
+
+/**
+ * ApplicationCountOutputType without action
+ */
+export type ApplicationCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ApplicationCountOutputType
+   */
+  select?: Prisma.ApplicationCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ApplicationCountOutputType without action
+ */
+export type ApplicationCountOutputTypeCountShareLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ApplicationShareLinkWhereInput
+}
 
 
 export type ApplicationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1183,6 +1342,8 @@ export type ApplicationSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   resume?: boolean | Prisma.Application$resumeArgs<ExtArgs>
+  shareLinks?: boolean | Prisma.Application$shareLinksArgs<ExtArgs>
+  _count?: boolean | Prisma.ApplicationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["application"]>
 
 export type ApplicationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1253,6 +1414,8 @@ export type ApplicationInclude<ExtArgs extends runtime.Types.Extensions.Internal
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
   applicant?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   resume?: boolean | Prisma.Application$resumeArgs<ExtArgs>
+  shareLinks?: boolean | Prisma.Application$shareLinksArgs<ExtArgs>
+  _count?: boolean | Prisma.ApplicationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ApplicationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   job?: boolean | Prisma.JobDefaultArgs<ExtArgs>
@@ -1271,6 +1434,7 @@ export type $ApplicationPayload<ExtArgs extends runtime.Types.Extensions.Interna
     job: Prisma.$JobPayload<ExtArgs>
     applicant: Prisma.$UserPayload<ExtArgs>
     resume: Prisma.$ResumePayload<ExtArgs> | null
+    shareLinks: Prisma.$ApplicationShareLinkPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1686,6 +1850,7 @@ export interface Prisma__ApplicationClient<T, Null = never, ExtArgs extends runt
   job<T extends Prisma.JobDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.JobDefaultArgs<ExtArgs>>): Prisma.Prisma__JobClient<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   applicant<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   resume<T extends Prisma.Application$resumeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Application$resumeArgs<ExtArgs>>): Prisma.Prisma__ResumeClient<runtime.Types.Result.GetResult<Prisma.$ResumePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  shareLinks<T extends Prisma.Application$shareLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Application$shareLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApplicationShareLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2148,6 +2313,30 @@ export type Application$resumeArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   include?: Prisma.ResumeInclude<ExtArgs> | null
   where?: Prisma.ResumeWhereInput
+}
+
+/**
+ * Application.shareLinks
+ */
+export type Application$shareLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ApplicationShareLink
+   */
+  select?: Prisma.ApplicationShareLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ApplicationShareLink
+   */
+  omit?: Prisma.ApplicationShareLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ApplicationShareLinkInclude<ExtArgs> | null
+  where?: Prisma.ApplicationShareLinkWhereInput
+  orderBy?: Prisma.ApplicationShareLinkOrderByWithRelationInput | Prisma.ApplicationShareLinkOrderByWithRelationInput[]
+  cursor?: Prisma.ApplicationShareLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ApplicationShareLinkScalarFieldEnum | Prisma.ApplicationShareLinkScalarFieldEnum[]
 }
 
 /**

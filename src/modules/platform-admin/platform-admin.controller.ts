@@ -3,6 +3,15 @@ import type { Request, Response } from "express";
 import { AppError } from "../../errors/AppError.js";
 
 import {
+    createPlatformApplicationShareLink,
+    getPlatformApplicationById,
+    getPlatformApplicationCoverLetterDownload,
+    getPlatformApplicationResumeDownload,
+    getPlatformApplications,
+    revokePlatformApplicationShareLink,
+    updatePlatformApplicationStatus,
+} from "./platform-admin-application.service.js";
+import {
     createPlatformCompany,
     getPlatformCompanies,
     getPlatformCompanyById,
@@ -45,6 +54,9 @@ import {
     updatePlatformUserSuspension,
 } from "./platform-admin.service.js";
 import type {
+    AdminApplicationListQuery,
+    AdminApplicationShareCreateInput,
+    AdminApplicationStatusInput,
     AdminCategoryListQuery,
     AdminCompanyCreateInput,
     AdminCompanyListQuery,
@@ -130,6 +142,106 @@ export async function updateAdminUserSuspensionController(
     });
 }
 
+
+export async function getAdminApplicationsController(
+    _request: Request,
+    response: Response,
+): Promise<void> {
+    const query = response.locals.validatedQuery as AdminApplicationListQuery;
+    const result = await getPlatformApplications(query);
+    response.status(200).json({
+        success: true,
+        message: "Platform applications retrieved successfully.",
+        ...result,
+    });
+}
+
+export async function getAdminApplicationController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const application = await getPlatformApplicationById(request.params.applicationId as string);
+    response.status(200).json({
+        success: true,
+        message: "Platform application retrieved successfully.",
+        application,
+    });
+}
+
+export async function getAdminApplicationResumeDownloadController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const result = await getPlatformApplicationResumeDownload(request.params.applicationId as string);
+    response.status(200).json({
+        success: true,
+        message: "Secure resume download link created.",
+        ...result,
+    });
+}
+
+export async function getAdminApplicationCoverLetterDownloadController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const result = await getPlatformApplicationCoverLetterDownload(request.params.applicationId as string);
+    response.status(200).json({
+        success: true,
+        message: "Secure cover letter download link created.",
+        ...result,
+    });
+}
+
+export async function updateAdminApplicationStatusController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const application = await updatePlatformApplicationStatus(
+        actorUserId,
+        request.params.applicationId as string,
+        request.body as AdminApplicationStatusInput,
+    );
+    response.status(200).json({
+        success: true,
+        message: "Application status updated successfully.",
+        application,
+    });
+}
+
+export async function createAdminApplicationShareLinkController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const shareLink = await createPlatformApplicationShareLink(
+        actorUserId,
+        request.params.applicationId as string,
+        request.body as AdminApplicationShareCreateInput,
+    );
+    response.status(201).json({
+        success: true,
+        message: "Secure application share link created.",
+        shareLink,
+    });
+}
+
+export async function revokeAdminApplicationShareLinkController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const shareLink = await revokePlatformApplicationShareLink(
+        actorUserId,
+        request.params.applicationId as string,
+        request.params.shareLinkId as string,
+    );
+    response.status(200).json({
+        success: true,
+        message: "Secure application share link revoked.",
+        shareLink,
+    });
+}
 
 export async function getAdminJobSubmissionsController(
     _request: Request,

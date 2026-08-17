@@ -407,6 +407,7 @@ export const ModelName = {
   Skill: 'Skill',
   JobSkill: 'JobSkill',
   Application: 'Application',
+  ApplicationShareLink: 'ApplicationShareLink',
   JobSubmission: 'JobSubmission',
   JobReport: 'JobReport',
   SavedJob: 'SavedJob',
@@ -428,7 +429,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "emailVerificationToken" | "passwordResetToken" | "oAuthAccount" | "refreshToken" | "jobSeekerProfile" | "jobSeekerSkill" | "workExperience" | "education" | "certification" | "resume" | "company" | "companyMembership" | "companyInvitation" | "auditLog" | "jobCategory" | "platformAuditLog" | "notification" | "notificationPreference" | "job" | "skill" | "jobSkill" | "application" | "jobSubmission" | "jobReport" | "savedJob" | "savedSearch" | "popularSearch" | "popularSearchDailyCount"
+    modelProps: "user" | "emailVerificationToken" | "passwordResetToken" | "oAuthAccount" | "refreshToken" | "jobSeekerProfile" | "jobSeekerSkill" | "workExperience" | "education" | "certification" | "resume" | "company" | "companyMembership" | "companyInvitation" | "auditLog" | "jobCategory" | "platformAuditLog" | "notification" | "notificationPreference" | "job" | "skill" | "jobSkill" | "application" | "applicationShareLink" | "jobSubmission" | "jobReport" | "savedJob" | "savedSearch" | "popularSearch" | "popularSearchDailyCount"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2134,6 +2135,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    ApplicationShareLink: {
+      payload: Prisma.$ApplicationShareLinkPayload<ExtArgs>
+      fields: Prisma.ApplicationShareLinkFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ApplicationShareLinkFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationShareLinkPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ApplicationShareLinkFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationShareLinkPayload>
+        }
+        findFirst: {
+          args: Prisma.ApplicationShareLinkFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationShareLinkPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ApplicationShareLinkFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationShareLinkPayload>
+        }
+        findMany: {
+          args: Prisma.ApplicationShareLinkFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationShareLinkPayload>[]
+        }
+        create: {
+          args: Prisma.ApplicationShareLinkCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationShareLinkPayload>
+        }
+        createMany: {
+          args: Prisma.ApplicationShareLinkCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ApplicationShareLinkCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationShareLinkPayload>[]
+        }
+        delete: {
+          args: Prisma.ApplicationShareLinkDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationShareLinkPayload>
+        }
+        update: {
+          args: Prisma.ApplicationShareLinkUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationShareLinkPayload>
+        }
+        deleteMany: {
+          args: Prisma.ApplicationShareLinkDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ApplicationShareLinkUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ApplicationShareLinkUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationShareLinkPayload>[]
+        }
+        upsert: {
+          args: Prisma.ApplicationShareLinkUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ApplicationShareLinkPayload>
+        }
+        aggregate: {
+          args: Prisma.ApplicationShareLinkAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateApplicationShareLink>
+        }
+        groupBy: {
+          args: Prisma.ApplicationShareLinkGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApplicationShareLinkGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ApplicationShareLinkCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ApplicationShareLinkCountAggregateOutputType> | number
+        }
+      }
+    }
     JobSubmission: {
       payload: Prisma.$JobSubmissionPayload<ExtArgs>
       fields: Prisma.JobSubmissionFieldRefs
@@ -3005,6 +3080,23 @@ export const ApplicationScalarFieldEnum = {
 export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
 
 
+export const ApplicationShareLinkScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  createdById: 'createdById',
+  tokenHash: 'tokenHash',
+  includeResume: 'includeResume',
+  includeCoverLetter: 'includeCoverLetter',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt',
+  lastAccessedAt: 'lastAccessedAt',
+  accessCount: 'accessCount',
+  createdAt: 'createdAt'
+} as const
+
+export type ApplicationShareLinkScalarFieldEnum = (typeof ApplicationShareLinkScalarFieldEnum)[keyof typeof ApplicationShareLinkScalarFieldEnum]
+
+
 export const JobSubmissionScalarFieldEnum = {
   id: 'id',
   referenceCode: 'referenceCode',
@@ -3569,6 +3661,7 @@ export type GlobalOmitConfig = {
   skill?: Prisma.SkillOmit
   jobSkill?: Prisma.JobSkillOmit
   application?: Prisma.ApplicationOmit
+  applicationShareLink?: Prisma.ApplicationShareLinkOmit
   jobSubmission?: Prisma.JobSubmissionOmit
   jobReport?: Prisma.JobReportOmit
   savedJob?: Prisma.SavedJobOmit

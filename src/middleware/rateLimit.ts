@@ -102,6 +102,12 @@ export const jobSubmissionRateLimiter = createRateLimiter({
         "Too many job submissions were sent recently. Please wait before submitting another job.",
 });
 
+export const applicationShareRateLimiter = createRateLimiter({
+    windowMs: FIFTEEN_MINUTES,
+    limit: 60,
+    message: "Too many secure application link requests. Please wait before trying again.",
+});
+
 export const platformAdminMutationRateLimiter = createRateLimiter({
     windowMs: ONE_HOUR,
     limit: 100,

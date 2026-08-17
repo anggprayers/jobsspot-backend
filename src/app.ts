@@ -7,6 +7,7 @@ import { env } from "./config/env.js";
 import { errorHandler } from "./errors/errorHandler.js";
 import { apiRateLimiter } from "./middleware/rateLimit.js";
 import authRouter from "./modules/auth/auth.routes.js";
+import applicationShareRouter from "./modules/application-share/application-share.routes.js";
 import companyRouter from "./modules/company/company.routes.js";
 import companyInvitationAcceptanceRouter from "./modules/company-invitations/company-invitation-acceptance.routes.js";
 import contactRouter from "./modules/contact/contact.routes.js";
@@ -56,6 +57,8 @@ app.use("/api/internal", internalMaintenanceRouter);
 app.use("/api/auth", authRouter);
 
 app.use("/api/admin", platformAdminRouter);
+
+app.use("/api/application-shares", applicationShareRouter);
 
 app.use("/api/contact", contactRouter);
 

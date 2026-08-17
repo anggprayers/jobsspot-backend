@@ -145,6 +145,7 @@ model User {
   jobReports              JobReport[]              @relation("JobReportReporter")
   reviewedJobReports      JobReport[]              @relation("JobReportReviewedBy")
   reviewedJobSubmissions  JobSubmission[]          @relation("JobSubmissionReviewedBy")
+  createdApplicationShareLinks ApplicationShareLink[] @relation("ApplicationShareCreatedBy")
 
   @@index([deletedAt])
   @@index([suspendedAt])
@@ -603,12 +604,36 @@ model Application {
   job       Job     @relation(fields: [jobId], references: [id], onDelete: Restrict)
   applicant User    @relation(fields: [applicantId], references: [id], onDelete: Restrict)
   resume    Resume? @relation(fields: [resumeId], references: [id], onDelete: SetNull)
+  shareLinks ApplicationShareLink[]
 
   @@index([jobId, applicantId, appliedAt])
   @@index([jobId, status])
   @@index([applicantId, createdAt])
   @@index([resumeId])
   @@index([firstViewedAt])
+}
+
+
+model ApplicationShareLink {
+  id                 String   @id @default(uuid()) @db.Uuid
+  applicationId      String   @db.Uuid
+  createdById        String   @db.Uuid
+  tokenHash          String   @unique
+  includeResume      Boolean  @default(true)
+  includeCoverLetter Boolean  @default(false)
+  expiresAt          DateTime
+  revokedAt          DateTime?
+  lastAccessedAt     DateTime?
+  accessCount        Int      @default(0)
+  createdAt          DateTime @default(now())
+
+  application Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+  createdBy   User        @relation("ApplicationShareCreatedBy", fields: [createdById], references: [id], onDelete: Restrict)
+
+  @@index([applicationId, createdAt])
+  @@index([createdById, createdAt])
+  @@index([expiresAt])
+  @@index([revokedAt])
 }
 
 model JobSubmission {

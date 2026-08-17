@@ -11,6 +11,13 @@ import { validateQuery } from "../../middleware/validateQuery.js";
 
 import {
     archiveAdminJobController,
+    createAdminApplicationShareLinkController,
+    getAdminApplicationController,
+    getAdminApplicationCoverLetterDownloadController,
+    getAdminApplicationResumeDownloadController,
+    getAdminApplicationsController,
+    revokeAdminApplicationShareLinkController,
+    updateAdminApplicationStatusController,
     createAdminCategoryController,
     createAdminCompanyController,
     createAdminJobController,
@@ -42,6 +49,11 @@ import {
     updateAdminUserSuspensionController,
 } from "./platform-admin.controller.js";
 import {
+    adminApplicationListQuerySchema,
+    adminApplicationShareCreateSchema,
+    adminApplicationShareUuidParamsSchema,
+    adminApplicationStatusSchema,
+    adminApplicationUuidParamsSchema,
     adminCategoryCreateSchema,
     adminCategoryListQuerySchema,
     adminCategoryStatusSchema,
@@ -110,6 +122,60 @@ platformAdminRouter.patch(
     asyncHandler(updateAdminUserSuspensionController),
 );
 
+
+// GET /api/admin/applications
+platformAdminRouter.get(
+    "/applications",
+    validateQuery(adminApplicationListQuerySchema),
+    asyncHandler(getAdminApplicationsController),
+);
+
+// GET /api/admin/applications/:applicationId
+platformAdminRouter.get(
+    "/applications/:applicationId",
+    validateParams(adminApplicationUuidParamsSchema),
+    asyncHandler(getAdminApplicationController),
+);
+
+// GET /api/admin/applications/:applicationId/resume-download
+platformAdminRouter.get(
+    "/applications/:applicationId/resume-download",
+    validateParams(adminApplicationUuidParamsSchema),
+    asyncHandler(getAdminApplicationResumeDownloadController),
+);
+
+// GET /api/admin/applications/:applicationId/cover-letter-download
+platformAdminRouter.get(
+    "/applications/:applicationId/cover-letter-download",
+    validateParams(adminApplicationUuidParamsSchema),
+    asyncHandler(getAdminApplicationCoverLetterDownloadController),
+);
+
+// PATCH /api/admin/applications/:applicationId/status
+platformAdminRouter.patch(
+    "/applications/:applicationId/status",
+    platformAdminMutationRateLimiter,
+    validateParams(adminApplicationUuidParamsSchema),
+    validate(adminApplicationStatusSchema),
+    asyncHandler(updateAdminApplicationStatusController),
+);
+
+// POST /api/admin/applications/:applicationId/share-links
+platformAdminRouter.post(
+    "/applications/:applicationId/share-links",
+    platformAdminMutationRateLimiter,
+    validateParams(adminApplicationUuidParamsSchema),
+    validate(adminApplicationShareCreateSchema),
+    asyncHandler(createAdminApplicationShareLinkController),
+);
+
+// POST /api/admin/applications/:applicationId/share-links/:shareLinkId/revoke
+platformAdminRouter.post(
+    "/applications/:applicationId/share-links/:shareLinkId/revoke",
+    platformAdminMutationRateLimiter,
+    validateParams(adminApplicationShareUuidParamsSchema),
+    asyncHandler(revokeAdminApplicationShareLinkController),
+);
 
 // GET /api/admin/job-submissions
 platformAdminRouter.get(

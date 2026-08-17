@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { JobReportReason, JobReportStatus, JobStatus, JobSubmissionStatus } from "../../generated/prisma/client.js";
+import { ApplicationStatus, JobReportReason, JobReportStatus, JobStatus, JobSubmissionStatus } from "../../generated/prisma/client.js";
 import { createCompanySchema, updateCompanySchema } from "../company/company.validation.js";
 import { createJobSchema, updateJobSchema } from "../job/job.validation.js";
 
@@ -51,6 +51,42 @@ export const adminJobReportUuidParamsSchema = z.object({
     reportId: z.uuid("A valid report ID is required."),
 });
 
+
+
+export const adminApplicationUuidParamsSchema = z.object({
+    applicationId: z.uuid("A valid application ID is required."),
+});
+
+export const adminApplicationShareUuidParamsSchema = z.object({
+    applicationId: z.uuid("A valid application ID is required."),
+    shareLinkId: z.uuid("A valid application share-link ID is required."),
+});
+
+export const adminApplicationListQuerySchema = z.object({
+    page: z.coerce.number().int().min(1).default(1),
+    limit: z.coerce.number().int().min(1).max(100).default(20),
+    search: z.string().trim().max(120).optional(),
+    status: z.union([z.literal("ALL"), z.enum(ApplicationStatus)]).default("ALL"),
+    jobId: z.uuid("A valid job ID is required.").optional(),
+    companyId: z.uuid("A valid company ID is required.").optional(),
+    sort: z.enum(["NEWEST", "OLDEST"]).default("NEWEST"),
+});
+
+export const adminApplicationStatusSchema = z.object({
+    status: z.enum([
+        ApplicationStatus.UNDER_REVIEW,
+        ApplicationStatus.INTERVIEW,
+        ApplicationStatus.OFFERED,
+        ApplicationStatus.HIRED,
+        ApplicationStatus.REJECTED,
+    ]),
+});
+
+export const adminApplicationShareCreateSchema = z.object({
+    expiresInHours: z.coerce.number().int().min(1).max(168).default(24),
+    includeResume: z.boolean().default(true),
+    includeCoverLetter: z.boolean().default(false),
+});
 
 export const adminJobSubmissionUuidParamsSchema = z.object({
     submissionId: z.uuid("A valid job submission ID is required."),
@@ -236,6 +272,10 @@ export const platformActivityQuerySchema = z.object({
     action: z.string().trim().min(1).max(100).optional(),
     entityType: z.string().trim().min(1).max(100).optional(),
 });
+
+export type AdminApplicationListQuery = z.infer<typeof adminApplicationListQuerySchema>;
+export type AdminApplicationStatusInput = z.infer<typeof adminApplicationStatusSchema>;
+export type AdminApplicationShareCreateInput = z.infer<typeof adminApplicationShareCreateSchema>;
 
 export type AdminJobSubmissionListQuery = z.infer<typeof adminJobSubmissionListQuerySchema>;
 export type AdminJobSubmissionContactInput = z.infer<typeof adminJobSubmissionContactSchema>;

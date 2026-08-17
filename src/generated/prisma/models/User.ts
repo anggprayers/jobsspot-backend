@@ -286,6 +286,7 @@ export type UserWhereInput = {
   jobReports?: Prisma.JobReportListRelationFilter
   reviewedJobReports?: Prisma.JobReportListRelationFilter
   reviewedJobSubmissions?: Prisma.JobSubmissionListRelationFilter
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -328,6 +329,7 @@ export type UserOrderByWithRelationInput = {
   jobReports?: Prisma.JobReportOrderByRelationAggregateInput
   reviewedJobReports?: Prisma.JobReportOrderByRelationAggregateInput
   reviewedJobSubmissions?: Prisma.JobSubmissionOrderByRelationAggregateInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -373,6 +375,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   jobReports?: Prisma.JobReportListRelationFilter
   reviewedJobReports?: Prisma.JobReportListRelationFilter
   reviewedJobSubmissions?: Prisma.JobSubmissionListRelationFilter
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkListRelationFilter
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -456,6 +459,7 @@ export type UserCreateInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -497,6 +501,7 @@ export type UserUncheckedCreateInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUpdateInput = {
@@ -538,6 +543,7 @@ export type UserUpdateInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -579,6 +585,7 @@ export type UserUncheckedUpdateInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1034,6 +1041,20 @@ export type UserUpdateOneRequiredWithoutApplicationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutApplicationsInput, Prisma.UserUpdateWithoutApplicationsInput>, Prisma.UserUncheckedUpdateWithoutApplicationsInput>
 }
 
+export type UserCreateNestedOneWithoutCreatedApplicationShareLinksInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedApplicationShareLinksInput, Prisma.UserUncheckedCreateWithoutCreatedApplicationShareLinksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedApplicationShareLinksInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutCreatedApplicationShareLinksNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatedApplicationShareLinksInput, Prisma.UserUncheckedCreateWithoutCreatedApplicationShareLinksInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatedApplicationShareLinksInput
+  upsert?: Prisma.UserUpsertWithoutCreatedApplicationShareLinksInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatedApplicationShareLinksInput, Prisma.UserUpdateWithoutCreatedApplicationShareLinksInput>, Prisma.UserUncheckedUpdateWithoutCreatedApplicationShareLinksInput>
+}
+
 export type UserCreateNestedOneWithoutReviewedJobSubmissionsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutReviewedJobSubmissionsInput, Prisma.UserUncheckedCreateWithoutReviewedJobSubmissionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutReviewedJobSubmissionsInput
@@ -1146,6 +1167,7 @@ export type UserCreateWithoutSuspendedUsersInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSuspendedUsersInput = {
@@ -1186,6 +1208,7 @@ export type UserUncheckedCreateWithoutSuspendedUsersInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSuspendedUsersInput = {
@@ -1231,6 +1254,7 @@ export type UserCreateWithoutSuspendedByInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSuspendedByInput = {
@@ -1271,6 +1295,7 @@ export type UserUncheckedCreateWithoutSuspendedByInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSuspendedByInput = {
@@ -1332,6 +1357,7 @@ export type UserUpdateWithoutSuspendedUsersInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuspendedUsersInput = {
@@ -1372,6 +1398,7 @@ export type UserUncheckedUpdateWithoutSuspendedUsersInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutSuspendedByInput = {
@@ -1449,6 +1476,7 @@ export type UserCreateWithoutEmailVerificationTokensInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
@@ -1489,6 +1517,7 @@ export type UserUncheckedCreateWithoutEmailVerificationTokensInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutEmailVerificationTokensInput = {
@@ -1545,6 +1574,7 @@ export type UserUpdateWithoutEmailVerificationTokensInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
@@ -1585,6 +1615,7 @@ export type UserUncheckedUpdateWithoutEmailVerificationTokensInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutPasswordResetTokensInput = {
@@ -1625,6 +1656,7 @@ export type UserCreateWithoutPasswordResetTokensInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -1665,6 +1697,7 @@ export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -1721,6 +1754,7 @@ export type UserUpdateWithoutPasswordResetTokensInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -1761,6 +1795,7 @@ export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutOauthAccountsInput = {
@@ -1801,6 +1836,7 @@ export type UserCreateWithoutOauthAccountsInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutOauthAccountsInput = {
@@ -1841,6 +1877,7 @@ export type UserUncheckedCreateWithoutOauthAccountsInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutOauthAccountsInput = {
@@ -1897,6 +1934,7 @@ export type UserUpdateWithoutOauthAccountsInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOauthAccountsInput = {
@@ -1937,6 +1975,7 @@ export type UserUncheckedUpdateWithoutOauthAccountsInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -1977,6 +2016,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -2017,6 +2057,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -2073,6 +2114,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -2113,6 +2155,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutJobSeekerProfileInput = {
@@ -2153,6 +2196,7 @@ export type UserCreateWithoutJobSeekerProfileInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutJobSeekerProfileInput = {
@@ -2193,6 +2237,7 @@ export type UserUncheckedCreateWithoutJobSeekerProfileInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutJobSeekerProfileInput = {
@@ -2249,6 +2294,7 @@ export type UserUpdateWithoutJobSeekerProfileInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJobSeekerProfileInput = {
@@ -2289,6 +2335,7 @@ export type UserUncheckedUpdateWithoutJobSeekerProfileInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutResumesInput = {
@@ -2329,6 +2376,7 @@ export type UserCreateWithoutResumesInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutResumesInput = {
@@ -2369,6 +2417,7 @@ export type UserUncheckedCreateWithoutResumesInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutResumesInput = {
@@ -2425,6 +2474,7 @@ export type UserUpdateWithoutResumesInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutResumesInput = {
@@ -2465,6 +2515,7 @@ export type UserUncheckedUpdateWithoutResumesInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSuspendedCompaniesInput = {
@@ -2505,6 +2556,7 @@ export type UserCreateWithoutSuspendedCompaniesInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSuspendedCompaniesInput = {
@@ -2545,6 +2597,7 @@ export type UserUncheckedCreateWithoutSuspendedCompaniesInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSuspendedCompaniesInput = {
@@ -2601,6 +2654,7 @@ export type UserUpdateWithoutSuspendedCompaniesInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuspendedCompaniesInput = {
@@ -2641,6 +2695,7 @@ export type UserUncheckedUpdateWithoutSuspendedCompaniesInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCompanyMembershipsInput = {
@@ -2681,6 +2736,7 @@ export type UserCreateWithoutCompanyMembershipsInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCompanyMembershipsInput = {
@@ -2721,6 +2777,7 @@ export type UserUncheckedCreateWithoutCompanyMembershipsInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCompanyMembershipsInput = {
@@ -2777,6 +2834,7 @@ export type UserUpdateWithoutCompanyMembershipsInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCompanyMembershipsInput = {
@@ -2817,6 +2875,7 @@ export type UserUncheckedUpdateWithoutCompanyMembershipsInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSentCompanyInvitationsInput = {
@@ -2857,6 +2916,7 @@ export type UserCreateWithoutSentCompanyInvitationsInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSentCompanyInvitationsInput = {
@@ -2897,6 +2957,7 @@ export type UserUncheckedCreateWithoutSentCompanyInvitationsInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSentCompanyInvitationsInput = {
@@ -2942,6 +3003,7 @@ export type UserCreateWithoutAcceptedCompanyInvitationsInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput = {
@@ -2982,6 +3044,7 @@ export type UserUncheckedCreateWithoutAcceptedCompanyInvitationsInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutAcceptedCompanyInvitationsInput = {
@@ -3038,6 +3101,7 @@ export type UserUpdateWithoutSentCompanyInvitationsInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSentCompanyInvitationsInput = {
@@ -3078,6 +3142,7 @@ export type UserUncheckedUpdateWithoutSentCompanyInvitationsInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUpsertWithoutAcceptedCompanyInvitationsInput = {
@@ -3129,6 +3194,7 @@ export type UserUpdateWithoutAcceptedCompanyInvitationsInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput = {
@@ -3169,6 +3235,7 @@ export type UserUncheckedUpdateWithoutAcceptedCompanyInvitationsInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutAuditLogsInput = {
@@ -3209,6 +3276,7 @@ export type UserCreateWithoutAuditLogsInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutAuditLogsInput = {
@@ -3249,6 +3317,7 @@ export type UserUncheckedCreateWithoutAuditLogsInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutAuditLogsInput = {
@@ -3305,6 +3374,7 @@ export type UserUpdateWithoutAuditLogsInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAuditLogsInput = {
@@ -3345,6 +3415,7 @@ export type UserUncheckedUpdateWithoutAuditLogsInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutPlatformAuditLogsInput = {
@@ -3385,6 +3456,7 @@ export type UserCreateWithoutPlatformAuditLogsInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutPlatformAuditLogsInput = {
@@ -3425,6 +3497,7 @@ export type UserUncheckedCreateWithoutPlatformAuditLogsInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutPlatformAuditLogsInput = {
@@ -3481,6 +3554,7 @@ export type UserUpdateWithoutPlatformAuditLogsInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlatformAuditLogsInput = {
@@ -3521,6 +3595,7 @@ export type UserUncheckedUpdateWithoutPlatformAuditLogsInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -3561,6 +3636,7 @@ export type UserCreateWithoutNotificationsInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -3601,6 +3677,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3657,6 +3734,7 @@ export type UserUpdateWithoutNotificationsInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -3697,6 +3775,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutNotificationPreferenceInput = {
@@ -3737,6 +3816,7 @@ export type UserCreateWithoutNotificationPreferenceInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
@@ -3777,6 +3857,7 @@ export type UserUncheckedCreateWithoutNotificationPreferenceInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationPreferenceInput = {
@@ -3833,6 +3914,7 @@ export type UserUpdateWithoutNotificationPreferenceInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
@@ -3873,6 +3955,7 @@ export type UserUncheckedUpdateWithoutNotificationPreferenceInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutCreatedJobsInput = {
@@ -3913,6 +3996,7 @@ export type UserCreateWithoutCreatedJobsInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutCreatedJobsInput = {
@@ -3953,6 +4037,7 @@ export type UserUncheckedCreateWithoutCreatedJobsInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutCreatedJobsInput = {
@@ -3998,6 +4083,7 @@ export type UserCreateWithoutAdminHiddenJobsInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutAdminHiddenJobsInput = {
@@ -4038,6 +4124,7 @@ export type UserUncheckedCreateWithoutAdminHiddenJobsInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutAdminHiddenJobsInput = {
@@ -4094,6 +4181,7 @@ export type UserUpdateWithoutCreatedJobsInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutCreatedJobsInput = {
@@ -4134,6 +4222,7 @@ export type UserUncheckedUpdateWithoutCreatedJobsInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUpsertWithoutAdminHiddenJobsInput = {
@@ -4185,6 +4274,7 @@ export type UserUpdateWithoutAdminHiddenJobsInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAdminHiddenJobsInput = {
@@ -4225,6 +4315,7 @@ export type UserUncheckedUpdateWithoutAdminHiddenJobsInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutApplicationsInput = {
@@ -4265,6 +4356,7 @@ export type UserCreateWithoutApplicationsInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutApplicationsInput = {
@@ -4305,6 +4397,7 @@ export type UserUncheckedCreateWithoutApplicationsInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutApplicationsInput = {
@@ -4361,6 +4454,7 @@ export type UserUpdateWithoutApplicationsInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutApplicationsInput = {
@@ -4384,6 +4478,187 @@ export type UserUncheckedUpdateWithoutApplicationsInput = {
   resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
   companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
   createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutAcceptedByNestedInput
+  suspendedUsers?: Prisma.UserUncheckedUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUncheckedUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
+}
+
+export type UserCreateWithoutCreatedApplicationShareLinksInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationCreateNestedManyWithoutAcceptedByInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedUsersInput
+  suspendedUsers?: Prisma.UserCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
+  reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserUncheckedCreateWithoutCreatedApplicationShareLinksInput = {
+  id?: string
+  email: string
+  passwordHash?: string | null
+  firstName: string
+  lastName: string
+  phone?: string | null
+  avatarUrl?: string | null
+  isEmailVerified?: boolean
+  isAdmin?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedCreateNestedOneWithoutUserInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedCreateNestedManyWithoutUserInput
+  resumes?: Prisma.ResumeUncheckedCreateNestedManyWithoutUserInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutUserInput
+  createdJobs?: Prisma.JobUncheckedCreateNestedManyWithoutCreatedByInput
+  applications?: Prisma.ApplicationUncheckedCreateNestedManyWithoutApplicantInput
+  savedJobs?: Prisma.SavedJobUncheckedCreateNestedManyWithoutUserInput
+  savedSearches?: Prisma.SavedSearchUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUncheckedCreateNestedManyWithoutUserInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutInvitedByInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutAcceptedByInput
+  suspendedUsers?: Prisma.UserUncheckedCreateNestedManyWithoutSuspendedByInput
+  suspendedCompanies?: Prisma.CompanyUncheckedCreateNestedManyWithoutSuspendedByInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUncheckedCreateNestedManyWithoutActorUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationPreference?: Prisma.NotificationPreferenceUncheckedCreateNestedOneWithoutUserInput
+  adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
+  jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
+  reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
+  reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+}
+
+export type UserCreateOrConnectWithoutCreatedApplicationShareLinksInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedApplicationShareLinksInput, Prisma.UserUncheckedCreateWithoutCreatedApplicationShareLinksInput>
+}
+
+export type UserUpsertWithoutCreatedApplicationShareLinksInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatedApplicationShareLinksInput, Prisma.UserUncheckedUpdateWithoutCreatedApplicationShareLinksInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCreatedApplicationShareLinksInput, Prisma.UserUncheckedCreateWithoutCreatedApplicationShareLinksInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCreatedApplicationShareLinksInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatedApplicationShareLinksInput, Prisma.UserUncheckedUpdateWithoutCreatedApplicationShareLinksInput>
+}
+
+export type UserUpdateWithoutCreatedApplicationShareLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUpdateManyWithoutApplicantNestedInput
+  savedJobs?: Prisma.SavedJobUpdateManyWithoutUserNestedInput
+  savedSearches?: Prisma.SavedSearchUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  emailVerificationTokens?: Prisma.EmailVerificationTokenUpdateManyWithoutUserNestedInput
+  passwordResetTokens?: Prisma.PasswordResetTokenUpdateManyWithoutUserNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorUserNestedInput
+  sentCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutInvitedByNestedInput
+  acceptedCompanyInvitations?: Prisma.CompanyInvitationUpdateManyWithoutAcceptedByNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedUsersNestedInput
+  suspendedUsers?: Prisma.UserUpdateManyWithoutSuspendedByNestedInput
+  suspendedCompanies?: Prisma.CompanyUpdateManyWithoutSuspendedByNestedInput
+  platformAuditLogs?: Prisma.PlatformAuditLogUpdateManyWithoutActorUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  notificationPreference?: Prisma.NotificationPreferenceUpdateOneWithoutUserNestedInput
+  adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
+  jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
+  reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
+  reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCreatedApplicationShareLinksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  passwordHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  firstName?: Prisma.StringFieldUpdateOperationsInput | string
+  lastName?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isEmailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isAdmin?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  jobSeekerProfile?: Prisma.JobSeekerProfileUncheckedUpdateOneWithoutUserNestedInput
+  oauthAccounts?: Prisma.OAuthAccountUncheckedUpdateManyWithoutUserNestedInput
+  resumes?: Prisma.ResumeUncheckedUpdateManyWithoutUserNestedInput
+  companyMemberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutUserNestedInput
+  createdJobs?: Prisma.JobUncheckedUpdateManyWithoutCreatedByNestedInput
+  applications?: Prisma.ApplicationUncheckedUpdateManyWithoutApplicantNestedInput
   savedJobs?: Prisma.SavedJobUncheckedUpdateManyWithoutUserNestedInput
   savedSearches?: Prisma.SavedSearchUncheckedUpdateManyWithoutUserNestedInput
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
@@ -4441,6 +4716,7 @@ export type UserCreateWithoutReviewedJobSubmissionsInput = {
   adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewedJobSubmissionsInput = {
@@ -4481,6 +4757,7 @@ export type UserUncheckedCreateWithoutReviewedJobSubmissionsInput = {
   adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewedJobSubmissionsInput = {
@@ -4537,6 +4814,7 @@ export type UserUpdateWithoutReviewedJobSubmissionsInput = {
   adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedJobSubmissionsInput = {
@@ -4577,6 +4855,7 @@ export type UserUncheckedUpdateWithoutReviewedJobSubmissionsInput = {
   adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutJobReportsInput = {
@@ -4617,6 +4896,7 @@ export type UserCreateWithoutJobReportsInput = {
   adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutJobReportsInput = {
@@ -4657,6 +4937,7 @@ export type UserUncheckedCreateWithoutJobReportsInput = {
   adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutJobReportsInput = {
@@ -4702,6 +4983,7 @@ export type UserCreateWithoutReviewedJobReportsInput = {
   adminHiddenJobs?: Prisma.JobCreateNestedManyWithoutAdminHiddenByInput
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutReviewedJobReportsInput = {
@@ -4742,6 +5024,7 @@ export type UserUncheckedCreateWithoutReviewedJobReportsInput = {
   adminHiddenJobs?: Prisma.JobUncheckedCreateNestedManyWithoutAdminHiddenByInput
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutReviewedJobReportsInput = {
@@ -4798,6 +5081,7 @@ export type UserUpdateWithoutJobReportsInput = {
   adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJobReportsInput = {
@@ -4838,6 +5122,7 @@ export type UserUncheckedUpdateWithoutJobReportsInput = {
   adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUpsertWithoutReviewedJobReportsInput = {
@@ -4889,6 +5174,7 @@ export type UserUpdateWithoutReviewedJobReportsInput = {
   adminHiddenJobs?: Prisma.JobUpdateManyWithoutAdminHiddenByNestedInput
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReviewedJobReportsInput = {
@@ -4929,6 +5215,7 @@ export type UserUncheckedUpdateWithoutReviewedJobReportsInput = {
   adminHiddenJobs?: Prisma.JobUncheckedUpdateManyWithoutAdminHiddenByNestedInput
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSavedJobsInput = {
@@ -4969,6 +5256,7 @@ export type UserCreateWithoutSavedJobsInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSavedJobsInput = {
@@ -5009,6 +5297,7 @@ export type UserUncheckedCreateWithoutSavedJobsInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSavedJobsInput = {
@@ -5065,6 +5354,7 @@ export type UserUpdateWithoutSavedJobsInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedJobsInput = {
@@ -5105,6 +5395,7 @@ export type UserUncheckedUpdateWithoutSavedJobsInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateWithoutSavedSearchesInput = {
@@ -5145,6 +5436,7 @@ export type UserCreateWithoutSavedSearchesInput = {
   jobReports?: Prisma.JobReportCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserUncheckedCreateWithoutSavedSearchesInput = {
@@ -5185,6 +5477,7 @@ export type UserUncheckedCreateWithoutSavedSearchesInput = {
   jobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReporterInput
   reviewedJobReports?: Prisma.JobReportUncheckedCreateNestedManyWithoutReviewedByInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutReviewedByInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedCreateNestedManyWithoutCreatedByInput
 }
 
 export type UserCreateOrConnectWithoutSavedSearchesInput = {
@@ -5241,6 +5534,7 @@ export type UserUpdateWithoutSavedSearchesInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSavedSearchesInput = {
@@ -5281,6 +5575,7 @@ export type UserUncheckedUpdateWithoutSavedSearchesInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserCreateManySuspendedByInput = {
@@ -5338,6 +5633,7 @@ export type UserUpdateWithoutSuspendedByInput = {
   jobReports?: Prisma.JobReportUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSuspendedByInput = {
@@ -5378,6 +5674,7 @@ export type UserUncheckedUpdateWithoutSuspendedByInput = {
   jobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReporterNestedInput
   reviewedJobReports?: Prisma.JobReportUncheckedUpdateManyWithoutReviewedByNestedInput
   reviewedJobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutReviewedByNestedInput
+  createdApplicationShareLinks?: Prisma.ApplicationShareLinkUncheckedUpdateManyWithoutCreatedByNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutSuspendedByInput = {
@@ -5424,6 +5721,7 @@ export type UserCountOutputType = {
   jobReports: number
   reviewedJobReports: number
   reviewedJobSubmissions: number
+  createdApplicationShareLinks: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5448,6 +5746,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   jobReports?: boolean | UserCountOutputTypeCountJobReportsArgs
   reviewedJobReports?: boolean | UserCountOutputTypeCountReviewedJobReportsArgs
   reviewedJobSubmissions?: boolean | UserCountOutputTypeCountReviewedJobSubmissionsArgs
+  createdApplicationShareLinks?: boolean | UserCountOutputTypeCountCreatedApplicationShareLinksArgs
 }
 
 /**
@@ -5607,6 +5906,13 @@ export type UserCountOutputTypeCountReviewedJobSubmissionsArgs<ExtArgs extends r
   where?: Prisma.JobSubmissionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountCreatedApplicationShareLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ApplicationShareLinkWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -5648,6 +5954,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   jobReports?: boolean | Prisma.User$jobReportsArgs<ExtArgs>
   reviewedJobReports?: boolean | Prisma.User$reviewedJobReportsArgs<ExtArgs>
   reviewedJobSubmissions?: boolean | Prisma.User$reviewedJobSubmissionsArgs<ExtArgs>
+  createdApplicationShareLinks?: boolean | Prisma.User$createdApplicationShareLinksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -5733,6 +6040,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   jobReports?: boolean | Prisma.User$jobReportsArgs<ExtArgs>
   reviewedJobReports?: boolean | Prisma.User$reviewedJobReportsArgs<ExtArgs>
   reviewedJobSubmissions?: boolean | Prisma.User$reviewedJobSubmissionsArgs<ExtArgs>
+  createdApplicationShareLinks?: boolean | Prisma.User$createdApplicationShareLinksArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -5769,6 +6077,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     jobReports: Prisma.$JobReportPayload<ExtArgs>[]
     reviewedJobReports: Prisma.$JobReportPayload<ExtArgs>[]
     reviewedJobSubmissions: Prisma.$JobSubmissionPayload<ExtArgs>[]
+    createdApplicationShareLinks: Prisma.$ApplicationShareLinkPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -6204,6 +6513,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   jobReports<T extends Prisma.User$jobReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviewedJobReports<T extends Prisma.User$reviewedJobReportsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedJobReportsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobReportPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviewedJobSubmissions<T extends Prisma.User$reviewedJobSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$reviewedJobSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  createdApplicationShareLinks<T extends Prisma.User$createdApplicationShareLinksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$createdApplicationShareLinksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ApplicationShareLinkPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -7207,6 +7517,30 @@ export type User$reviewedJobSubmissionsArgs<ExtArgs extends runtime.Types.Extens
   take?: number
   skip?: number
   distinct?: Prisma.JobSubmissionScalarFieldEnum | Prisma.JobSubmissionScalarFieldEnum[]
+}
+
+/**
+ * User.createdApplicationShareLinks
+ */
+export type User$createdApplicationShareLinksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ApplicationShareLink
+   */
+  select?: Prisma.ApplicationShareLinkSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ApplicationShareLink
+   */
+  omit?: Prisma.ApplicationShareLinkOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ApplicationShareLinkInclude<ExtArgs> | null
+  where?: Prisma.ApplicationShareLinkWhereInput
+  orderBy?: Prisma.ApplicationShareLinkOrderByWithRelationInput | Prisma.ApplicationShareLinkOrderByWithRelationInput[]
+  cursor?: Prisma.ApplicationShareLinkWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ApplicationShareLinkScalarFieldEnum | Prisma.ApplicationShareLinkScalarFieldEnum[]
 }
 
 /**

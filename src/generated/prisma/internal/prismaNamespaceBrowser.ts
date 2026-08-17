@@ -74,6 +74,7 @@ export const ModelName = {
   Skill: 'Skill',
   JobSkill: 'JobSkill',
   Application: 'Application',
+  ApplicationShareLink: 'ApplicationShareLink',
   JobSubmission: 'JobSubmission',
   JobReport: 'JobReport',
   SavedJob: 'SavedJob',
@@ -484,6 +485,23 @@ export const ApplicationScalarFieldEnum = {
 } as const
 
 export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
+
+
+export const ApplicationShareLinkScalarFieldEnum = {
+  id: 'id',
+  applicationId: 'applicationId',
+  createdById: 'createdById',
+  tokenHash: 'tokenHash',
+  includeResume: 'includeResume',
+  includeCoverLetter: 'includeCoverLetter',
+  expiresAt: 'expiresAt',
+  revokedAt: 'revokedAt',
+  lastAccessedAt: 'lastAccessedAt',
+  accessCount: 'accessCount',
+  createdAt: 'createdAt'
+} as const
+
+export type ApplicationShareLinkScalarFieldEnum = (typeof ApplicationShareLinkScalarFieldEnum)[keyof typeof ApplicationShareLinkScalarFieldEnum]
 
 
 export const JobSubmissionScalarFieldEnum = {
