@@ -12,6 +12,8 @@ import { sendTransactionalEmail } from "../email/email.service.js";
 import { createJobSubmissionConfirmationTemplate } from "../email/templates/job-submission-confirmation.template.js";
 import { createJobSubmissionNotificationTemplate } from "../email/templates/job-submission-notification.template.js";
 
+import { createAdminJobSubmissionNotifications } from "../notification/job-submission-notification.service.js";
+
 import type { PublicJobSubmissionInput } from "./job-submission.validation.js";
 
 type SubmitPublicJobParameters = {
@@ -188,6 +190,22 @@ export async function submitPublicJob({
     }
 
     const submission = await createSubmission(data);
+
+    try {
+        await createAdminJobSubmissionNotifications({
+            submissionId: submission.id,
+            referenceCode: submission.referenceCode,
+            jobTitle: submission.jobTitle,
+            companyName: submission.companyName,
+            contactEmail: submission.contactEmail,
+        });
+    } catch (error) {
+        console.error("Job submission admin notification failed.", {
+            submissionId: submission.id,
+            referenceCode: submission.referenceCode,
+            error: error instanceof Error ? error.message : String(error),
+        });
+    }
 
     const inboxEmail = createJobSubmissionNotificationTemplate({
         referenceCode: submission.referenceCode,
