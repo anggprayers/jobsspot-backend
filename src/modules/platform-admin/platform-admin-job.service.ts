@@ -3,6 +3,8 @@ import { ApplicationStatus, JobStatus, Prisma } from "../../generated/prisma/cli
 import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
 
+import { archiveJob, createJob, publishJob, unpublishJob, updateJob } from "../job/job.service.js";
+
 import { createJobModerationNotifications } from "../notification/employer-notification.service.js";
 import { runNotificationTaskSafely } from "../notification/notification.service.js";
 
@@ -12,11 +14,243 @@ import {
 } from "./platform-admin.constants.js";
 import { createPlatformAuditLog } from "./platform-audit.service.js";
 import type {
+    AdminJobCreateInput,
     AdminJobListQuery,
     AdminJobModerationInput,
+    AdminJobPublishInput,
+    AdminJobUpdateInput,
 } from "./platform-admin.validation.js";
 
 const PLATFORM_JOB_MODERATION_LOCK_NAMESPACE = 731904112;
+const ADMIN_DEFAULT_APPLICATION_WINDOW_DAYS = 30;
+const MILLISECONDS_PER_DAY = 24 * 60 * 60 * 1000;
+
+
+async function createStandalonePlatformJobAudit(
+    actorUserId: string,
+    action: Parameters<typeof createPlatformAuditLog>[0]["action"],
+    entityId: string,
+    metadata: Prisma.InputJsonValue,
+) {
+    return prisma.$transaction((transaction) =>
+        createPlatformAuditLog({
+            transaction,
+            actorUserId,
+            action,
+            entityType: PLATFORM_ADMIN_ENTITY_TYPES.JOB,
+            entityId,
+            metadata,
+        }),
+    );
+}
+
+function getDefaultAdminApplicationDeadline(now = new Date()) {
+    return new Date(
+        now.getTime() +
+            ADMIN_DEFAULT_APPLICATION_WINDOW_DAYS * MILLISECONDS_PER_DAY,
+    );
+}
+
+async function getActivePlatformJobCompany(jobId: string) {
+    const job = await prisma.job.findFirst({
+        where: { id: jobId, deletedAt: null },
+        select: {
+            id: true,
+            companyId: true,
+            title: true,
+            slug: true,
+            status: true,
+            applicationDeadline: true,
+            company: {
+                select: {
+                    id: true,
+                    name: true,
+                    suspendedAt: true,
+                    deletedAt: true,
+                },
+            },
+        },
+    });
+
+    if (!job) {
+        throw new AppError(404, "Active job not found.");
+    }
+
+    return job;
+}
+
+export async function createPlatformJob(
+    actorUserId: string,
+    input: AdminJobCreateInput,
+) {
+    const company = await prisma.company.findFirst({
+        where: {
+            id: input.companyId,
+            deletedAt: null,
+        },
+        select: {
+            id: true,
+            name: true,
+            suspendedAt: true,
+        },
+    });
+
+    if (!company) {
+        throw new AppError(404, "Active company not found.");
+    }
+
+    if (company.suspendedAt) {
+        throw new AppError(409, "Restore the company before creating a new job for it.");
+    }
+
+    const job = await createJob({
+        companyId: company.id,
+        actorUserId,
+        data: input.job,
+    });
+
+    await createStandalonePlatformJobAudit(
+        actorUserId,
+        PLATFORM_ADMIN_ACTIONS.JOB_CREATED_BY_ADMIN,
+        job.id,
+        {
+    jobId: job.id,
+    jobTitle: job.title,
+    jobSlug: job.slug,
+    companyId: company.id,
+    companyName: company.name,
+    status: job.status,
+},
+    );
+
+    return job;
+}
+
+export async function updatePlatformJob(
+    actorUserId: string,
+    jobId: string,
+    input: AdminJobUpdateInput,
+) {
+    const target = await getActivePlatformJobCompany(jobId);
+
+    const job = await updateJob({
+        companyId: target.companyId,
+        jobId,
+        actorUserId,
+        data: input,
+    });
+
+    await createStandalonePlatformJobAudit(
+        actorUserId,
+        PLATFORM_ADMIN_ACTIONS.JOB_UPDATED_BY_ADMIN,
+        job.id,
+        {
+    jobId: job.id,
+    jobTitle: job.title,
+    jobSlug: job.slug,
+    companyId: target.companyId,
+    companyName: target.company.name,
+    changedFields: Object.keys(input),
+},
+    );
+
+    return job;
+}
+
+export async function publishPlatformManagedJob(
+    actorUserId: string,
+    jobId: string,
+    input: AdminJobPublishInput,
+) {
+    const target = await getActivePlatformJobCompany(jobId);
+    const now = new Date();
+
+    if (target.company.deletedAt || target.company.suspendedAt) {
+        throw new AppError(409, "Restore the company before publishing this job.");
+    }
+
+    const existingFutureDeadline =
+        target.applicationDeadline && target.applicationDeadline > now
+            ? target.applicationDeadline
+            : null;
+
+    const applicationDeadline =
+        input.applicationDeadline ??
+        existingFutureDeadline ??
+        getDefaultAdminApplicationDeadline(now);
+
+    await updateJob({
+        companyId: target.companyId,
+        jobId,
+        actorUserId,
+        data: { applicationDeadline },
+    });
+
+    const job = await publishJob({
+        companyId: target.companyId,
+        jobId,
+        actorUserId,
+    });
+
+    await createStandalonePlatformJobAudit(
+        actorUserId,
+        PLATFORM_ADMIN_ACTIONS.JOB_PUBLISHED_BY_ADMIN,
+        job.id,
+        {
+    jobId: job.id,
+    jobTitle: job.title,
+    jobSlug: job.slug,
+    companyId: target.companyId,
+    companyName: target.company.name,
+    applicationDeadline: applicationDeadline.toISOString(),
+    defaultDeadlineApplied:
+        input.applicationDeadline === undefined &&
+        existingFutureDeadline === null,
+},
+    );
+
+    return job;
+}
+
+export async function archivePlatformManagedJob(
+    actorUserId: string,
+    jobId: string,
+) {
+    const target = await getActivePlatformJobCompany(jobId);
+    const previousStatus = target.status;
+
+    if (target.status === JobStatus.PUBLISHED) {
+        await unpublishJob({
+            companyId: target.companyId,
+            jobId,
+            actorUserId,
+        });
+    }
+
+    const job = await archiveJob({
+        companyId: target.companyId,
+        jobId,
+        actorUserId,
+    });
+
+    await createStandalonePlatformJobAudit(
+        actorUserId,
+        PLATFORM_ADMIN_ACTIONS.JOB_ARCHIVED_BY_ADMIN,
+        job.id,
+        {
+    jobId: job.id,
+    jobTitle: job.title,
+    jobSlug: job.slug,
+    companyId: target.companyId,
+    companyName: target.company.name,
+    previousStatus,
+    newStatus: job.status,
+},
+    );
+
+    return job;
+}
+
 
 async function lockPlatformJob(
     transaction: Prisma.TransactionClient,
@@ -165,6 +399,9 @@ export async function getPlatformJobById(jobId: string) {
             workplaceType: true,
             experienceLevel: true,
             location: true,
+            city: true,
+            stateRegion: true,
+            countryCode: true,
             salaryMin: true,
             salaryMax: true,
             salaryCurrency: true,

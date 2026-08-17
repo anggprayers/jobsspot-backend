@@ -58,10 +58,7 @@ function calculateJobExpirationDate({
                 MILLISECONDS_PER_DAY,
     );
 
-    if (
-        applicationDeadline &&
-        applicationDeadline < defaultExpiration
-    ) {
+    if (applicationDeadline) {
         return applicationDeadline;
     }
 

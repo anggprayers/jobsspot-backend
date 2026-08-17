@@ -3,8 +3,10 @@ import type { Request, Response } from "express";
 import { AppError } from "../../errors/AppError.js";
 
 import {
+    createPlatformCompany,
     getPlatformCompanies,
     getPlatformCompanyById,
+    updatePlatformCompany,
     updatePlatformCompanySuspension,
     updatePlatformCompanyVerification,
 } from "./platform-admin-company.service.js";
@@ -16,8 +18,12 @@ import {
 } from "./platform-admin-category.service.js";
 import { getPlatformActivity } from "./platform-audit.service.js";
 import {
+    archivePlatformManagedJob,
+    createPlatformJob,
     getPlatformJobById,
     getPlatformJobs,
+    publishPlatformManagedJob,
+    updatePlatformJob,
     updatePlatformJobModeration,
 } from "./platform-admin-job.service.js";
 import {
@@ -40,8 +46,13 @@ import {
 } from "./platform-admin.service.js";
 import type {
     AdminCategoryListQuery,
+    AdminCompanyCreateInput,
     AdminCompanyListQuery,
+    AdminCompanyUpdateInput,
+    AdminJobCreateInput,
     AdminJobListQuery,
+    AdminJobPublishInput,
+    AdminJobUpdateInput,
     AdminJobReportListQuery,
     AdminJobSubmissionListQuery,
     AdminUserListQuery,
@@ -205,6 +216,43 @@ export async function publishAdminJobSubmissionController(
     });
 }
 
+
+export async function createAdminCompanyController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const company = await createPlatformCompany(
+        actorUserId,
+        request.body as AdminCompanyCreateInput,
+    );
+
+    response.status(201).json({
+        success: true,
+        message: "Company created successfully.",
+        company,
+    });
+}
+
+export async function updateAdminCompanyController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const companyId = request.params.companyId as string;
+    const company = await updatePlatformCompany(
+        actorUserId,
+        companyId,
+        request.body as AdminCompanyUpdateInput,
+    );
+
+    response.status(200).json({
+        success: true,
+        message: "Company updated successfully.",
+        company,
+    });
+}
+
 export async function getAdminCompaniesController(
     _request: Request,
     response: Response,
@@ -334,6 +382,77 @@ export async function updateAdminCategoryStatusController(
             ? "Job category activated successfully."
             : "Job category deactivated successfully.",
         category,
+    });
+}
+
+
+export async function createAdminJobController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const job = await createPlatformJob(
+        actorUserId,
+        request.body as AdminJobCreateInput,
+    );
+
+    response.status(201).json({
+        success: true,
+        message: "Job draft created successfully.",
+        job,
+    });
+}
+
+export async function updateAdminJobController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const jobId = request.params.jobId as string;
+    const job = await updatePlatformJob(
+        actorUserId,
+        jobId,
+        request.body as AdminJobUpdateInput,
+    );
+
+    response.status(200).json({
+        success: true,
+        message: "Job updated successfully.",
+        job,
+    });
+}
+
+export async function publishAdminJobController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const jobId = request.params.jobId as string;
+    const job = await publishPlatformManagedJob(
+        actorUserId,
+        jobId,
+        request.body as AdminJobPublishInput,
+    );
+
+    response.status(200).json({
+        success: true,
+        message: "Job published successfully.",
+        job,
+    });
+}
+
+export async function archiveAdminJobController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const actorUserId = getAuthenticatedAdminId(request);
+    const jobId = request.params.jobId as string;
+    const job = await archivePlatformManagedJob(actorUserId, jobId);
+
+    response.status(200).json({
+        success: true,
+        message: "Job archived successfully.",
+        job,
     });
 }
 

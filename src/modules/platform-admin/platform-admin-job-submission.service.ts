@@ -45,7 +45,7 @@ function calculateJobExpirationDate({
         publishedAt.getTime() + JOB_POST_DURATION_DAYS * MILLISECONDS_PER_DAY,
     );
 
-    if (applicationDeadline && applicationDeadline < defaultExpiration) {
+    if (applicationDeadline) {
         return applicationDeadline;
     }
 
@@ -533,7 +533,12 @@ export async function publishPlatformJobSubmission(
         });
         const slug = await createUniqueJobSlug(transaction, input.job.title);
         const now = new Date();
-        const applicationDeadline = input.job.applicationDeadline ?? null;
+        const applicationDeadline =
+            input.job.applicationDeadline ??
+            new Date(
+                now.getTime() +
+                    JOB_POST_DURATION_DAYS * MILLISECONDS_PER_DAY,
+            );
         const expiresAt = calculateJobExpirationDate({
             publishedAt: now,
             applicationDeadline,

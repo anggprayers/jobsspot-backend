@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 import { JobReportReason, JobReportStatus, JobStatus, JobSubmissionStatus } from "../../generated/prisma/client.js";
-import { createCompanySchema } from "../company/company.validation.js";
-import { createJobSchema } from "../job/job.validation.js";
+import { createCompanySchema, updateCompanySchema } from "../company/company.validation.js";
+import { createJobSchema, updateJobSchema } from "../job/job.validation.js";
 
 export const adminUuidParamsSchema = z.object({
     userId: z.uuid("A valid user ID is required."),
@@ -103,6 +103,11 @@ export const adminUserListQuerySchema = z.object({
     sort: z.enum(["NEWEST", "OLDEST", "NAME_ASC", "NAME_DESC"]).default("NEWEST"),
 });
 
+
+export const adminCompanyCreateSchema = createCompanySchema;
+
+export const adminCompanyUpdateSchema = updateCompanySchema;
+
 export const adminCompanyListQuerySchema = z.object({
     page: z.coerce.number().int().min(1).default(1),
     limit: z.coerce.number().int().min(1).max(100).default(20),
@@ -111,6 +116,28 @@ export const adminCompanyListQuerySchema = z.object({
     verification: z.enum(["ALL", "VERIFIED", "UNVERIFIED"]).default("ALL"),
     sort: z.enum(["NEWEST", "OLDEST", "NAME_ASC", "NAME_DESC"]).default("NEWEST"),
 });
+
+
+export const adminJobCreateSchema = z.object({
+    companyId: z.uuid("A valid company ID is required."),
+    job: createJobSchema,
+});
+
+export const adminJobUpdateSchema = updateJobSchema;
+
+export const adminJobPublishSchema = z
+    .object({
+        applicationDeadline: z.coerce.date().optional(),
+    })
+    .superRefine((value, context) => {
+        if (value.applicationDeadline && value.applicationDeadline <= new Date()) {
+            context.addIssue({
+                code: "custom",
+                path: ["applicationDeadline"],
+                message: "Application deadline must be in the future.",
+            });
+        }
+    });
 
 export const adminJobListQuerySchema = z.object({
     page: z.coerce.number().int().min(1).default(1),
@@ -216,6 +243,8 @@ export type AdminJobSubmissionRejectInput = z.infer<typeof adminJobSubmissionRej
 export type AdminJobSubmissionPublishInput = z.infer<typeof adminJobSubmissionPublishSchema>;
 
 export type AdminUserListQuery = z.infer<typeof adminUserListQuerySchema>;
+export type AdminCompanyCreateInput = z.infer<typeof adminCompanyCreateSchema>;
+export type AdminCompanyUpdateInput = z.infer<typeof adminCompanyUpdateSchema>;
 export type AdminCompanyListQuery = z.infer<typeof adminCompanyListQuerySchema>;
 export type AdminUserSuspensionInput = z.infer<typeof adminUserSuspensionSchema>;
 export type AdminCompanySuspensionInput = z.infer<typeof adminCompanySuspensionSchema>;
@@ -224,6 +253,9 @@ export type AdminCategoryListQuery = z.infer<typeof adminCategoryListQuerySchema
 export type AdminCategoryCreateInput = z.infer<typeof adminCategoryCreateSchema>;
 export type AdminCategoryUpdateInput = z.infer<typeof adminCategoryUpdateSchema>;
 export type AdminCategoryStatusInput = z.infer<typeof adminCategoryStatusSchema>;
+export type AdminJobCreateInput = z.infer<typeof adminJobCreateSchema>;
+export type AdminJobUpdateInput = z.infer<typeof adminJobUpdateSchema>;
+export type AdminJobPublishInput = z.infer<typeof adminJobPublishSchema>;
 export type AdminJobListQuery = z.infer<typeof adminJobListQuerySchema>;
 export type AdminJobModerationInput = z.infer<typeof adminJobModerationSchema>;
 export type AdminJobReportListQuery = z.infer<typeof adminJobReportListQuerySchema>;

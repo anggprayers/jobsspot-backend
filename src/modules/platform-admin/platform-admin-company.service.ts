@@ -1,3 +1,5 @@
+import { randomUUID } from "node:crypto";
+
 import {
     JobStatus,
     Prisma,
@@ -5,6 +7,7 @@ import {
 
 import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
+import { createSlug } from "../../utils/slug.js";
 
 import { createCompanyModerationNotifications } from "../notification/employer-notification.service.js";
 import { runNotificationTaskSafely } from "../notification/notification.service.js";
@@ -15,8 +18,10 @@ import {
 } from "./platform-admin.constants.js";
 import { createPlatformAuditLog } from "./platform-audit.service.js";
 import type {
+    AdminCompanyCreateInput,
     AdminCompanyListQuery,
     AdminCompanySuspensionInput,
+    AdminCompanyUpdateInput,
     AdminCompanyVerificationInput,
 } from "./platform-admin.validation.js";
 
@@ -47,6 +52,188 @@ async function lockPlatformCompany(
             hashtext(${companyId}::text)
         )::text AS "lockResult"
     `;
+}
+
+
+export async function createPlatformCompany(
+    actorUserId: string,
+    input: AdminCompanyCreateInput,
+) {
+    const baseSlug = createSlug(input.name);
+
+    if (!baseSlug) {
+        throw new AppError(400, "Company name cannot generate a valid slug.");
+    }
+
+    return prisma.$transaction(async (transaction) => {
+        const conflictingCompany = await transaction.company.findUnique({
+            where: { slug: baseSlug },
+            select: { id: true },
+        });
+
+        const slug = conflictingCompany
+            ? `${baseSlug}-${randomUUID().slice(0, 8)}`
+            : baseSlug;
+
+        const company = await transaction.company.create({
+            data: {
+                name: input.name,
+                slug,
+                description: input.description ?? null,
+                websiteUrl: input.websiteUrl ?? null,
+                industry: input.industry ?? null,
+                companySize: input.companySize ?? null,
+                location: input.location ?? null,
+            },
+            select: {
+                id: true,
+                name: true,
+                slug: true,
+                description: true,
+                websiteUrl: true,
+                logoUrl: true,
+                bannerUrl: true,
+                industry: true,
+                companySize: true,
+                location: true,
+                isVerified: true,
+                suspendedAt: true,
+                createdAt: true,
+                updatedAt: true,
+                deletedAt: true,
+            },
+        });
+
+        await createPlatformAuditLog({
+            transaction,
+            actorUserId,
+            action: PLATFORM_ADMIN_ACTIONS.COMPANY_CREATED_BY_ADMIN,
+            entityType: PLATFORM_ADMIN_ENTITY_TYPES.COMPANY,
+            entityId: company.id,
+            metadata: {
+                companyId: company.id,
+                companyName: company.name,
+                companySlug: company.slug,
+                employerMembershipCreated: false,
+            },
+        });
+
+        return company;
+    });
+}
+
+export async function updatePlatformCompany(
+    actorUserId: string,
+    companyId: string,
+    input: AdminCompanyUpdateInput,
+) {
+    return prisma.$transaction(async (transaction) => {
+        await lockPlatformCompany(transaction, companyId);
+
+        const existing = await transaction.company.findUnique({
+            where: { id: companyId },
+            select: {
+                id: true,
+                name: true,
+                slug: true,
+                description: true,
+                websiteUrl: true,
+                industry: true,
+                companySize: true,
+                location: true,
+                deletedAt: true,
+            },
+        });
+
+        if (!existing || existing.deletedAt) {
+            throw new AppError(404, "Active company not found.");
+        }
+
+        const normalizeNullable = (value: string | null | undefined) =>
+            value === undefined ? undefined : value || null;
+
+        const description = normalizeNullable(input.description);
+        const websiteUrl = normalizeNullable(input.websiteUrl);
+        const industry = normalizeNullable(input.industry);
+        const companySize = normalizeNullable(input.companySize);
+        const location = normalizeNullable(input.location);
+
+        const changedFields: string[] = [];
+        if (input.name !== undefined && input.name !== existing.name) changedFields.push("name");
+        if (description !== undefined && description !== existing.description) changedFields.push("description");
+        if (websiteUrl !== undefined && websiteUrl !== existing.websiteUrl) changedFields.push("websiteUrl");
+        if (industry !== undefined && industry !== existing.industry) changedFields.push("industry");
+        if (companySize !== undefined && companySize !== existing.companySize) changedFields.push("companySize");
+        if (location !== undefined && location !== existing.location) changedFields.push("location");
+
+        if (changedFields.length === 0) {
+            return transaction.company.findUniqueOrThrow({
+                where: { id: companyId },
+                select: {
+                    id: true,
+                    name: true,
+                    slug: true,
+                    description: true,
+                    websiteUrl: true,
+                    logoUrl: true,
+                    bannerUrl: true,
+                    industry: true,
+                    companySize: true,
+                    location: true,
+                    isVerified: true,
+                    suspendedAt: true,
+                    createdAt: true,
+                    updatedAt: true,
+                    deletedAt: true,
+                },
+            });
+        }
+
+        const company = await transaction.company.update({
+            where: { id: companyId },
+            data: {
+                ...(input.name !== undefined && { name: input.name }),
+                ...(description !== undefined && { description }),
+                ...(websiteUrl !== undefined && { websiteUrl }),
+                ...(industry !== undefined && { industry }),
+                ...(companySize !== undefined && { companySize }),
+                ...(location !== undefined && { location }),
+            },
+            select: {
+                id: true,
+                name: true,
+                slug: true,
+                description: true,
+                websiteUrl: true,
+                logoUrl: true,
+                bannerUrl: true,
+                industry: true,
+                companySize: true,
+                location: true,
+                isVerified: true,
+                suspendedAt: true,
+                createdAt: true,
+                updatedAt: true,
+                deletedAt: true,
+            },
+        });
+
+        await createPlatformAuditLog({
+            transaction,
+            actorUserId,
+            action: PLATFORM_ADMIN_ACTIONS.COMPANY_UPDATED_BY_ADMIN,
+            entityType: PLATFORM_ADMIN_ENTITY_TYPES.COMPANY,
+            entityId: company.id,
+            metadata: {
+                companyId: company.id,
+                companyName: company.name,
+                companySlug: company.slug,
+                changedFields,
+            },
+        });
+
+        return company;
+    });
 }
 
 export async function getPlatformCompanies(

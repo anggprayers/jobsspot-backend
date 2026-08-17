@@ -10,7 +10,10 @@ import { validateParams } from "../../middleware/validateParams.js";
 import { validateQuery } from "../../middleware/validateQuery.js";
 
 import {
+    archiveAdminJobController,
     createAdminCategoryController,
+    createAdminCompanyController,
+    createAdminJobController,
     getAdminCategoriesController,
     getAdminCompaniesController,
     getAdminCompanyController,
@@ -25,12 +28,15 @@ import {
     getAdminUsersController,
     getPlatformActivityController,
     markAdminJobSubmissionContactedController,
+    publishAdminJobController,
     publishAdminJobSubmissionController,
     rejectAdminJobSubmissionController,
+    updateAdminCompanyController,
     updateAdminCompanySuspensionController,
     updateAdminCompanyVerificationController,
     updateAdminCategoryController,
     updateAdminCategoryStatusController,
+    updateAdminJobController,
     updateAdminJobModerationController,
     updateAdminJobReportStatusController,
     updateAdminUserSuspensionController,
@@ -41,12 +47,17 @@ import {
     adminCategoryStatusSchema,
     adminCategoryUpdateSchema,
     adminCategoryUuidParamsSchema,
+    adminCompanyCreateSchema,
     adminCompanyListQuerySchema,
     adminCompanySuspensionSchema,
+    adminCompanyUpdateSchema,
     adminCompanyUuidParamsSchema,
     adminCompanyVerificationSchema,
+    adminJobCreateSchema,
     adminJobListQuerySchema,
     adminJobModerationSchema,
+    adminJobPublishSchema,
+    adminJobUpdateSchema,
     adminJobReportListQuerySchema,
     adminJobReportStatusSchema,
     adminJobReportUuidParamsSchema,
@@ -141,6 +152,14 @@ platformAdminRouter.post(
     asyncHandler(publishAdminJobSubmissionController),
 );
 
+// POST /api/admin/companies
+platformAdminRouter.post(
+    "/companies",
+    platformAdminMutationRateLimiter,
+    validate(adminCompanyCreateSchema),
+    asyncHandler(createAdminCompanyController),
+);
+
 // GET /api/admin/companies
 platformAdminRouter.get(
     "/companies",
@@ -153,6 +172,15 @@ platformAdminRouter.get(
     "/companies/:companyId",
     validateParams(adminCompanyUuidParamsSchema),
     asyncHandler(getAdminCompanyController),
+);
+
+// PATCH /api/admin/companies/:companyId
+platformAdminRouter.patch(
+    "/companies/:companyId",
+    platformAdminMutationRateLimiter,
+    validateParams(adminCompanyUuidParamsSchema),
+    validate(adminCompanyUpdateSchema),
+    asyncHandler(updateAdminCompanyController),
 );
 
 // PATCH /api/admin/companies/:companyId/verification
@@ -206,6 +234,14 @@ platformAdminRouter.patch(
     asyncHandler(updateAdminCategoryStatusController),
 );
 
+// POST /api/admin/jobs
+platformAdminRouter.post(
+    "/jobs",
+    platformAdminMutationRateLimiter,
+    validate(adminJobCreateSchema),
+    asyncHandler(createAdminJobController),
+);
+
 // GET /api/admin/jobs
 platformAdminRouter.get(
     "/jobs",
@@ -218,6 +254,32 @@ platformAdminRouter.get(
     "/jobs/:jobId",
     validateParams(adminJobUuidParamsSchema),
     asyncHandler(getAdminJobController),
+);
+
+// PATCH /api/admin/jobs/:jobId
+platformAdminRouter.patch(
+    "/jobs/:jobId",
+    platformAdminMutationRateLimiter,
+    validateParams(adminJobUuidParamsSchema),
+    validate(adminJobUpdateSchema),
+    asyncHandler(updateAdminJobController),
+);
+
+// POST /api/admin/jobs/:jobId/publish
+platformAdminRouter.post(
+    "/jobs/:jobId/publish",
+    platformAdminMutationRateLimiter,
+    validateParams(adminJobUuidParamsSchema),
+    validate(adminJobPublishSchema),
+    asyncHandler(publishAdminJobController),
+);
+
+// POST /api/admin/jobs/:jobId/archive
+platformAdminRouter.post(
+    "/jobs/:jobId/archive",
+    platformAdminMutationRateLimiter,
+    validateParams(adminJobUuidParamsSchema),
+    asyncHandler(archiveAdminJobController),
 );
 
 // PATCH /api/admin/jobs/:jobId/moderation
