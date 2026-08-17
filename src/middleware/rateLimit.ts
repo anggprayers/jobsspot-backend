@@ -95,6 +95,13 @@ export const contactRateLimiter = createRateLimiter({
         "Too many contact requests. Please wait before sending another message.",
 });
 
+export const jobSubmissionRateLimiter = createRateLimiter({
+    windowMs: ONE_HOUR,
+    limit: 5,
+    message:
+        "Too many job submissions were sent recently. Please wait before submitting another job.",
+});
+
 export const platformAdminMutationRateLimiter = createRateLimiter({
     windowMs: ONE_HOUR,
     limit: 100,

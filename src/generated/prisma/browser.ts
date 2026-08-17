@@ -133,6 +133,11 @@ export type JobSkill = Prisma.JobSkillModel
  */
 export type Application = Prisma.ApplicationModel
 /**
+ * Model JobSubmission
+ * 
+ */
+export type JobSubmission = Prisma.JobSubmissionModel
+/**
  * Model JobReport
  * 
  */

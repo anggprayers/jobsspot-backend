@@ -504,6 +504,23 @@ export type EnumApplicationStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumApplicationStatusFilter<$PrismaModel>
 }
 
+export type EnumJobSubmissionStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.JobSubmissionStatus | Prisma.EnumJobSubmissionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.JobSubmissionStatus[] | Prisma.ListEnumJobSubmissionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JobSubmissionStatus[] | Prisma.ListEnumJobSubmissionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJobSubmissionStatusFilter<$PrismaModel> | $Enums.JobSubmissionStatus
+}
+
+export type EnumJobSubmissionStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.JobSubmissionStatus | Prisma.EnumJobSubmissionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.JobSubmissionStatus[] | Prisma.ListEnumJobSubmissionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JobSubmissionStatus[] | Prisma.ListEnumJobSubmissionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJobSubmissionStatusWithAggregatesFilter<$PrismaModel> | $Enums.JobSubmissionStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumJobSubmissionStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumJobSubmissionStatusFilter<$PrismaModel>
+}
+
 export type EnumJobReportReasonFilter<$PrismaModel = never> = {
   equals?: $Enums.JobReportReason | Prisma.EnumJobReportReasonFieldRefInput<$PrismaModel>
   in?: $Enums.JobReportReason[] | Prisma.ListEnumJobReportReasonFieldRefInput<$PrismaModel>
@@ -1059,6 +1076,23 @@ export type NestedEnumApplicationStatusWithAggregatesFilter<$PrismaModel = never
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumApplicationStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumApplicationStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumJobSubmissionStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.JobSubmissionStatus | Prisma.EnumJobSubmissionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.JobSubmissionStatus[] | Prisma.ListEnumJobSubmissionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JobSubmissionStatus[] | Prisma.ListEnumJobSubmissionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJobSubmissionStatusFilter<$PrismaModel> | $Enums.JobSubmissionStatus
+}
+
+export type NestedEnumJobSubmissionStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.JobSubmissionStatus | Prisma.EnumJobSubmissionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.JobSubmissionStatus[] | Prisma.ListEnumJobSubmissionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.JobSubmissionStatus[] | Prisma.ListEnumJobSubmissionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumJobSubmissionStatusWithAggregatesFilter<$PrismaModel> | $Enums.JobSubmissionStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumJobSubmissionStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumJobSubmissionStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumJobReportReasonFilter<$PrismaModel = never> = {

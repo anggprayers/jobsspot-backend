@@ -132,3 +132,14 @@ export const JobReportStatus = {
 } as const
 
 export type JobReportStatus = (typeof JobReportStatus)[keyof typeof JobReportStatus]
+
+
+export const JobSubmissionStatus = {
+  SUBMITTED: 'SUBMITTED',
+  CONTACTED: 'CONTACTED',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  PUBLISHED: 'PUBLISHED'
+} as const
+
+export type JobSubmissionStatus = (typeof JobSubmissionStatus)[keyof typeof JobSubmissionStatus]

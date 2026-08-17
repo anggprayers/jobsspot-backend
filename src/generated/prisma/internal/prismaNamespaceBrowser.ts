@@ -74,6 +74,7 @@ export const ModelName = {
   Skill: 'Skill',
   JobSkill: 'JobSkill',
   Application: 'Application',
+  JobSubmission: 'JobSubmission',
   JobReport: 'JobReport',
   SavedJob: 'SavedJob',
   SavedSearch: 'SavedSearch',
@@ -483,6 +484,37 @@ export const ApplicationScalarFieldEnum = {
 } as const
 
 export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
+
+
+export const JobSubmissionScalarFieldEnum = {
+  id: 'id',
+  referenceCode: 'referenceCode',
+  jobTitle: 'jobTitle',
+  companyName: 'companyName',
+  companyWebsite: 'companyWebsite',
+  locationText: 'locationText',
+  workplaceType: 'workplaceType',
+  employmentType: 'employmentType',
+  salaryText: 'salaryText',
+  description: 'description',
+  contactName: 'contactName',
+  contactEmail: 'contactEmail',
+  contactPhone: 'contactPhone',
+  status: 'status',
+  internalNotes: 'internalNotes',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  contactedAt: 'contactedAt',
+  approvedAt: 'approvedAt',
+  rejectedAt: 'rejectedAt',
+  publishedAt: 'publishedAt',
+  companyId: 'companyId',
+  publishedJobId: 'publishedJobId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobSubmissionScalarFieldEnum = (typeof JobSubmissionScalarFieldEnum)[keyof typeof JobSubmissionScalarFieldEnum]
 
 
 export const JobReportScalarFieldEnum = {

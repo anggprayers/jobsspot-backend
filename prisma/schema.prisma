@@ -96,6 +96,14 @@ enum JobReportStatus {
   DISMISSED
 }
 
+enum JobSubmissionStatus {
+  SUBMITTED
+  CONTACTED
+  APPROVED
+  REJECTED
+  PUBLISHED
+}
+
 model User {
   id              String    @id @default(uuid()) @db.Uuid
   email           String    @unique
@@ -136,6 +144,7 @@ model User {
   adminHiddenJobs         Job[]                    @relation("JobAdminHiddenBy")
   jobReports              JobReport[]              @relation("JobReportReporter")
   reviewedJobReports      JobReport[]              @relation("JobReportReviewedBy")
+  reviewedJobSubmissions  JobSubmission[]          @relation("JobSubmissionReviewedBy")
 
   @@index([deletedAt])
   @@index([suspendedAt])
@@ -342,6 +351,7 @@ model Company {
   jobs        Job[]
   auditLogs   AuditLog[]
   invitations CompanyInvitation[]
+  jobSubmissions JobSubmission[]
   suspendedBy User?               @relation("CompanySuspendedBy", fields: [suspendedById], references: [id], onDelete: SetNull)
 
   @@index([name])
@@ -533,6 +543,7 @@ model Job {
   applications  Application[]
   savedByUsers  SavedJob[]
   reports       JobReport[]
+  jobSubmission JobSubmission?
 
   @@index([status, publishedAt])
   @@index([companyId, status])
@@ -598,6 +609,43 @@ model Application {
   @@index([applicantId, createdAt])
   @@index([resumeId])
   @@index([firstViewedAt])
+}
+
+model JobSubmission {
+  id               String              @id @default(uuid()) @db.Uuid
+  referenceCode    String              @unique @db.VarChar(32)
+  jobTitle         String
+  companyName      String
+  companyWebsite   String?
+  locationText     String
+  workplaceType    WorkplaceType
+  employmentType   EmploymentType
+  salaryText       String?
+  description      String
+  contactName      String?
+  contactEmail     String
+  contactPhone     String?
+  status           JobSubmissionStatus @default(SUBMITTED)
+  internalNotes    String?
+  reviewedById     String?             @db.Uuid
+  reviewedAt       DateTime?
+  contactedAt      DateTime?
+  approvedAt       DateTime?
+  rejectedAt       DateTime?
+  publishedAt      DateTime?
+  companyId        String?             @db.Uuid
+  publishedJobId   String?             @unique @db.Uuid
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  reviewedBy   User?    @relation("JobSubmissionReviewedBy", fields: [reviewedById], references: [id], onDelete: SetNull)
+  company      Company? @relation(fields: [companyId], references: [id], onDelete: SetNull)
+  publishedJob Job?     @relation(fields: [publishedJobId], references: [id], onDelete: SetNull)
+
+  @@index([status, createdAt])
+  @@index([contactEmail, createdAt])
+  @@index([companyId])
+  @@index([reviewedById])
 }
 
 model JobReport {

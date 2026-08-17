@@ -407,6 +407,7 @@ export const ModelName = {
   Skill: 'Skill',
   JobSkill: 'JobSkill',
   Application: 'Application',
+  JobSubmission: 'JobSubmission',
   JobReport: 'JobReport',
   SavedJob: 'SavedJob',
   SavedSearch: 'SavedSearch',
@@ -427,7 +428,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "emailVerificationToken" | "passwordResetToken" | "oAuthAccount" | "refreshToken" | "jobSeekerProfile" | "jobSeekerSkill" | "workExperience" | "education" | "certification" | "resume" | "company" | "companyMembership" | "companyInvitation" | "auditLog" | "jobCategory" | "platformAuditLog" | "notification" | "notificationPreference" | "job" | "skill" | "jobSkill" | "application" | "jobReport" | "savedJob" | "savedSearch" | "popularSearch" | "popularSearchDailyCount"
+    modelProps: "user" | "emailVerificationToken" | "passwordResetToken" | "oAuthAccount" | "refreshToken" | "jobSeekerProfile" | "jobSeekerSkill" | "workExperience" | "education" | "certification" | "resume" | "company" | "companyMembership" | "companyInvitation" | "auditLog" | "jobCategory" | "platformAuditLog" | "notification" | "notificationPreference" | "job" | "skill" | "jobSkill" | "application" | "jobSubmission" | "jobReport" | "savedJob" | "savedSearch" | "popularSearch" | "popularSearchDailyCount"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2133,6 +2134,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    JobSubmission: {
+      payload: Prisma.$JobSubmissionPayload<ExtArgs>
+      fields: Prisma.JobSubmissionFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JobSubmissionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JobSubmissionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionPayload>
+        }
+        findFirst: {
+          args: Prisma.JobSubmissionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JobSubmissionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionPayload>
+        }
+        findMany: {
+          args: Prisma.JobSubmissionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionPayload>[]
+        }
+        create: {
+          args: Prisma.JobSubmissionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionPayload>
+        }
+        createMany: {
+          args: Prisma.JobSubmissionCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JobSubmissionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionPayload>[]
+        }
+        delete: {
+          args: Prisma.JobSubmissionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionPayload>
+        }
+        update: {
+          args: Prisma.JobSubmissionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionPayload>
+        }
+        deleteMany: {
+          args: Prisma.JobSubmissionDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JobSubmissionUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JobSubmissionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionPayload>[]
+        }
+        upsert: {
+          args: Prisma.JobSubmissionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionPayload>
+        }
+        aggregate: {
+          args: Prisma.JobSubmissionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJobSubmission>
+        }
+        groupBy: {
+          args: Prisma.JobSubmissionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobSubmissionGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JobSubmissionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobSubmissionCountAggregateOutputType> | number
+        }
+      }
+    }
     JobReport: {
       payload: Prisma.$JobReportPayload<ExtArgs>
       fields: Prisma.JobReportFieldRefs
@@ -2930,6 +3005,37 @@ export const ApplicationScalarFieldEnum = {
 export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
 
 
+export const JobSubmissionScalarFieldEnum = {
+  id: 'id',
+  referenceCode: 'referenceCode',
+  jobTitle: 'jobTitle',
+  companyName: 'companyName',
+  companyWebsite: 'companyWebsite',
+  locationText: 'locationText',
+  workplaceType: 'workplaceType',
+  employmentType: 'employmentType',
+  salaryText: 'salaryText',
+  description: 'description',
+  contactName: 'contactName',
+  contactEmail: 'contactEmail',
+  contactPhone: 'contactPhone',
+  status: 'status',
+  internalNotes: 'internalNotes',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  contactedAt: 'contactedAt',
+  approvedAt: 'approvedAt',
+  rejectedAt: 'rejectedAt',
+  publishedAt: 'publishedAt',
+  companyId: 'companyId',
+  publishedJobId: 'publishedJobId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type JobSubmissionScalarFieldEnum = (typeof JobSubmissionScalarFieldEnum)[keyof typeof JobSubmissionScalarFieldEnum]
+
+
 export const JobReportScalarFieldEnum = {
   id: 'id',
   jobId: 'jobId',
@@ -3262,6 +3368,20 @@ export type ListEnumApplicationStatusFieldRefInput<$PrismaModel> = FieldRefInput
 
 
 /**
+ * Reference to a field of type 'JobSubmissionStatus'
+ */
+export type EnumJobSubmissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobSubmissionStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'JobSubmissionStatus[]'
+ */
+export type ListEnumJobSubmissionStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobSubmissionStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'JobReportReason'
  */
 export type EnumJobReportReasonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'JobReportReason'>
@@ -3449,6 +3569,7 @@ export type GlobalOmitConfig = {
   skill?: Prisma.SkillOmit
   jobSkill?: Prisma.JobSkillOmit
   application?: Prisma.ApplicationOmit
+  jobSubmission?: Prisma.JobSubmissionOmit
   jobReport?: Prisma.JobReportOmit
   savedJob?: Prisma.SavedJobOmit
   savedSearch?: Prisma.SavedSearchOmit

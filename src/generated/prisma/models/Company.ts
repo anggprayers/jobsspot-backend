@@ -298,6 +298,7 @@ export type CompanyWhereInput = {
   jobs?: Prisma.JobListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
   invitations?: Prisma.CompanyInvitationListRelationFilter
+  jobSubmissions?: Prisma.JobSubmissionListRelationFilter
   suspendedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }
 
@@ -325,6 +326,7 @@ export type CompanyOrderByWithRelationInput = {
   jobs?: Prisma.JobOrderByRelationAggregateInput
   auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
   invitations?: Prisma.CompanyInvitationOrderByRelationAggregateInput
+  jobSubmissions?: Prisma.JobSubmissionOrderByRelationAggregateInput
   suspendedBy?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -355,6 +357,7 @@ export type CompanyWhereUniqueInput = Prisma.AtLeast<{
   jobs?: Prisma.JobListRelationFilter
   auditLogs?: Prisma.AuditLogListRelationFilter
   invitations?: Prisma.CompanyInvitationListRelationFilter
+  jobSubmissions?: Prisma.JobSubmissionListRelationFilter
   suspendedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
 }, "id" | "slug">
 
@@ -431,6 +434,7 @@ export type CompanyCreateInput = {
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
   invitations?: Prisma.CompanyInvitationCreateNestedManyWithoutCompanyInput
+  jobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutCompanyInput
   suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedCompaniesInput
 }
 
@@ -458,6 +462,7 @@ export type CompanyUncheckedCreateInput = {
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
   invitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutCompanyInput
+  jobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUpdateInput = {
@@ -483,6 +488,7 @@ export type CompanyUpdateInput = {
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
   invitations?: Prisma.CompanyInvitationUpdateManyWithoutCompanyNestedInput
+  jobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutCompanyNestedInput
   suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedCompaniesNestedInput
 }
 
@@ -510,6 +516,7 @@ export type CompanyUncheckedUpdateInput = {
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
   invitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  jobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateManyInput = {
@@ -658,6 +665,11 @@ export type CompanyScalarRelationFilter = {
   isNot?: Prisma.CompanyWhereInput
 }
 
+export type CompanyNullableScalarRelationFilter = {
+  is?: Prisma.CompanyWhereInput | null
+  isNot?: Prisma.CompanyWhereInput | null
+}
+
 export type CompanyCreateNestedManyWithoutSuspendedByInput = {
   create?: Prisma.XOR<Prisma.CompanyCreateWithoutSuspendedByInput, Prisma.CompanyUncheckedCreateWithoutSuspendedByInput> | Prisma.CompanyCreateWithoutSuspendedByInput[] | Prisma.CompanyUncheckedCreateWithoutSuspendedByInput[]
   connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutSuspendedByInput | Prisma.CompanyCreateOrConnectWithoutSuspendedByInput[]
@@ -756,6 +768,22 @@ export type CompanyUpdateOneRequiredWithoutJobsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutJobsInput, Prisma.CompanyUpdateWithoutJobsInput>, Prisma.CompanyUncheckedUpdateWithoutJobsInput>
 }
 
+export type CompanyCreateNestedOneWithoutJobSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutJobSubmissionsInput, Prisma.CompanyUncheckedCreateWithoutJobSubmissionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutJobSubmissionsInput
+  connect?: Prisma.CompanyWhereUniqueInput
+}
+
+export type CompanyUpdateOneWithoutJobSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.CompanyCreateWithoutJobSubmissionsInput, Prisma.CompanyUncheckedCreateWithoutJobSubmissionsInput>
+  connectOrCreate?: Prisma.CompanyCreateOrConnectWithoutJobSubmissionsInput
+  upsert?: Prisma.CompanyUpsertWithoutJobSubmissionsInput
+  disconnect?: Prisma.CompanyWhereInput | boolean
+  delete?: Prisma.CompanyWhereInput | boolean
+  connect?: Prisma.CompanyWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CompanyUpdateToOneWithWhereWithoutJobSubmissionsInput, Prisma.CompanyUpdateWithoutJobSubmissionsInput>, Prisma.CompanyUncheckedUpdateWithoutJobSubmissionsInput>
+}
+
 export type CompanyCreateWithoutSuspendedByInput = {
   id?: string
   name: string
@@ -779,6 +807,7 @@ export type CompanyCreateWithoutSuspendedByInput = {
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
   invitations?: Prisma.CompanyInvitationCreateNestedManyWithoutCompanyInput
+  jobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyUncheckedCreateWithoutSuspendedByInput = {
@@ -804,6 +833,7 @@ export type CompanyUncheckedCreateWithoutSuspendedByInput = {
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
   invitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutCompanyInput
+  jobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutSuspendedByInput = {
@@ -879,6 +909,7 @@ export type CompanyCreateWithoutMembershipsInput = {
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
   invitations?: Prisma.CompanyInvitationCreateNestedManyWithoutCompanyInput
+  jobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutCompanyInput
   suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedCompaniesInput
 }
 
@@ -905,6 +936,7 @@ export type CompanyUncheckedCreateWithoutMembershipsInput = {
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
   invitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutCompanyInput
+  jobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutMembershipsInput = {
@@ -945,6 +977,7 @@ export type CompanyUpdateWithoutMembershipsInput = {
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
   invitations?: Prisma.CompanyInvitationUpdateManyWithoutCompanyNestedInput
+  jobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutCompanyNestedInput
   suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedCompaniesNestedInput
 }
 
@@ -971,6 +1004,7 @@ export type CompanyUncheckedUpdateWithoutMembershipsInput = {
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
   invitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  jobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutInvitationsInput = {
@@ -995,6 +1029,7 @@ export type CompanyCreateWithoutInvitationsInput = {
   memberships?: Prisma.CompanyMembershipCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
+  jobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutCompanyInput
   suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedCompaniesInput
 }
 
@@ -1021,6 +1056,7 @@ export type CompanyUncheckedCreateWithoutInvitationsInput = {
   memberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
+  jobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutInvitationsInput = {
@@ -1061,6 +1097,7 @@ export type CompanyUpdateWithoutInvitationsInput = {
   memberships?: Prisma.CompanyMembershipUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
+  jobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutCompanyNestedInput
   suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedCompaniesNestedInput
 }
 
@@ -1087,6 +1124,7 @@ export type CompanyUncheckedUpdateWithoutInvitationsInput = {
   memberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
+  jobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutAuditLogsInput = {
@@ -1111,6 +1149,7 @@ export type CompanyCreateWithoutAuditLogsInput = {
   memberships?: Prisma.CompanyMembershipCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
   invitations?: Prisma.CompanyInvitationCreateNestedManyWithoutCompanyInput
+  jobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutCompanyInput
   suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedCompaniesInput
 }
 
@@ -1137,6 +1176,7 @@ export type CompanyUncheckedCreateWithoutAuditLogsInput = {
   memberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutCompanyInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
   invitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutCompanyInput
+  jobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutAuditLogsInput = {
@@ -1177,6 +1217,7 @@ export type CompanyUpdateWithoutAuditLogsInput = {
   memberships?: Prisma.CompanyMembershipUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   invitations?: Prisma.CompanyInvitationUpdateManyWithoutCompanyNestedInput
+  jobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutCompanyNestedInput
   suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedCompaniesNestedInput
 }
 
@@ -1203,6 +1244,7 @@ export type CompanyUncheckedUpdateWithoutAuditLogsInput = {
   memberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutCompanyNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   invitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  jobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyCreateWithoutJobsInput = {
@@ -1227,6 +1269,7 @@ export type CompanyCreateWithoutJobsInput = {
   memberships?: Prisma.CompanyMembershipCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
   invitations?: Prisma.CompanyInvitationCreateNestedManyWithoutCompanyInput
+  jobSubmissions?: Prisma.JobSubmissionCreateNestedManyWithoutCompanyInput
   suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedCompaniesInput
 }
 
@@ -1253,6 +1296,7 @@ export type CompanyUncheckedCreateWithoutJobsInput = {
   memberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutCompanyInput
   auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
   invitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutCompanyInput
+  jobSubmissions?: Prisma.JobSubmissionUncheckedCreateNestedManyWithoutCompanyInput
 }
 
 export type CompanyCreateOrConnectWithoutJobsInput = {
@@ -1293,6 +1337,7 @@ export type CompanyUpdateWithoutJobsInput = {
   memberships?: Prisma.CompanyMembershipUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
   invitations?: Prisma.CompanyInvitationUpdateManyWithoutCompanyNestedInput
+  jobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutCompanyNestedInput
   suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedCompaniesNestedInput
 }
 
@@ -1317,6 +1362,127 @@ export type CompanyUncheckedUpdateWithoutJobsInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   memberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  jobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
+}
+
+export type CompanyCreateWithoutJobSubmissionsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  websiteUrl?: string | null
+  logoUrl?: string | null
+  logoPublicId?: string | null
+  bannerUrl?: string | null
+  bannerPublicId?: string | null
+  industry?: string | null
+  companySize?: string | null
+  location?: string | null
+  isVerified?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  memberships?: Prisma.CompanyMembershipCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.CompanyInvitationCreateNestedManyWithoutCompanyInput
+  suspendedBy?: Prisma.UserCreateNestedOneWithoutSuspendedCompaniesInput
+}
+
+export type CompanyUncheckedCreateWithoutJobSubmissionsInput = {
+  id?: string
+  name: string
+  slug: string
+  description?: string | null
+  websiteUrl?: string | null
+  logoUrl?: string | null
+  logoPublicId?: string | null
+  bannerUrl?: string | null
+  bannerPublicId?: string | null
+  industry?: string | null
+  companySize?: string | null
+  location?: string | null
+  isVerified?: boolean
+  suspendedAt?: Date | string | null
+  suspensionReason?: string | null
+  suspendedById?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  deletedAt?: Date | string | null
+  memberships?: Prisma.CompanyMembershipUncheckedCreateNestedManyWithoutCompanyInput
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCompanyInput
+  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutCompanyInput
+  invitations?: Prisma.CompanyInvitationUncheckedCreateNestedManyWithoutCompanyInput
+}
+
+export type CompanyCreateOrConnectWithoutJobSubmissionsInput = {
+  where: Prisma.CompanyWhereUniqueInput
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutJobSubmissionsInput, Prisma.CompanyUncheckedCreateWithoutJobSubmissionsInput>
+}
+
+export type CompanyUpsertWithoutJobSubmissionsInput = {
+  update: Prisma.XOR<Prisma.CompanyUpdateWithoutJobSubmissionsInput, Prisma.CompanyUncheckedUpdateWithoutJobSubmissionsInput>
+  create: Prisma.XOR<Prisma.CompanyCreateWithoutJobSubmissionsInput, Prisma.CompanyUncheckedCreateWithoutJobSubmissionsInput>
+  where?: Prisma.CompanyWhereInput
+}
+
+export type CompanyUpdateToOneWithWhereWithoutJobSubmissionsInput = {
+  where?: Prisma.CompanyWhereInput
+  data: Prisma.XOR<Prisma.CompanyUpdateWithoutJobSubmissionsInput, Prisma.CompanyUncheckedUpdateWithoutJobSubmissionsInput>
+}
+
+export type CompanyUpdateWithoutJobSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companySize?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.CompanyMembershipUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
+  auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
+  invitations?: Prisma.CompanyInvitationUpdateManyWithoutCompanyNestedInput
+  suspendedBy?: Prisma.UserUpdateOneWithoutSuspendedCompaniesNestedInput
+}
+
+export type CompanyUncheckedUpdateWithoutJobSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  slug?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  websiteUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  logoPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bannerPublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  industry?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  companySize?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  suspendedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  suspensionReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  suspendedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  memberships?: Prisma.CompanyMembershipUncheckedUpdateManyWithoutCompanyNestedInput
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
   invitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutCompanyNestedInput
 }
@@ -1365,6 +1531,7 @@ export type CompanyUpdateWithoutSuspendedByInput = {
   jobs?: Prisma.JobUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUpdateManyWithoutCompanyNestedInput
   invitations?: Prisma.CompanyInvitationUpdateManyWithoutCompanyNestedInput
+  jobSubmissions?: Prisma.JobSubmissionUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateWithoutSuspendedByInput = {
@@ -1390,6 +1557,7 @@ export type CompanyUncheckedUpdateWithoutSuspendedByInput = {
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCompanyNestedInput
   auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutCompanyNestedInput
   invitations?: Prisma.CompanyInvitationUncheckedUpdateManyWithoutCompanyNestedInput
+  jobSubmissions?: Prisma.JobSubmissionUncheckedUpdateManyWithoutCompanyNestedInput
 }
 
 export type CompanyUncheckedUpdateManyWithoutSuspendedByInput = {
@@ -1423,6 +1591,7 @@ export type CompanyCountOutputType = {
   jobs: number
   auditLogs: number
   invitations: number
+  jobSubmissions: number
 }
 
 export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1430,6 +1599,7 @@ export type CompanyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   jobs?: boolean | CompanyCountOutputTypeCountJobsArgs
   auditLogs?: boolean | CompanyCountOutputTypeCountAuditLogsArgs
   invitations?: boolean | CompanyCountOutputTypeCountInvitationsArgs
+  jobSubmissions?: boolean | CompanyCountOutputTypeCountJobSubmissionsArgs
 }
 
 /**
@@ -1470,6 +1640,13 @@ export type CompanyCountOutputTypeCountInvitationsArgs<ExtArgs extends runtime.T
   where?: Prisma.CompanyInvitationWhereInput
 }
 
+/**
+ * CompanyCountOutputType without action
+ */
+export type CompanyCountOutputTypeCountJobSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobSubmissionWhereInput
+}
+
 
 export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1495,6 +1672,7 @@ export type CompanySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Company$auditLogsArgs<ExtArgs>
   invitations?: boolean | Prisma.Company$invitationsArgs<ExtArgs>
+  jobSubmissions?: boolean | Prisma.Company$jobSubmissionsArgs<ExtArgs>
   suspendedBy?: boolean | Prisma.Company$suspendedByArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["company"]>
@@ -1573,6 +1751,7 @@ export type CompanyInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   jobs?: boolean | Prisma.Company$jobsArgs<ExtArgs>
   auditLogs?: boolean | Prisma.Company$auditLogsArgs<ExtArgs>
   invitations?: boolean | Prisma.Company$invitationsArgs<ExtArgs>
+  jobSubmissions?: boolean | Prisma.Company$jobSubmissionsArgs<ExtArgs>
   suspendedBy?: boolean | Prisma.Company$suspendedByArgs<ExtArgs>
   _count?: boolean | Prisma.CompanyCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1590,6 +1769,7 @@ export type $CompanyPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     jobs: Prisma.$JobPayload<ExtArgs>[]
     auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
     invitations: Prisma.$CompanyInvitationPayload<ExtArgs>[]
+    jobSubmissions: Prisma.$JobSubmissionPayload<ExtArgs>[]
     suspendedBy: Prisma.$UserPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -2010,6 +2190,7 @@ export interface Prisma__CompanyClient<T, Null = never, ExtArgs extends runtime.
   jobs<T extends Prisma.Company$jobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   auditLogs<T extends Prisma.Company$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   invitations<T extends Prisma.Company$invitationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$invitationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CompanyInvitationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  jobSubmissions<T extends Prisma.Company$jobSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$jobSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobSubmissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   suspendedBy<T extends Prisma.Company$suspendedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Company$suspendedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2553,6 +2734,30 @@ export type Company$invitationsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.CompanyInvitationScalarFieldEnum | Prisma.CompanyInvitationScalarFieldEnum[]
+}
+
+/**
+ * Company.jobSubmissions
+ */
+export type Company$jobSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobSubmission
+   */
+  select?: Prisma.JobSubmissionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobSubmission
+   */
+  omit?: Prisma.JobSubmissionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobSubmissionInclude<ExtArgs> | null
+  where?: Prisma.JobSubmissionWhereInput
+  orderBy?: Prisma.JobSubmissionOrderByWithRelationInput | Prisma.JobSubmissionOrderByWithRelationInput[]
+  cursor?: Prisma.JobSubmissionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobSubmissionScalarFieldEnum | Prisma.JobSubmissionScalarFieldEnum[]
 }
 
 /**

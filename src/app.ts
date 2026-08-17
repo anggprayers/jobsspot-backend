@@ -10,6 +10,7 @@ import authRouter from "./modules/auth/auth.routes.js";
 import companyRouter from "./modules/company/company.routes.js";
 import companyInvitationAcceptanceRouter from "./modules/company-invitations/company-invitation-acceptance.routes.js";
 import contactRouter from "./modules/contact/contact.routes.js";
+import jobSubmissionRouter from "./modules/job-submission/job-submission.routes.js";
 import jobSeekerApplicationRouter from "./modules/job-seeker-application/job-seeker-application.routes.js";
 import jobSeekerProfileRouter from "./modules/job-seeker-profile/job-seeker-profile.routes.js";
 import jobReportRouter from "./modules/job-report/job-report.routes.js";
@@ -57,6 +58,8 @@ app.use("/api/auth", authRouter);
 app.use("/api/admin", platformAdminRouter);
 
 app.use("/api/contact", contactRouter);
+
+app.use("/api/job-submissions", jobSubmissionRouter);
 
 app.use("/api/job-seeker-profile", jobSeekerProfileRouter);
 
