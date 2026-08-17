@@ -1,6 +1,5 @@
 import {
     ApplicationStatus,
-    CompanyMemberRole,
     NotificationAudience,
     Prisma,
 } from "../../generated/prisma/client.js";
@@ -13,7 +12,7 @@ import {
 
 type ApplicationNotificationClient = Pick<
     Prisma.TransactionClient,
-    "companyMembership" | "notification"
+    "notification" | "user"
 >;
 
 type ApplicationContext = {
@@ -33,83 +32,65 @@ type ApplicationStatusNotificationParameters = ApplicationContext & {
     eventId: string;
 };
 
-const employerNotificationRoles = [
-    CompanyMemberRole.OWNER,
-    CompanyMemberRole.ADMIN,
-    CompanyMemberRole.RECRUITER,
-];
-
-async function getEmployerRecipientIds(
+async function getPlatformAdminRecipientIds(
     client: ApplicationNotificationClient,
-    companyId: string,
 ): Promise<string[]> {
-    const memberships = await client.companyMembership.findMany({
+    const admins = await client.user.findMany({
         where: {
-            companyId,
+            isAdmin: true,
             deletedAt: null,
-            role: {
-                in: employerNotificationRoles,
-            },
-            user: {
-                deletedAt: null,
-                suspendedAt: null,
-            },
+            suspendedAt: null,
         },
-        select: {
-            userId: true,
-        },
+        select: { id: true },
     });
 
-    return memberships.map((membership) => membership.userId);
+    return admins.map((admin) => admin.id);
 }
 
-function getStatusNotificationCopy(status: ApplicationStatus): {
+function getStatusNotificationCopy(
+    status: ApplicationStatus,
+    jobTitle: string,
+    companyName: string,
+): {
     title: string;
-    messageVerb: string;
+    message: string;
 } {
     switch (status) {
         case ApplicationStatus.UNDER_REVIEW:
-            return {
-                title: "Application under review",
-                messageVerb: "moved your application to under review",
-            };
-
         case ApplicationStatus.SHORTLISTED:
             return {
-                title: "You were shortlisted",
-                messageVerb: "shortlisted your application",
+                title: "Application under review",
+                message: `Your application for ${jobTitle} at ${companyName} is under review.`,
             };
 
         case ApplicationStatus.INTERVIEW:
             return {
-                title: "Application moved to interview",
-                messageVerb: "moved your application to the interview stage",
+                title: "Interview stage",
+                message: `Your application for ${jobTitle} at ${companyName} moved to the interview stage.`,
             };
 
         case ApplicationStatus.OFFERED:
             return {
-                title: "You received an offer update",
-                messageVerb: "marked your application as offered",
+                title: "Offer update",
+                message: `Your application for ${jobTitle} at ${companyName} has an offer update.`,
             };
 
         case ApplicationStatus.HIRED:
             return {
                 title: "Application marked as hired",
-                messageVerb: "marked your application as hired",
+                message: `Your application for ${jobTitle} at ${companyName} was marked as hired.`,
             };
 
         case ApplicationStatus.REJECTED:
             return {
-                title: "Application status updated",
-                messageVerb: "updated your application to not selected",
+                title: "Application update",
+                message: `Your application for ${jobTitle} at ${companyName} was not selected.`,
             };
 
         default:
             return {
                 title: "Application status updated",
-                messageVerb: `updated your application to ${status
-                    .toLowerCase()
-                    .replaceAll("_", " ")}`,
+                message: `Your application for ${jobTitle} at ${companyName} was updated.`,
             };
     }
 }
@@ -126,10 +107,7 @@ export async function createApplicationSubmittedNotifications({
 }: ApplicationContext & {
     client: ApplicationNotificationClient;
 }) {
-    const employerRecipientIds = await getEmployerRecipientIds(
-        client,
-        companyId,
-    );
+    const platformAdminRecipientIds = await getPlatformAdminRecipientIds(client);
 
     await Promise.all([
         createNotification({
@@ -152,16 +130,16 @@ export async function createApplicationSubmittedNotifications({
             },
         }),
 
-        ...employerRecipientIds.map((userId) =>
+        ...platformAdminRecipientIds.map((userId) =>
             createNotification({
                 client,
                 userId,
-                audience: NotificationAudience.EMPLOYER,
+                audience: NotificationAudience.ADMIN,
                 type: NOTIFICATION_TYPES.NEW_APPLICATION,
                 eventKey: `application:${applicationId}:new`,
                 title: "New application received",
-                message: `${applicantName} applied for ${jobTitle}.`,
-                actionUrl: `/employers/applicants/${applicationId}`,
+                message: `${applicantName} applied for ${jobTitle} at ${companyName}.`,
+                actionUrl: `/admin/applications/${applicationId}`,
                 entityType: NOTIFICATION_ENTITY_TYPES.APPLICATION,
                 entityId: applicationId,
                 metadata: {
@@ -178,38 +156,6 @@ export async function createApplicationSubmittedNotifications({
     ]);
 }
 
-export async function createApplicationFirstViewedNotification({
-    client,
-    applicationId,
-    applicantId,
-    jobId,
-    jobTitle,
-    companyId,
-    companyName,
-}: Omit<ApplicationContext, "applicantName"> & {
-    client: ApplicationNotificationClient;
-}) {
-    await createNotification({
-        client,
-        userId: applicantId,
-        audience: NotificationAudience.JOB_SEEKER,
-        type: NOTIFICATION_TYPES.APPLICATION_FIRST_VIEWED,
-        eventKey: `application:${applicationId}:first-viewed`,
-        title: "Your application was viewed",
-        message: `${companyName} viewed your application for ${jobTitle}.`,
-        actionUrl: "/account/applications",
-        entityType: NOTIFICATION_ENTITY_TYPES.APPLICATION,
-        entityId: applicationId,
-        metadata: {
-            applicationId,
-            jobId,
-            jobTitle,
-            companyId,
-            companyName,
-        },
-    });
-}
-
 export async function createApplicationStatusChangedNotification({
     client,
     applicationId,
@@ -222,7 +168,7 @@ export async function createApplicationStatusChangedNotification({
     newStatus,
     eventId,
 }: ApplicationStatusNotificationParameters) {
-    const copy = getStatusNotificationCopy(newStatus);
+    const copy = getStatusNotificationCopy(newStatus, jobTitle, companyName);
 
     await createNotification({
         client,
@@ -231,7 +177,7 @@ export async function createApplicationStatusChangedNotification({
         type: NOTIFICATION_TYPES.APPLICATION_STATUS_CHANGED,
         eventKey: `application-status:${eventId}`,
         title: copy.title,
-        message: `${companyName} ${copy.messageVerb} for ${jobTitle}.`,
+        message: copy.message,
         actionUrl: "/account/applications",
         entityType: NOTIFICATION_ENTITY_TYPES.APPLICATION,
         entityId: applicationId,
@@ -259,22 +205,19 @@ export async function createApplicationWithdrawnNotifications({
 }: ApplicationContext & {
     client: ApplicationNotificationClient;
 }) {
-    const employerRecipientIds = await getEmployerRecipientIds(
-        client,
-        companyId,
-    );
+    const platformAdminRecipientIds = await getPlatformAdminRecipientIds(client);
 
     await Promise.all(
-        employerRecipientIds.map((userId) =>
+        platformAdminRecipientIds.map((userId) =>
             createNotification({
                 client,
                 userId,
-                audience: NotificationAudience.EMPLOYER,
+                audience: NotificationAudience.ADMIN,
                 type: NOTIFICATION_TYPES.APPLICATION_WITHDRAWN,
                 eventKey: `application:${applicationId}:withdrawn`,
                 title: "Application withdrawn",
-                message: `${applicantName} withdrew their application for ${jobTitle}.`,
-                actionUrl: `/employers/applicants/${applicationId}`,
+                message: `${applicantName} withdrew their application for ${jobTitle} at ${companyName}.`,
+                actionUrl: `/admin/applications/${applicationId}`,
                 entityType: NOTIFICATION_ENTITY_TYPES.APPLICATION,
                 entityId: applicationId,
                 metadata: {

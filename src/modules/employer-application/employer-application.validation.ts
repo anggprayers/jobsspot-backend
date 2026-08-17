@@ -16,7 +16,6 @@ export const employerApplicationsQuerySchema = z.object({
 
 const employerManageableStatuses = [
     ApplicationStatus.UNDER_REVIEW,
-    ApplicationStatus.SHORTLISTED,
     ApplicationStatus.INTERVIEW,
     ApplicationStatus.OFFERED,
     ApplicationStatus.HIRED,

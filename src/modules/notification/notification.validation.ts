@@ -24,17 +24,13 @@ export const markAllNotificationsReadSchema = z.object({
 });
 
 export const clearReadNotificationsSchema = z.object({
-    audience: z.enum(["JOB_SEEKER", "EMPLOYER"]),
+    audience: z.enum(["JOB_SEEKER", "EMPLOYER", "ADMIN"]),
 });
 
 
 export const updateNotificationPreferencesSchema = z
     .object({
         jobSeekerApplicationUpdatesEmail: z.boolean().optional(),
-        jobSeekerApplicationViewedEmail: z.boolean().optional(),
-        employerApplicationEmail: z.boolean().optional(),
-        employerTeamEmail: z.boolean().optional(),
-        employerJobEmail: z.boolean().optional(),
         systemEmail: z.boolean().optional(),
     })
     .refine(

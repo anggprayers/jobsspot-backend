@@ -6,10 +6,7 @@ import { prisma } from "../../lib/prisma.js";
 import { AuditAction, AuditEntityType } from "../audit-log/audit-log.constants.js";
 
 import { createCompanyAuditLog } from "../audit-log/audit-log.service.js";
-import {
-    createApplicationFirstViewedNotification,
-    createApplicationStatusChangedNotification,
-} from "../notification/application-notification.service.js";
+import { createApplicationStatusChangedNotification } from "../notification/application-notification.service.js";
 import { runNotificationTaskSafely } from "../notification/notification.service.js";
 import { createResumeDownloadUrl } from "../resume/resume-storage.service.js";
 import { createCoverLetterDownloadUrl } from "../job-seeker-application/application-cover-letter-storage.service.js";
@@ -33,7 +30,6 @@ type UpdateCompanyApplicationStatusParameters = GetCompanyApplicationParameters 
 
     status:
         | typeof ApplicationStatus.UNDER_REVIEW
-        | typeof ApplicationStatus.SHORTLISTED
         | typeof ApplicationStatus.INTERVIEW
         | typeof ApplicationStatus.OFFERED
         | typeof ApplicationStatus.HIRED
@@ -409,17 +405,9 @@ export async function getCompanyApplicationById({ companyId, applicationId }: Ge
         return { application, notificationContext: null };
     });
 
-    if (result.notificationContext) {
-        await runNotificationTaskSafely(
-            `application first viewed (${result.application.id})`,
-            () =>
-                createApplicationFirstViewedNotification({
-                    client: prisma,
-                    ...result.notificationContext,
-                }),
-        );
-    }
-
+    // Viewing an application is no longer a candidate-facing event in the
+    // admin-managed JobsSpot model. firstViewedAt is kept temporarily for
+    // legacy compatibility, but no notification is created.
     return serializeApplicationForEmployer(result.application);
 }
 

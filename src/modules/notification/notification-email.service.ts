@@ -24,11 +24,13 @@ function getPreferenceKey(type: string): NotificationEmailPreferenceKey | null {
             return "jobSeekerApplicationUpdatesEmail";
 
         case NOTIFICATION_TYPES.APPLICATION_FIRST_VIEWED:
-            return "jobSeekerApplicationViewedEmail";
+            // Historical event type only. The remodel no longer creates or emails
+            // "application viewed" events.
+            return null;
 
         case NOTIFICATION_TYPES.NEW_APPLICATION:
         case NOTIFICATION_TYPES.APPLICATION_WITHDRAWN:
-            return "employerApplicationEmail";
+            return "systemEmail";
 
         case NOTIFICATION_TYPES.COMPANY_INVITATION_ACCEPTED:
             return "employerTeamEmail";
