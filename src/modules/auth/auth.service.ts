@@ -24,6 +24,7 @@ async function findCurrentUserProfile(userId: string) {
         where: {
             id: userId,
             deletedAt: null,
+            suspendedAt: null,
         },
 
         select: {
@@ -44,6 +45,7 @@ async function findCurrentUserProfile(userId: string) {
 
                     company: {
                         deletedAt: null,
+                        suspendedAt: null,
                     },
                 },
 
@@ -185,12 +187,17 @@ export async function loginUser(data: LoginInput) {
             lastName: true,
             email: true,
             passwordHash: true,
+            suspendedAt: true,
             createdAt: true,
         },
     });
 
     if (!user || !user.passwordHash) {
         throw new AppError(401, "Invalid email or password.");
+    }
+
+    if (user.suspendedAt) {
+        throw new AppError(403, "This account has been suspended. Contact JobsSpot support for assistance.");
     }
 
     const passwordMatches = await verifyPassword(data.password, user.passwordHash);
@@ -218,7 +225,7 @@ export async function loginUser(data: LoginInput) {
         expiresAt: getRefreshTokenExpirationDate(),
     });
 
-    const { passwordHash: _passwordHash, ...safeUser } = user;
+    const { passwordHash: _passwordHash, suspendedAt: _suspendedAt, ...safeUser } = user;
 
     return {
         user: safeUser,

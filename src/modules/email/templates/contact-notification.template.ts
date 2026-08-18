@@ -4,6 +4,8 @@ import {
     renderEmailLayout,
 } from "./email-layout.js";
 
+import { formatJobsSpotDateTime } from "../../../utils/jobs-spot-time.js";
+
 const inquiryTypeLabels = {
     GENERAL: "General inquiry",
     JOB_SEEKER: "Job seeker support",
@@ -53,7 +55,7 @@ export function createContactNotificationTemplate({
     const safeSubject = escapeHtml(subject);
     const safeMessage = renderMultilineText(message);
     const safeReferenceId = escapeHtml(referenceId);
-    const safeReceivedAt = escapeHtml(receivedAt.toISOString());
+    const safeReceivedAt = escapeHtml(formatJobsSpotDateTime(receivedAt));
     const safeIpAddress = escapeHtml(ipAddress ?? "Unavailable");
     const safeUserAgent = escapeHtml(userAgent ?? "Unavailable");
     const emailSubject = sanitizeSubjectValue(subject);
@@ -62,7 +64,7 @@ export function createContactNotificationTemplate({
         "New JobsSpot contact request",
         "",
         `Reference: ${referenceId}`,
-        `Received: ${receivedAt.toISOString()}`,
+        `Received: ${formatJobsSpotDateTime(receivedAt)}`,
         `Name: ${name}`,
         `Email: ${email}`,
         `Inquiry type: ${inquiryLabel}`,

@@ -13,6 +13,8 @@ import {
 } from "./resume.service.js";
 
 import type { RenameResumeBody, UploadResumeBody } from "./resume.validation.js";
+import { ensureResumeOwnedForProfileImport, importResumeProfile, previewResumeProfileImport } from "./resume-profile-import.service.js";
+import type { ImportResumeProfileBody } from "./resume-profile-import.validation.js";
 
 const resumeIdSchema = z.uuid();
 
@@ -134,5 +136,37 @@ export async function removeResume(request: Request, response: Response): Promis
         success: true,
         message: "Resume deleted successfully.",
         ...result,
+    });
+}
+
+
+export async function previewResumeProfile(request: Request, response: Response): Promise<void> {
+    const userId = getAuthenticatedUserId(request);
+    const resumeId = getResumeId(request);
+    const result = await previewResumeProfileImport({ userId, resumeId });
+
+    response.status(200).json({
+        success: true,
+        message: "Resume profile suggestions generated successfully.",
+        ...result,
+    });
+}
+
+export async function importResumeIntoProfile(request: Request, response: Response): Promise<void> {
+    const userId = getAuthenticatedUserId(request);
+    const resumeId = getResumeId(request);
+
+    // Confirm the selected resume belongs to the authenticated user.
+    await ensureResumeOwnedForProfileImport({ userId, resumeId });
+
+    const imported = await importResumeProfile({
+        userId,
+        data: request.body as ImportResumeProfileBody,
+    });
+
+    response.status(200).json({
+        success: true,
+        message: "Selected resume information was imported into your profile.",
+        imported,
     });
 }

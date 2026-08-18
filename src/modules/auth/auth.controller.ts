@@ -20,6 +20,7 @@ import {
     registerUser,
     updateCurrentUserProfile,
 } from "./auth.service.js";
+import { deleteCurrentUserAccount } from "./account-deletion.service.js";
 import {
     sendEmailVerificationForUser,
     verifyEmailAddress,
@@ -167,24 +168,43 @@ export async function refresh(
         return;
     }
 
-    const result =
-        await refreshUserSession(
-            refreshToken,
+    try {
+        const result =
+            await refreshUserSession(
+                refreshToken,
+            );
+
+        setRefreshTokenCookie(
+            response,
+            result.refreshToken,
         );
 
-    setRefreshTokenCookie(
-        response,
-        result.refreshToken,
-    );
+        response.status(200).json({
+            success: true,
+            authenticated: true,
+            message:
+                "Session refreshed successfully.",
+            user: result.user,
+            accessToken: result.accessToken,
+        });
+    } catch (error) {
+        if (
+            error instanceof AppError &&
+            (error.statusCode === 401 || error.statusCode === 403)
+        ) {
+            clearRefreshTokenCookie(response);
 
-    response.status(200).json({
-        success: true,
-        authenticated: true,
-        message:
-            "Session refreshed successfully.",
-        user: result.user,
-        accessToken: result.accessToken,
-    });
+            response.status(200).json({
+                success: true,
+                authenticated: false,
+                message: "No active session.",
+            });
+
+            return;
+        }
+
+        throw error;
+    }
 }
 
 export async function logout(
@@ -414,5 +434,30 @@ export async function resetPassword(
             result.revokedSessions,
         redirectTo:
             "/login?passwordReset=success",
+    });
+}
+
+
+export async function deleteAccount(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    if (!request.user) {
+        throw new AppError(401, "Authentication is required.");
+    }
+
+    const result = await deleteCurrentUserAccount({
+        userId: request.user.id,
+        data: request.body,
+    });
+
+    clearRefreshTokenCookie(response);
+    setNoStoreHeaders(response);
+
+    response.status(200).json({
+        success: true,
+        message: "Your JobsSpot account has been deleted and personal account data has been anonymized.",
+        requiresReauthentication: false,
+        ...result,
     });
 }

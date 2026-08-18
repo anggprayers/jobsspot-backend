@@ -49,11 +49,19 @@ export async function getPublicJobs(
         {
             status: JobStatus.PUBLISHED,
             deletedAt: null,
+            adminHiddenAt: null,
         },
 
         {
             company: {
                 deletedAt: null,
+                suspendedAt: null,
+            },
+        },
+
+        {
+            category: {
+                isActive: true,
             },
         },
 
@@ -134,10 +142,32 @@ export async function getPublicJobs(
 
     if (location) {
         conditions.push({
-            location: {
-                contains: location,
-                mode: "insensitive",
-            },
+            OR: [
+                {
+                    location: {
+                        contains: location,
+                        mode: "insensitive",
+                    },
+                },
+                {
+                    city: {
+                        contains: location,
+                        mode: "insensitive",
+                    },
+                },
+                {
+                    stateRegion: {
+                        contains: location,
+                        mode: "insensitive",
+                    },
+                },
+                {
+                    countryCode: {
+                        contains: location,
+                        mode: "insensitive",
+                    },
+                },
+            ],
         });
     }
 
@@ -287,6 +317,9 @@ export async function getPublicJobs(
             experienceLevel: true,
 
             location: true,
+            city: true,
+            stateRegion: true,
+            countryCode: true,
 
             salaryMin: true,
             salaryMax: true,
@@ -296,6 +329,7 @@ export async function getPublicJobs(
             applicationDeadline: true,
             publishedAt: true,
             expiresAt: true,
+            updatedAt: true,
 
             company: {
                 select: {
@@ -303,6 +337,7 @@ export async function getPublicJobs(
                     name: true,
                     slug: true,
                     logoUrl: true,
+                    websiteUrl: true,
                 },
             },
 
@@ -348,9 +383,15 @@ export async function getPublicJobBySlug(
             slug,
             status: JobStatus.PUBLISHED,
             deletedAt: null,
+            adminHiddenAt: null,
 
             company: {
                 deletedAt: null,
+                suspendedAt: null,
+            },
+
+            category: {
+                isActive: true,
             },
 
             OR: [
@@ -379,6 +420,9 @@ export async function getPublicJobBySlug(
             experienceLevel: true,
 
             location: true,
+            city: true,
+            stateRegion: true,
+            countryCode: true,
 
             salaryMin: true,
             salaryMax: true,
@@ -388,6 +432,7 @@ export async function getPublicJobBySlug(
             applicationDeadline: true,
             publishedAt: true,
             expiresAt: true,
+            updatedAt: true,
 
             company: {
                 select: {
@@ -395,6 +440,7 @@ export async function getPublicJobBySlug(
                     name: true,
                     slug: true,
                     logoUrl: true,
+                    websiteUrl: true,
                 },
             },
 

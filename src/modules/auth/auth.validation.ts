@@ -199,11 +199,22 @@ export const googleLoginSchema = z
     })
     .strict();
 
+export const deleteAccountSchema = z
+    .object({
+        confirmationEmail: z.email("Enter your JobsSpot account email.").trim().toLowerCase(),
+        confirmationText: z.literal("DELETE MY ACCOUNT", {
+            error: 'Type "DELETE MY ACCOUNT" exactly to confirm account deletion.',
+        }),
+        currentPassword: z.string().max(100, "Current password must not exceed 100 characters.").optional(),
+    })
+    .strict();
+
 export type RegisterInput = z.infer<typeof registerSchema>;
 export type LoginInput = z.infer<typeof loginSchema>;
 export type GoogleLoginInput = z.infer<typeof googleLoginSchema>;
 export type UpdateProfileInput = z.infer<typeof updateProfileSchema>;
 export type ChangePasswordInput = z.infer<typeof changePasswordSchema>;
+export type DeleteAccountInput = z.infer<typeof deleteAccountSchema>;
 export type VerifyEmailInput = z.infer<typeof verifyEmailSchema>;
 export type ForgotPasswordInput = z.infer<typeof forgotPasswordSchema>;
 export type ResetPasswordInput = z.infer<typeof resetPasswordSchema>;

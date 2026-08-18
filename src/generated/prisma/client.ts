@@ -122,6 +122,21 @@ export type AuditLog = Prisma.AuditLogModel
  */
 export type JobCategory = Prisma.JobCategoryModel
 /**
+ * Model PlatformAuditLog
+ * 
+ */
+export type PlatformAuditLog = Prisma.PlatformAuditLogModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
+ * Model NotificationPreference
+ * 
+ */
+export type NotificationPreference = Prisma.NotificationPreferenceModel
+/**
  * Model Job
  * 
  */
@@ -141,6 +156,21 @@ export type JobSkill = Prisma.JobSkillModel
  * 
  */
 export type Application = Prisma.ApplicationModel
+/**
+ * Model ApplicationShareLink
+ * 
+ */
+export type ApplicationShareLink = Prisma.ApplicationShareLinkModel
+/**
+ * Model JobSubmission
+ * 
+ */
+export type JobSubmission = Prisma.JobSubmissionModel
+/**
+ * Model JobReport
+ * 
+ */
+export type JobReport = Prisma.JobReportModel
 /**
  * Model SavedJob
  * 

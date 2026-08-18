@@ -1,9 +1,12 @@
 import type { Request, Response } from "express";
+import { z } from "zod";
 
 import { AppError } from "../../errors/AppError.js";
 
 import {
     getCompanyApplicationById,
+    getCompanyApplicationCoverLetterDownload,
+    getCompanyApplicationResumeDownload,
     getCompanyApplications,
     updateCompanyApplicationStatus,
 } from "./employer-application.service.js";
@@ -12,6 +15,18 @@ import {
     employerApplicationsQuerySchema,
     type UpdateEmployerApplicationStatusInput,
 } from "./employer-application.validation.js";
+
+const uuidSchema = z.uuid();
+
+function getUuidParam(request: Request, name: "companyId" | "applicationId", message: string): string {
+    const result = uuidSchema.safeParse(request.params[name]);
+
+    if (!result.success) {
+        throw new AppError(400, message);
+    }
+
+    return result.data;
+}
 
 export async function getCompanyApplicationsController(request: Request, response: Response): Promise<void> {
     const companyId = request.params.companyId;
@@ -49,16 +64,8 @@ export async function getCompanyApplicationsController(request: Request, respons
 }
 
 export async function getCompanyApplicationByIdController(request: Request, response: Response): Promise<void> {
-    const companyId = request.params.companyId;
-    const applicationId = request.params.applicationId;
-
-    if (typeof companyId !== "string") {
-        throw new AppError(400, "A valid company ID is required.");
-    }
-
-    if (typeof applicationId !== "string") {
-        throw new AppError(400, "A valid application ID is required.");
-    }
+    const companyId = getUuidParam(request, "companyId", "A valid company ID is required.");
+    const applicationId = getUuidParam(request, "applicationId", "A valid application ID is required.");
 
     const application = await getCompanyApplicationById({
         companyId,
@@ -72,17 +79,47 @@ export async function getCompanyApplicationByIdController(request: Request, resp
     });
 }
 
+export async function getCompanyApplicationResumeDownloadController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const companyId = getUuidParam(request, "companyId", "A valid company ID is required.");
+    const applicationId = getUuidParam(request, "applicationId", "A valid application ID is required.");
+
+    const download = await getCompanyApplicationResumeDownload({
+        companyId,
+        applicationId,
+    });
+
+    response.status(200).json({
+        success: true,
+        message: "Secure resume link created successfully.",
+        ...download,
+    });
+}
+
+export async function getCompanyApplicationCoverLetterDownloadController(
+    request: Request,
+    response: Response,
+): Promise<void> {
+    const companyId = getUuidParam(request, "companyId", "A valid company ID is required.");
+    const applicationId = getUuidParam(request, "applicationId", "A valid application ID is required.");
+
+    const download = await getCompanyApplicationCoverLetterDownload({
+        companyId,
+        applicationId,
+    });
+
+    response.status(200).json({
+        success: true,
+        message: "Secure cover letter link created successfully.",
+        ...download,
+    });
+}
+
 export async function updateCompanyApplicationStatusController(request: Request, response: Response): Promise<void> {
-    const companyId = request.params.companyId;
-    const applicationId = request.params.applicationId;
-
-    if (typeof companyId !== "string") {
-        throw new AppError(400, "A valid company ID is required.");
-    }
-
-    if (typeof applicationId !== "string") {
-        throw new AppError(400, "A valid application ID is required.");
-    }
+    const companyId = getUuidParam(request, "companyId", "A valid company ID is required.");
+    const applicationId = getUuidParam(request, "applicationId", "A valid application ID is required.");
 
     if (!request.user) {
         throw new AppError(401, "Authentication is required.");

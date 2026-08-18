@@ -8,6 +8,13 @@ import { createSlug } from "../../utils/slug.js";
 import { AuditAction, AuditEntityType } from "../audit-log/audit-log.constants.js";
 import { createCompanyAuditLog } from "../audit-log/audit-log.service.js";
 
+import {
+    formatStructuredJobLocation,
+    getStructuredJobLocationIssues,
+    normalizeJobCountryCode,
+    normalizeJobLocationPart,
+    normalizeJobStateRegion,
+} from "./job-location.js";
 import type { CreateJobInput, UpdateJobInput } from "./job.validation.js";
 
 type GetCompanyJobsParameters = {
@@ -51,10 +58,7 @@ function calculateJobExpirationDate({
                 MILLISECONDS_PER_DAY,
     );
 
-    if (
-        applicationDeadline &&
-        applicationDeadline < defaultExpiration
-    ) {
+    if (applicationDeadline) {
         return applicationDeadline;
     }
 
@@ -130,9 +134,10 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
                 },
             }),
 
-            transaction.jobCategory.findUnique({
+            transaction.jobCategory.findFirst({
                 where: {
                     id: data.categoryId,
+                    isActive: true,
                 },
 
                 select: {
@@ -156,10 +161,30 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
         }
 
         if (!category) {
-            throw new AppError(404, "Job category not found.");
+            throw new AppError(400, "Select an active job category.");
         }
 
         const slug = existingJob ? `${baseSlug}-${randomUUID().slice(0, 8)}` : baseSlug;
+
+        const city = normalizeJobLocationPart(data.city);
+        const countryCode = normalizeJobCountryCode(data.countryCode);
+        const stateRegion = normalizeJobStateRegion(data.stateRegion, countryCode);
+        const locationIssues = getStructuredJobLocationIssues({
+            workplaceType: data.workplaceType,
+            city,
+            stateRegion,
+            countryCode,
+        });
+
+        if (locationIssues.length > 0) {
+            throw new AppError(400, locationIssues.join(" "));
+        }
+
+        const location = formatStructuredJobLocation({
+            city,
+            stateRegion,
+            countryCode,
+        });
 
         const job = await transaction.job.create({
             data: {
@@ -181,7 +206,10 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
 
                 experienceLevel: data.experienceLevel,
 
-                location: data.location ?? null,
+                location,
+                city,
+                stateRegion,
+                countryCode,
 
                 salaryMin: data.salaryMin ?? null,
 
@@ -212,6 +240,9 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
                 workplaceType: true,
                 experienceLevel: true,
                 location: true,
+                city: true,
+                stateRegion: true,
+                countryCode: true,
 
                 salaryMin: true,
                 salaryMax: true,
@@ -222,6 +253,8 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
                 applicationDeadline: true,
                 publishedAt: true,
                 expiresAt: true,
+                adminHiddenAt: true,
+                adminHiddenReason: true,
 
                 createdAt: true,
                 updatedAt: true,
@@ -273,6 +306,24 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
                     },
                 },
                 {
+                    city: {
+                        contains: normalizedSearch,
+                        mode: "insensitive",
+                    },
+                },
+                {
+                    stateRegion: {
+                        contains: normalizedSearch,
+                        mode: "insensitive",
+                    },
+                },
+                {
+                    countryCode: {
+                        contains: normalizedSearch,
+                        mode: "insensitive",
+                    },
+                },
+                {
                     category: {
                         name: {
                             contains: normalizedSearch,
@@ -296,6 +347,7 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
         jobs,
         totalItems,
         statusCounts,
+        activePublishedJobs,
         expiredJobs,
     ] = await Promise.all([
         prisma.job.findMany({
@@ -317,6 +369,9 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
                 experienceLevel: true,
 
                 location: true,
+                city: true,
+                stateRegion: true,
+                countryCode: true,
 
                 salaryMin: true,
                 salaryMax: true,
@@ -327,6 +382,8 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
 
                 publishedAt: true,
                 expiresAt: true,
+                adminHiddenAt: true,
+                adminHiddenReason: true,
 
                 createdAt: true,
                 updatedAt: true,
@@ -336,6 +393,7 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
                         id: true,
                         name: true,
                         slug: true,
+                        isActive: true,
                     },
                 },
 
@@ -372,6 +430,19 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
             where: {
                 ...summaryWhere,
                 status: JobStatus.PUBLISHED,
+                adminHiddenAt: null,
+                category: { isActive: true },
+                OR: [
+                    { expiresAt: null },
+                    { expiresAt: { gt: now } },
+                ],
+            },
+        }),
+
+        prisma.job.count({
+            where: {
+                ...summaryWhere,
+                status: JobStatus.PUBLISHED,
                 expiresAt: {
                     lte: now,
                 },
@@ -388,12 +459,6 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
     const totalPages = Math.max(
         1,
         Math.ceil(totalItems / limit),
-    );
-
-    const activePublishedJobs = Math.max(
-        0,
-        getStatusCount(JobStatus.PUBLISHED) -
-            expiredJobs,
     );
 
     return {
@@ -444,6 +509,9 @@ export async function getCompanyJobById(companyId: string, jobId: string) {
             experienceLevel: true,
 
             location: true,
+            city: true,
+            stateRegion: true,
+            countryCode: true,
 
             salaryMin: true,
             salaryMax: true,
@@ -455,6 +523,8 @@ export async function getCompanyJobById(companyId: string, jobId: string) {
             applicationDeadline: true,
             publishedAt: true,
             expiresAt: true,
+            adminHiddenAt: true,
+            adminHiddenReason: true,
 
             createdAt: true,
             updatedAt: true,
@@ -464,6 +534,7 @@ export async function getCompanyJobById(companyId: string, jobId: string) {
                     id: true,
                     name: true,
                     slug: true,
+                    isActive: true,
                 },
             },
 
@@ -501,6 +572,13 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
                 categoryId: true,
                 salaryMin: true,
                 salaryMax: true,
+                workplaceType: true,
+                city: true,
+                stateRegion: true,
+                countryCode: true,
+                applicationDeadline: true,
+                publishedAt: true,
+                expiresAt: true,
             },
         });
 
@@ -508,10 +586,11 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
             throw new AppError(404, "Job not found for this company.");
         }
 
-        if (data.categoryId) {
-            const category = await transaction.jobCategory.findUnique({
+        if (data.categoryId && data.categoryId !== existingJob.categoryId) {
+            const category = await transaction.jobCategory.findFirst({
                 where: {
                     id: data.categoryId,
+                    isActive: true,
                 },
 
                 select: {
@@ -520,7 +599,7 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
             });
 
             if (!category) {
-                throw new AppError(404, "Job category not found.");
+                throw new AppError(400, "Select an active job category.");
             }
         }
 
@@ -531,6 +610,54 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
         if (salaryMin !== null && salaryMax !== null && salaryMax < salaryMin) {
             throw new AppError(400, "Maximum salary must be greater than or equal to minimum salary.");
         }
+
+        const workplaceType = data.workplaceType ?? existingJob.workplaceType;
+        const city =
+            data.city !== undefined
+                ? normalizeJobLocationPart(data.city)
+                : existingJob.city;
+        const countryCode =
+            data.countryCode !== undefined
+                ? normalizeJobCountryCode(data.countryCode)
+                : normalizeJobCountryCode(existingJob.countryCode);
+        const stateRegion =
+            data.stateRegion !== undefined || data.countryCode !== undefined
+                ? normalizeJobStateRegion(
+                      data.stateRegion !== undefined ? data.stateRegion : existingJob.stateRegion,
+                      countryCode,
+                  )
+                : existingJob.stateRegion;
+        const locationIssues = getStructuredJobLocationIssues({
+            workplaceType,
+            city,
+            stateRegion,
+            countryCode,
+        });
+
+        if (locationIssues.length > 0) {
+            throw new AppError(400, locationIssues.join(" "));
+        }
+
+        const shouldUpdateLocation =
+            data.workplaceType !== undefined ||
+            data.city !== undefined ||
+            data.stateRegion !== undefined ||
+            data.countryCode !== undefined;
+        const location = formatStructuredJobLocation({
+            city,
+            stateRegion,
+            countryCode,
+        });
+
+        const recalculatedExpiresAt =
+            data.applicationDeadline !== undefined &&
+            existingJob.status === JobStatus.PUBLISHED &&
+            existingJob.publishedAt !== null
+                ? calculateJobExpirationDate({
+                      publishedAt: existingJob.publishedAt,
+                      applicationDeadline: data.applicationDeadline,
+                  })
+                : undefined;
 
         let slug = existingJob.slug;
 
@@ -597,8 +724,11 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
                     experienceLevel: data.experienceLevel,
                 }),
 
-                ...(data.location !== undefined && {
-                    location: data.location,
+                ...(shouldUpdateLocation && {
+                    location,
+                    city,
+                    stateRegion,
+                    countryCode,
                 }),
 
                 ...(data.salaryMin !== undefined && {
@@ -620,6 +750,10 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
                 ...(data.applicationDeadline !== undefined && {
                     applicationDeadline: data.applicationDeadline,
                 }),
+
+                ...(recalculatedExpiresAt !== undefined && {
+                    expiresAt: recalculatedExpiresAt,
+                }),
             },
 
             select: {
@@ -635,6 +769,9 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
                 workplaceType: true,
                 experienceLevel: true,
                 location: true,
+                city: true,
+                stateRegion: true,
+                countryCode: true,
 
                 salaryMin: true,
                 salaryMax: true,
@@ -655,6 +792,7 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
                         id: true,
                         name: true,
                         slug: true,
+                        isActive: true,
                     },
                 },
 
@@ -760,11 +898,21 @@ export async function publishJob({ companyId, jobId, actorUserId }: JobMutationP
                 slug: true,
                 description: true,
                 categoryId: true,
+                category: {
+                    select: {
+                        isActive: true,
+                    },
+                },
 
                 salaryMin: true,
                 salaryMax: true,
                 salaryCurrency: true,
                 salaryPeriod: true,
+
+                workplaceType: true,
+                city: true,
+                stateRegion: true,
+                countryCode: true,
 
                 applicationDeadline: true,
 
@@ -804,11 +952,22 @@ export async function publishJob({ companyId, jobId, actorUserId }: JobMutationP
 
         if (!existingJob.categoryId) {
             readinessIssues.push("Select a job category.");
+        } else if (!existingJob.category.isActive) {
+            readinessIssues.push("Select an active job category. This category is no longer available for new public listings.");
         }
 
         if (existingJob.applicationDeadline && existingJob.applicationDeadline <= new Date()) {
             readinessIssues.push("Set a future application deadline or remove the expired deadline.");
         }
+
+        readinessIssues.push(
+            ...getStructuredJobLocationIssues({
+                workplaceType: existingJob.workplaceType,
+                city: existingJob.city,
+                stateRegion: existingJob.stateRegion,
+                countryCode: normalizeJobCountryCode(existingJob.countryCode),
+            }),
+        );
 
         const hasSalary = existingJob.salaryMin !== null || existingJob.salaryMax !== null;
 
@@ -935,6 +1094,15 @@ export async function renewJob({
                         status: true,
                         expiresAt: true,
                         applicationDeadline: true,
+                        workplaceType: true,
+                        city: true,
+                        stateRegion: true,
+                        countryCode: true,
+                        category: {
+                            select: {
+                                isActive: true,
+                            },
+                        },
                     },
                 });
 
@@ -952,6 +1120,27 @@ export async function renewJob({
                 throw new AppError(
                     400,
                     "Only published jobs can be renewed.",
+                );
+            }
+
+            if (!existingJob.category.isActive) {
+                throw new AppError(
+                    400,
+                    "Select an active job category before renewing this job.",
+                );
+            }
+
+            const locationIssues = getStructuredJobLocationIssues({
+                workplaceType: existingJob.workplaceType,
+                city: existingJob.city,
+                stateRegion: existingJob.stateRegion,
+                countryCode: normalizeJobCountryCode(existingJob.countryCode),
+            });
+
+            if (locationIssues.length > 0) {
+                throw new AppError(
+                    400,
+                    `Update the job location before renewing. ${locationIssues.join(" ")}`,
                 );
             }
 

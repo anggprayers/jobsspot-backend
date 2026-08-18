@@ -6,6 +6,10 @@ import { prisma } from "../../lib/prisma.js";
 import { AuditAction, AuditEntityType } from "../audit-log/audit-log.constants.js";
 
 import { createCompanyAuditLog } from "../audit-log/audit-log.service.js";
+import { createApplicationStatusChangedNotification } from "../notification/application-notification.service.js";
+import { runNotificationTaskSafely } from "../notification/notification.service.js";
+import { createResumeDownloadUrl } from "../resume/resume-storage.service.js";
+import { createCoverLetterDownloadUrl } from "../job-seeker-application/application-cover-letter-storage.service.js";
 
 type GetCompanyApplicationsParameters = {
     companyId: string;
@@ -26,7 +30,6 @@ type UpdateCompanyApplicationStatusParameters = GetCompanyApplicationParameters 
 
     status:
         | typeof ApplicationStatus.UNDER_REVIEW
-        | typeof ApplicationStatus.SHORTLISTED
         | typeof ApplicationStatus.INTERVIEW
         | typeof ApplicationStatus.OFFERED
         | typeof ApplicationStatus.HIRED
@@ -38,6 +41,7 @@ const applicationListSelect = {
     status: true,
     appliedAt: true,
     reviewedAt: true,
+    firstViewedAt: true,
     withdrawnAt: true,
     updatedAt: true,
 
@@ -49,6 +53,7 @@ const applicationListSelect = {
             email: true,
             phone: true,
             avatarUrl: true,
+            deletedAt: true,
 
             jobSeekerProfile: {
                 select: {
@@ -79,6 +84,45 @@ const applicationListSelect = {
     },
 } satisfies Prisma.ApplicationSelect;
 
+
+function serializeApplicationForEmployer<
+    T extends {
+        applicant: {
+            deletedAt: Date | null;
+            email: string;
+            phone: string | null;
+            avatarUrl: string | null;
+            firstName: string;
+            lastName: string;
+            jobSeekerProfile: unknown;
+        };
+    },
+>(application: T) {
+    if (!application.applicant.deletedAt) {
+        const { deletedAt: _deletedAt, ...applicant } = application.applicant;
+        return {
+            ...application,
+            applicant: { ...applicant, isDeleted: false as const },
+        };
+    }
+
+    const { deletedAt: _deletedAt, ...restApplicant } = application.applicant;
+
+    return {
+        ...application,
+        applicant: {
+            ...restApplicant,
+            firstName: "Deleted",
+            lastName: "User",
+            email: null,
+            phone: null,
+            avatarUrl: null,
+            jobSeekerProfile: null,
+            isDeleted: true as const,
+        },
+    };
+}
+
 export async function getCompanyApplications({
     companyId,
     search,
@@ -95,9 +139,6 @@ export async function getCompanyApplications({
             deletedAt: null,
         },
 
-        applicant: {
-            deletedAt: null,
-        },
     };
 
     const where: Prisma.ApplicationWhereInput = {
@@ -211,7 +252,7 @@ export async function getCompanyApplications({
     const totalPages = Math.max(1, Math.ceil(totalItems / limit));
 
     return {
-        applications,
+        applications: applications.map(serializeApplicationForEmployer),
 
         summary: {
             totalApplications,
@@ -239,82 +280,161 @@ export async function getCompanyApplications({
 }
 
 export async function getCompanyApplicationById({ companyId, applicationId }: GetCompanyApplicationParameters) {
+    const result = await prisma.$transaction(async (transaction) => {
+        const application = await transaction.application.findFirst({
+            where: {
+                id: applicationId,
+
+                job: {
+                    companyId,
+                    deletedAt: null,
+                },
+
+            },
+
+            select: {
+                id: true,
+                coverLetter: true,
+                coverLetterFileName: true,
+                coverLetterFileMimeType: true,
+                coverLetterFileSize: true,
+                status: true,
+                appliedAt: true,
+                reviewedAt: true,
+                firstViewedAt: true,
+                withdrawnAt: true,
+                createdAt: true,
+                updatedAt: true,
+
+                applicant: {
+                    select: {
+                        id: true,
+                        firstName: true,
+                        lastName: true,
+                        email: true,
+                        phone: true,
+                        avatarUrl: true,
+                        deletedAt: true,
+                        createdAt: true,
+
+                        jobSeekerProfile: {
+                            select: {
+                                headline: true,
+                                summary: true,
+                                location: true,
+                                websiteUrl: true,
+                                linkedInUrl: true,
+                                yearsOfExperience: true,
+                            },
+                        },
+                    },
+                },
+
+                job: {
+                    select: {
+                        id: true,
+                        title: true,
+                        slug: true,
+                        status: true,
+                        employmentType: true,
+                        workplaceType: true,
+                        experienceLevel: true,
+                        location: true,
+
+                        company: {
+                            select: {
+                                id: true,
+                                name: true,
+                            },
+                        },
+
+                        category: {
+                            select: {
+                                id: true,
+                                name: true,
+                                slug: true,
+                            },
+                        },
+                    },
+                },
+
+                resume: {
+                    select: {
+                        id: true,
+                        name: true,
+                        mimeType: true,
+                        fileSize: true,
+                        createdAt: true,
+                    },
+                },
+            },
+        });
+
+        if (!application) {
+            throw new AppError(404, "Application not found for this company.");
+        }
+
+        if (application.firstViewedAt || application.applicant.deletedAt) {
+            return { application, notificationContext: null };
+        }
+
+        const firstViewedAt = new Date();
+
+        const viewUpdate = await transaction.application.updateMany({
+            where: {
+                id: application.id,
+                firstViewedAt: null,
+            },
+            data: { firstViewedAt },
+        });
+
+        if (viewUpdate.count === 1) {
+            return {
+                application: { ...application, firstViewedAt },
+                notificationContext: {
+                    applicationId: application.id,
+                    applicantId: application.applicant.id,
+                    jobId: application.job.id,
+                    jobTitle: application.job.title,
+                    companyId: application.job.company.id,
+                    companyName: application.job.company.name,
+                },
+            };
+        }
+
+        return { application, notificationContext: null };
+    });
+
+    // Viewing an application is no longer a candidate-facing event in the
+    // admin-managed JobsSpot model. firstViewedAt is kept temporarily for
+    // legacy compatibility, but no notification is created.
+    return serializeApplicationForEmployer(result.application);
+}
+
+export async function getCompanyApplicationResumeDownload({
+    companyId,
+    applicationId,
+}: GetCompanyApplicationParameters) {
     const application = await prisma.application.findFirst({
         where: {
             id: applicationId,
-
             job: {
                 companyId,
                 deletedAt: null,
             },
-
             applicant: {
                 deletedAt: null,
             },
         },
-
         select: {
             id: true,
-            coverLetter: true,
-            status: true,
-            appliedAt: true,
-            reviewedAt: true,
-            withdrawnAt: true,
-            createdAt: true,
-            updatedAt: true,
-
-            applicant: {
-                select: {
-                    id: true,
-                    firstName: true,
-                    lastName: true,
-                    email: true,
-                    phone: true,
-                    avatarUrl: true,
-                    createdAt: true,
-
-                    jobSeekerProfile: {
-                        select: {
-                            headline: true,
-                            summary: true,
-                            location: true,
-                            websiteUrl: true,
-                            linkedInUrl: true,
-                            yearsOfExperience: true,
-                        },
-                    },
-                },
-            },
-
-            job: {
-                select: {
-                    id: true,
-                    title: true,
-                    slug: true,
-                    status: true,
-                    employmentType: true,
-                    workplaceType: true,
-                    experienceLevel: true,
-                    location: true,
-
-                    category: {
-                        select: {
-                            id: true,
-                            name: true,
-                            slug: true,
-                        },
-                    },
-                },
-            },
-
             resume: {
                 select: {
                     id: true,
                     name: true,
-                    fileUrl: true,
+                    fileKey: true,
                     mimeType: true,
                     fileSize: true,
-                    createdAt: true,
                 },
             },
         },
@@ -324,7 +444,76 @@ export async function getCompanyApplicationById({ companyId, applicationId }: Ge
         throw new AppError(404, "Application not found for this company.");
     }
 
-    return application;
+    if (!application.resume) {
+        throw new AppError(404, "No resume is attached to this application.");
+    }
+
+    const downloadUrl = await createResumeDownloadUrl({
+        fileKey: application.resume.fileKey,
+    });
+
+    return {
+        resume: {
+            id: application.resume.id,
+            name: application.resume.name,
+            mimeType: application.resume.mimeType,
+            fileSize: application.resume.fileSize,
+        },
+        downloadUrl,
+        expiresInSeconds: 5 * 60,
+    };
+}
+
+export async function getCompanyApplicationCoverLetterDownload({
+    companyId,
+    applicationId,
+}: GetCompanyApplicationParameters) {
+    const application = await prisma.application.findFirst({
+        where: {
+            id: applicationId,
+            job: {
+                companyId,
+                deletedAt: null,
+            },
+            applicant: {
+                deletedAt: null,
+            },
+        },
+        select: {
+            id: true,
+            coverLetterFileKey: true,
+            coverLetterFileName: true,
+            coverLetterFileMimeType: true,
+            coverLetterFileSize: true,
+        },
+    });
+
+    if (!application) {
+        throw new AppError(404, "Application not found for this company.");
+    }
+
+    if (
+        !application.coverLetterFileKey ||
+        !application.coverLetterFileName ||
+        !application.coverLetterFileMimeType ||
+        application.coverLetterFileSize === null
+    ) {
+        throw new AppError(404, "No cover letter file is attached to this application.");
+    }
+
+    const downloadUrl = await createCoverLetterDownloadUrl({
+        fileKey: application.coverLetterFileKey,
+    });
+
+    return {
+        coverLetterFile: {
+            name: application.coverLetterFileName,
+            mimeType: application.coverLetterFileMimeType,
+            fileSize: application.coverLetterFileSize,
+        },
+        downloadUrl,
+        expiresInSeconds: 5 * 60,
+    };
 }
 
 export async function updateCompanyApplicationStatus({
@@ -333,7 +522,7 @@ export async function updateCompanyApplicationStatus({
     actorUserId,
     status,
 }: UpdateCompanyApplicationStatusParameters) {
-    return prisma.$transaction(async (transaction) => {
+    const result = await prisma.$transaction(async (transaction) => {
         const existingApplication = await transaction.application.findFirst({
             where: {
                 id: applicationId,
@@ -342,7 +531,6 @@ export async function updateCompanyApplicationStatus({
                     companyId,
                     deletedAt: null,
                 },
-
                 applicant: {
                     deletedAt: null,
                 },
@@ -365,6 +553,13 @@ export async function updateCompanyApplicationStatus({
                     select: {
                         id: true,
                         title: true,
+
+                        company: {
+                            select: {
+                                id: true,
+                                name: true,
+                            },
+                        },
                     },
                 },
             },
@@ -379,50 +574,69 @@ export async function updateCompanyApplicationStatus({
         }
 
         if (existingApplication.status === status) {
-            throw new AppError(400, `Application is already marked as ${status.toLowerCase().replaceAll("_", " ")}.`);
+            throw new AppError(
+                400,
+                `Application is already marked as ${status.toLowerCase().replaceAll("_", " ")}.`,
+            );
         }
 
         const previousStatus = existingApplication.status;
 
         const application = await transaction.application.update({
-            where: {
-                id: applicationId,
-            },
-
+            where: { id: applicationId },
             data: {
                 status,
-
                 reviewedAt: existingApplication.reviewedAt ?? new Date(),
             },
-
             select: applicationListSelect,
         });
 
         const applicantName =
             `${existingApplication.applicant.firstName} ${existingApplication.applicant.lastName}`.trim();
 
-        await createCompanyAuditLog({
+        const auditLog = await createCompanyAuditLog({
             transaction,
             companyId,
             actorUserId,
             action: AuditAction.APPLICATION_STATUS_CHANGED,
             entityType: AuditEntityType.APPLICATION,
             entityId: existingApplication.id,
-
             metadata: {
                 applicationId: existingApplication.id,
-
                 applicantId: existingApplication.applicant.id,
                 applicantName,
-
                 jobId: existingApplication.job.id,
                 jobTitle: existingApplication.job.title,
-
                 previousStatus,
                 newStatus: status,
             },
         });
 
-        return application;
+        return {
+            application,
+            notificationContext: {
+                applicationId: existingApplication.id,
+                applicantId: existingApplication.applicant.id,
+                applicantName,
+                jobId: existingApplication.job.id,
+                jobTitle: existingApplication.job.title,
+                companyId: existingApplication.job.company.id,
+                companyName: existingApplication.job.company.name,
+                previousStatus,
+                newStatus: status,
+                eventId: auditLog.id,
+            },
+        };
     });
+
+    await runNotificationTaskSafely(
+        `application status changed (${result.application.id})`,
+        () =>
+            createApplicationStatusChangedNotification({
+                client: prisma,
+                ...result.notificationContext,
+            }),
+    );
+
+    return serializeApplicationForEmployer(result.application);
 }

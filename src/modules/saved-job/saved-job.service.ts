@@ -23,6 +23,7 @@ const savedJobSelect = {
             slug: true,
             status: true,
             deletedAt: true,
+            adminHiddenAt: true,
 
             employmentType: true,
             workplaceType: true,
@@ -46,6 +47,7 @@ const savedJobSelect = {
                     slug: true,
                     logoUrl: true,
                     deletedAt: true,
+                    suspendedAt: true,
                 },
             },
 
@@ -54,6 +56,7 @@ const savedJobSelect = {
                     id: true,
                     name: true,
                     slug: true,
+                    isActive: true,
                 },
             },
         },
@@ -70,7 +73,10 @@ function isJobAvailable(savedJob: SelectedSavedJob): boolean {
     return (
         savedJob.job.status === JobStatus.PUBLISHED &&
         savedJob.job.deletedAt === null &&
+        savedJob.job.adminHiddenAt === null &&
         savedJob.job.company.deletedAt === null &&
+        savedJob.job.company.suspendedAt === null &&
+        savedJob.job.category.isActive &&
         (savedJob.job.expiresAt === null ||
             savedJob.job.expiresAt > now)
     );
@@ -79,12 +85,14 @@ function isJobAvailable(savedJob: SelectedSavedJob): boolean {
 function formatSavedJob(savedJob: SelectedSavedJob) {
     const {
         deletedAt: _jobDeletedAt,
+        adminHiddenAt: _adminHiddenAt,
         company,
         ...job
     } = savedJob.job;
 
     const {
         deletedAt: _companyDeletedAt,
+        suspendedAt: _companySuspendedAt,
         ...publicCompany
     } = company;
 
@@ -194,11 +202,18 @@ export async function saveJobForUser({
             id: true,
             status: true,
             deletedAt: true,
+            adminHiddenAt: true,
             expiresAt: true,
 
             company: {
                 select: {
                     deletedAt: true,
+                    suspendedAt: true,
+                },
+            },
+            category: {
+                select: {
+                    isActive: true,
                 },
             },
         },
@@ -207,7 +222,10 @@ export async function saveJobForUser({
     if (
         !job ||
         job.deletedAt !== null ||
-        job.company.deletedAt !== null
+        job.adminHiddenAt !== null ||
+        job.company.deletedAt !== null ||
+        job.company.suspendedAt !== null ||
+        !job.category.isActive
     ) {
         throw new AppError(404, "Job not found.");
     }

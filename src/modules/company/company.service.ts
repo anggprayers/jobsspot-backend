@@ -111,6 +111,7 @@ export async function getCompanyBySlug(slug: string) {
         where: {
             slug,
             deletedAt: null,
+            suspendedAt: null,
         },
 
         select: {
@@ -132,6 +133,8 @@ export async function getCompanyBySlug(slug: string) {
                 where: {
                     status: JobStatus.PUBLISHED,
                     deletedAt: null,
+                    adminHiddenAt: null,
+                    category: { isActive: true },
 
                     OR: [
                         {
@@ -153,11 +156,15 @@ export async function getCompanyBySlug(slug: string) {
                     workplaceType: true,
                     experienceLevel: true,
                     location: true,
+                    city: true,
+                    stateRegion: true,
+                    countryCode: true,
                     salaryMin: true,
                     salaryMax: true,
                     salaryCurrency: true,
                     salaryPeriod: true,
                     publishedAt: true,
+                    updatedAt: true,
                     createdAt: true,
 
                     category: {
@@ -204,6 +211,28 @@ type UpdateCompanyParameters = CompanyAccessParameters & {
 };
 
 async function requireCompanyManagementAccess({ companyId, userId }: CompanyAccessParameters) {
+    const company = await prisma.company.findFirst({
+        where: {
+            id: companyId,
+            deletedAt: null,
+        },
+        select: {
+            id: true,
+            suspendedAt: true,
+        },
+    });
+
+    if (!company) {
+        throw new AppError(404, "Company not found.");
+    }
+
+    if (company.suspendedAt) {
+        throw new AppError(
+            403,
+            "This company workspace has been suspended. Contact JobsSpot support for assistance.",
+        );
+    }
+
     const membership = await prisma.companyMembership.findFirst({
         where: {
             companyId,
@@ -212,10 +241,6 @@ async function requireCompanyManagementAccess({ companyId, userId }: CompanyAcce
 
             role: {
                 in: [CompanyMemberRole.OWNER, CompanyMemberRole.ADMIN],
-            },
-
-            company: {
-                deletedAt: null,
             },
         },
 

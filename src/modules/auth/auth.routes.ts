@@ -12,6 +12,7 @@ import { validate } from "../../middleware/validate.js";
 
 import {
     changePassword,
+    deleteAccount,
     forgotPassword,
     getCurrentUser,
     googleLogin,
@@ -27,6 +28,7 @@ import {
 
 import {
     changePasswordSchema,
+    deleteAccountSchema,
     forgotPasswordSchema,
     googleLoginSchema,
     loginSchema,
@@ -143,6 +145,16 @@ authRouter.patch(
     sensitiveAccountRateLimiter,
     validate(changePasswordSchema),
     asyncHandler(changePassword),
+);
+
+// POST /api/auth/account-deletion
+// Permanently disable the authenticated account, anonymize personal data, and remove private files.
+authRouter.post(
+    "/account-deletion",
+    asyncHandler(requireAuth),
+    sensitiveAccountRateLimiter,
+    validate(deleteAccountSchema),
+    asyncHandler(deleteAccount),
 );
 
 export default authRouter;

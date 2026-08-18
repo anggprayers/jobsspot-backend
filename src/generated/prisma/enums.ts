@@ -100,3 +100,46 @@ export const SavedSearchAlertFrequency = {
 } as const
 
 export type SavedSearchAlertFrequency = (typeof SavedSearchAlertFrequency)[keyof typeof SavedSearchAlertFrequency]
+
+
+export const NotificationAudience = {
+  JOB_SEEKER: 'JOB_SEEKER',
+  EMPLOYER: 'EMPLOYER',
+  ADMIN: 'ADMIN',
+  SYSTEM: 'SYSTEM'
+} as const
+
+export type NotificationAudience = (typeof NotificationAudience)[keyof typeof NotificationAudience]
+
+
+export const JobReportReason = {
+  SCAM_FRAUD: 'SCAM_FRAUD',
+  MISLEADING: 'MISLEADING',
+  DISCRIMINATION: 'DISCRIMINATION',
+  SPAM_DUPLICATE: 'SPAM_DUPLICATE',
+  INAPPROPRIATE: 'INAPPROPRIATE',
+  OTHER: 'OTHER'
+} as const
+
+export type JobReportReason = (typeof JobReportReason)[keyof typeof JobReportReason]
+
+
+export const JobReportStatus = {
+  PENDING: 'PENDING',
+  UNDER_REVIEW: 'UNDER_REVIEW',
+  RESOLVED: 'RESOLVED',
+  DISMISSED: 'DISMISSED'
+} as const
+
+export type JobReportStatus = (typeof JobReportStatus)[keyof typeof JobReportStatus]
+
+
+export const JobSubmissionStatus = {
+  SUBMITTED: 'SUBMITTED',
+  CONTACTED: 'CONTACTED',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED',
+  PUBLISHED: 'PUBLISHED'
+} as const
+
+export type JobSubmissionStatus = (typeof JobSubmissionStatus)[keyof typeof JobSubmissionStatus]

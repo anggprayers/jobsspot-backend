@@ -2,9 +2,13 @@ import app from "./app.js";
 import { env } from "./config/env.js";
 import { prisma } from "./lib/prisma.js";
 
-const server = app.listen(env.PORT, () => {
-    console.log(`JobsSpot API running at http://localhost:${env.PORT}`);
+const server = app.listen(env.PORT, "0.0.0.0", () => {
+    console.log(`JobsSpot API listening on port ${env.PORT}.`);
 });
+
+// Keep proxy connections stable during normal Render traffic and deploys.
+server.keepAliveTimeout = 120_000;
+server.headersTimeout = 125_000;
 
 let isShuttingDown = false;
 
@@ -17,6 +21,12 @@ async function shutdown(signal: string) {
 
     console.log(`${signal} received. Shutting down gracefully.`);
 
+    const forceShutdownTimer = setTimeout(() => {
+        console.error("Graceful shutdown timed out. Forcing process exit.");
+        process.exit(1);
+    }, 10_000);
+    forceShutdownTimer.unref();
+
     server.close(async (error) => {
         if (error) {
             console.error("Failed to close the HTTP server:", error);
@@ -25,6 +35,7 @@ async function shutdown(signal: string) {
 
         try {
             await prisma.$disconnect();
+            clearTimeout(forceShutdownTimer);
             console.log("Database connection closed.");
             console.log("HTTP server closed.");
 
