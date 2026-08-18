@@ -9,7 +9,9 @@
         "prebuild": "prisma generate",
         "build": "tsc",
         "start": "node dist/server.js",
-        "type-check": "tsc --noEmit"
+        "type-check": "tsc --noEmit",
+        "db:migrate:deploy": "prisma migrate deploy",
+        "db:migrate:status": "prisma migrate status"
     },
     "keywords": [],
     "author": "",

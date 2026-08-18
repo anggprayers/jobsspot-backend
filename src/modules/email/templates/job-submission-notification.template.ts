@@ -9,6 +9,8 @@ import {
     renderEmailLayout,
 } from "./email-layout.js";
 
+import { formatJobsSpotDateTime } from "../../../utils/jobs-spot-time.js";
+
 const workplaceLabels: Record<WorkplaceType, string> = {
     ONSITE: "On-site",
     REMOTE: "Remote",
@@ -74,7 +76,7 @@ export function createJobSubmissionNotificationTemplate({
     const safeContactName = escapeHtml(contactName ?? "Not provided");
     const safeContactEmail = escapeHtml(contactEmail);
     const safeContactPhone = escapeHtml(contactPhone ?? "Not provided");
-    const safeReceivedAt = escapeHtml(receivedAt.toISOString());
+    const safeReceivedAt = escapeHtml(formatJobsSpotDateTime(receivedAt));
     const safeIpAddress = escapeHtml(ipAddress ?? "Unavailable");
     const safeUserAgent = escapeHtml(userAgent ?? "Unavailable");
 
@@ -82,7 +84,7 @@ export function createJobSubmissionNotificationTemplate({
         "New JobsSpot job submission",
         "",
         `Reference: ${referenceCode}`,
-        `Received: ${receivedAt.toISOString()}`,
+        `Received: ${formatJobsSpotDateTime(receivedAt)}`,
         `Job: ${jobTitle}`,
         `Company: ${companyName}`,
         `Company website: ${companyWebsite ?? "Not provided"}`,
