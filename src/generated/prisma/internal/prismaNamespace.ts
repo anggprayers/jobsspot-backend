@@ -3025,6 +3025,7 @@ export const JobScalarFieldEnum = {
   salaryPeriod: 'salaryPeriod',
   status: 'status',
   applicationDeadline: 'applicationDeadline',
+  publicContactEmail: 'publicContactEmail',
   publishedAt: 'publishedAt',
   expiresAt: 'expiresAt',
   createdAt: 'createdAt',

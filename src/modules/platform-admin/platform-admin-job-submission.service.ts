@@ -566,6 +566,7 @@ export async function publishPlatformJobSubmission(
                 salaryCurrency: input.job.salaryCurrency,
                 salaryPeriod: input.job.salaryPeriod ?? null,
                 applicationDeadline,
+                publicContactEmail: input.job.publicContactEmail ?? null,
                 status: JobStatus.PUBLISHED,
                 publishedAt: now,
                 expiresAt,

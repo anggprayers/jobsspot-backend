@@ -527,6 +527,7 @@ model Job {
   salaryPeriod        SalaryPeriod?
   status              JobStatus       @default(DRAFT)
   applicationDeadline DateTime?
+  publicContactEmail  String?         @db.VarChar(254)
   publishedAt         DateTime?
   expiresAt           DateTime?
   createdAt           DateTime        @default(now())

@@ -59,6 +59,7 @@ export type JobMinAggregateOutputType = {
   salaryPeriod: $Enums.SalaryPeriod | null
   status: $Enums.JobStatus | null
   applicationDeadline: Date | null
+  publicContactEmail: string | null
   publishedAt: Date | null
   expiresAt: Date | null
   createdAt: Date | null
@@ -92,6 +93,7 @@ export type JobMaxAggregateOutputType = {
   salaryPeriod: $Enums.SalaryPeriod | null
   status: $Enums.JobStatus | null
   applicationDeadline: Date | null
+  publicContactEmail: string | null
   publishedAt: Date | null
   expiresAt: Date | null
   createdAt: Date | null
@@ -125,6 +127,7 @@ export type JobCountAggregateOutputType = {
   salaryPeriod: number
   status: number
   applicationDeadline: number
+  publicContactEmail: number
   publishedAt: number
   expiresAt: number
   createdAt: number
@@ -170,6 +173,7 @@ export type JobMinAggregateInputType = {
   salaryPeriod?: true
   status?: true
   applicationDeadline?: true
+  publicContactEmail?: true
   publishedAt?: true
   expiresAt?: true
   createdAt?: true
@@ -203,6 +207,7 @@ export type JobMaxAggregateInputType = {
   salaryPeriod?: true
   status?: true
   applicationDeadline?: true
+  publicContactEmail?: true
   publishedAt?: true
   expiresAt?: true
   createdAt?: true
@@ -236,6 +241,7 @@ export type JobCountAggregateInputType = {
   salaryPeriod?: true
   status?: true
   applicationDeadline?: true
+  publicContactEmail?: true
   publishedAt?: true
   expiresAt?: true
   createdAt?: true
@@ -356,6 +362,7 @@ export type JobGroupByOutputType = {
   salaryPeriod: $Enums.SalaryPeriod | null
   status: $Enums.JobStatus
   applicationDeadline: Date | null
+  publicContactEmail: string | null
   publishedAt: Date | null
   expiresAt: Date | null
   createdAt: Date
@@ -412,6 +419,7 @@ export type JobWhereInput = {
   salaryPeriod?: Prisma.EnumSalaryPeriodNullableFilter<"Job"> | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFilter<"Job"> | $Enums.JobStatus
   applicationDeadline?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
+  publicContactEmail?: Prisma.StringNullableFilter<"Job"> | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   expiresAt?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Job"> | Date | string
@@ -454,6 +462,7 @@ export type JobOrderByWithRelationInput = {
   salaryPeriod?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   applicationDeadline?: Prisma.SortOrderInput | Prisma.SortOrder
+  publicContactEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -499,6 +508,7 @@ export type JobWhereUniqueInput = Prisma.AtLeast<{
   salaryPeriod?: Prisma.EnumSalaryPeriodNullableFilter<"Job"> | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFilter<"Job"> | $Enums.JobStatus
   applicationDeadline?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
+  publicContactEmail?: Prisma.StringNullableFilter<"Job"> | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   expiresAt?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Job"> | Date | string
@@ -541,6 +551,7 @@ export type JobOrderByWithAggregationInput = {
   salaryPeriod?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
   applicationDeadline?: Prisma.SortOrderInput | Prisma.SortOrder
+  publicContactEmail?: Prisma.SortOrderInput | Prisma.SortOrder
   publishedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   expiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -582,6 +593,7 @@ export type JobScalarWhereWithAggregatesInput = {
   salaryPeriod?: Prisma.EnumSalaryPeriodNullableWithAggregatesFilter<"Job"> | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusWithAggregatesFilter<"Job"> | $Enums.JobStatus
   applicationDeadline?: Prisma.DateTimeNullableWithAggregatesFilter<"Job"> | Date | string | null
+  publicContactEmail?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
   publishedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Job"> | Date | string | null
   expiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Job"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Job"> | Date | string
@@ -612,6 +624,7 @@ export type JobCreateInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -653,6 +666,7 @@ export type JobUncheckedCreateInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -688,6 +702,7 @@ export type JobUpdateInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -729,6 +744,7 @@ export type JobUncheckedUpdateInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -767,6 +783,7 @@ export type JobCreateManyInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -797,6 +814,7 @@ export type JobUpdateManyMutationInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -829,6 +847,7 @@ export type JobUncheckedUpdateManyInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -872,6 +891,7 @@ export type JobCountOrderByAggregateInput = {
   salaryPeriod?: Prisma.SortOrder
   status?: Prisma.SortOrder
   applicationDeadline?: Prisma.SortOrder
+  publicContactEmail?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -910,6 +930,7 @@ export type JobMaxOrderByAggregateInput = {
   salaryPeriod?: Prisma.SortOrder
   status?: Prisma.SortOrder
   applicationDeadline?: Prisma.SortOrder
+  publicContactEmail?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -943,6 +964,7 @@ export type JobMinOrderByAggregateInput = {
   salaryPeriod?: Prisma.SortOrder
   status?: Prisma.SortOrder
   applicationDeadline?: Prisma.SortOrder
+  publicContactEmail?: Prisma.SortOrder
   publishedAt?: Prisma.SortOrder
   expiresAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -1256,6 +1278,7 @@ export type JobCreateWithoutCreatedByInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -1295,6 +1318,7 @@ export type JobUncheckedCreateWithoutCreatedByInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -1340,6 +1364,7 @@ export type JobCreateWithoutAdminHiddenByInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -1380,6 +1405,7 @@ export type JobUncheckedCreateWithoutAdminHiddenByInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -1446,6 +1472,7 @@ export type JobScalarWhereInput = {
   salaryPeriod?: Prisma.EnumSalaryPeriodNullableFilter<"Job"> | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFilter<"Job"> | $Enums.JobStatus
   applicationDeadline?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
+  publicContactEmail?: Prisma.StringNullableFilter<"Job"> | string | null
   publishedAt?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   expiresAt?: Prisma.DateTimeNullableFilter<"Job"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Job"> | Date | string
@@ -1492,6 +1519,7 @@ export type JobCreateWithoutCompanyInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -1531,6 +1559,7 @@ export type JobUncheckedCreateWithoutCompanyInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -1592,6 +1621,7 @@ export type JobCreateWithoutCategoryInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -1631,6 +1661,7 @@ export type JobUncheckedCreateWithoutCategoryInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -1692,6 +1723,7 @@ export type JobCreateWithoutSkillsInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -1732,6 +1764,7 @@ export type JobUncheckedCreateWithoutSkillsInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -1782,6 +1815,7 @@ export type JobUpdateWithoutSkillsInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1822,6 +1856,7 @@ export type JobUncheckedUpdateWithoutSkillsInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1856,6 +1891,7 @@ export type JobCreateWithoutApplicationsInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -1896,6 +1932,7 @@ export type JobUncheckedCreateWithoutApplicationsInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -1946,6 +1983,7 @@ export type JobUpdateWithoutApplicationsInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1986,6 +2024,7 @@ export type JobUncheckedUpdateWithoutApplicationsInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2020,6 +2059,7 @@ export type JobCreateWithoutJobSubmissionInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -2060,6 +2100,7 @@ export type JobUncheckedCreateWithoutJobSubmissionInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -2110,6 +2151,7 @@ export type JobUpdateWithoutJobSubmissionInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2150,6 +2192,7 @@ export type JobUncheckedUpdateWithoutJobSubmissionInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2184,6 +2227,7 @@ export type JobCreateWithoutReportsInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -2224,6 +2268,7 @@ export type JobUncheckedCreateWithoutReportsInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -2274,6 +2319,7 @@ export type JobUpdateWithoutReportsInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2314,6 +2360,7 @@ export type JobUncheckedUpdateWithoutReportsInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2348,6 +2395,7 @@ export type JobCreateWithoutSavedByUsersInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -2388,6 +2436,7 @@ export type JobUncheckedCreateWithoutSavedByUsersInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -2438,6 +2487,7 @@ export type JobUpdateWithoutSavedByUsersInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2478,6 +2528,7 @@ export type JobUncheckedUpdateWithoutSavedByUsersInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2514,6 +2565,7 @@ export type JobCreateManyCreatedByInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -2547,6 +2599,7 @@ export type JobCreateManyAdminHiddenByInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -2576,6 +2629,7 @@ export type JobUpdateWithoutCreatedByInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2615,6 +2669,7 @@ export type JobUncheckedUpdateWithoutCreatedByInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2652,6 +2707,7 @@ export type JobUncheckedUpdateManyWithoutCreatedByInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2682,6 +2738,7 @@ export type JobUpdateWithoutAdminHiddenByInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2722,6 +2779,7 @@ export type JobUncheckedUpdateWithoutAdminHiddenByInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2759,6 +2817,7 @@ export type JobUncheckedUpdateManyWithoutAdminHiddenByInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2790,6 +2849,7 @@ export type JobCreateManyCompanyInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -2820,6 +2880,7 @@ export type JobUpdateWithoutCompanyInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2859,6 +2920,7 @@ export type JobUncheckedUpdateWithoutCompanyInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2896,6 +2958,7 @@ export type JobUncheckedUpdateManyWithoutCompanyInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2928,6 +2991,7 @@ export type JobCreateManyCategoryInput = {
   salaryPeriod?: $Enums.SalaryPeriod | null
   status?: $Enums.JobStatus
   applicationDeadline?: Date | string | null
+  publicContactEmail?: string | null
   publishedAt?: Date | string | null
   expiresAt?: Date | string | null
   createdAt?: Date | string
@@ -2958,6 +3022,7 @@ export type JobUpdateWithoutCategoryInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -2997,6 +3062,7 @@ export type JobUncheckedUpdateWithoutCategoryInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3034,6 +3100,7 @@ export type JobUncheckedUpdateManyWithoutCategoryInput = {
   salaryPeriod?: Prisma.NullableEnumSalaryPeriodFieldUpdateOperationsInput | $Enums.SalaryPeriod | null
   status?: Prisma.EnumJobStatusFieldUpdateOperationsInput | $Enums.JobStatus
   applicationDeadline?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  publicContactEmail?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   publishedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   expiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -3125,6 +3192,7 @@ export type JobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   salaryPeriod?: boolean
   status?: boolean
   applicationDeadline?: boolean
+  publicContactEmail?: boolean
   publishedAt?: boolean
   expiresAt?: boolean
   createdAt?: boolean
@@ -3168,6 +3236,7 @@ export type JobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   salaryPeriod?: boolean
   status?: boolean
   applicationDeadline?: boolean
+  publicContactEmail?: boolean
   publishedAt?: boolean
   expiresAt?: boolean
   createdAt?: boolean
@@ -3205,6 +3274,7 @@ export type JobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   salaryPeriod?: boolean
   status?: boolean
   applicationDeadline?: boolean
+  publicContactEmail?: boolean
   publishedAt?: boolean
   expiresAt?: boolean
   createdAt?: boolean
@@ -3242,6 +3312,7 @@ export type JobSelectScalar = {
   salaryPeriod?: boolean
   status?: boolean
   applicationDeadline?: boolean
+  publicContactEmail?: boolean
   publishedAt?: boolean
   expiresAt?: boolean
   createdAt?: boolean
@@ -3252,7 +3323,7 @@ export type JobSelectScalar = {
   adminHiddenById?: boolean
 }
 
-export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "categoryId" | "createdById" | "title" | "slug" | "description" | "requirements" | "responsibilities" | "employmentType" | "workplaceType" | "experienceLevel" | "location" | "city" | "stateRegion" | "countryCode" | "salaryMin" | "salaryMax" | "salaryCurrency" | "salaryPeriod" | "status" | "applicationDeadline" | "publishedAt" | "expiresAt" | "createdAt" | "updatedAt" | "deletedAt" | "adminHiddenAt" | "adminHiddenReason" | "adminHiddenById", ExtArgs["result"]["job"]>
+export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "categoryId" | "createdById" | "title" | "slug" | "description" | "requirements" | "responsibilities" | "employmentType" | "workplaceType" | "experienceLevel" | "location" | "city" | "stateRegion" | "countryCode" | "salaryMin" | "salaryMax" | "salaryCurrency" | "salaryPeriod" | "status" | "applicationDeadline" | "publicContactEmail" | "publishedAt" | "expiresAt" | "createdAt" | "updatedAt" | "deletedAt" | "adminHiddenAt" | "adminHiddenReason" | "adminHiddenById", ExtArgs["result"]["job"]>
 export type JobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   category?: boolean | Prisma.JobCategoryDefaultArgs<ExtArgs>
@@ -3314,6 +3385,7 @@ export type $JobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     salaryPeriod: $Enums.SalaryPeriod | null
     status: $Enums.JobStatus
     applicationDeadline: Date | null
+    publicContactEmail: string | null
     publishedAt: Date | null
     expiresAt: Date | null
     createdAt: Date
@@ -3776,6 +3848,7 @@ export interface JobFieldRefs {
   readonly salaryPeriod: Prisma.FieldRef<"Job", 'SalaryPeriod'>
   readonly status: Prisma.FieldRef<"Job", 'JobStatus'>
   readonly applicationDeadline: Prisma.FieldRef<"Job", 'DateTime'>
+  readonly publicContactEmail: Prisma.FieldRef<"Job", 'String'>
   readonly publishedAt: Prisma.FieldRef<"Job", 'DateTime'>
   readonly expiresAt: Prisma.FieldRef<"Job", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Job", 'DateTime'>

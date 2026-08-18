@@ -408,6 +408,7 @@ export async function getPlatformJobById(jobId: string) {
             salaryPeriod: true,
             status: true,
             applicationDeadline: true,
+            publicContactEmail: true,
             publishedAt: true,
             expiresAt: true,
             adminHiddenAt: true,

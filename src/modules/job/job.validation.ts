@@ -72,6 +72,23 @@ const jobFieldsSchema = z.object({
     salaryPeriod: z.enum(SalaryPeriod).optional(),
 
     applicationDeadline: z.coerce.date().optional(),
+
+    publicContactEmail: z.preprocess(
+        (value) =>
+            typeof value === "string" && value.trim() === ""
+                ? null
+                : value,
+        z
+            .union([
+                z
+                    .email("Enter a valid public contact email address.")
+                    .trim()
+                    .toLowerCase()
+                    .max(254, "Public contact email address is too long."),
+                z.null(),
+            ])
+            .optional(),
+    ),
 });
 
 function addSharedJobValidationIssues(

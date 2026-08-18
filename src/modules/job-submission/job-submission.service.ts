@@ -9,7 +9,6 @@ import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
 import { emailConfig } from "../email/email.config.js";
 import { sendTransactionalEmail } from "../email/email.service.js";
-import { createJobSubmissionConfirmationTemplate } from "../email/templates/job-submission-confirmation.template.js";
 import { createJobSubmissionNotificationTemplate } from "../email/templates/job-submission-notification.template.js";
 
 import { createAdminJobSubmissionNotifications } from "../notification/job-submission-notification.service.js";
@@ -234,23 +233,6 @@ export async function submitPublicJob({
                 replyTo: submission.contactEmail,
                 ...inboxEmail,
                 idempotencyKey: `job-submission-inbox:${submission.id}`,
-            }),
-    );
-
-    const confirmationEmail = createJobSubmissionConfirmationTemplate({
-        referenceCode: submission.referenceCode,
-        jobTitle: submission.jobTitle,
-        companyName: displayCompanyName,
-        contactName: submission.contactName,
-    });
-
-    await sendEmailSafely(
-        `submitter confirmation:${submission.referenceCode}`,
-        () =>
-            sendTransactionalEmail({
-                to: submission.contactEmail,
-                ...confirmationEmail,
-                idempotencyKey: `job-submission-confirmation:${submission.id}`,
             }),
     );
 

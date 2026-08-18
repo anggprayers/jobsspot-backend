@@ -430,6 +430,7 @@ export async function getPublicJobBySlug(
             salaryPeriod: true,
 
             applicationDeadline: true,
+            publicContactEmail: true,
             publishedAt: true,
             expiresAt: true,
             updatedAt: true,

@@ -220,6 +220,7 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
                 salaryPeriod: data.salaryPeriod ?? null,
 
                 applicationDeadline: data.applicationDeadline ?? null,
+                publicContactEmail: data.publicContactEmail ?? null,
 
                 status: JobStatus.DRAFT,
             },
@@ -251,6 +252,7 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
 
                 status: true,
                 applicationDeadline: true,
+                publicContactEmail: true,
                 publishedAt: true,
                 expiresAt: true,
                 adminHiddenAt: true,
@@ -751,6 +753,10 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
                     applicationDeadline: data.applicationDeadline,
                 }),
 
+                ...(data.publicContactEmail !== undefined && {
+                    publicContactEmail: data.publicContactEmail || null,
+                }),
+
                 ...(recalculatedExpiresAt !== undefined && {
                     expiresAt: recalculatedExpiresAt,
                 }),
@@ -781,6 +787,7 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
                 status: true,
 
                 applicationDeadline: true,
+                publicContactEmail: true,
                 publishedAt: true,
                 expiresAt: true,
 
