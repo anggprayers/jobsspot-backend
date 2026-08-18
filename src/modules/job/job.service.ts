@@ -1,6 +1,6 @@
 import { randomUUID } from "node:crypto";
 
-import { JobStatus, Prisma } from "../../generated/prisma/client.js";
+import { JobStatus, Prisma, WorkplaceType } from "../../generated/prisma/client.js";
 import { AppError } from "../../errors/AppError.js";
 import { prisma } from "../../lib/prisma.js";
 import { createSlug } from "../../utils/slug.js";
@@ -169,22 +169,14 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
         const city = normalizeJobLocationPart(data.city);
         const countryCode = normalizeJobCountryCode(data.countryCode);
         const stateRegion = normalizeJobStateRegion(data.stateRegion, countryCode);
-        const locationIssues = getStructuredJobLocationIssues({
-            workplaceType: data.workplaceType,
-            city,
-            stateRegion,
-            countryCode,
-        });
-
-        if (locationIssues.length > 0) {
-            throw new AppError(400, locationIssues.join(" "));
-        }
-
-        const location = formatStructuredJobLocation({
-            city,
-            stateRegion,
-            countryCode,
-        });
+        const location =
+            data.workplaceType === WorkplaceType.REMOTE || city || stateRegion
+                ? formatStructuredJobLocation({
+                      city,
+                      stateRegion,
+                      countryCode,
+                  })
+                : null;
 
         const job = await transaction.job.create({
             data: {
@@ -196,7 +188,8 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
                 slug,
                 description: data.description,
 
-                requirements: data.requirements ?? null,
+                requirements: data.requirements?.trim() || null,
+                preferredQualifications: data.preferredQualifications?.trim() || null,
 
                 responsibilities: data.responsibilities ?? null,
 
@@ -235,6 +228,7 @@ export async function createJob({ companyId, actorUserId, data }: CreateJobParam
                 slug: true,
                 description: true,
                 requirements: true,
+                preferredQualifications: true,
                 responsibilities: true,
 
                 employmentType: true,
@@ -362,6 +356,7 @@ export async function getCompanyJobs({ companyId, search, status, page, limit }:
 
                 description: true,
                 requirements: true,
+                preferredQualifications: true,
                 responsibilities: true,
 
                 status: true,
@@ -504,6 +499,7 @@ export async function getCompanyJobById(companyId: string, jobId: string) {
 
             description: true,
             requirements: true,
+            preferredQualifications: true,
             responsibilities: true,
 
             employmentType: true,
@@ -629,27 +625,19 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
                       countryCode,
                   )
                 : existingJob.stateRegion;
-        const locationIssues = getStructuredJobLocationIssues({
-            workplaceType,
-            city,
-            stateRegion,
-            countryCode,
-        });
-
-        if (locationIssues.length > 0) {
-            throw new AppError(400, locationIssues.join(" "));
-        }
-
         const shouldUpdateLocation =
             data.workplaceType !== undefined ||
             data.city !== undefined ||
             data.stateRegion !== undefined ||
             data.countryCode !== undefined;
-        const location = formatStructuredJobLocation({
-            city,
-            stateRegion,
-            countryCode,
-        });
+        const location =
+            workplaceType === WorkplaceType.REMOTE || city || stateRegion
+                ? formatStructuredJobLocation({
+                      city,
+                      stateRegion,
+                      countryCode,
+                  })
+                : null;
 
         const recalculatedExpiresAt =
             data.applicationDeadline !== undefined &&
@@ -707,7 +695,11 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
                 }),
 
                 ...(data.requirements !== undefined && {
-                    requirements: data.requirements,
+                    requirements: data.requirements || null,
+                }),
+
+                ...(data.preferredQualifications !== undefined && {
+                    preferredQualifications: data.preferredQualifications || null,
                 }),
 
                 ...(data.responsibilities !== undefined && {
@@ -769,6 +761,7 @@ export async function updateJob({ companyId, jobId, actorUserId, data }: UpdateJ
 
                 description: true,
                 requirements: true,
+                preferredQualifications: true,
                 responsibilities: true,
 
                 employmentType: true,
@@ -1000,18 +993,6 @@ export async function publishJob({ companyId, jobId, actorUserId }: JobMutationP
 
         if (!existingJob.company.name.trim()) {
             readinessIssues.push("Add the company name.");
-        }
-
-        if (!existingJob.company.description?.trim()) {
-            readinessIssues.push("Complete the company description.");
-        }
-
-        if (!existingJob.company.industry?.trim()) {
-            readinessIssues.push("Select the company industry.");
-        }
-
-        if (!existingJob.company.location?.trim()) {
-            readinessIssues.push("Add the company location.");
         }
 
         if (readinessIssues.length > 0) {

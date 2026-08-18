@@ -45,6 +45,7 @@ export type JobMinAggregateOutputType = {
   slug: string | null
   description: string | null
   requirements: string | null
+  preferredQualifications: string | null
   responsibilities: string | null
   employmentType: $Enums.EmploymentType | null
   workplaceType: $Enums.WorkplaceType | null
@@ -79,6 +80,7 @@ export type JobMaxAggregateOutputType = {
   slug: string | null
   description: string | null
   requirements: string | null
+  preferredQualifications: string | null
   responsibilities: string | null
   employmentType: $Enums.EmploymentType | null
   workplaceType: $Enums.WorkplaceType | null
@@ -113,6 +115,7 @@ export type JobCountAggregateOutputType = {
   slug: number
   description: number
   requirements: number
+  preferredQualifications: number
   responsibilities: number
   employmentType: number
   workplaceType: number
@@ -159,6 +162,7 @@ export type JobMinAggregateInputType = {
   slug?: true
   description?: true
   requirements?: true
+  preferredQualifications?: true
   responsibilities?: true
   employmentType?: true
   workplaceType?: true
@@ -193,6 +197,7 @@ export type JobMaxAggregateInputType = {
   slug?: true
   description?: true
   requirements?: true
+  preferredQualifications?: true
   responsibilities?: true
   employmentType?: true
   workplaceType?: true
@@ -227,6 +232,7 @@ export type JobCountAggregateInputType = {
   slug?: true
   description?: true
   requirements?: true
+  preferredQualifications?: true
   responsibilities?: true
   employmentType?: true
   workplaceType?: true
@@ -348,6 +354,7 @@ export type JobGroupByOutputType = {
   slug: string
   description: string
   requirements: string | null
+  preferredQualifications: string | null
   responsibilities: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -405,6 +412,7 @@ export type JobWhereInput = {
   slug?: Prisma.StringFilter<"Job"> | string
   description?: Prisma.StringFilter<"Job"> | string
   requirements?: Prisma.StringNullableFilter<"Job"> | string | null
+  preferredQualifications?: Prisma.StringNullableFilter<"Job"> | string | null
   responsibilities?: Prisma.StringNullableFilter<"Job"> | string | null
   employmentType?: Prisma.EnumEmploymentTypeFilter<"Job"> | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFilter<"Job"> | $Enums.WorkplaceType
@@ -448,6 +456,7 @@ export type JobOrderByWithRelationInput = {
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
   requirements?: Prisma.SortOrderInput | Prisma.SortOrder
+  preferredQualifications?: Prisma.SortOrderInput | Prisma.SortOrder
   responsibilities?: Prisma.SortOrderInput | Prisma.SortOrder
   employmentType?: Prisma.SortOrder
   workplaceType?: Prisma.SortOrder
@@ -494,6 +503,7 @@ export type JobWhereUniqueInput = Prisma.AtLeast<{
   title?: Prisma.StringFilter<"Job"> | string
   description?: Prisma.StringFilter<"Job"> | string
   requirements?: Prisma.StringNullableFilter<"Job"> | string | null
+  preferredQualifications?: Prisma.StringNullableFilter<"Job"> | string | null
   responsibilities?: Prisma.StringNullableFilter<"Job"> | string | null
   employmentType?: Prisma.EnumEmploymentTypeFilter<"Job"> | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFilter<"Job"> | $Enums.WorkplaceType
@@ -537,6 +547,7 @@ export type JobOrderByWithAggregationInput = {
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
   requirements?: Prisma.SortOrderInput | Prisma.SortOrder
+  preferredQualifications?: Prisma.SortOrderInput | Prisma.SortOrder
   responsibilities?: Prisma.SortOrderInput | Prisma.SortOrder
   employmentType?: Prisma.SortOrder
   workplaceType?: Prisma.SortOrder
@@ -579,6 +590,7 @@ export type JobScalarWhereWithAggregatesInput = {
   slug?: Prisma.StringWithAggregatesFilter<"Job"> | string
   description?: Prisma.StringWithAggregatesFilter<"Job"> | string
   requirements?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
+  preferredQualifications?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
   responsibilities?: Prisma.StringNullableWithAggregatesFilter<"Job"> | string | null
   employmentType?: Prisma.EnumEmploymentTypeWithAggregatesFilter<"Job"> | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeWithAggregatesFilter<"Job"> | $Enums.WorkplaceType
@@ -610,6 +622,7 @@ export type JobCreateInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -652,6 +665,7 @@ export type JobUncheckedCreateInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -688,6 +702,7 @@ export type JobUpdateInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -730,6 +745,7 @@ export type JobUncheckedUpdateInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -769,6 +785,7 @@ export type JobCreateManyInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -800,6 +817,7 @@ export type JobUpdateManyMutationInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -833,6 +851,7 @@ export type JobUncheckedUpdateManyInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -877,6 +896,7 @@ export type JobCountOrderByAggregateInput = {
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
   requirements?: Prisma.SortOrder
+  preferredQualifications?: Prisma.SortOrder
   responsibilities?: Prisma.SortOrder
   employmentType?: Prisma.SortOrder
   workplaceType?: Prisma.SortOrder
@@ -916,6 +936,7 @@ export type JobMaxOrderByAggregateInput = {
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
   requirements?: Prisma.SortOrder
+  preferredQualifications?: Prisma.SortOrder
   responsibilities?: Prisma.SortOrder
   employmentType?: Prisma.SortOrder
   workplaceType?: Prisma.SortOrder
@@ -950,6 +971,7 @@ export type JobMinOrderByAggregateInput = {
   slug?: Prisma.SortOrder
   description?: Prisma.SortOrder
   requirements?: Prisma.SortOrder
+  preferredQualifications?: Prisma.SortOrder
   responsibilities?: Prisma.SortOrder
   employmentType?: Prisma.SortOrder
   workplaceType?: Prisma.SortOrder
@@ -1264,6 +1286,7 @@ export type JobCreateWithoutCreatedByInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -1304,6 +1327,7 @@ export type JobUncheckedCreateWithoutCreatedByInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -1350,6 +1374,7 @@ export type JobCreateWithoutAdminHiddenByInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -1391,6 +1416,7 @@ export type JobUncheckedCreateWithoutAdminHiddenByInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -1458,6 +1484,7 @@ export type JobScalarWhereInput = {
   slug?: Prisma.StringFilter<"Job"> | string
   description?: Prisma.StringFilter<"Job"> | string
   requirements?: Prisma.StringNullableFilter<"Job"> | string | null
+  preferredQualifications?: Prisma.StringNullableFilter<"Job"> | string | null
   responsibilities?: Prisma.StringNullableFilter<"Job"> | string | null
   employmentType?: Prisma.EnumEmploymentTypeFilter<"Job"> | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFilter<"Job"> | $Enums.WorkplaceType
@@ -1505,6 +1532,7 @@ export type JobCreateWithoutCompanyInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -1545,6 +1573,7 @@ export type JobUncheckedCreateWithoutCompanyInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -1607,6 +1636,7 @@ export type JobCreateWithoutCategoryInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -1647,6 +1677,7 @@ export type JobUncheckedCreateWithoutCategoryInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -1709,6 +1740,7 @@ export type JobCreateWithoutSkillsInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -1750,6 +1782,7 @@ export type JobUncheckedCreateWithoutSkillsInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -1801,6 +1834,7 @@ export type JobUpdateWithoutSkillsInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -1842,6 +1876,7 @@ export type JobUncheckedUpdateWithoutSkillsInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -1877,6 +1912,7 @@ export type JobCreateWithoutApplicationsInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -1918,6 +1954,7 @@ export type JobUncheckedCreateWithoutApplicationsInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -1969,6 +2006,7 @@ export type JobUpdateWithoutApplicationsInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2010,6 +2048,7 @@ export type JobUncheckedUpdateWithoutApplicationsInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2045,6 +2084,7 @@ export type JobCreateWithoutJobSubmissionInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -2086,6 +2126,7 @@ export type JobUncheckedCreateWithoutJobSubmissionInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -2137,6 +2178,7 @@ export type JobUpdateWithoutJobSubmissionInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2178,6 +2220,7 @@ export type JobUncheckedUpdateWithoutJobSubmissionInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2213,6 +2256,7 @@ export type JobCreateWithoutReportsInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -2254,6 +2298,7 @@ export type JobUncheckedCreateWithoutReportsInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -2305,6 +2350,7 @@ export type JobUpdateWithoutReportsInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2346,6 +2392,7 @@ export type JobUncheckedUpdateWithoutReportsInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2381,6 +2428,7 @@ export type JobCreateWithoutSavedByUsersInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -2422,6 +2470,7 @@ export type JobUncheckedCreateWithoutSavedByUsersInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -2473,6 +2522,7 @@ export type JobUpdateWithoutSavedByUsersInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2514,6 +2564,7 @@ export type JobUncheckedUpdateWithoutSavedByUsersInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2551,6 +2602,7 @@ export type JobCreateManyCreatedByInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -2585,6 +2637,7 @@ export type JobCreateManyAdminHiddenByInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -2615,6 +2668,7 @@ export type JobUpdateWithoutCreatedByInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2655,6 +2709,7 @@ export type JobUncheckedUpdateWithoutCreatedByInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2693,6 +2748,7 @@ export type JobUncheckedUpdateManyWithoutCreatedByInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2724,6 +2780,7 @@ export type JobUpdateWithoutAdminHiddenByInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2765,6 +2822,7 @@ export type JobUncheckedUpdateWithoutAdminHiddenByInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2803,6 +2861,7 @@ export type JobUncheckedUpdateManyWithoutAdminHiddenByInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2835,6 +2894,7 @@ export type JobCreateManyCompanyInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -2866,6 +2926,7 @@ export type JobUpdateWithoutCompanyInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2906,6 +2967,7 @@ export type JobUncheckedUpdateWithoutCompanyInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2944,6 +3006,7 @@ export type JobUncheckedUpdateManyWithoutCompanyInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -2977,6 +3040,7 @@ export type JobCreateManyCategoryInput = {
   slug: string
   description: string
   requirements?: string | null
+  preferredQualifications?: string | null
   responsibilities?: string | null
   employmentType: $Enums.EmploymentType
   workplaceType: $Enums.WorkplaceType
@@ -3008,6 +3072,7 @@ export type JobUpdateWithoutCategoryInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -3048,6 +3113,7 @@ export type JobUncheckedUpdateWithoutCategoryInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -3086,6 +3152,7 @@ export type JobUncheckedUpdateManyWithoutCategoryInput = {
   slug?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
   requirements?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  preferredQualifications?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   responsibilities?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   employmentType?: Prisma.EnumEmploymentTypeFieldUpdateOperationsInput | $Enums.EmploymentType
   workplaceType?: Prisma.EnumWorkplaceTypeFieldUpdateOperationsInput | $Enums.WorkplaceType
@@ -3178,6 +3245,7 @@ export type JobSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = ru
   slug?: boolean
   description?: boolean
   requirements?: boolean
+  preferredQualifications?: boolean
   responsibilities?: boolean
   employmentType?: boolean
   workplaceType?: boolean
@@ -3222,6 +3290,7 @@ export type JobSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extension
   slug?: boolean
   description?: boolean
   requirements?: boolean
+  preferredQualifications?: boolean
   responsibilities?: boolean
   employmentType?: boolean
   workplaceType?: boolean
@@ -3260,6 +3329,7 @@ export type JobSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extension
   slug?: boolean
   description?: boolean
   requirements?: boolean
+  preferredQualifications?: boolean
   responsibilities?: boolean
   employmentType?: boolean
   workplaceType?: boolean
@@ -3298,6 +3368,7 @@ export type JobSelectScalar = {
   slug?: boolean
   description?: boolean
   requirements?: boolean
+  preferredQualifications?: boolean
   responsibilities?: boolean
   employmentType?: boolean
   workplaceType?: boolean
@@ -3323,7 +3394,7 @@ export type JobSelectScalar = {
   adminHiddenById?: boolean
 }
 
-export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "categoryId" | "createdById" | "title" | "slug" | "description" | "requirements" | "responsibilities" | "employmentType" | "workplaceType" | "experienceLevel" | "location" | "city" | "stateRegion" | "countryCode" | "salaryMin" | "salaryMax" | "salaryCurrency" | "salaryPeriod" | "status" | "applicationDeadline" | "publicContactEmail" | "publishedAt" | "expiresAt" | "createdAt" | "updatedAt" | "deletedAt" | "adminHiddenAt" | "adminHiddenReason" | "adminHiddenById", ExtArgs["result"]["job"]>
+export type JobOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "companyId" | "categoryId" | "createdById" | "title" | "slug" | "description" | "requirements" | "preferredQualifications" | "responsibilities" | "employmentType" | "workplaceType" | "experienceLevel" | "location" | "city" | "stateRegion" | "countryCode" | "salaryMin" | "salaryMax" | "salaryCurrency" | "salaryPeriod" | "status" | "applicationDeadline" | "publicContactEmail" | "publishedAt" | "expiresAt" | "createdAt" | "updatedAt" | "deletedAt" | "adminHiddenAt" | "adminHiddenReason" | "adminHiddenById", ExtArgs["result"]["job"]>
 export type JobInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   company?: boolean | Prisma.CompanyDefaultArgs<ExtArgs>
   category?: boolean | Prisma.JobCategoryDefaultArgs<ExtArgs>
@@ -3371,6 +3442,7 @@ export type $JobPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
     slug: string
     description: string
     requirements: string | null
+    preferredQualifications: string | null
     responsibilities: string | null
     employmentType: $Enums.EmploymentType
     workplaceType: $Enums.WorkplaceType
@@ -3834,6 +3906,7 @@ export interface JobFieldRefs {
   readonly slug: Prisma.FieldRef<"Job", 'String'>
   readonly description: Prisma.FieldRef<"Job", 'String'>
   readonly requirements: Prisma.FieldRef<"Job", 'String'>
+  readonly preferredQualifications: Prisma.FieldRef<"Job", 'String'>
   readonly responsibilities: Prisma.FieldRef<"Job", 'String'>
   readonly employmentType: Prisma.FieldRef<"Job", 'EmploymentType'>
   readonly workplaceType: Prisma.FieldRef<"Job", 'WorkplaceType'>

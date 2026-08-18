@@ -512,8 +512,9 @@ model Job {
   title               String
   slug                String          @unique
   description         String
-  requirements        String?
-  responsibilities    String?
+  requirements            String?
+  preferredQualifications String?
+  responsibilities        String?
   employmentType      EmploymentType
   workplaceType       WorkplaceType
   experienceLevel     ExperienceLevel

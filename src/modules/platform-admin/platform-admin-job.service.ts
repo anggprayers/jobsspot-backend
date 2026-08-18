@@ -394,6 +394,7 @@ export async function getPlatformJobById(jobId: string) {
             slug: true,
             description: true,
             requirements: true,
+            preferredQualifications: true,
             responsibilities: true,
             employmentType: true,
             workplaceType: true,

@@ -150,6 +150,7 @@ export async function getPlatformJobReportById(reportId: string) {
                     slug: true,
                     description: true,
                     requirements: true,
+                            preferredQualifications: true,
                     responsibilities: true,
                     status: true,
                     employmentType: true,

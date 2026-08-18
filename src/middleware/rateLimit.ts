@@ -97,7 +97,7 @@ export const contactRateLimiter = createRateLimiter({
 
 export const jobSubmissionRateLimiter = createRateLimiter({
     windowMs: ONE_HOUR,
-    limit: 5,
+    limit: 10,
     message:
         "Too many job submissions were sent recently. Please wait before submitting another job.",
 });

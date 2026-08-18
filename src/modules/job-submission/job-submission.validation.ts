@@ -62,12 +62,14 @@ export const publicJobSubmissionSchema = z
                 .optional(),
         ),
 
-        location: z
-            .string()
-            .trim()
-            .min(2, "Location must contain at least 2 characters.")
-            .max(160, "Location must not exceed 160 characters.")
-            .transform(normalizeSingleLine),
+        location: z.preprocess(
+            (value) => value == null ? "" : value,
+            z
+                .string()
+                .trim()
+                .max(160, "Location must not exceed 160 characters.")
+                .transform(normalizeSingleLine),
+        ),
 
         workplaceType: z.enum(WorkplaceType),
         employmentType: z.enum(EmploymentType),

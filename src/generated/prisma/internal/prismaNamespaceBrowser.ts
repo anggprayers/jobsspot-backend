@@ -418,6 +418,7 @@ export const JobScalarFieldEnum = {
   slug: 'slug',
   description: 'description',
   requirements: 'requirements',
+  preferredQualifications: 'preferredQualifications',
   responsibilities: 'responsibilities',
   employmentType: 'employmentType',
   workplaceType: 'workplaceType',

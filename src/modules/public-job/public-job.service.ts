@@ -413,6 +413,7 @@ export async function getPublicJobBySlug(
 
             description: true,
             requirements: true,
+            preferredQualifications: true,
             responsibilities: true,
 
             employmentType: true,

@@ -47,7 +47,9 @@ const jobFieldsSchema = z.object({
         .min(50, "Job description must contain at least 50 characters.")
         .max(10000, "Job description cannot exceed 10,000 characters."),
 
-    requirements: z.string().trim().max(5000, "Job requirements cannot exceed 5,000 characters.").optional(),
+    requirements: z.string().trim().max(5000, "Required qualifications cannot exceed 5,000 characters.").optional(),
+
+    preferredQualifications: z.string().trim().max(5000, "Preferred qualifications cannot exceed 5,000 characters.").optional(),
 
     responsibilities: z.string().trim().max(5000, "Job responsibilities cannot exceed 5,000 characters.").optional(),
 
@@ -96,10 +98,6 @@ function addSharedJobValidationIssues(
         salaryMin?: number | undefined;
         salaryMax?: number | undefined;
         applicationDeadline?: Date | undefined;
-        workplaceType?: WorkplaceType | undefined;
-        city?: string | null | undefined;
-        stateRegion?: string | null | undefined;
-        countryCode?: string | undefined;
     },
     context: z.RefinementCtx,
 ) {
@@ -123,23 +121,6 @@ function addSharedJobValidationIssues(
         });
     }
 
-    if (data.workplaceType && data.workplaceType !== WorkplaceType.REMOTE) {
-        if (!data.city?.trim()) {
-            context.addIssue({
-                code: "custom",
-                message: "City is required for an on-site or hybrid job.",
-                path: ["city"],
-            });
-        }
-
-        if (!data.stateRegion?.trim()) {
-            context.addIssue({
-                code: "custom",
-                message: "State or region is required for an on-site or hybrid job.",
-                path: ["stateRegion"],
-            });
-        }
-    }
 }
 
 export const createJobSchema = jobFieldsSchema.superRefine((data, context) => {
