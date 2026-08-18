@@ -190,13 +190,14 @@ export async function submitPublicJob({
     }
 
     const submission = await createSubmission(data);
+    const displayCompanyName = submission.companyName || "Not provided";
 
     try {
         await createAdminJobSubmissionNotifications({
             submissionId: submission.id,
             referenceCode: submission.referenceCode,
             jobTitle: submission.jobTitle,
-            companyName: submission.companyName,
+            companyName: displayCompanyName,
             contactEmail: submission.contactEmail,
         });
     } catch (error) {
@@ -211,7 +212,7 @@ export async function submitPublicJob({
         referenceCode: submission.referenceCode,
         receivedAt: submission.createdAt,
         jobTitle: submission.jobTitle,
-        companyName: submission.companyName,
+        companyName: displayCompanyName,
         companyWebsite: submission.companyWebsite,
         locationText: submission.locationText,
         workplaceType: submission.workplaceType,
@@ -239,7 +240,7 @@ export async function submitPublicJob({
     const confirmationEmail = createJobSubmissionConfirmationTemplate({
         referenceCode: submission.referenceCode,
         jobTitle: submission.jobTitle,
-        companyName: submission.companyName,
+        companyName: displayCompanyName,
         contactName: submission.contactName,
     });
 

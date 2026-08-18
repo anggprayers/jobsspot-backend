@@ -39,12 +39,14 @@ export const publicJobSubmissionSchema = z
             .max(120, "Job title must not exceed 120 characters.")
             .transform(normalizeSingleLine),
 
-        companyName: z
-            .string()
-            .trim()
-            .min(2, "Company name must contain at least 2 characters.")
-            .max(120, "Company name must not exceed 120 characters.")
-            .transform(normalizeSingleLine),
+        companyName: z.preprocess(
+            (value) => value == null ? "" : value,
+            z
+                .string()
+                .trim()
+                .max(120, "Company name must not exceed 120 characters.")
+                .transform(normalizeSingleLine),
+        ),
 
         companyWebsite: z.preprocess(
             emptyStringToUndefined,
